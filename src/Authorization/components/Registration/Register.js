@@ -1,0 +1,108 @@
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import FormControl from '@material-ui/core/FormControl';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import withStyles from '@material-ui/core/styles/withStyles';
+import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
+import { postData } from '../../../Redux/postAction'
+import GlobalTextField from '../../../Global/GlobalTextField';
+import _get from 'lodash/get';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import showMessage from '../../../Redux/toastAction';
+import TabHoc from '../../components/TabHoc';
+
+const styles = theme => ({
+  form: {
+    width: '100%', // Fix IE11 issue.
+    marginTop: theme.spacing.unit,
+  }
+
+});
+
+class Registration extends Component {
+
+  handleSignUp = (values) => {
+    values.TOU = "SMBUser";
+    this.props.dispatch(
+      postData('http://13.233.38.55:4005/api/signup', values, 'signup', {
+        init: 'signup_init',
+        success: 'signup_success',
+        error: 'signup_error'
+      })
+    ).then((data) => {
+      this.props.history.push({pathname :'/registerSuccess', state : {email : values.email}})
+      setTimeout(() => {
+        this.props.dispatch(showMessage({}));
+      }, 6000);
+    })
+      .catch((err) => {
+        this.props.dispatch(showMessage({ text: err.msg, isSuccess: false }));
+        setTimeout(() => {
+          this.props.dispatch(showMessage({}));
+        }, 6000);
+      })
+  }
+  
+  render() {
+    console.log(this.props, "props is here")
+    const { classes, handleSubmit } = this.props;
+    return (
+      <React.Fragment>
+        <CssBaseline />
+        <div className="login-field">
+          <form className={classes.form} onSubmit={handleSubmit(this.handleSignUp)} >
+            <FormControl margin="normal" required fullWidth>
+              <Field
+                label="Enter your email address"
+                placeholder=""
+                name="email"
+                component={GlobalTextField}
+                variant="standard"
+                id="emailAddress"
+                fullWidth='fullWidth'
+                required='required'
+                autoFocus='autoFocus'
+              />
+            </FormControl>
+            <div class="action-block">
+              <Button
+                type="submit"
+                fullWidth
+                disabled={this.props.isFetching}
+                variant="contained"
+                color="primary"
+                className="btnprimary ml-35"
+              >
+                {this.props.isFetching ? <CircularProgress size={24} /> : 'Sign Up'}
+              </Button>
+            </div>
+          </form>
+        </div>
+      </React.Fragment>
+    );
+  }
+}
+
+Registration = reduxForm({
+  form: 'Registration'
+})(Registration);
+
+
+
+
+Registration = withStyles(styles)(Registration);
+
+function mapStateToProps(state) {
+  let isFetching = _get(state, 'SignUpData.isFetching', false);
+  return { isFetching };
+}
+export default connect(mapStateToProps)(TabHoc(Registration));
+
+Registration.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
