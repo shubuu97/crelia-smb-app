@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Avatar from '@material-ui/core/Avatar';
+import _get from 'lodash/get';
+/* Material Imports */ 
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import FormControl from '@material-ui/core/FormControl';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
+import CircularProgress from '@material-ui/core/CircularProgress';
+/* Redux Imports */
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { postData } from '../../../Redux/postAction'
-import GlobalTextField from '../../../Global/GlobalTextField';
-import _get from 'lodash/get';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import showMessage from '../../../Redux/toastAction';
-import TabHoc from '../../components/TabHoc';
+/* Global Imports */
+import GlobalTextField from '../../../Global/GlobalTextField';
+import TabHoc from '../TabHoc';
 
 const styles = theme => ({
   form: {
@@ -92,15 +92,13 @@ Registration = reduxForm({
   form: 'Registration'
 })(Registration);
 
-
-
-
 Registration = withStyles(styles)(Registration);
 
 function mapStateToProps(state) {
   let isFetching = _get(state, 'SignUpData.isFetching', false);
   return { isFetching };
 }
+
 export default connect(mapStateToProps)(TabHoc(Registration));
 
 Registration.propTypes = {
