@@ -241,6 +241,16 @@ module.exports = {
       // First, run the linter.
       // It's important to do this before Babel processes the JS.
       {
+        test: /\.(less)$/,
+        use: [{
+            loader: 'style-loader' // creates style nodes from JS strings
+        }, {
+            loader: 'css-loader' // translates CSS into CommonJS
+        }, {
+            loader: 'less-loader' // compiles Less to CSS
+        }]
+      },      
+      {
         test: /\.(js|mjs|jsx)$/,
         enforce: 'pre',
         use: [
