@@ -8,6 +8,7 @@ import sidebar from './SideBar';
 import { connect } from 'react-redux';
 import { getData } from '../../Redux/getAction';
 import _get from 'lodash/get';
+import {APPLICATION_BFF_URL} from '../../Redux/urlConstants'
 
 class Contacts extends Component {
     constructor(props) {
@@ -15,7 +16,7 @@ class Contacts extends Component {
     }
     componentDidMount() {
         this.props.dispatch(
-            getData('http://13.233.38.55:4005/reference-service/allowedCountries', 'CountryList-data', {
+            getData(`${APPLICATION_BFF_URL}/reference-service/allowedCountries`, 'CountryList-data', {
                 init: 'country_init',
                 success: 'country_success',
                 error: 'country_error'

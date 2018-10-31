@@ -31,8 +31,8 @@ class MainLayout extends Component {
     render() {
         let  {classes} = this.props;
         console.log(this.props,"here");
-        if(!localStorage.getItem('authToken'))
-        this.props.history.push('/')
+        // if(!localStorage.getItem('authToken'))
+        // this.props.history.push('/')
 
         return (
             <div className="main-layout master">

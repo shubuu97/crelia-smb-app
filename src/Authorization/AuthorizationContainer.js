@@ -16,6 +16,8 @@ import AuthTabHoc from './components/TabHoc';
 import showMessage from '../Redux/toastAction'
 import { resolve } from 'path';
 import { rejects } from 'assert';
+import {APPLICATION_BFF_URL} from '../Redux/urlConstants'
+
 
 var jwtDecode = require('jwt-decode');
 const styles = theme => ({
@@ -36,7 +38,7 @@ class SignIn extends Component {
 
     
       this.props.dispatch(
-        postData('http://13.233.38.55:4005/api/login', values, 'login-data', {
+        postData(`${APPLICATION_BFF_URL}/api/login`, values, 'login-data', {
           init: 'login_init',
           success: 'login_success',
           error: 'login_error'
@@ -57,7 +59,7 @@ class SignIn extends Component {
         }
 
         this.props.dispatch(
-          getData(`http://13.233.38.55:4005/api/${role}/${encodeURIComponent(decodeData.id)}`, 'fetchingbasicdata', {
+          getData(`${APPLICATION_BFF_URL}/api/${role}/${encodeURIComponent(decodeData.id)}`, 'fetchingbasicdata', {
             init: 'basicdata_init',
             success: 'basicdata_success',
             error: 'basicdata_error'

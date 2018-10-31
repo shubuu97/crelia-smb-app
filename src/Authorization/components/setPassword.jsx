@@ -16,7 +16,8 @@ import GlobalTextField from '../../Global/GlobalTextField';
 import * as qs from 'query-string';
 import asyncValidate from '../validation/setPassword'
 /* Phone No. Input Imports */
-import PhoneInput from '../../Global/PhoneNumInput'
+import PhoneInput from '../../Global/PhoneNumInput';
+import {APPLICATION_BFF_URL} from '../../Redux/urlConstants'
 
 var jwtDecode = require('jwt-decode');
 
@@ -45,7 +46,7 @@ class ResetPassword extends Component {
     let reqObj = { ...localValue, ...obj };
     console.log(reqObj, "Request Object");
     this.props.dispatch(
-      postData(`http://13.233.38.55:4005/api/${this.state.tokenObj.URL}`, reqObj, 'password-data', {
+      postData(`${APPLICATION_BFF_URL}/api/${this.state.tokenObj.URL}`, reqObj, 'password-data', {
         init: 'set_init',
         success: 'set_success',
         error: 'set_error'
@@ -68,7 +69,7 @@ class ResetPassword extends Component {
 
   handleSignIn = (values) => {
     this.props.dispatch(
-      postData('http://13.233.38.55:4005/api/login', values, 'login-data', {
+      postData(`${APPLICATION_BFF_URL}/api/login`, values, 'login-data', {
         init: 'login_init',
         success: 'login_success',
         error: 'login_error'

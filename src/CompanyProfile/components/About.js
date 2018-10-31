@@ -11,7 +11,7 @@ import { postData } from '../../Redux/postAction';
 import { connect } from 'react-redux';
 import showMessage from '../../Redux/toastAction';
 import { getData } from '../../Redux/getAction';
-
+import {APPLICATION_BFF_URL} from '../../Redux/urlConstants';
 
 class About extends Component {
     constructor(props) {
@@ -19,14 +19,14 @@ class About extends Component {
     }
     componentDidMount() {
         this.props.dispatch(
-            getData('http://13.233.38.55:4005/reference-service/industries', 'IndustryList-data', {
+            getData(`${APPLICATION_BFF_URL}/reference-service/industries`, 'IndustryList-data', {
                 init: 'industry_init',
                 success: 'industry_success',
                 error: 'industry_error'
             })
         )
         this.props.dispatch(
-            getData('http://13.233.38.55:4005/reference-service/legalEntities', 'legalEntities-data', {
+            getData(`${APPLICATION_BFF_URL}/reference-service/legalEntities`, 'legalEntities-data', {
                 init: 'legalEntities_init',
                 success: 'legalEntities_success',
                 error: 'legalEntities_error'
@@ -36,7 +36,7 @@ class About extends Component {
     }
     aboutSubmit = (values) => {
         this.props.dispatch(
-            postData('http://13.233.38.55:4005/api/SMB', values, 'login-data', {
+            postData(`${APPLICATION_BFF_URL}/api/SMB`, values, 'login-data', {
                 init: 'cpabout_init',
                 success: 'cpabout_success',
                 error: 'cpabout_error'

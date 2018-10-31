@@ -43,7 +43,7 @@ class FinancialInformationMain extends React.Component {
             <div className="row justify-content-between pt-20">
                 <div className="col-sm-12">           
                     {
-                      this.state.type == 'file' ? <FinancialInfoUpload handleSubmitAprroval={this.handleSubmitAprroval} handleNext = {this.props.handleNext} /> : <FinancialInformationForm handleSubmitAprroval={this.handleSubmitAprroval} handleNext = {this.props.handleNext}/>
+                      this.state.type == 'file' ? <FinancialInfoUpload handleSubmitAprroval={this.handleSubmitAprroval} handleNext = {this.props.handleNext} /> : <FinancialInformationForm initialValues={this.props.initialValues} handleSubmitAprroval={this.handleSubmitAprroval} handleNext = {this.props.handleNext}/>
                     }
             </div>
             </div>

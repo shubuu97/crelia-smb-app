@@ -22,6 +22,7 @@ import { withState, recompose } from 'recompose'
 import { connect } from 'react-redux';
 import { getData } from '../../Redux/getAction'
 import _get from 'lodash/get';
+import {APPLICATION_BFF_URL} from '../../Redux/urlConstants'
 
 const styles = theme => ({
     root: {
@@ -71,7 +72,7 @@ class AddTeamForm extends React.Component {
 
     componentDidMount() {
         this.props.dispatch(
-            getData('http://13.233.38.55:4005/reference-service/empType', 'empTypeList-data', {
+            getData(`${APPLICATION_BFF_URL}/reference-service/empType`, 'empTypeList-data', {
                 init: 'empType_init',
                 success: 'empType_success',
                 error: 'empType_error'

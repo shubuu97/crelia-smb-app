@@ -18,7 +18,8 @@ import ContactContainer from './components/Contact/ContactContainer';
 import FinanceInformationMain from './components/Financial/FinancialInformaionMain';
 import Help from './components/Help';
 import showMessage from '../Redux/toastAction';
-import { getData } from '../Redux/getAction'
+import { getData } from '../Redux/getAction';
+import {APPLICATION_BFF_URL} from '../Redux/urlConstants'
 
 
 
@@ -76,7 +77,7 @@ class CompanyOnBoardingContainer extends React.Component {
           }
 
         this.props.dispatch(
-            getData(`http://13.233.38.55:4005/api/${role}/${encodeURIComponent(decodeData.id)}`, 'fetchingbasicdata', {
+            getData(`${APPLICATION_BFF_URL}/api/${role}/${encodeURIComponent(decodeData.id)}`, 'fetchingbasicdata', {
                 init: 'basicdata_init',
                 success: 'basicdata_success',
                 error: 'basicdata_error'
@@ -85,7 +86,7 @@ class CompanyOnBoardingContainer extends React.Component {
     }
     else
     {
-        this.props.history.push('/')
+       // this.props.history.push('/')
     }
     }
 
@@ -109,7 +110,7 @@ class CompanyOnBoardingContainer extends React.Component {
         }
         /* Post Form Data*/
         this.props.dispatch(
-            postData('http://13.233.38.55:4005/api/saveSMB', reqObj, 'cob-data', {
+            postData(`${APPLICATION_BFF_URL}/api/saveSMB`, reqObj, 'cob-data', {
                 init: '',
                 success: '',
                 error: ''
@@ -154,7 +155,7 @@ class CompanyOnBoardingContainer extends React.Component {
     handleSubmitAprroval = () => {
         let reqObj = { id: this.props.id }
         this.props.dispatch(
-            postData('http://13.233.38.55:4005/api/SendSMBForApproval', reqObj, 'cob-approval', {
+            postData(`${APPLICATION_BFF_URL}/api/SendSMBForApproval`, reqObj, 'cob-approval', {
                 init: 'approval_init',
                 success: 'approval_success',
                 error: 'approval_error'
@@ -257,35 +258,36 @@ function mapStateToProps(state) {
     let legalName = _get(state, 'BasicInfo.lookUpData.companyDetails.legalName');
     let isOtherShortTermLoan = _get(state, 'BasicInfo.lookUpData.companyDetails.onboardingInfo.isOtherShortTermLoan');
     isOtherShortTermLoan = isOtherShortTermLoan?'yes':'no'
-    let otherCompanyName = _get(state, 'BasicInfo.lookUpData.companyDetails.onboardingInfo.otherCompanyName');
-    otherCompanyName = otherCompanyName?'yes':'no'
+    let otherCompanyName = _get(state, 'BasicInfo.lookUpData.companyDetails.onboardingInfo.otherCompanyName','');
+    let businessUnderName = otherCompanyName?'yes':'no'
+    
 
     // Financial
     let financialData = _get(state, 'BasicInfo.lookUpData.companyDetails.financialInfo.financialData',[]);
     let email = _get(state, 'BasicInfo.lookUpData.companyDetails.email','')
-    let financeVars = {};
+    let manualFinancial = {};
     let incorporationDate = _get(state, 'BasicInfo.lookUpData.companyDetails.incorporationDate','').split('T')[0].trim();
     for(let i = 0; i < financialData.length; i++){
         let keys = Object.keys(financialData[i])
         for (let j = 1; j < keys.length; j++) {
             if (financialData[i].year == 2016) {
-                financeVars[`${keys[j]}-2016`] = financialData[i][keys[j]]
+                manualFinancial[`${keys[j]}-2016`] = financialData[i][keys[j]]
             }
             else if (financialData[i].year == 2017) {
-                financeVars[`${keys[j]}-2017`] = financialData[i][keys[j]]
+                manualFinancial[`${keys[j]}-2017`] = financialData[i][keys[j]]
             }
             else if (financialData[i].year == 2018) {
-                financeVars[`${keys[j]}-2018`] = financialData[i][keys[j]]
+                manualFinancial[`${keys[j]}-2018`] = financialData[i][keys[j]]
             }
         }
     }
 
-    let initialValuesContact = { address, taxId, phoneNumber, legalEntityType, legalName, isOtherShortTermLoan, otherCompanyName, incorporationDate, email }
+    let initialValuesContact = { address, taxId, phoneNumber, legalEntityType, legalName,businessUnderName, isOtherShortTermLoan, otherCompanyName, incorporationDate, email }
 
     let initialValuesAbout = { personalPhoneNumber, userEmail, moneyRequired, timeFrame,workingCapital,expansion,refinancing };
 
     let initialValuesFinance = {
-        ...financeVars
+        manualFinancial
     }
 
     return { username, id, initialValuesAbout, initialValuesContact, initialValuesFinance }

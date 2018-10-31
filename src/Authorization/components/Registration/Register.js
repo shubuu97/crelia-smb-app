@@ -15,6 +15,7 @@ import _get from 'lodash/get';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import showMessage from '../../../Redux/toastAction';
 import TabHoc from '../../components/TabHoc';
+import {APPLICATION_BFF_URL} from '../../../Redux/urlConstants'
 
 const styles = theme => ({
   form: {
@@ -29,7 +30,7 @@ class Registration extends Component {
   handleSignUp = (values) => {
     values.TOU = "SMBUser";
     this.props.dispatch(
-      postData('http://13.233.38.55:4005/api/signup', values, 'signup', {
+      postData(`${APPLICATION_BFF_URL}/api/signup`, values, 'signup', {
         init: 'signup_init',
         success: 'signup_success',
         error: 'signup_error'

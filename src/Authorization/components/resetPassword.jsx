@@ -23,7 +23,7 @@ const styles = theme => ({
 });
 
 class ResetPassword extends Component {
-  handleSignIn = (values) => {
+  handleSetPassword = (values) => {
     this.props.history.push('/passwordSent')
 
   }
@@ -35,7 +35,7 @@ class ResetPassword extends Component {
        <div className="login-field pt-60"> 
             <h4>Reset Your Password</h4>
             <p variant="caption">Enter your email and we'll send you instuctions on how to reset your password</p>
-            <form className={classes.form} onSubmit={handleSubmit(this.handleSignIn)} >
+            <form className={classes.form} onSubmit={handleSubmit(this.handleSetPassword)} >
               <FormControl margin="normal" required fullWidth>
                 <Field
                   label="Enter your email address"

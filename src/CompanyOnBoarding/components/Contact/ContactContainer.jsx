@@ -11,7 +11,7 @@ import { connect } from 'react-redux';
 import _get from 'lodash/get';
 import { getData } from '../../../Redux/getAction';
 import FormControl from '@material-ui/core/FormControl';
-
+import {APPLICATION_BFF_URL} from '../../../Redux/urlConstants'
 
 class ContactContainer extends Component {
     constructor(props) {
@@ -28,7 +28,7 @@ class ContactContainer extends Component {
             this.state.yearList.push({ value: i, label: i });
         }
         this.props.dispatch(
-            getData('http://13.233.38.55:4005/reference-service/legalEntities', 'legalEntities-data', {
+            getData(`${APPLICATION_BFF_URL}/reference-service/legalEntities`, 'legalEntities-data', {
                 init: 'legalEntities_init',
                 success: 'legalEntities_success',
                 error: 'legalEntities_error'
@@ -38,6 +38,10 @@ class ContactContainer extends Component {
     submitFunction=(values)=>
     {
         let reqObj = {...values};
+        if(values.businessUnderName=='no')
+        reqObj.otherCompanyName='';
+
+      
         delete reqObj.businessUnderName;
         delete reqObj.yearofStartBusiness;
         this.props.handleNext(reqObj);
