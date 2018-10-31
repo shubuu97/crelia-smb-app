@@ -24,7 +24,6 @@ import { getData } from '../Redux/getAction'
 
 var jwtDecode = require('jwt-decode');
 
-
 function TabContainer({ children, dir }) {
     return (
         <Typography component="div" dir={dir} style={{ padding: 8 * 3 }}>
@@ -32,6 +31,7 @@ function TabContainer({ children, dir }) {
         </Typography>
     );
 }
+
 TabContainer.propTypes = {
     children: PropTypes.node.isRequired,
     dir: PropTypes.string.isRequired,
@@ -43,7 +43,6 @@ const styles = theme => ({
         width: 500,
     },
 });
-
 
 class CompanyOnBoardingContainer extends React.Component {
 
@@ -61,32 +60,28 @@ class CompanyOnBoardingContainer extends React.Component {
 
     basicDataFetcher = () => {
 
-        if(localStorage.getItem('authToken'))
-        {
-        let decodeData = jwtDecode(localStorage.getItem('authToken'));
-        let role = decodeData.role
-        if(decodeData.role=='TempSMBUser') {
-            role = 'SMBUser';
-            localStorage.setItem('role',role)
-          }
-          if (decodeData.role == 'TempInvestorUser') {
-            role = 'InvestorUser';
-            localStorage.setItem('role',role)
-  
-          }
-
-        this.props.dispatch(
-            getData(`http://13.233.38.55:4005/api/${role}/${encodeURIComponent(decodeData.id)}`, 'fetchingbasicdata', {
-                init: 'basicdata_init',
-                success: 'basicdata_success',
-                error: 'basicdata_error'
-            })
-        )
-    }
-    else
-    {
-        this.props.history.push('/')
-    }
+        if (localStorage.getItem('authToken')) {
+            let decodeData = jwtDecode(localStorage.getItem('authToken'));
+            let role = decodeData.role
+            if (decodeData.role == 'TempSMBUser') {
+                role = 'SMBUser';
+                localStorage.setItem('role', role)
+            }
+            if (decodeData.role == 'TempInvestorUser') {
+                role = 'InvestorUser';
+                localStorage.setItem('role', role)
+            }
+            this.props.dispatch(
+                getData(`http://13.233.38.55:4005/api/${role}/${encodeURIComponent(decodeData.id)}`, 'fetchingbasicdata', {
+                    init: 'basicdata_init',
+                    success: 'basicdata_success',
+                    error: 'basicdata_error'
+                })
+            )
+        }
+        else {
+            this.props.history.push('/')
+        }
     }
 
     handleChange = (event, value) => {
@@ -96,8 +91,6 @@ class CompanyOnBoardingContainer extends React.Component {
     handleChangeIndex = index => {
         this.setState({ value: index });
     };
-
-
 
     settings = {
         variant: 'outlined',
@@ -240,14 +233,13 @@ function mapStateToProps(state) {
     let expansion = 0;
     let workingCapital = 0;
     let refinancing = 0;
-    if(Array.isArray(loanAllocation))
-    {
-    let  ExpansionObj =  _find(loanAllocation,{loanPurpose:'Expansion'});
-    expansion = _get(ExpansionObj,'percentage');
-    let  captialObj =  _find(loanAllocation,{loanPurpose:'Working Capital'});
-    workingCapital = _get(captialObj,'percentage');
-    let  FinancingObj =  _find(loanAllocation,{loanPurpose:'Re Financing'});
-    refinancing = _get(FinancingObj,'percentage');
+    if (Array.isArray(loanAllocation)) {
+        let ExpansionObj = _find(loanAllocation, { loanPurpose: 'Expansion' });
+        expansion = _get(ExpansionObj, 'percentage');
+        let captialObj = _find(loanAllocation, { loanPurpose: 'Working Capital' });
+        workingCapital = _get(captialObj, 'percentage');
+        let FinancingObj = _find(loanAllocation, { loanPurpose: 'Re Financing' });
+        refinancing = _get(FinancingObj, 'percentage');
     }
 
     let address = _get(state, 'BasicInfo.lookUpData.companyDetails.address');
@@ -256,16 +248,16 @@ function mapStateToProps(state) {
     let legalEntityType = _get(state, 'BasicInfo.lookUpData.companyDetails.legalEntityType');
     let legalName = _get(state, 'BasicInfo.lookUpData.companyDetails.legalName');
     let isOtherShortTermLoan = _get(state, 'BasicInfo.lookUpData.companyDetails.onboardingInfo.isOtherShortTermLoan');
-    isOtherShortTermLoan = isOtherShortTermLoan?'yes':'no'
+    isOtherShortTermLoan = isOtherShortTermLoan ? 'yes' : 'no'
     let otherCompanyName = _get(state, 'BasicInfo.lookUpData.companyDetails.onboardingInfo.otherCompanyName');
-    otherCompanyName = otherCompanyName?'yes':'no'
+    otherCompanyName = otherCompanyName ? 'yes' : 'no'
 
     // Financial
-    let financialData = _get(state, 'BasicInfo.lookUpData.companyDetails.financialInfo.financialData',[]);
-    let email = _get(state, 'BasicInfo.lookUpData.companyDetails.email','')
+    let financialData = _get(state, 'BasicInfo.lookUpData.companyDetails.financialInfo.financialData', []);
+    let email = _get(state, 'BasicInfo.lookUpData.companyDetails.email', '')
     let financeVars = {};
-    let incorporationDate = _get(state, 'BasicInfo.lookUpData.companyDetails.incorporationDate','').split('T')[0].trim();
-    for(let i = 0; i < financialData.length; i++){
+    let incorporationDate = _get(state, 'BasicInfo.lookUpData.companyDetails.incorporationDate', '').split('T')[0].trim();
+    for (let i = 0; i < financialData.length; i++) {
         let keys = Object.keys(financialData[i])
         for (let j = 1; j < keys.length; j++) {
             if (financialData[i].year == 2016) {
@@ -282,7 +274,7 @@ function mapStateToProps(state) {
 
     let initialValuesContact = { address, taxId, phoneNumber, legalEntityType, legalName, isOtherShortTermLoan, otherCompanyName, incorporationDate, email }
 
-    let initialValuesAbout = { personalPhoneNumber, userEmail, moneyRequired, timeFrame,workingCapital,expansion,refinancing };
+    let initialValuesAbout = { personalPhoneNumber, userEmail, moneyRequired, timeFrame, workingCapital, expansion, refinancing };
 
     let initialValuesFinance = {
         ...financeVars
