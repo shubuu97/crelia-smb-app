@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
-import { Field, reduxForm,FormSection } from 'redux-form';
+import _get from 'lodash/get';
+/* Material Imports */
+import Button from '@material-ui/core/Button';
+import FormControl from '@material-ui/core/FormControl';
+/* Redux Imports*/ 
+import { Field, reduxForm, FormSection } from 'redux-form';
+import { connect } from 'react-redux';
+import { getData } from '../../../Redux/getAction';
+import {APPLICATION_BFF_URL} from '../../../Redux/urlConstants'
+/* Global Imports*/ 
 import GlobalTextField from '../../../Global/GlobalTextField'
 import RadioButtonGroup from '../../../Global/Radio';
-import FormLabel from '@material-ui/core/FormLabel';
 import Select from '../../../Global/Select';
-import Button from '@material-ui/core/Button';
-import validate from '../../validate';
-import Grid from '@material-ui/core/Grid';
-import { connect } from 'react-redux';
-import _get from 'lodash/get';
-import { getData } from '../../../Redux/getAction';
-import FormControl from '@material-ui/core/FormControl';
-import {APPLICATION_BFF_URL} from '../../../Redux/urlConstants'
+
 
 class ContactContainer extends Component {
     constructor(props) {
@@ -45,18 +46,15 @@ class ContactContainer extends Component {
         delete reqObj.businessUnderName;
         delete reqObj.yearofStartBusiness;
         this.props.handleNext(reqObj);
-
-
     }
-    disableDecider=()=>
-    {
-      if(localStorage.getItem('companyStatus')=='PENDING_APPROVAL')
-      {
-          return true;
-      }
-      else {
-          return false;
-      }
+
+    disableDecider = () => {
+        if (localStorage.getItem('companyStatus') == 'PENDING_APPROVAL') {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     render() {
@@ -67,7 +65,7 @@ class ContactContainer extends Component {
                 <div className="row justify-content-between pt-20">
                     <div className="col-sm-6">
                         <Field
-                            disabled = {localStorage.getItem('disabled')}
+                            disabled={localStorage.getItem('disabled')}
                             label="Legal Business Name"
                             placeholder="Legal Business Name"
                             name="legalName"
@@ -78,7 +76,7 @@ class ContactContainer extends Component {
                     </div>
                     <div className="col-sm-6">
                         <Field
-                           disabled = {localStorage.getItem('disabled')}
+                            disabled={localStorage.getItem('disabled')}
                             name="legalEntityType"
                             label='Leagal Entity Type'
                             component={Select}
@@ -90,7 +88,7 @@ class ContactContainer extends Component {
                 <div className="row justify-content-between pt-20">
                     <div className="col-sm-6">
                         <Field
-                           disabled = {localStorage.getItem('disabled')}
+                            disabled={localStorage.getItem('disabled')}
                             name="businessUnderName"
                             component={RadioButtonGroup}
                             label='Do you do your business under a diffrent name?'
@@ -100,7 +98,7 @@ class ContactContainer extends Component {
                     </div>
                     <div className="col-sm-6">
                         <Field
-                           disabled = {localStorage.getItem('disabled')}
+                            disabled={localStorage.getItem('disabled')}
                             name="isOtherShortTermLoan"
                             component={RadioButtonGroup}
                             label='Do you currently have other short-term financing?'
@@ -112,7 +110,7 @@ class ContactContainer extends Component {
                     <div className="row justify-content-between">
                         <div className="col-sm-6">
                             <Field
-                                disabled = {localStorage.getItem('disabled')}
+                                disabled={localStorage.getItem('disabled')}
                                 label="Other Company Name"
                                 placeholder=""
                                 name="otherCompanyName"
@@ -123,82 +121,78 @@ class ContactContainer extends Component {
                         </div>
                     </div>
                 }
-
-
-
                 <div className="row justify-content-between pt-20">
-                <div className="onboarding-sub-title col-sm-12">What Date you start Business</div>
+                    <div className="onboarding-sub-title col-sm-12">What Date you start Business</div>
                     <div className="col-sm-12">
-                    <FormControl margin="normal" required fullWidth>
-                        <Field
-                            id="date"                           
-                            disabled = {localStorage.getItem('disabled')}
-                            name="incorporationDate"
-                            component={GlobalTextField}
-                            defaultValue="2017-05-24"
-                            type="date"
-                            variantType='outlined'
-                            fullWidth="true"
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
-                        /></FormControl>
+                        <FormControl margin="normal" required fullWidth>
+                            <Field
+                                id="date"
+                                disabled={localStorage.getItem('disabled')}
+                                name="incorporationDate"
+                                component={GlobalTextField}
+                                defaultValue="2017-05-24"
+                                type="date"
+                                variantType='outlined'
+                                fullWidth="true"
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                            /></FormControl>
                     </div>
                     <FormSection name="address">
-                    <div className="col-sm-12">
-                    <div className="row">
-                   
-                    <div className="col-sm-5">
-                    <FormControl margin="normal" required fullWidth>
-                        <Field
-                        disabled = {localStorage.getItem('disabled')}
-                            label="Business Street Address"
-                            placeholder="Business Street Address"
-                            name="line1"
-                            component={GlobalTextField}
-                            variant="outlined"
-                            fullWidth="true"
-                        /></FormControl>
-                    </div>
-                    <div className="col-sm-5">
-                    <FormControl margin="normal" required fullWidth>
-                        <Field
-                        disabled = {localStorage.getItem('disabled')}
-                            label="Business Street Address, Line 2"
-                            name="line2"
-                            component={GlobalTextField}
-                            variant="outlined"
-                            fullWidth="true"
-                        /></FormControl>
-                    </div>
-                    <div className="col-sm-2">
-                    <FormControl margin="normal" required fullWidth>
-                        <Field
-                        disabled = {localStorage.getItem('disabled')}
-                            label="Zip Code"
-                            name="zipCode"
-                            component={GlobalTextField}
-                            variant="outlined"
-                            fullWidth="true"
-                        /></FormControl>
+                        <div className="col-sm-12">
+                            <div className="row">
+                                <div className="col-sm-5">
+                                    <FormControl margin="normal" required fullWidth>
+                                        <Field
+                                            disabled={localStorage.getItem('disabled')}
+                                            label="Business Street Address"
+                                            placeholder="Business Street Address"
+                                            name="line1"
+                                            component={GlobalTextField}
+                                            variant="outlined"
+                                            fullWidth="true"
+                                        /></FormControl>
+                                </div>
+                                <div className="col-sm-5">
+                                    <FormControl margin="normal" required fullWidth>
+                                        <Field
+                                            disabled={localStorage.getItem('disabled')}
+                                            label="Business Street Address, Line 2"
+                                            name="line2"
+                                            component={GlobalTextField}
+                                            variant="outlined"
+                                            fullWidth="true"
+                                        /></FormControl>
+                                </div>
+                                <div className="col-sm-2">
+                                    <FormControl margin="normal" required fullWidth>
+                                        <Field
+                                            disabled={localStorage.getItem('disabled')}
+                                            label="Zip Code"
+                                            name="zipCode"
+                                            component={GlobalTextField}
+                                            variant="outlined"
+                                            fullWidth="true"
+                                        /></FormControl>
+                                </div>
+                            </div>
                         </div>
-                        </div>
-                    </div>
                     </FormSection>
                     <div className="col-sm-12">
-                    <FormControl margin="normal" required fullWidth>
-                        <Field
-                        disabled = {localStorage.getItem('disabled')}
-                            label="Business Phone"
-                            name="phoneNumber"
-                            component={GlobalTextField}
-                            variant="outlined"
-                            fullWidth="true"
-                        /></FormControl>
+                        <FormControl margin="normal" required fullWidth>
+                            <Field
+                                disabled={localStorage.getItem('disabled')}
+                                label="Business Phone"
+                                name="phoneNumber"
+                                component={GlobalTextField}
+                                variant="outlined"
+                                fullWidth="true"
+                            /></FormControl>
                     </div>
                     <div className="col-sm-12 pt-20">
                         <Field
-                        disabled = {localStorage.getItem('disabled')}
+                            disabled={localStorage.getItem('disabled')}
                             label="Business Email"
                             name="email"
                             component={GlobalTextField}
@@ -206,17 +200,17 @@ class ContactContainer extends Component {
                             fullWidth="true"
                         />
                     </div>
-                    <br/>
+                    <br />
                     <div className="col-sm-12">
-                    <FormControl margin="normal" required fullWidth>
-                        <Field
-                        disabled = {localStorage.getItem('disabled')}
-                            label="Business Tax ID"
-                            name="taxId"
-                            component={GlobalTextField}
-                            variant="outlined"
-                            fullWidth="true"
-                        /></FormControl>
+                        <FormControl margin="normal" required fullWidth>
+                            <Field
+                                disabled={localStorage.getItem('disabled')}
+                                label="Business Tax ID"
+                                name="taxId"
+                                component={GlobalTextField}
+                                variant="outlined"
+                                fullWidth="true"
+                            /></FormControl>
                     </div>
                 </div>
                 <div class="common-action-block">
@@ -231,9 +225,6 @@ class ContactContainer extends Component {
                         Save & Continue
                     </Button>
                 </div>
-                {/* <Grid item xs={10} sm={10}>
-                        <Button type="submit" color='primary' variant='contained'>Submit</Button>
-                    </Grid> */}
             </form>
         )
     }
@@ -242,10 +233,9 @@ class ContactContainer extends Component {
 
 ContactContainer = reduxForm({
     form: 'COB_ContactStepForm',
-    enableReinitialize:true,
-    keepDirtyOnReinitialize:true
+    enableReinitialize: true,
+    keepDirtyOnReinitialize: true
 })(ContactContainer)
-
 
 
 function mapStateToProps(state) {

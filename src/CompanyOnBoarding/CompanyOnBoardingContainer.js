@@ -25,7 +25,6 @@ import {APPLICATION_BFF_URL} from '../Redux/urlConstants'
 
 var jwtDecode = require('jwt-decode');
 
-
 function TabContainer({ children, dir }) {
     return (
         <Typography component="div" dir={dir} style={{ padding: 8 * 3 }}>
@@ -33,6 +32,7 @@ function TabContainer({ children, dir }) {
         </Typography>
     );
 }
+
 TabContainer.propTypes = {
     children: PropTypes.node.isRequired,
     dir: PropTypes.string.isRequired,
@@ -44,7 +44,6 @@ const styles = theme => ({
         width: 500,
     },
 });
-
 
 class CompanyOnBoardingContainer extends React.Component {
 
@@ -97,8 +96,6 @@ class CompanyOnBoardingContainer extends React.Component {
     handleChangeIndex = index => {
         this.setState({ value: index });
     };
-
-
 
     settings = {
         variant: 'outlined',
@@ -241,14 +238,13 @@ function mapStateToProps(state) {
     let expansion = 0;
     let workingCapital = 0;
     let refinancing = 0;
-    if(Array.isArray(loanAllocation))
-    {
-    let  ExpansionObj =  _find(loanAllocation,{loanPurpose:'Expansion'});
-    expansion = _get(ExpansionObj,'percentage');
-    let  captialObj =  _find(loanAllocation,{loanPurpose:'Working Capital'});
-    workingCapital = _get(captialObj,'percentage');
-    let  FinancingObj =  _find(loanAllocation,{loanPurpose:'Re Financing'});
-    refinancing = _get(FinancingObj,'percentage');
+    if (Array.isArray(loanAllocation)) {
+        let ExpansionObj = _find(loanAllocation, { loanPurpose: 'Expansion' });
+        expansion = _get(ExpansionObj, 'percentage');
+        let captialObj = _find(loanAllocation, { loanPurpose: 'Working Capital' });
+        workingCapital = _get(captialObj, 'percentage');
+        let FinancingObj = _find(loanAllocation, { loanPurpose: 'Re Financing' });
+        refinancing = _get(FinancingObj, 'percentage');
     }
 
     let address = _get(state, 'BasicInfo.lookUpData.companyDetails.address');
@@ -284,7 +280,7 @@ function mapStateToProps(state) {
 
     let initialValuesContact = { address, taxId, phoneNumber, legalEntityType, legalName,businessUnderName, isOtherShortTermLoan, otherCompanyName, incorporationDate, email }
 
-    let initialValuesAbout = { personalPhoneNumber, userEmail, moneyRequired, timeFrame,workingCapital,expansion,refinancing };
+    let initialValuesAbout = { personalPhoneNumber, userEmail, moneyRequired, timeFrame, workingCapital, expansion, refinancing };
 
     let initialValuesFinance = {
         manualFinancial

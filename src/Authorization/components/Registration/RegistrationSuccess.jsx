@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import _get from 'lodash/get';
-/* Redux Import */ 
+/* Redux Import */
 import { reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-/* Material Imports */ 
+/* Material Imports */
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
 import CircularProgress from '@material-ui/core/CircularProgress';
-/* Assets*/ 
+/* Assets*/
 import imgmailsent from '../../../Assets/images/mail-sent-icon.png';
 
 const styles = theme => ({
@@ -27,15 +27,15 @@ class RegistrationSuccess extends React.Component {
 
     censorWord = (str) => {
         return str[0] + str[1] + str[2] + "*".repeat(str.length - 3);
-     }
-     
+    }
+
     censorEmail = (email) => {
         var arr = email.split("@");
-        if(email)
+        if (email)
             return this.censorWord(arr[0]) + "@" + arr[1];
         else
             this.props.history.push('/')
-     }
+    }
 
     render() {
         const { classes, handleSubmit } = this.props;

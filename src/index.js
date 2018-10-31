@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+import JssProvider from 'react-jss/lib/JssProvider';
 /* Redux Imports*/
 import { createStore, applyMiddleware } from 'redux';
 import axiosMiddleWare from './Redux/axiosMiddleware';
@@ -12,9 +13,15 @@ import { Provider } from 'react-redux';
 import './Assets/stylesheets/main.less'
 /* Boilerplate Imports*/
 import xForms from './xBoilerplate/Forms.jsx';
-/*Material Ui settings Imports*/
+/*Material UI Imports*/
+import { createGenerateClassName } from '@material-ui/core/styles';
 import theme from './MaterialUiSettings/theme';
 import { MuiThemeProvider } from '@material-ui/core/styles';
+/*Redux Persist Import */
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import hardSet from 'redux-persist/lib/stateReconciler/hardSet';
+import { PersistGate } from 'redux-persist/integration/react';
 /*Layout imports*/
 import MainLayout from './layout/MainLayout';
 import RouteWithLayout from './layout/RouteWithLayout';
@@ -33,14 +40,7 @@ import Registration from './Authorization/components/Registration/Register';
 import PasswordSent from './Authorization/components/passwordSent';
 import SetPassword from './Authorization/components/setPassword'
 
-/*Redux persist import */
-import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
-import hardSet from 'redux-persist/lib/stateReconciler/hardSet';
-import { PersistGate } from 'redux-persist/integration/react';
 
-import JssProvider from 'react-jss/lib/JssProvider';
-import { createGenerateClassName } from '@material-ui/core/styles';
 const generateClassName = createGenerateClassName({
   dangerouslyUseGlobalCSS: true,
   productionPrefix: 'c',
@@ -66,36 +66,35 @@ const persistor = persistStore(store)
 
 ReactDOM.render(
   <div>
-   <JssProvider generateClassName={generateClassName}>
-    <MuiThemeProvider theme={theme}>
-      <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <Router>
-          <Switch>
-            <div>
-              {/* Boilerplate routes */}
-              <Route exact path="/boilerplate/form" component={xForms} />
-              <Route exact path="/UiSetting" component={UiSetting} />
-              <Route exact path='/boilerplate/mdc' component={MDC} />
+    <JssProvider generateClassName={generateClassName}>
+      <MuiThemeProvider theme={theme}>
+        <Provider store={store}>
+          <PersistGate loading={null} persistor={persistor}>
+            <Router>
+              <Switch>
+                <div>
+                  {/* Boilerplate routes */}
+                  <Route exact path="/boilerplate/form" component={xForms} />
+                  <Route exact path="/UiSetting" component={UiSetting} />
+                  <Route exact path='/boilerplate/mdc' component={MDC} />
 
-              {/* Main Routes */}
-              <RouteWithLayout Layout={MainLayout} exact path="/onboard" Component={CompanyOnBoardingContainer} />
-              <RouteWithLayout  Layout={SignInLayout} exact path="/" Component={SignIn} />
-              <RouteWithLayout Layout={SignInLayout} exact path="/register" Component={Registration} />
-              <RouteWithLayout  Layout={SignInLayout} exact path="/registerSuccess" Component={RegistrationSuccess} />
-              
-              <RouteWithLayout  Layout={SignInLayout} exact path="/passwordSent" Component={PasswordSent} />
-              <RouteWithLayout  Layout={SignInLayout} exact path="/reset" Component={Reset} />
-              <RouteWithLayout  Layout={SignInLayout} exact path="/setPassword" Component={SetPassword} />
-              <RouteWithLayout Layout={SignInLayout} exact path="/signInRejected" Component={signInRejected} />
-              {RoutesConfig.map(rconfig=><RouteWithLayout Layout={MainLayout} exact path={rconfig.path} Component={rconfig.Component} />)}
-              </div>
-          </Switch>
-        </Router>
-        </PersistGate>
-      </Provider>
+                  {/* Main Routes */}
+                  <RouteWithLayout Layout={MainLayout} exact path="/onboard" Component={CompanyOnBoardingContainer} />
+                  <RouteWithLayout Layout={SignInLayout} exact path="/" Component={SignIn} />
+                  <RouteWithLayout Layout={SignInLayout} exact path="/register" Component={Registration} />
+                  <RouteWithLayout Layout={SignInLayout} exact path="/registerSuccess" Component={RegistrationSuccess} />
 
-    </MuiThemeProvider>
+                  <RouteWithLayout Layout={SignInLayout} exact path="/passwordSent" Component={PasswordSent} />
+                  <RouteWithLayout Layout={SignInLayout} exact path="/reset" Component={Reset} />
+                  <RouteWithLayout Layout={SignInLayout} exact path="/setPassword" Component={SetPassword} />
+                  <RouteWithLayout Layout={SignInLayout} exact path="/signInRejected" Component={signInRejected} />
+                  {RoutesConfig.map(rconfig => <RouteWithLayout Layout={MainLayout} exact path={rconfig.path} Component={rconfig.Component} />)}
+                </div>
+              </Switch>
+            </Router>
+          </PersistGate>
+        </Provider>
+      </MuiThemeProvider>
     </JssProvider>
   </div>,
   document.getElementById('root')
