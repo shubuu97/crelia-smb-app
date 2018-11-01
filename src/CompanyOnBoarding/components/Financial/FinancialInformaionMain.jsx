@@ -20,7 +20,7 @@ class FinancialInformationMain extends React.Component {
   }
 
   handleSubmitAprroval = () => {
-    this.props.handleSubmitAprroval();
+    this.props.handleSubmitAprroval()
   }
 
   render() {
@@ -39,7 +39,7 @@ class FinancialInformationMain extends React.Component {
           <div className="row justify-content-between pt-20">
             <div className="col-sm-12">
               {
-                this.state.type == 'file' ? <FinancialInfoUpload handleSubmitAprroval={this.handleSubmitAprroval} handleNext={this.props.handleNext} /> : <FinancialInformationForm initialValues={this.props.initialValues} handleSubmitAprroval={this.handleSubmitAprroval} handleNext={this.props.handleNext} />
+                this.state.type == 'file' ? <FinancialInfoUpload isFetchingApprove={this.props.isFetchingApprove} isFetchingSave={this.props.isFetchingSave} handleSubmitAprroval={this.handleSubmitAprroval} handleNext={this.props.handleNext} /> : <FinancialInformationForm isFetchingApprove={this.props.isFetchingApprove} isFetchingSave={this.props.isFetchingSave} initialValues={this.props.initialValues} handleSubmitAprroval={this.handleSubmitAprroval} handleNext={this.props.handleNext} />
               }
             </div>
           </div>

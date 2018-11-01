@@ -40,7 +40,7 @@ class MainLayout extends Component {
                 <Header history={this.props.history}/>
                 </div>
                 <div className="main-content">
-                {this.props.companyStatus=='PENDING_APPROVAL'?<div>Your details has been sent for admin approval please wait for further action.. </div>:null}
+                {this.props.companyStatus=='PENDING_APPROVAL'?<div style={{color:'white',backgroundColor:'#4CAF50'}} >Your details has been sent for admin approval please wait for further action.. </div>:null}
                     {this.props.children}
                 </div>
                 <div>

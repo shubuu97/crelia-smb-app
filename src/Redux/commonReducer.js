@@ -1,5 +1,5 @@
 
-const cobReducer = (state = {
+const commonReducer = (state = {
     type: '',
     error: '',
     isFetching: false,
@@ -36,4 +36,4 @@ const cobReducer = (state = {
     return state;
   }
 
-export default cobReducer;
+export default commonReducer;

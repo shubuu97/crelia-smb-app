@@ -9,6 +9,8 @@ import decorateWithOnDrop from '../../../Global/onDropDecorater';
 import '../../styles/finance.css';
 import {connect} from 'react-redux';
 import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 
 
 
@@ -38,22 +40,24 @@ class FinancialInfoUpload extends React.Component {
               <Button
                 type="submit"
                 fullWidth
-                disabled={localStorage.getItem('companyStatus')=='PENDING_APPROVAL'?true:false}
+                disabled={localStorage.getItem('companyStatus')=='PENDING_APPROVAL'?true:false||this.props.isFetching}
                 // disabled={this.props.isFetching}
                 variant="contained"
                 color="primary"
                 className="btnprimary"
               >
-                Save & continue
+       {this.props.isFetchingSave ? <CircularProgress size={24} /> : 'Save'}
+
             </Button>
 {localStorage.getItem('companyStatus')=='PENDING_APPROVAL'?null:
    <Button 
             fullWidth
             onClick={this.props.handleSubmitAprroval} 
+            disabled={this.props.isFetchingApprove}
             variant='contained' 
             className="btnprimary  ml-35" 
             color='primary'>
-            Submit for approval</Button>
+           {this.props.isFetchingApprove ? <CircularProgress size={24} /> : 'submit for approval'}</Button>
 }
           </div>
                  </div>

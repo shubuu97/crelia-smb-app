@@ -12,6 +12,8 @@ import {APPLICATION_BFF_URL} from '../../../Redux/urlConstants'
 import GlobalTextField from '../../../Global/GlobalTextField'
 import RadioButtonGroup from '../../../Global/Radio';
 import Select from '../../../Global/Select';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 
 
 class ContactContainer extends Component {
@@ -216,14 +218,15 @@ class ContactContainer extends Component {
                 <div class="common-action-block">
                     <Button
                         type="submit"
-                        disabled={localStorage.getItem('companyStatus')=='PENDING_APPROVAL'?true:false}
+                        disabled={localStorage.getItem('companyStatus')=='PENDING_APPROVAL'?true:false||this.props.isFetching}
                         fullWidth
                         // disabled={this.props.isFetching}
                         variant="contained"
                         color="primary"
                         className="btnprimary ml-50"
                     >
-                        Save & Continue
+                    {this.props.isFetching ? <CircularProgress size={24} /> : 'Save & continue'}
+
                     </Button>
                 </div>
             </form>

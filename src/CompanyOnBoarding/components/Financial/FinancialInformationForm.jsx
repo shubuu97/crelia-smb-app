@@ -7,6 +7,8 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 /* Global Imports*/
 import GlobalTextField from '../../../Global/GlobalTextField';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 
 const currencies = [
     {
@@ -321,21 +323,23 @@ class FinancialInformationForm extends React.Component {
                 <div class="common-action-block col-sm-12">
               <Button
                 type="submit"
-                disabled={localStorage.getItem('companyStatus')=='PENDING_APPROVAL'?true:false}
+                disabled={localStorage.getItem('companyStatus')=='PENDING_APPROVAL'?true:false||this.props.isFetching}
                 fullWidth
                 // disabled={this.props.isFetching}
                 variant="contained"
                 color="primary"
                 className="btnprimary">
-                 Save & continue
+             {this.props.isFetchingSave ? <CircularProgress size={24} /> : 'Save'}
+
             </Button>
            {localStorage.getItem('companyStatus')!='PENDING_APPROVAL' ?<Button 
              fullWidth
+             disabled={this.props.isFetchingApprove}
             onClick={this.props.handleSubmitAprroval} 
             variant='contained' 
             className="btnprimary  ml-35" 
             color='primary'>
-            Submit for approval</Button>:null}
+             {this.props.isFetchingApprove ? <CircularProgress size={24} /> : 'submit for approval'}</Button>:null}
           </div>
             </form>
         );

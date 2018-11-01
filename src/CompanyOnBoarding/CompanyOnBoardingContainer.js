@@ -153,9 +153,9 @@ class CompanyOnBoardingContainer extends React.Component {
         let reqObj = { id: this.props.id }
         this.props.dispatch(
             postData(`${APPLICATION_BFF_URL}/api/SendSMBForApproval`, reqObj, 'cob-approval', {
-                init: 'approval_init',
-                success: 'approval_success',
-                error: 'approval_error'
+                init: 'cob-approval_init',
+                success: 'cob-approval_success',
+                error: 'cob-approval_error'
             })
         ).then((data) => {
             this.props.dispatch(showMessage({ text: 'Update Succesfully', isSuccess: true }));
@@ -198,13 +198,21 @@ class CompanyOnBoardingContainer extends React.Component {
                             onChangeIndex={this.handleChangeIndex}
                         >
                             <TabContainer dir={theme.direction}>
-                                <CompanyOnBoarding initialValues={this.props.initialValuesAbout} handleNext={this.handleNext} />
+                                <CompanyOnBoarding 
+                                isFetching={this.props.isFetchingSave}
+                                initialValues={this.props.initialValuesAbout} 
+                                handleNext={this.handleNext} />
                             </TabContainer>
                             <TabContainer dir={theme.direction}>
-                                <ContactContainer handleNext={this.handleNext} initialValues={this.props.initialValuesContact} />
+                                <ContactContainer
+                                 isFetching={this.props.isFetchingSave}
+                                  handleNext={this.handleNext}
+                                 initialValues={this.props.initialValuesContact} />
                             </TabContainer>
                             <TabContainer dir={theme.direction}>
                                 <FinanceInformationMain
+                                    isFetchingSave={this.props.isFetchingSave}
+                                    isFetchingApprove={this.props.isFetchingApprove}
                                     handleSubmitAprroval={this.handleSubmitAprroval}
                                     handleNext={this.handleNext}
                                     initialValues={this.props.initialValuesFinance} />
@@ -228,6 +236,12 @@ CompanyOnBoardingContainer.propTypes = {
 };
 
 function mapStateToProps(state) {
+
+    //ONBOARDING FETCHING
+    let isFetchingSave = _get(state,'CobPost.isFetching');
+    let isFetchingApprove = _get(state,'CobApproval.isFetching');
+
+
     let username = _get(state, 'BasicInfo.lookUpData.username', null);
     let id = _get(state, 'BasicInfo.lookUpData.companyDetails.id');
     let personalPhoneNumber = _get(state, 'BasicInfo.lookUpData.phoneNumber');
@@ -286,7 +300,7 @@ function mapStateToProps(state) {
         manualFinancial
     }
 
-    return { username, id, initialValuesAbout, initialValuesContact, initialValuesFinance }
+    return { username, id, initialValuesAbout, initialValuesContact, initialValuesFinance,isFetchingSave,isFetchingApprove}
 }
 
 export default connect(mapStateToProps)(withStyles(styles, { withTheme: true })(CompanyOnBoardingContainer));

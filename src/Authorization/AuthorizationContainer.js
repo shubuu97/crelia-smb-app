@@ -129,12 +129,12 @@ class SignIn extends Component {
               <Button
                 type="submit"
                 fullWidth
-                disabled={this.props.isFetching}
+                disabled={this.props.isFetchingLogin||this.props.isFetchingBasicData}
                 variant="contained"
                 color="primary"
                 className="btnprimary ml-35"
               >
-                {this.props.isFetching ? <CircularProgress size={24} /> : 'Sign In'}
+                {this.props.isFetchingLogin||this.props.isFetchingBasicData ? <CircularProgress size={24} /> : 'Sign In'}
               </Button>
             </div>
           </form>
@@ -153,9 +153,10 @@ SignIn = reduxForm({
 SignIn = withStyles(styles)(SignIn);
 
 function mapStateToProps(state) {
-  let isFetching = _get(state, 'LoginData.isFetching', false);
+  let isFetchingLogin = _get(state, 'LoginData.isFetching', false);
+  let isFetchingBasicData = _get(state,'BasicInfo.isFetching')
 
-  return { isFetching };
+  return { isFetchingLogin,isFetchingBasicData };
 }
 export default connect(mapStateToProps)(AuthTabHoc(SignIn))
 

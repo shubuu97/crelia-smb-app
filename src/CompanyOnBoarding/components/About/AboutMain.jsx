@@ -14,6 +14,8 @@ import asyncValidate from '../../validate';
 /* Styles */
 import '../../styles/CompanyOnBoarding.less';
 import TextField from '@material-ui/core/TextField';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 
 
 
@@ -213,11 +215,11 @@ class AboutMain extends React.Component {
                             fullWidth
                             // disabled={this.props.isFetching}
                             variant="contained"
-                            disabled={localStorage.getItem('companyStatus')=='PENDING_APPROVAL'?true:false}
+                            disabled={localStorage.getItem('companyStatus')=='PENDING_APPROVAL'?true:false||this.props.isFetching}
                             color="primary"
                             className="btnprimary ml-50"
                         >
-                            Save & Continue
+                            {this.props.isFetching ? <CircularProgress size={24} /> : 'Save & continue'}
                     </Button>
                     </div>
                 </fieldset>

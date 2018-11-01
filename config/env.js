@@ -6,6 +6,19 @@ const paths = require('./paths');
 
 // Make sure that including paths.js after env.js will read .env variables.
 delete require.cache[require.resolve('./paths')];
+let configObject = {}
+if (process.env.NODE_ENV == "production") {
+  configObject.APPLICATION_BFF_URL = "##AOB_UI_BFF_URL##"
+  configObject.MEDIA_SERVICE_ADDRESS = "##AOB_UI_MEDIA_SERVICE_URL##"
+}
+if (process.env.NODE_ENV == "development") {
+
+  configObject.APPLICATION_BFF_URL = "http://13.127.202.129:2005/customer-bff"
+  configObject.DEFAULT_COMPANY_ID = "abc"
+  configObject.MEDIA_SERVICE_ADDRESS = "https://deverp.allonblock.com/media-service"
+
+}
+console.log(configObject)
 
 const NODE_ENV = process.env.NODE_ENV;
 if (!NODE_ENV) {
@@ -59,8 +72,18 @@ process.env.NODE_PATH = (process.env.NODE_PATH || '')
 // Grab NODE_ENV and REACT_APP_* environment variables and prepare them to be
 // injected into the application via DefinePlugin in Webpack configuration.
 const REACT_APP = /^REACT_APP_/i;
-
 function getClientEnvironment(publicUrl) {
+  const initialVal = Object.assign({}, {
+    // Useful for determining whether we�re running in production mode.
+    // Most importantly, it switches React into the correct mode.
+    NODE_ENV: process.env.NODE_ENV || 'development',
+    // Useful for resolving the correct path to static assets in `public`.
+    // For example, <img src={process.env.PUBLIC_URL + '/img/logo.png'} />.
+    // This should only be used as an escape hatch. Normally you would put
+    // images into the `src` and `import` them in code to get their paths.
+    PUBLIC_URL: publicUrl,
+    // ...configObject
+  }, configObject);
   const raw = Object.keys(process.env)
     .filter(key => REACT_APP.test(key))
     .reduce(
@@ -68,16 +91,7 @@ function getClientEnvironment(publicUrl) {
         env[key] = process.env[key];
         return env;
       },
-      {
-        // Useful for determining whether we’re running in production mode.
-        // Most importantly, it switches React into the correct mode.
-        NODE_ENV: process.env.NODE_ENV || 'development',
-        // Useful for resolving the correct path to static assets in `public`.
-        // For example, <img src={process.env.PUBLIC_URL + '/img/logo.png'} />.
-        // This should only be used as an escape hatch. Normally you would put
-        // images into the `src` and `import` them in code to get their paths.
-        PUBLIC_URL: publicUrl,
-      }
+      initialVal
     );
   // Stringify all values so we can feed into Webpack DefinePlugin
   const stringified = {
