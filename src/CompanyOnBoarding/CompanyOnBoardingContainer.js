@@ -107,10 +107,10 @@ class CompanyOnBoardingContainer extends React.Component {
         }
         /* Post Form Data*/
         this.props.dispatch(
-            postData(`${APPLICATION_BFF_URL}/api/saveSMB`, reqObj, 'cob-data', {
-                init: '',
-                success: '',
-                error: ''
+            postData(`${APPLICATION_BFF_URL}/api/saveSMB`, reqObj, 'cobsave', {
+                init: 'cobsave_init',
+                success: 'cobsave_success',
+                error: 'cobsave_error'
             })
         ).then((data) => {
             this.props.dispatch(showMessage({ text: 'Update Succesfully', isSuccess: true }));

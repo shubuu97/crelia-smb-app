@@ -38,20 +38,23 @@ class FinancialInfoUpload extends React.Component {
               <Button
                 type="submit"
                 fullWidth
+                disabled={localStorage.getItem('companyStatus')=='PENDING_APPROVAL'?true:false}
                 // disabled={this.props.isFetching}
                 variant="contained"
                 color="primary"
                 className="btnprimary"
               >
-                Save
+                Save & continue
             </Button>
-            <Button 
+{localStorage.getItem('companyStatus')=='PENDING_APPROVAL'?null:
+   <Button 
             fullWidth
             onClick={this.props.handleSubmitAprroval} 
             variant='contained' 
             className="btnprimary  ml-35" 
             color='primary'>
             Submit for approval</Button>
+}
           </div>
                  </div>
             </React.Fragment>

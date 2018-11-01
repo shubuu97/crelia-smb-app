@@ -213,6 +213,7 @@ class AboutMain extends React.Component {
                             fullWidth
                             // disabled={this.props.isFetching}
                             variant="contained"
+                            disabled={localStorage.getItem('companyStatus')=='PENDING_APPROVAL'?true:false}
                             color="primary"
                             className="btnprimary ml-50"
                         >

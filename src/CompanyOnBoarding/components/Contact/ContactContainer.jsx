@@ -216,6 +216,7 @@ class ContactContainer extends Component {
                 <div class="common-action-block">
                     <Button
                         type="submit"
+                        disabled={localStorage.getItem('companyStatus')=='PENDING_APPROVAL'?true:false}
                         fullWidth
                         // disabled={this.props.isFetching}
                         variant="contained"
