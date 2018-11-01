@@ -31,22 +31,15 @@ class FinancialInformationMain extends React.Component {
           <div className="Onboarding_Title"> Financial Summary</div>
           <p> To Proceed with your loan request please share additional information on your company performance</p>
           <div className="row justify-content-between pt-20">
-                <div className="col-sm-12 finan-tab">              
-                  <div className={this.state.type == 'file' ? "active" : "" } onClick={() => this.handleSwitch('file')}> Upload File</div>
-                  <div className={this.state.type == 'upload' ? "active" : "" } onClick={() => this.handleSwitch('upload')}>Fill out the file manually</div>
-                </div>
-            </div>
-            <div className="row justify-content-between pt-20">
-                <div className="col-sm-12">           
-                    {
-                      this.state.type == 'file' ? <FinancialInfoUpload handleSubmitAprroval={this.handleSubmitAprroval} handleNext = {this.props.handleNext} /> : <FinancialInformationForm initialValues={this.props.initialValues} handleSubmitAprroval={this.handleSubmitAprroval} handleNext = {this.props.handleNext}/>
-                    }
+            <div className="col-sm-12 finan-tab">
+              <div className={this.state.type == 'file' ? "active" : ""} onClick={() => this.handleSwitch('file')}> Upload File</div>
+              <div className={this.state.type == 'upload' ? "active" : ""} onClick={() => this.handleSwitch('upload')}>Fill out the file manually</div>
             </div>
           </div>
           <div className="row justify-content-between pt-20">
             <div className="col-sm-12">
               {
-                this.state.type == 'file' ? <FinancialInfoUpload handleSubmitAprroval={this.handleSubmitAprroval} handleNext={this.props.handleNext} /> : <FinancialInformationForm handleSubmitAprroval={this.handleSubmitAprroval} handleNext={this.props.handleNext} />
+                this.state.type == 'file' ? <FinancialInfoUpload handleSubmitAprroval={this.handleSubmitAprroval} handleNext={this.props.handleNext} /> : <FinancialInformationForm initialValues={this.props.initialValues} handleSubmitAprroval={this.handleSubmitAprroval} handleNext={this.props.handleNext} />
               }
             </div>
           </div>
