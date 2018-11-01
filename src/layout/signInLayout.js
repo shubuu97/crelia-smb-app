@@ -30,7 +30,7 @@ class SignInLayout extends Component {
             <div className="col-sm-5 left-block">
             <div className="brand-block">
               <div className="logo"><img src={logoimg} /></div>
-              <div className="caption-line">Get more things done with Loggin platform.</div>  
+              <div className="caption-line">Get more things done with Logged In platform.</div>  
               </div>        
             </div>           
             <div className="col-sm-7">
