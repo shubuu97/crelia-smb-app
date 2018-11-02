@@ -10,25 +10,6 @@ import GlobalTextField from '../../../Global/GlobalTextField';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 
-const currencies = [
-    {
-        value: 'USD',
-        label: '$',
-    },
-    {
-        value: 'EUR',
-        label: '€',
-    },
-    {
-        value: 'BTC',
-        label: '฿',
-    },
-    {
-        value: 'JPY',
-        label: '¥',
-    },
-];
-
 class FinancialInformationForm extends React.Component {
 
     state = {
@@ -94,6 +75,7 @@ class FinancialInformationForm extends React.Component {
                                         onChange={this.handleChange('name')}
                                         variant="outlined"
                                         type="number"
+                                        startAdornment="$"
                                     />
                                 </div>
                                 <div className="col-sm-4">
@@ -106,6 +88,7 @@ class FinancialInformationForm extends React.Component {
                                         onChange={this.handleChange('name')}
                                         variant="outlined"
                                         type="number"
+                                        startAdornment="$"
                                     />
                                 </div>
                                 <div className="col-sm-4">
@@ -118,6 +101,7 @@ class FinancialInformationForm extends React.Component {
                                         onChange={this.handleChange('name')}
                                         variant="outlined"
                                         type="number"
+                                        startAdornment="$"
                                     />
                                 </div>
                             </div>
@@ -132,6 +116,7 @@ class FinancialInformationForm extends React.Component {
                                         margin="normal"
                                         onChange={this.handleChange('name')}
                                         variant="outlined"
+                                        startAdornment="$"
                                 
                                     />
                                 </div>
@@ -145,6 +130,7 @@ class FinancialInformationForm extends React.Component {
                                         onChange={this.handleChange('name')}
                                         variant="outlined"
                                         type="number"
+                                        startAdornment="$"
                                     />
                                 </div>
                                 <div className="col-sm-4">
@@ -157,6 +143,7 @@ class FinancialInformationForm extends React.Component {
                                         onChange={this.handleChange('name')}
                                         variant="outlined"
                                         type="number"
+                                        startAdornment="$"
                                     />
                                 </div>
                             </div>
@@ -173,6 +160,7 @@ class FinancialInformationForm extends React.Component {
                                         onChange={this.handleChange('name')}
                                         variant="outlined"
                                         type="number"
+                                        startAdornment="$"
                                     />
                                 </div>
                                 <div className="col-sm-4">
@@ -185,6 +173,7 @@ class FinancialInformationForm extends React.Component {
                                         onChange={this.handleChange('name')}
                                         variant="outlined"
                                         type="number"
+                                        startAdornment="$"
                                     />
                                 </div>
                                 <div className="col-sm-4">
@@ -197,6 +186,7 @@ class FinancialInformationForm extends React.Component {
                                         onChange={this.handleChange('name')}
                                         variant="outlined"
                                         type="number"
+                                        startAdornment="$"
                                     />
                                 </div>
                             </div>
@@ -212,6 +202,7 @@ class FinancialInformationForm extends React.Component {
                                         onChange={this.handleChange('name')}
                                         variant="outlined"
                                         type="number"
+                                        startAdornment="$"
                                     />
                                 </div>
                                 <div className="col-sm-4">
@@ -224,6 +215,7 @@ class FinancialInformationForm extends React.Component {
                                         onChange={this.handleChange('name')}
                                         variant="outlined"
                                         type="number"
+                                        startAdornment="$"
                                     />
                                 </div>
                                 <div className="col-sm-4">
@@ -236,6 +228,7 @@ class FinancialInformationForm extends React.Component {
                                         onChange={this.handleChange('name')}
                                         variant="outlined"
                                         type="number"
+                                        startAdornment="$"
                                     />
                                 </div>
                             </div>
@@ -251,6 +244,7 @@ class FinancialInformationForm extends React.Component {
                                         onChange={this.handleChange('name')}
                                         variant="outlined"
                                         type="number"
+                                        startAdornment="$"
                                     />
                                 </div>
                                 <div className="col-sm-4">
@@ -263,6 +257,7 @@ class FinancialInformationForm extends React.Component {
                                         onChange={this.handleChange('name')}
                                         variant="outlined"
                                         type="number"
+                                        startAdornment="$"
                                     />
                                 </div>
                                 <div className="col-sm-4">
@@ -275,6 +270,7 @@ class FinancialInformationForm extends React.Component {
                                         onChange={this.handleChange('name')}
                                         variant="outlined"
                                         type="number"
+                                        startAdornment="$"
                                     />
                                 </div>
                             </div>
@@ -290,6 +286,7 @@ class FinancialInformationForm extends React.Component {
                                         onChange={this.handleChange('name')}
                                         variant="outlined"
                                         type="number"
+                                        startAdornment="$"
                                     />
                                 </div>
                                 <div className="col-sm-4">
@@ -302,6 +299,7 @@ class FinancialInformationForm extends React.Component {
                                         onChange={this.handleChange('name')}
                                         variant="outlined"
                                         type="number"
+                                        startAdornment="$"
                                     />
                                 </div>
                                 <div className="col-sm-4">
@@ -314,6 +312,7 @@ class FinancialInformationForm extends React.Component {
                                         onChange={this.handleChange('name')}
                                         variant="outlined"
                                         type="number"
+                                        startAdornment="$"
                                     />
                                 </div>
                             </div>
