@@ -16,7 +16,8 @@ import AuthTabHoc from './components/TabHoc';
 import showMessage from '../Redux/toastAction'
 import { resolve } from 'path';
 import { rejects } from 'assert';
-import {APPLICATION_BFF_URL} from '../Redux/urlConstants'
+import {APPLICATION_BFF_URL} from '../Redux/urlConstants';
+import RouteDecider from './helpers/RouteDecider'
 
 
 var jwtDecode = require('jwt-decode');
@@ -65,7 +66,8 @@ class SignIn extends Component {
             error: 'basicdata_error'
           })
         ).then((data) => {
-          this.props.history.push('/onboard')
+         let route =  RouteDecider(_get(data,'companyDetails.status'))
+          this.props.history.push(`/${route}`);
         })
           .catch((err) => {
             this.props.dispatch(showMessage({ text: err.msg, isSuccess: false }));
@@ -154,7 +156,7 @@ SignIn = withStyles(styles)(SignIn);
 
 function mapStateToProps(state) {
   let isFetchingLogin = _get(state, 'LoginData.isFetching', false);
-  let isFetchingBasicData = _get(state,'BasicInfo.isFetching')
+  let isFetchingBasicData = _get(state,'BasicInfo.isFetching');
 
   return { isFetchingLogin,isFetchingBasicData };
 }
