@@ -13,6 +13,7 @@ import GlobalTextField from '../../../Global/GlobalTextField'
 import RadioButtonGroup from '../../../Global/Radio';
 import Select from '../../../Global/Select';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import setWith from 'lodash/setWith'
 
 
 
@@ -42,11 +43,19 @@ class ContactContainer extends Component {
     {
         let reqObj = {...values};
         if(values.businessUnderName=='no')
-        reqObj.otherCompanyName='';
+        setWith(reqObj,'onboardingInfo.otherCompanyName','')
+        else
+        {
+        setWith(reqObj,'onboardingInfo.otherCompanyName',values.otherCompanyName)
+        }
 
-      
+        setWith(reqObj,'onboardingInfo.isOtherShortTermLoan',values.isOtherShortTermLoan);
+
+        delete reqObj.isOtherShortTermLoan;
         delete reqObj.businessUnderName;
         delete reqObj.yearofStartBusiness;
+        delete reqObj.otherCompanyName;
+        
         this.props.handleNext(reqObj);
     }
 

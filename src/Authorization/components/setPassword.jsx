@@ -17,10 +17,12 @@ import * as qs from 'query-string';
 import asyncValidate from '../validation/setPassword'
 /* Phone No. Input Imports */
 import PhoneInput from '../../Global/PhoneNumInput';
-import {APPLICATION_BFF_URL} from '../../Redux/urlConstants'
+import { APPLICATION_BFF_URL } from '../../Redux/urlConstants'
+/* reCaptcha */
+import ReCAPTCHA from "react-google-recaptcha";
 
 var jwtDecode = require('jwt-decode');
-
+const grecaptchaObject = window.grecaptcha
 
 const styles = theme => ({
   form: {
@@ -33,37 +35,52 @@ class ResetPassword extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { tokenObj: null }
+    this.state = {
+      tokenObj: null,
+      callback: "not fired",
+      value: "",
+      load: false,
+      expired: "false"
+    }
   }
   handleSetPassword = (values, a, b) => {
     console.log(a, b, "xxxx");
     let localValue = { ...values }
+    let reCaptchaResponse = this.state.value
     delete localValue.confirmNewPassword;
+    delete localValue.reCaptchaResponse;
     let obj = {};
     obj.email = this.state.tokenObj.email;
     obj.companyType = this.state.tokenObj.TOU;
+    let credential = { username: values.username, password: values.password }
     let reqObj = { ...localValue, ...obj };
     console.log(reqObj, "Request Object");
-    this.props.dispatch(
-      postData(`${APPLICATION_BFF_URL}/api/${this.state.tokenObj.URL}`, reqObj, 'password-data', {
-        init: 'set_init',
-        success: 'set_success',
-        error: 'set_error'
-      })
-    ).then((data) => {
-      this.props.dispatch(showMessage({ text: 'Update Succesfully', isSuccess: true }));
-      setTimeout(() => {
-        this.props.dispatch(showMessage({}));
-        this.props.history.push('/');
-      }, 1000);
-    })
-      .catch((err) => {
-        this.props.dispatch(showMessage({ text: err.msg, isSuccess: false }));
-        b.setSubmitFailed();
+
+    if (reCaptchaResponse) {
+      this.props.dispatch(
+        postData(`${APPLICATION_BFF_URL}/api/${this.state.tokenObj.URL}`, reqObj, 'password-data', {
+          init: 'set_init',
+          success: 'set_success',
+          error: 'set_error'
+        })
+      ).then((data) => {
+        this.props.dispatch(showMessage({ text: 'Update Succesfully', isSuccess: true }));
         setTimeout(() => {
           this.props.dispatch(showMessage({}));
-        }, 3000);
+          this.props.history.push('/');
+        }, 1000);
       })
+        .catch((err) => {
+          this.props.dispatch(showMessage({ text: err.msg, isSuccess: false }));
+          b.setSubmitFailed();
+          setTimeout(() => {
+            this.props.dispatch(showMessage({}));
+          }, 3000);
+        })
+    }
+    else{
+      
+    }
   }
 
   handleSignIn = (values) => {
@@ -82,10 +99,8 @@ class ResetPassword extends Component {
       })
   }
 
-  componentWillMount() {
-    localStorage.clear();
-  }
   componentDidMount() {
+    localStorage.clear();
     const params = qs.parse(this.props.location.search);
     console.log(params, "parmas");
     localStorage.setItem('authToken', params.token)
@@ -97,6 +112,22 @@ class ResetPassword extends Component {
       this.props.history.push('/')
     }
   }
+
+  handleChange = value => {
+    console.log("Captcha value:", value);
+    this.setState({ value });
+  }
+  asyncScriptOnLoad = () => {
+    this.setState({ callback: "called!" });
+    console.log("scriptLoad - reCaptcha Ref-", this._reCaptchaRef);
+  }
+  handleExpired = () => {
+    this.setState({ expired: "true" });
+  }
+  handleExpired2 = () => {
+    this.setState({ expired2: "true" });
+  }
+
   render() {
     console.log(this.props, "props is hre")
     const { classes, handleSubmit } = this.props;
@@ -106,6 +137,20 @@ class ResetPassword extends Component {
           <h4>Set Your Password</h4>
           <p>{_get(this.state, 'tokenObj.email', '')}</p>
           <form className={classes.form} onSubmit={handleSubmit(this.handleSetPassword)} >
+           
+          <FormControl margin="normal" required fullWidth>
+              <Field
+                label="User Name"
+                placeholder=""
+                name="username"
+                component={GlobalTextField}
+                variant="standard"
+                id="emailAddress"
+                fullWidth='fullWidth'
+                required='required'
+                autoFocus='autoFocus'
+              />
+            </FormControl>
             <div className="row">
               <div className="col-sm-4">
                 <FormControl margin="normal" required fullWidth>
@@ -147,18 +192,18 @@ class ResetPassword extends Component {
               </FormControl></div>
             </div>
             <div className="mt-16">
-            <FormControl margin="normal" required fullWidth>
-              <Field
-                label="Contact Number"
-                placeholder=""
-                name="phoneNumber"
-                component={PhoneInput}
-                variant="standard"
-                id="phoneNumber"
-                fullWidth='fullWidth'
-                required='required'
-              />
-            </FormControl>
+              <FormControl margin="normal" required fullWidth>
+                <Field
+                  label="Contact Number"
+                  placeholder=""
+                  name="phoneNumber"
+                  component={PhoneInput}
+                  variant="standard"
+                  id="phoneNumber"
+                  fullWidth='fullWidth'
+                  required='required'
+                />
+              </FormControl>
             </div>
             <FormControl margin="normal" required fullWidth>
               <Field
@@ -185,7 +230,18 @@ class ResetPassword extends Component {
                 fullWidth='fullWidth'
                 required='required'
               />
-
+            </FormControl>
+            <FormControl margin="normal" required fullWidth>
+            <div className="recaptcha">
+              <ReCAPTCHA
+                style={{ display: "inline-block" }}
+                theme="dark"
+                ref={this._reCaptchaRef}
+                sitekey="6LcEGngUAAAAAIvfn949fqP5SetBWpvjKYg12XWK"
+                onChange={this.handleChange}
+                asyncScriptOnLoad={this.asyncScriptOnLoad}
+              />
+              </div>
             </FormControl>
             <div class="action-block">
               <Button

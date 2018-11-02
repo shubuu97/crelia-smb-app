@@ -1,4 +1,5 @@
-
+function commonReducerFunc (identifier)
+{
 const commonReducer = (state = {
     type: '',
     error: '',
@@ -8,13 +9,13 @@ const commonReducer = (state = {
   }, action) => {
     console.log(action,'action is here');
     switch (action.type) {
-      case `${action.subreddit}_init`:
+      case `${identifier}_init`:
         return Object.assign({}, state, {
           isFetching: true,
           type: action.type,
           lastUpdated: action.receivedAt,
         });
-      case `${action.subreddit}_success`:
+      case `${identifier}_success`:
         return Object.assign({}, state, {
           error:'',
           isFetching: false,
@@ -23,7 +24,7 @@ const commonReducer = (state = {
           lookUpData: action.data,
           lastUpdated: action.receivedAt,
         });
-      case `${action.subreddit}_error`:
+      case `${identifier}_error`:
         return Object.assign({}, state, {
           isFetching: false,
           type: action.type,
@@ -35,5 +36,7 @@ const commonReducer = (state = {
     }
     return state;
   }
+  return commonReducer
+}
 
-export default commonReducer;
+export default commonReducerFunc;

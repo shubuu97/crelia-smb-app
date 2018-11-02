@@ -15,8 +15,7 @@ import asyncValidate from '../../validate';
 import '../../styles/CompanyOnBoarding.less';
 import TextField from '@material-ui/core/TextField';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
-
+import setwith from 'lodash/setWith'
 
 
 const styles = theme => ({
@@ -85,6 +84,7 @@ class AboutMain extends React.Component {
                             disabled={localStorage.getItem('disabled')}
                             component={GlobalTextField}
                             variant="outlined"
+                            endAdornment="%"
                         />
                     </div> : null}
                 </div>
@@ -110,9 +110,9 @@ class AboutMain extends React.Component {
         }
         //reqObj.phoneNumber = values.phoneNumber ;
         //reqObj.email = values.email;
-        reqObj.moneyRequired = parseInt(values.moneyRequired);
-        reqObj.loanAllocation = loanAllocation;
-        reqObj.timeFrame = values.timeFrame;
+        setwith(reqObj,'onboardingInfo.moneyRequired',parseInt(values.moneyRequired));
+        setwith(reqObj,'onboardingInfo.loanAllocation',loanAllocation);
+        setwith(reqObj,'onboardingInfo.timeFrame',values.timeFrame)
         this.props.handleNext(reqObj)
 
     }
@@ -133,14 +133,16 @@ class AboutMain extends React.Component {
                     <div className="Onboarding_Title">Apply for Business Financing</div>
                     <div className="row justify-content-between pt-20">
                         <div className="col-sm-6">
-                            <div class="col-sm-12"><span className="onboarding-sub-title">How much would you like to borrow?</span></div>
+                            <div class="col-sm-12"><span className="onboarding-sub-title">How much funding do you need?</span></div>
                             <Field
-                                placeholder=""
-                                name="moneyRequired"
+                                label=""
                                 disabled={localStorage.getItem('disabled')}
-                                component={SelectField}
-                                variantType="outlined"
-                                options={[{ value: 10000, key: 10000 }, { value: 20000, key: 20000 }]}
+                                name="moneyRequired"
+                                component={GlobalTextField}
+                                variant="outlined"
+                                fullWidth={true}
+                                startAdornment="$"
+                                type="number"
                             />
                         </div>
                         <div className="col-sm-6 get-money">
@@ -183,11 +185,12 @@ class AboutMain extends React.Component {
                                         <div class="mdc-layout-grid__cell--span-12">
                                             <Field
                                                 label="Phone Number"
-                                                disabled={true}
+                                                disabled={localStorage.getItem('disabled')}
                                                 name="personalPhoneNumber"
                                                 component={GlobalTextField}
                                                 variant="outlined"
                                                 fullWidth={true}
+                                                
                                             />
                                         </div>
                                     </div>
@@ -215,12 +218,12 @@ class AboutMain extends React.Component {
                             fullWidth
                             // disabled={this.props.isFetching}
                             variant="contained"
-                            disabled={localStorage.getItem('companyStatus')=='PENDING_APPROVAL'?true:false||this.props.isFetching}
+                            disabled={localStorage.getItem('companyStatus') == 'PENDING_APPROVAL' ? true : false || this.props.isFetching}
                             color="primary"
                             className="btnprimary ml-50"
                         >
                             {this.props.isFetching ? <CircularProgress size={24} /> : 'Save & continue'}
-                    </Button>
+                        </Button>
                     </div>
                 </fieldset>
             </form>

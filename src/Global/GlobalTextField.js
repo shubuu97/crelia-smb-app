@@ -6,6 +6,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import _get from 'lodash/get';
 import {lifecycle} from 'recompose';
 import {clearFields,Field} from 'redux-form'
+import InputAdornment from '@material-ui/core/InputAdornment';
 
 const styles = theme => ({
     container: {
@@ -35,7 +36,8 @@ class TextFieldRF extends Field
     }
 
 render() {
-    const { classes,field,disabled, InputLabelProps, defaultValue, input, id, variant, fullWidth, autoFocus, label, type, placeholder,required, custom, meta } = this.props;
+    const { classes,field,disabled, InputLabelProps, defaultValue, input, id, variant, fullWidth, autoFocus, label, type, placeholder,required, custom, meta, startAdornment, endAdornment } = this.props;
+    console.log(this.props, "globalTextField")
    return (
         [
 
@@ -54,6 +56,10 @@ render() {
                 variant={'standard'}
                 required={required}
                 autoFocus={autoFocus}
+                InputProps={{
+                    startAdornment: <InputAdornment position="start">{startAdornment}</InputAdornment>,
+                    endAdornment: <InputAdornment position="end">{endAdornment}</InputAdornment>,
+                }}
             />,
             <div className="errormsg">  {_get(meta, 'touched', false) && _get(meta, 'error', '') ? <FormHelperText style={{color:'red'}}>{meta.error}</FormHelperText> : null}</div>
 
