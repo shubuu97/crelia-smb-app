@@ -42,7 +42,6 @@ class ResetPassword extends Component {
     let obj = {};
     obj.email = this.state.tokenObj.email;
     obj.companyType = this.state.tokenObj.TOU;
-    let credential = {username: values.username, password: values.password}
     let reqObj = { ...localValue, ...obj };
     console.log(reqObj, "Request Object");
     this.props.dispatch(
@@ -107,19 +106,6 @@ class ResetPassword extends Component {
           <h4>Set Your Password</h4>
           <p>{_get(this.state, 'tokenObj.email', '')}</p>
           <form className={classes.form} onSubmit={handleSubmit(this.handleSetPassword)} >
-            <FormControl margin="normal" required fullWidth>
-              <Field
-                label="User Name"
-                placeholder=""
-                name="username"
-                component={GlobalTextField}
-                variant="standard"
-                id="emailAddress"
-                fullWidth='fullWidth'
-                required='required'
-                autoFocus='autoFocus'
-              />
-            </FormControl>
             <div className="row">
               <div className="col-sm-4">
                 <FormControl margin="normal" required fullWidth>

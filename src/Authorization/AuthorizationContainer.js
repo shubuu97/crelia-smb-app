@@ -98,7 +98,7 @@ class SignIn extends Component {
           <form className={classes.form} onSubmit={handleSubmit(this.handleSignIn)} >
             <FormControl margin="normal" required fullWidth>
               <Field
-                label="User Name"
+                label="Email"
                 placeholder=""
                 name="username"
                 component={GlobalTextField}

@@ -38,7 +38,8 @@ import Reset from './Authorization/components/resetPassword'
 import RegistrationSuccess from './Authorization/components/Registration/RegistrationSuccess';
 import Registration from './Authorization/components/Registration/Register';
 import PasswordSent from './Authorization/components/passwordSent';
-import SetPassword from './Authorization/components/setPassword'
+import SetPassword from './Authorization/components/setPassword';
+import Account from './CompanyProfile/components/Account/userForm'
 
 
 const generateClassName = createGenerateClassName({
@@ -80,6 +81,7 @@ ReactDOM.render(
 
                   {/* Main Routes */}
                   <RouteWithLayout Layout={MainLayout} exact path="/onboard" Component={CompanyOnBoardingContainer} />
+                  <RouteWithLayout Layout={MainLayout} exact path="/account" Component={Account} />
                   <RouteWithLayout Layout={SignInLayout} exact path="/" Component={SignIn} />
                   <RouteWithLayout Layout={SignInLayout} exact path="/register" Component={Registration} />
                   <RouteWithLayout Layout={SignInLayout} exact path="/registerSuccess" Component={RegistrationSuccess} />
