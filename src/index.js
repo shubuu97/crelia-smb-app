@@ -30,6 +30,7 @@ import MDC from './xBoilerplate/MaterialDesignTemplate';
 import SignInLayout from './layout/signInLayout';
 
 /* Container Imports*/
+import Account from './MyAccount/MyAccountContainer'
 import CompanyOnBoardingContainer from './CompanyOnBoarding/CompanyOnBoardingContainer';
 import SignIn from './Authorization/AuthorizationContainer'
 import signInRejected from './Authorization/components/signInRejected' // to be removed
@@ -39,7 +40,7 @@ import RegistrationSuccess from './Authorization/components/Registration/Registr
 import Registration from './Authorization/components/Registration/Register';
 import PasswordSent from './Authorization/components/passwordSent';
 import SetPassword from './Authorization/components/setPassword';
-import Account from './CompanyProfile/components/Account/userForm'
+
 
 
 const generateClassName = createGenerateClassName({

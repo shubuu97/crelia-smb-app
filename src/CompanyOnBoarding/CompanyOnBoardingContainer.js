@@ -12,14 +12,15 @@ import { withStyles } from '@material-ui/core/styles';
 /* Redux Imports */
 import { connect } from 'react-redux';
 import { postData } from '../Redux/postAction';
+import showMessage from '../Redux/toastAction';
+import { getData } from '../Redux/getAction';
+import { APPLICATION_BFF_URL } from '../Redux/urlConstants'
 /* Components*/
 import CompanyOnBoarding from './components/About/AboutMain';
 import ContactContainer from './components/Contact/ContactContainer';
 import FinanceInformationMain from './components/Financial/FinancialInformaionMain';
 import Help from './components/Help';
-import showMessage from '../Redux/toastAction';
-import { getData } from '../Redux/getAction';
-import {APPLICATION_BFF_URL} from '../Redux/urlConstants'
+
 
 
 
@@ -59,34 +60,31 @@ class CompanyOnBoardingContainer extends React.Component {
         this.handleNext = this.handleNext.bind(this);
     }
 
+    componentDidMount() {
+        this.basicDataFetcher();
+    }
+
     basicDataFetcher = () => {
+        if (localStorage.getItem('authToken')) {
+            let decodeData = jwtDecode(localStorage.getItem('authToken'));
+            
+            let role = decodeData.role
+            if(role.search("Temp")){
+                role = role.substr(3)
+                localStorage.setItem('role', role)
+            }
 
-        if(localStorage.getItem('authToken'))
-        {
-        let decodeData = jwtDecode(localStorage.getItem('authToken'));
-        let role = decodeData.role
-        if(decodeData.role=='TempSMBUser') {
-            role = 'SMBUser';
-            localStorage.setItem('role',role)
-          }
-          if (decodeData.role == 'TempInvestorUser') {
-            role = 'InvestorUser';
-            localStorage.setItem('role',role)
-  
-          }
-
-        this.props.dispatch(
-            getData(`${APPLICATION_BFF_URL}/api/${role}/${encodeURIComponent(decodeData.id)}`, 'fetchingbasicdata', {
-                init: 'basicdata_init',
-                success: 'basicdata_success',
-                error: 'basicdata_error'
-            })
-        )
-    }
-    else
-    {
-       // this.props.history.push('/')
-    }
+            this.props.dispatch(
+                getData(`${APPLICATION_BFF_URL}/api/${role}/${encodeURIComponent(decodeData.id)}`, 'fetchingbasicdata', {
+                    init: 'basicdata_init',
+                    success: 'basicdata_success',
+                    error: 'basicdata_error'
+                })
+            )
+        }
+        else {
+            // this.props.history.push('/')
+        }
     }
 
     handleChange = (event, value) => {
@@ -134,7 +132,6 @@ class CompanyOnBoardingContainer extends React.Component {
 
         /* Switching between tabs*/
 
-
         // this.props.dispatch(
         //     getData('https://api.github.com/search/repositories?q=react', 'fjd', {
         //         init: 'cobabout_init',
@@ -146,9 +143,6 @@ class CompanyOnBoardingContainer extends React.Component {
         // })
     };
 
-    componentDidMount() {
-        this.basicDataFetcher();
-    }
     handleSubmitAprroval = () => {
         let reqObj = { id: this.props.id }
         this.props.dispatch(
@@ -198,16 +192,16 @@ class CompanyOnBoardingContainer extends React.Component {
                             onChangeIndex={this.handleChangeIndex}
                         >
                             <TabContainer dir={theme.direction}>
-                                <CompanyOnBoarding 
-                                isFetching={this.props.isFetchingSave}
-                                initialValues={this.props.initialValuesAbout} 
-                                handleNext={this.handleNext} />
+                                <CompanyOnBoarding
+                                    isFetching={this.props.isFetchingSave}
+                                    initialValues={this.props.initialValuesAbout}
+                                    handleNext={this.handleNext} />
                             </TabContainer>
                             <TabContainer dir={theme.direction}>
                                 <ContactContainer
-                                 isFetching={this.props.isFetchingSave}
-                                  handleNext={this.handleNext}
-                                 initialValues={this.props.initialValuesContact} />
+                                    isFetching={this.props.isFetchingSave}
+                                    handleNext={this.handleNext}
+                                    initialValues={this.props.initialValuesContact} />
                             </TabContainer>
                             <TabContainer dir={theme.direction}>
                                 <FinanceInformationMain
@@ -238,8 +232,8 @@ CompanyOnBoardingContainer.propTypes = {
 function mapStateToProps(state) {
 
     //ONBOARDING FETCHING
-    let isFetchingSave = _get(state,'CobPost.isFetching');
-    let isFetchingApprove = _get(state,'CobApproval.isFetching');
+    let isFetchingSave = _get(state, 'CobPost.isFetching');
+    let isFetchingApprove = _get(state, 'CobApproval.isFetching');
 
 
     let username = _get(state, 'BasicInfo.lookUpData.username', null);
@@ -267,17 +261,17 @@ function mapStateToProps(state) {
     let legalEntityType = _get(state, 'BasicInfo.lookUpData.companyDetails.legalEntityType');
     let legalName = _get(state, 'BasicInfo.lookUpData.companyDetails.legalName');
     let isOtherShortTermLoan = _get(state, 'BasicInfo.lookUpData.companyDetails.onboardingInfo.isOtherShortTermLoan');
-    isOtherShortTermLoan = isOtherShortTermLoan?'yes':'no'
-    let otherCompanyName = _get(state, 'BasicInfo.lookUpData.companyDetails.onboardingInfo.otherCompanyName','');
-    let businessUnderName = otherCompanyName?'yes':'no'
-    
+    isOtherShortTermLoan = isOtherShortTermLoan ? 'yes' : 'no'
+    let otherCompanyName = _get(state, 'BasicInfo.lookUpData.companyDetails.onboardingInfo.otherCompanyName', '');
+    let businessUnderName = otherCompanyName ? 'yes' : 'no'
+
 
     // Financial
-    let financialData = _get(state, 'BasicInfo.lookUpData.companyDetails.financialInfo.financialData',[]);
-    let email = _get(state, 'BasicInfo.lookUpData.companyDetails.email','')
+    let financialData = _get(state, 'BasicInfo.lookUpData.companyDetails.financialInfo.financialData', []);
+    let email = _get(state, 'BasicInfo.lookUpData.companyDetails.email', '')
     let manualFinancial = {};
-    let incorporationDate = _get(state, 'BasicInfo.lookUpData.companyDetails.incorporationDate','').split('T')[0].trim();
-    for(let i = 0; i < financialData.length; i++){
+    let incorporationDate = _get(state, 'BasicInfo.lookUpData.companyDetails.incorporationDate', '').split('T')[0].trim();
+    for (let i = 0; i < financialData.length; i++) {
         let keys = Object.keys(financialData[i])
         for (let j = 1; j < keys.length; j++) {
             if (financialData[i].year == 2016) {
@@ -292,7 +286,7 @@ function mapStateToProps(state) {
         }
     }
 
-    let initialValuesContact = { address, taxId, phoneNumber, legalEntityType, legalName,businessUnderName, isOtherShortTermLoan, otherCompanyName, incorporationDate, email }
+    let initialValuesContact = { address, taxId, phoneNumber, legalEntityType, legalName, businessUnderName, isOtherShortTermLoan, otherCompanyName, incorporationDate, email }
 
     let initialValuesAbout = { personalPhoneNumber, userEmail, moneyRequired, timeFrame, workingCapital, expansion, refinancing };
 
@@ -300,7 +294,7 @@ function mapStateToProps(state) {
         manualFinancial
     }
 
-    return { username, id, initialValuesAbout, initialValuesContact, initialValuesFinance,isFetchingSave,isFetchingApprove}
+    return { username, id, initialValuesAbout, initialValuesContact, initialValuesFinance, isFetchingSave, isFetchingApprove }
 }
 
 export default connect(mapStateToProps)(withStyles(styles, { withTheme: true })(CompanyOnBoardingContainer));

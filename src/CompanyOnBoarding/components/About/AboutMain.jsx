@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import _camelCase from 'lodash/camelCase';
 import _get from 'lodash/get';
+import setwith from 'lodash/setWith'
 /* Material Imports*/
 import Button from '@material-ui/core/Button'
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import CircularProgress from '@material-ui/core/CircularProgress';
 /* Global Imports */
 import GlobalTextField from '../../../Global/GlobalTextField'
 import SelectField from '../../../Global/Select'
@@ -13,30 +15,6 @@ import ToggleButtons from '../../../Global/ToggleButton'
 import asyncValidate from '../../validate';
 /* Styles */
 import '../../styles/CompanyOnBoarding.less';
-import TextField from '@material-ui/core/TextField';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import setwith from 'lodash/setWith'
-
-
-const styles = theme => ({
-    button: {
-        fontSize: '1.4rem',
-        color: '#FFF',
-    },
-    buttonLogin: {
-        fontSize: '1.4rem',
-        color: '#FFF',
-    },
-    failure: {
-        background: 'red',
-        fontSize: '1.4rem'
-    },
-    success: {
-        background: 'green',
-        fontSize: '1.4rem'
-    }
-});
-
 
 class AboutMain extends React.Component {
 
