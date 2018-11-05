@@ -36,7 +36,8 @@ class SignIn extends Component {
 
   handleSignIn = (values) => {
 
-    
+      debugger
+      
       this.props.dispatch(
         postData(`${APPLICATION_BFF_URL}/api/login`, values, 'login-data', {
           init: 'login_init',
@@ -55,7 +56,6 @@ class SignIn extends Component {
         if (decodeData.role == 'TempInvestorUser') {
           role = 'InvestorUser';
           localStorage.setItem('role',role)
-
         }
 
         this.props.dispatch(
@@ -100,7 +100,7 @@ class SignIn extends Component {
               <Field
                 label="Email"
                 placeholder=""
-                name="username"
+                name="email"
                 component={GlobalTextField}
                 variant="standard"
                 id="emailAddress"

@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
-/* Material Imports */ 
+import _get from 'lodash/get';
+/* Material Imports */
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
 import CircularProgress from '@material-ui/core/CircularProgress';
-/* Redux Imports */ 
+/* Redux Imports */
 import { Field, reduxForm } from 'redux-form';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-/* Global Imports */ 
-import _get from 'lodash/get';
 /* Asset Imports */
-import imgsuccess from '../../Assets/images/success.png';
+import imgsuccess from '../../../Assets/images/success.png';
 
 const styles = theme => ({
     form: {
@@ -22,12 +21,33 @@ const styles = theme => ({
 
 class PasswordSent extends React.Component {
 
-    handleSentPassword = (values) => {
-        //this.props.history.push('/passwordSent')
+    constructor(props){
+        super(props);
+        this.state = {
+            email : _get(this.props, "location.state.email", "") ,
+        }
+    }
+
+    handleResend = (values) => {
+        //Resend API
+    }
+
+    censorWord = (str) => {
+        return str[0] + str[1] + str[2] + "*".repeat(str.length - 3);
+    }
+
+    censorEmail = (email) => {
+        var arr = email.split("@");
+        if (email)
+            return this.censorWord(arr[0]) + "@" + arr[1];
+        else
+            this.props.history.push('/')
     }
 
     render() {
+        debugger
         const { classes, handleSubmit } = this.props;
+        const email = _get(this.state, "email", "");
         return (
             <React.Fragment>
 
@@ -37,11 +57,11 @@ class PasswordSent extends React.Component {
                         Password Sent!
                         </h4>
                     <p className="text-center">
-                        We have sent you password activation link to xxx@gmail.com.<br />
+                        We have sent you password activation link to {this.censorEmail(email)}.<br />
                         Please check your inbox for further innstruction.
                         </p>
 
-                    <form className={classes.form} onSubmit={handleSubmit(this.handleSentPassword)} >
+                    <form className={classes.form} onSubmit={handleSubmit(this.handleResend)} >
                         <div class="action-block">
                             <p className="text-center">
                                 Didn't get the letter?

@@ -35,12 +35,12 @@ import CompanyOnBoardingContainer from './CompanyOnBoarding/CompanyOnBoardingCon
 import SignIn from './Authorization/AuthorizationContainer'
 import signInRejected from './Authorization/components/signInRejected' // to be removed
 import RoutesConfig from './CompanyProfile/components/RoutesConfig';
-import Reset from './Authorization/components/resetPassword'
+import Reset from './Authorization/components/ResetPassword/resetPassword';
+import PasswordSent from './Authorization/components/ResetPassword/passwordSent';
+import ChangePassword from './Authorization/components/ResetPassword/changePassword';
 import RegistrationSuccess from './Authorization/components/Registration/RegistrationSuccess';
 import Registration from './Authorization/components/Registration/Register';
-import PasswordSent from './Authorization/components/passwordSent';
-import SetPassword from './Authorization/components/setPassword';
-
+import SetPassword from './Authorization/components/SetPassword/setPassword';
 
 
 const generateClassName = createGenerateClassName({
@@ -86,7 +86,7 @@ ReactDOM.render(
                   <RouteWithLayout Layout={SignInLayout} exact path="/" Component={SignIn} />
                   <RouteWithLayout Layout={SignInLayout} exact path="/register" Component={Registration} />
                   <RouteWithLayout Layout={SignInLayout} exact path="/registerSuccess" Component={RegistrationSuccess} />
-
+                  <RouteWithLayout Layout={SignInLayout} exact path="/changePassword" Component={ChangePassword} />
                   <RouteWithLayout Layout={SignInLayout} exact path="/passwordSent" Component={PasswordSent} />
                   <RouteWithLayout Layout={SignInLayout} exact path="/reset" Component={Reset} />
                   <RouteWithLayout Layout={SignInLayout} exact path="/setPassword" Component={SetPassword} />
