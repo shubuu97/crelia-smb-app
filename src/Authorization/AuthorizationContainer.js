@@ -34,10 +34,7 @@ class SignIn extends Component {
     this.state = { activeTab: 'Login' }
   }
 
-  handleSignIn = (values) => {
-
-      debugger
-      
+  handleSignIn = (values) => {      
       this.props.dispatch(
         postData(`${APPLICATION_BFF_URL}/api/login`, values, 'login-data', {
           init: 'login_init',

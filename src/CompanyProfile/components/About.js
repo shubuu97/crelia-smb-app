@@ -1,17 +1,22 @@
 import React, { Component } from 'react';
-import FormControl from '@material-ui/core/FormControl';
-import { Field, reduxForm } from 'redux-form';
-import GlobalTextField from '../../Global/GlobalTextField';
-import Select from '../../Global/Select';
-import ToggleButtons from '../../Global/ToggleButton';
 import _get from 'lodash/get';
+/* Material Imports */
+import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
-import SideBar from './SideBar';
+/* Redux Imports*/ 
 import { postData } from '../../Redux/postAction';
 import { connect } from 'react-redux';
 import showMessage from '../../Redux/toastAction';
 import { getData } from '../../Redux/getAction';
 import {APPLICATION_BFF_URL} from '../../Redux/urlConstants';
+import { Field, reduxForm } from 'redux-form';
+/* Global Imports*/ 
+import GlobalTextField from '../../Global/GlobalTextField';
+import Select from '../../Global/Select';
+import ToggleButtons from '../../Global/ToggleButton';
+/* Components */ 
+import SideBar from './SideBar';
+
 
 class About extends Component {
     constructor(props) {
