@@ -9,8 +9,10 @@ import LegalEntities from '../CompanyProfile/Reducers/LegalEntity';
 import EmpTypeList from '../CompanyProfile/Reducers/EmployeeType';
 import BasicInfo from '../Authorization/Reducer/basicData';
 import SetPassword from '../Authorization/Reducer/setPassword';
-
-
+import CobPostFun from './commonReducer';
+import CobApprovalFun from './commonReducer';
+let CobPost=CobPostFun('cobsave');
+let CobApproval=CobApprovalFun('cob-approval');
 
 let rootRducer = combineReducers({
     form:formReducer,
@@ -22,7 +24,9 @@ let rootRducer = combineReducers({
     LegalEntities,
     EmpTypeList,
     BasicInfo,
-    SetPassword
+    SetPassword,
+    CobPost,
+    CobApproval
 })
 
 export default rootRducer;

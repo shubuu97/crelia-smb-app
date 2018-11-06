@@ -1,20 +1,22 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Avatar from '@material-ui/core/Avatar';
+import _get from 'lodash/get';
+/* Material Imports */ 
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import FormControl from '@material-ui/core/FormControl';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
+import CircularProgress from '@material-ui/core/CircularProgress';
+/* Redux Imports */
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { postData } from '../../../Redux/postAction'
-import GlobalTextField from '../../../Global/GlobalTextField';
-import _get from 'lodash/get';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import showMessage from '../../../Redux/toastAction';
-import TabHoc from '../../components/TabHoc';
+/* Global Imports */
+import GlobalTextField from '../../../Global/GlobalTextField';
+import {APPLICATION_BFF_URL} from '../../../Redux/urlConstants'
+
+import TabHoc from '../TabHoc';
 
 const styles = theme => ({
   form: {
@@ -29,7 +31,7 @@ class Registration extends Component {
   handleSignUp = (values) => {
     values.TOU = "SMBUser";
     this.props.dispatch(
-      postData('http://13.233.38.55:4005/api/signup', values, 'signup', {
+      postData(`${APPLICATION_BFF_URL}/api/signup`, values, 'signup', {
         init: 'signup_init',
         success: 'signup_success',
         error: 'signup_error'
@@ -92,15 +94,13 @@ Registration = reduxForm({
   form: 'Registration'
 })(Registration);
 
-
-
-
 Registration = withStyles(styles)(Registration);
 
 function mapStateToProps(state) {
   let isFetching = _get(state, 'SignUpData.isFetching', false);
   return { isFetching };
 }
+
 export default connect(mapStateToProps)(TabHoc(Registration));
 
 Registration.propTypes = {

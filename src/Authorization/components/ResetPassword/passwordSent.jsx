@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import _get from 'lodash/get';
-/* Redux Import */ 
-import { reduxForm } from 'redux-form';
-import { connect } from 'react-redux';
-/* Material Imports */ 
+/* Material Imports */
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
 import CircularProgress from '@material-ui/core/CircularProgress';
-/* Assets*/ 
-import imgmailsent from '../../../Assets/images/mail-sent-icon.png';
+/* Redux Imports */
+import { Field, reduxForm } from 'redux-form';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+/* Asset Imports */
+import imgsuccess from '../../../Assets/images/success.png';
 
 const styles = theme => ({
     form: {
@@ -19,38 +19,48 @@ const styles = theme => ({
 });
 
 
-class RegistrationSuccess extends React.Component {
+class PasswordSent extends React.Component {
+
+    constructor(props){
+        super(props);
+        this.state = {
+            email : _get(this.props, "location.state.email", "") ,
+        }
+    }
 
     handleResend = (values) => {
-        //this.props.history.push('/passwordSent')
+        //Resend API
     }
 
     censorWord = (str) => {
         return str[0] + str[1] + str[2] + "*".repeat(str.length - 3);
-     }
-     
+    }
+
     censorEmail = (email) => {
         var arr = email.split("@");
-        if(email)
+        if (email)
             return this.censorWord(arr[0]) + "@" + arr[1];
         else
             this.props.history.push('/')
-     }
+    }
 
     render() {
+        debugger
         const { classes, handleSubmit } = this.props;
-        const email = _get(this.props, "location.state.email", "");
+        const email = _get(this.state, "email", "");
         return (
             <React.Fragment>
+
                 <div className="msg-container">
-                    <div className="msgicon msgiconmail pb-15"><img src={imgmailsent} /></div>
+                    <div className="msgicon pb-15"><img src={imgsuccess} /></div>
                     <h4>
-                        Email sent
-                            </h4>
+                        Password Sent!
+                        </h4>
                     <p className="text-center">
-                        We have sent you account activation link to {this.censorEmail(email)}.<br />
-                        Please check your inbox for further instruction.
-                            </p>
+                        We have sent you password activation link to {this.censorEmail(email)}.<br />
+                        Please check your inbox for further innstruction.
+                        </p>
+
                     <form className={classes.form} onSubmit={handleSubmit(this.handleResend)} >
                         <div class="action-block">
                             <p className="text-center">
@@ -58,12 +68,12 @@ class RegistrationSuccess extends React.Component {
                             </p>
                             <Button
                                 type="submit"
-                                disabled={this.props.isFetching.isFetching}
+                                disabled={this.props.isFetching}
                                 variant="contained"
                                 color="primary"
                                 className="btnprimary no-marg"
                             >
-                                {this.props.isFetching.isFetching ? <CircularProgress size={24} /> : 'Resend'}
+                                {this.props.isFetching ? <CircularProgress size={24} /> : 'Resend'}
                             </Button>
                         </div>
                     </form>
@@ -73,18 +83,19 @@ class RegistrationSuccess extends React.Component {
     }
 }
 
-RegistrationSuccess = reduxForm({
-    form: 'RegistrationSuccess'
-})(RegistrationSuccess);
+PasswordSent = reduxForm({
+    form: 'PasswordSentForm'
+})(PasswordSent);
 
-RegistrationSuccess = withStyles(styles)(RegistrationSuccess);
+
+PasswordSent = withStyles(styles)(PasswordSent);
 
 function mapStateToProps(state) {
-    let isFetching = _get(state, 'LoginData', false);
+    let isFetching = _get(state, 'LoginData.isFetching', false);
     return { isFetching };
 }
-export default connect(mapStateToProps)(RegistrationSuccess)
+export default connect(mapStateToProps)(PasswordSent)
 
-RegistrationSuccess.propTypes = {
+PasswordSent.propTypes = {
     classes: PropTypes.object.isRequired,
 };

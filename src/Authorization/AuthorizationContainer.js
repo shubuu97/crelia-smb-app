@@ -16,6 +16,8 @@ import AuthTabHoc from './components/TabHoc';
 import showMessage from '../Redux/toastAction'
 import { resolve } from 'path';
 import { rejects } from 'assert';
+import {APPLICATION_BFF_URL} from '../Redux/urlConstants'
+
 
 var jwtDecode = require('jwt-decode');
 const styles = theme => ({
@@ -34,9 +36,10 @@ class SignIn extends Component {
 
   handleSignIn = (values) => {
 
-    
+      debugger
+      
       this.props.dispatch(
-        postData('http://13.233.38.55:4005/api/login', values, 'login-data', {
+        postData(`${APPLICATION_BFF_URL}/api/login`, values, 'login-data', {
           init: 'login_init',
           success: 'login_success',
           error: 'login_error'
@@ -53,11 +56,10 @@ class SignIn extends Component {
         if (decodeData.role == 'TempInvestorUser') {
           role = 'InvestorUser';
           localStorage.setItem('role',role)
-
         }
 
         this.props.dispatch(
-          getData(`http://13.233.38.55:4005/api/${role}/${encodeURIComponent(decodeData.id)}`, 'fetchingbasicdata', {
+          getData(`${APPLICATION_BFF_URL}/api/${role}/${encodeURIComponent(decodeData.id)}`, 'fetchingbasicdata', {
             init: 'basicdata_init',
             success: 'basicdata_success',
             error: 'basicdata_error'
@@ -96,9 +98,9 @@ class SignIn extends Component {
           <form className={classes.form} onSubmit={handleSubmit(this.handleSignIn)} >
             <FormControl margin="normal" required fullWidth>
               <Field
-                label="User Name"
+                label="Email"
                 placeholder=""
-                name="username"
+                name="email"
                 component={GlobalTextField}
                 variant="standard"
                 id="emailAddress"
@@ -127,12 +129,12 @@ class SignIn extends Component {
               <Button
                 type="submit"
                 fullWidth
-                disabled={this.props.isFetching}
+                disabled={this.props.isFetchingLogin||this.props.isFetchingBasicData}
                 variant="contained"
                 color="primary"
                 className="btnprimary ml-35"
               >
-                {this.props.isFetching ? <CircularProgress size={24} /> : 'Sign In'}
+                {this.props.isFetchingLogin||this.props.isFetchingBasicData ? <CircularProgress size={24} /> : 'Sign In'}
               </Button>
             </div>
           </form>
@@ -151,9 +153,10 @@ SignIn = reduxForm({
 SignIn = withStyles(styles)(SignIn);
 
 function mapStateToProps(state) {
-  let isFetching = _get(state, 'LoginData.isFetching', false);
+  let isFetchingLogin = _get(state, 'LoginData.isFetching', false);
+  let isFetchingBasicData = _get(state,'BasicInfo.isFetching')
 
-  return { isFetching };
+  return { isFetchingLogin,isFetchingBasicData };
 }
 export default connect(mapStateToProps)(AuthTabHoc(SignIn))
 

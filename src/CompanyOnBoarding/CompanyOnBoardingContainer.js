@@ -12,18 +12,19 @@ import { withStyles } from '@material-ui/core/styles';
 /* Redux Imports */
 import { connect } from 'react-redux';
 import { postData } from '../Redux/postAction';
+import showMessage from '../Redux/toastAction';
+import { getData } from '../Redux/getAction';
+import { APPLICATION_BFF_URL } from '../Redux/urlConstants'
 /* Components*/
 import CompanyOnBoarding from './components/About/AboutMain';
 import ContactContainer from './components/Contact/ContactContainer';
 import FinanceInformationMain from './components/Financial/FinancialInformaionMain';
 import Help from './components/Help';
-import showMessage from '../Redux/toastAction';
-import { getData } from '../Redux/getAction'
+
 
 
 
 var jwtDecode = require('jwt-decode');
-
 
 function TabContainer({ children, dir }) {
     return (
@@ -32,6 +33,7 @@ function TabContainer({ children, dir }) {
         </Typography>
     );
 }
+
 TabContainer.propTypes = {
     children: PropTypes.node.isRequired,
     dir: PropTypes.string.isRequired,
@@ -43,7 +45,6 @@ const styles = theme => ({
         width: 500,
     },
 });
-
 
 class CompanyOnBoardingContainer extends React.Component {
 
@@ -59,34 +60,31 @@ class CompanyOnBoardingContainer extends React.Component {
         this.handleNext = this.handleNext.bind(this);
     }
 
+    componentDidMount() {
+        this.basicDataFetcher();
+    }
+
     basicDataFetcher = () => {
+        if (localStorage.getItem('authToken')) {
+            let decodeData = jwtDecode(localStorage.getItem('authToken'));
+            
+            let role = decodeData.role
+            if(role.search("Temp")){
+                role = role.substr(3)
+                localStorage.setItem('role', role)
+            }
 
-        if(localStorage.getItem('authToken'))
-        {
-        let decodeData = jwtDecode(localStorage.getItem('authToken'));
-        let role = decodeData.role
-        if(decodeData.role=='TempSMBUser') {
-            role = 'SMBUser';
-            localStorage.setItem('role',role)
-          }
-          if (decodeData.role == 'TempInvestorUser') {
-            role = 'InvestorUser';
-            localStorage.setItem('role',role)
-  
-          }
-
-        this.props.dispatch(
-            getData(`http://13.233.38.55:4005/api/${role}/${encodeURIComponent(decodeData.id)}`, 'fetchingbasicdata', {
-                init: 'basicdata_init',
-                success: 'basicdata_success',
-                error: 'basicdata_error'
-            })
-        )
-    }
-    else
-    {
-        this.props.history.push('/')
-    }
+            this.props.dispatch(
+                getData(`${APPLICATION_BFF_URL}/api/${role}/${encodeURIComponent(decodeData.id)}`, 'fetchingbasicdata', {
+                    init: 'basicdata_init',
+                    success: 'basicdata_success',
+                    error: 'basicdata_error'
+                })
+            )
+        }
+        else {
+            // this.props.history.push('/')
+        }
     }
 
     handleChange = (event, value) => {
@@ -96,8 +94,6 @@ class CompanyOnBoardingContainer extends React.Component {
     handleChangeIndex = index => {
         this.setState({ value: index });
     };
-
-
 
     settings = {
         variant: 'outlined',
@@ -109,10 +105,10 @@ class CompanyOnBoardingContainer extends React.Component {
         }
         /* Post Form Data*/
         this.props.dispatch(
-            postData('http://13.233.38.55:4005/api/saveSMB', reqObj, 'cob-data', {
-                init: '',
-                success: '',
-                error: ''
+            postData(`${APPLICATION_BFF_URL}/api/saveSMB`, reqObj, 'cobsave', {
+                init: 'cobsave_init',
+                success: 'cobsave_success',
+                error: 'cobsave_error'
             })
         ).then((data) => {
             this.props.dispatch(showMessage({ text: 'Update Succesfully', isSuccess: true }));
@@ -136,7 +132,6 @@ class CompanyOnBoardingContainer extends React.Component {
 
         /* Switching between tabs*/
 
-
         // this.props.dispatch(
         //     getData('https://api.github.com/search/repositories?q=react', 'fjd', {
         //         init: 'cobabout_init',
@@ -148,16 +143,13 @@ class CompanyOnBoardingContainer extends React.Component {
         // })
     };
 
-    componentDidMount() {
-        this.basicDataFetcher();
-    }
     handleSubmitAprroval = () => {
         let reqObj = { id: this.props.id }
         this.props.dispatch(
-            postData('http://13.233.38.55:4005/api/SendSMBForApproval', reqObj, 'cob-approval', {
-                init: 'approval_init',
-                success: 'approval_success',
-                error: 'approval_error'
+            postData(`${APPLICATION_BFF_URL}/api/SendSMBForApproval`, reqObj, 'cob-approval', {
+                init: 'cob-approval_init',
+                success: 'cob-approval_success',
+                error: 'cob-approval_error'
             })
         ).then((data) => {
             this.props.dispatch(showMessage({ text: 'Update Succesfully', isSuccess: true }));
@@ -200,13 +192,21 @@ class CompanyOnBoardingContainer extends React.Component {
                             onChangeIndex={this.handleChangeIndex}
                         >
                             <TabContainer dir={theme.direction}>
-                                <CompanyOnBoarding initialValues={this.props.initialValuesAbout} handleNext={this.handleNext} />
+                                <CompanyOnBoarding
+                                    isFetching={this.props.isFetchingSave}
+                                    initialValues={this.props.initialValuesAbout}
+                                    handleNext={this.handleNext} />
                             </TabContainer>
                             <TabContainer dir={theme.direction}>
-                                <ContactContainer handleNext={this.handleNext} initialValues={this.props.initialValuesContact} />
+                                <ContactContainer
+                                    isFetching={this.props.isFetchingSave}
+                                    handleNext={this.handleNext}
+                                    initialValues={this.props.initialValuesContact} />
                             </TabContainer>
                             <TabContainer dir={theme.direction}>
                                 <FinanceInformationMain
+                                    isFetchingSave={this.props.isFetchingSave}
+                                    isFetchingApprove={this.props.isFetchingApprove}
                                     handleSubmitAprroval={this.handleSubmitAprroval}
                                     handleNext={this.handleNext}
                                     initialValues={this.props.initialValuesFinance} />
@@ -230,6 +230,12 @@ CompanyOnBoardingContainer.propTypes = {
 };
 
 function mapStateToProps(state) {
+
+    //ONBOARDING FETCHING
+    let isFetchingSave = _get(state, 'CobPost.isFetching');
+    let isFetchingApprove = _get(state, 'CobApproval.isFetching');
+
+
     let username = _get(state, 'BasicInfo.lookUpData.username', null);
     let id = _get(state, 'BasicInfo.lookUpData.companyDetails.id');
     let personalPhoneNumber = _get(state, 'BasicInfo.lookUpData.phoneNumber');
@@ -240,14 +246,13 @@ function mapStateToProps(state) {
     let expansion = 0;
     let workingCapital = 0;
     let refinancing = 0;
-    if(Array.isArray(loanAllocation))
-    {
-    let  ExpansionObj =  _find(loanAllocation,{loanPurpose:'Expansion'});
-    expansion = _get(ExpansionObj,'percentage');
-    let  captialObj =  _find(loanAllocation,{loanPurpose:'Working Capital'});
-    workingCapital = _get(captialObj,'percentage');
-    let  FinancingObj =  _find(loanAllocation,{loanPurpose:'Re Financing'});
-    refinancing = _get(FinancingObj,'percentage');
+    if (Array.isArray(loanAllocation)) {
+        let ExpansionObj = _find(loanAllocation, { loanPurpose: 'Expansion' });
+        expansion = _get(ExpansionObj, 'percentage');
+        let captialObj = _find(loanAllocation, { loanPurpose: 'Working Capital' });
+        workingCapital = _get(captialObj, 'percentage');
+        let FinancingObj = _find(loanAllocation, { loanPurpose: 'Re Financing' });
+        refinancing = _get(FinancingObj, 'percentage');
     }
 
     let address = _get(state, 'BasicInfo.lookUpData.companyDetails.address');
@@ -256,39 +261,40 @@ function mapStateToProps(state) {
     let legalEntityType = _get(state, 'BasicInfo.lookUpData.companyDetails.legalEntityType');
     let legalName = _get(state, 'BasicInfo.lookUpData.companyDetails.legalName');
     let isOtherShortTermLoan = _get(state, 'BasicInfo.lookUpData.companyDetails.onboardingInfo.isOtherShortTermLoan');
-    isOtherShortTermLoan = isOtherShortTermLoan?'yes':'no'
-    let otherCompanyName = _get(state, 'BasicInfo.lookUpData.companyDetails.onboardingInfo.otherCompanyName');
-    otherCompanyName = otherCompanyName?'yes':'no'
+    isOtherShortTermLoan = isOtherShortTermLoan ? 'yes' : 'no'
+    let otherCompanyName = _get(state, 'BasicInfo.lookUpData.companyDetails.onboardingInfo.otherCompanyName', '');
+    let businessUnderName = otherCompanyName ? 'yes' : 'no'
+
 
     // Financial
-    let financialData = _get(state, 'BasicInfo.lookUpData.companyDetails.financialInfo.financialData',[]);
-    let email = _get(state, 'BasicInfo.lookUpData.companyDetails.email','')
-    let financeVars = {};
-    let incorporationDate = _get(state, 'BasicInfo.lookUpData.companyDetails.incorporationDate','').split('T')[0].trim();
-    for(let i = 0; i < financialData.length; i++){
+    let financialData = _get(state, 'BasicInfo.lookUpData.companyDetails.financialInfo.financialData', []);
+    let email = _get(state, 'BasicInfo.lookUpData.companyDetails.email', '')
+    let manualFinancial = {};
+    let incorporationDate = _get(state, 'BasicInfo.lookUpData.companyDetails.incorporationDate', '').split('T')[0].trim();
+    for (let i = 0; i < financialData.length; i++) {
         let keys = Object.keys(financialData[i])
         for (let j = 1; j < keys.length; j++) {
             if (financialData[i].year == 2016) {
-                financeVars[`${keys[j]}-2016`] = financialData[i][keys[j]]
+                manualFinancial[`${keys[j]}-2016`] = financialData[i][keys[j]]
             }
             else if (financialData[i].year == 2017) {
-                financeVars[`${keys[j]}-2017`] = financialData[i][keys[j]]
+                manualFinancial[`${keys[j]}-2017`] = financialData[i][keys[j]]
             }
             else if (financialData[i].year == 2018) {
-                financeVars[`${keys[j]}-2018`] = financialData[i][keys[j]]
+                manualFinancial[`${keys[j]}-2018`] = financialData[i][keys[j]]
             }
         }
     }
 
-    let initialValuesContact = { address, taxId, phoneNumber, legalEntityType, legalName, isOtherShortTermLoan, otherCompanyName, incorporationDate, email }
+    let initialValuesContact = { address, taxId, phoneNumber, legalEntityType, legalName, businessUnderName, isOtherShortTermLoan, otherCompanyName, incorporationDate, email }
 
-    let initialValuesAbout = { personalPhoneNumber, userEmail, moneyRequired, timeFrame,workingCapital,expansion,refinancing };
+    let initialValuesAbout = { personalPhoneNumber, userEmail, moneyRequired, timeFrame, workingCapital, expansion, refinancing };
 
     let initialValuesFinance = {
-        ...financeVars
+        manualFinancial
     }
 
-    return { username, id, initialValuesAbout, initialValuesContact, initialValuesFinance }
+    return { username, id, initialValuesAbout, initialValuesContact, initialValuesFinance, isFetchingSave, isFetchingApprove }
 }
 
 export default connect(mapStateToProps)(withStyles(styles, { withTheme: true })(CompanyOnBoardingContainer));

@@ -1,7 +1,8 @@
 import {withHandlers} from 'recompose';
 import { connect } from 'tls';
 import {postData} from '../Redux/postAction'
-import showMessage from '../Redux/toastAction'
+import showMessage from '../Redux/toastAction';
+import {APPLICATION_BFF_URL} from '../Redux/urlConstants'
 const decorateWithOnDrop = withHandlers({
     onDrop:(props)=>(accept,reject,name)=>{
         console.log(accept,"accept is here");
@@ -9,7 +10,7 @@ const decorateWithOnDrop = withHandlers({
         formData.append('file', accept[0])
         formData.append('mediaType', 'customer')
         formData.append('mediaTypeId', '1234567')
-        props.dispatch(postData(`http://13.233.38.55:4005/api/media`, formData, 'fileUpload',{
+        props.dispatch(postData(`${APPLICATION_BFF_URL}/api/media`, formData, 'fileUpload',{
             init:'File_Upload_init',
             success:'File_Upload_Success',
             error:'File_Upload_Error'

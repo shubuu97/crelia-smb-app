@@ -31,8 +31,8 @@ class MainLayout extends Component {
     render() {
         let  {classes} = this.props;
         console.log(this.props,"here");
-        if(!localStorage.getItem('authToken'))
-        this.props.history.push('/')
+        // if(!localStorage.getItem('authToken'))
+        // this.props.history.push('/')
 
         return (
             <div className="main-layout master">
@@ -40,7 +40,7 @@ class MainLayout extends Component {
                 <Header history={this.props.history}/>
                 </div>
                 <div className="main-content">
-                {this.props.companyStatus=='PENDING_APPROVAL'?<div>Your details has been sent for admin approval please wait for further action.. </div>:null}
+                {this.props.companyStatus=='PENDING_APPROVAL'?<div style={{color:'white',backgroundColor:'#4CAF50'}} >Your details has been sent for admin approval please wait for further action.. </div>:null}
                     {this.props.children}
                 </div>
                 <div>
@@ -73,7 +73,7 @@ function mapStateToProps(state)
 {
 
 let message = state.ShowToast.message;
-let companyStatus = _get(state,'BasicInfo.lookUpData.tempCompany.status');
+let companyStatus = _get(state,'BasicInfo.lookUpData.companyDetails.status');
 localStorage.setItem('companyStatus',companyStatus);
 if(companyStatus=="PENDING_APPROVAL")
 {

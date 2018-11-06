@@ -9,6 +9,12 @@ import Badge from '@material-ui/core/Badge';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import logoimg from '../Assets/images/logo-white.png';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+
+
+
 
 const styles = theme => ({
     root: {
@@ -41,35 +47,71 @@ class Header extends React.Component {
         localStorage.clear()
         this.props.history.push('/')
     }
+   
+    handleMouseOver = event => {
+        this.setState({ open: true, anchorEl: event.currentTarget });
+      };
+    
+      handleRequestClose = () => {
+        this.setState({ open: false });
+      };
+    
 
     render() {
         const { classes } = this.props;
         return (
+            <ClickAwayListener onClickAway={this.handleRequestClose}>
+
             <div className="topnavcontainer">
                 <div className="nevbar-left">
                     <div className="logo"><img src={logoimg} /></div>
                     <div className="nevbar">
                         <ul>
-                            <li><a href="#">Users</a></li>
-                            <li><a href="#">Organizations</a></li>
-                            <li><a href="#">Loans</a></li>
-                            <li><a href="#">Offers</a></li>
-                            <li><a href="#">Requests</a></li>
-                            <li><a href="#">Others <i class="material-icons droparrow">keyboard_arrow_down</i></a></li>
+                            <li><a >Users</a></li>
+                            <li><a >Organizations</a></li>
+                            <li><a >Loans</a></li>
+                            <li><a >Offers</a></li>
+                            <li><a >Requests</a></li>
+                            <li><a >Others <i class="material-icons droparrow">keyboard_arrow_down</i></a></li>
                         </ul>
                     </div>
 
                 </div>
+          
+        <Menu
+          id="simple-menu"
+          anchorEl={this.state.anchorEl}
+          open={this.state.open}
+          anchorOrigin={{vertical:'bottom',horizontal:'center'}}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'center',
+          }}
+          onRequestClose={this.handleRequestClose}
+        >
+          <MenuItem onClick={()=>{this.props.history.push('/about');
+          this.setState({open:false})
+          
+        }}>Company Profile</MenuItem>
+          <MenuItem onClick={()=>{
+              this.props.history.push('/account');
+              this.setState({open:false})
+              }}>My account</MenuItem>
+          <MenuItem onClick={this.logout}>Logout</MenuItem>
+        </Menu>
+       
                 <div className="nevbar-right">
                     <ul className="myaccount">
                         <li><a href="#"><i class="material-icons notification">notifications_none</i></a></li>
-                        <li><a onClick={this.logout}>
-                            <i class="material-icons useraccount">person_outline</i>
+                        <li onMouseOver={this.handleMouseOver}><a >
+                            <i  className="material-icons useraccount" >person_outline</i>
                             <i class="material-icons droparrow">keyboard_arrow_down</i></a>
                         </li>
+                        
                     </ul>
                 </div>
             </div>
+             </ClickAwayListener>
 
 
             // <div className={classes.root}>

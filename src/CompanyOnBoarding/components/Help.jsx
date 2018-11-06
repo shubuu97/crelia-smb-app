@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
+/* Material Imports*/
 import { Typography } from '@material-ui/core';
-import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
-import Divider from '@material-ui/core/Divider';
+/* Assets Imports*/
 import imgsecure from '../../Assets/images/secure.png';
 import imgquestion from '../../Assets/images/question.png';
 
@@ -31,35 +30,32 @@ class Help extends React.Component {
                         <span>(800) 435-7376</span>
                         </p>
                         <div className="contact-block">
-                    <div className="contact-block-a"><i class="material-icons">mail_outline</i> Email Support</div>
-                    <div className="contact-block-b"><i class="material-icons">chat_bubble_outline</i> Live Chat</div>
-                </div>     
+                            <div className="contact-block-a"><i class="material-icons">mail_outline</i> Email Support</div>
+                            <div className="contact-block-b"><i class="material-icons">chat_bubble_outline</i> Live Chat</div>
+                        </div>
                     </div>
                 </div>
-                 <div className="request-assistance">
-                    {/* { (activeStep == 2) &&  */}
+                <div className="request-assistance">
                     <Card>
-                            <CardContent>
-                                <Typography
-                                    component="h6"
-                                    variant="title"
-                                    gutterBottom
-                                >
-                                    Need help getting through this step?
+                        <CardContent>
+                            <Typography
+                                component="h6"
+                                variant="title"
+                                gutterBottom
+                            >
+                                Need help getting through this step?
                                  </Typography>
-                                    <div className="row justify-content-center pt-15 pb-15">
-                                    
-                                        <Button className="btnprimary" color='primary' variant='outlined' size="large">Request Assistance</Button>
-                                      
-                                    </div>
-                                    
-                               
-                                <Typography>
-                                    Our specialist will contact you at your convenience
+                            <div className="row justify-content-center pt-15 pb-15">
+
+                                <Button className="btnprimary" color='primary' variant='outlined' size="large">Request Assistance</Button>
+
+                            </div>
+                            <Typography>
+                                Our specialist will contact you at your convenience
                                 </Typography>
-                            </CardContent>
-                        </Card>
-                </div>               
+                        </CardContent>
+                    </Card>
+                </div>
             </div>
         )
     }
