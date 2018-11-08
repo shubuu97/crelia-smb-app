@@ -13,6 +13,7 @@ import GlobalTextField from '../../../Global/GlobalTextField'
 import SelectField from '../../../Global/Select'
 import ToggleButtons from '../../../Global/ToggleButton'
 import asyncValidate from '../../validate';
+import CustomizedTooltips from '../../../Global/ToolTip'
 /* Styles */
 import '../../styles/CompanyOnBoarding.less';
 
@@ -37,8 +38,15 @@ class AboutMain extends React.Component {
     }
 
     checkboxTest = () => {
-        let labels = ["Expansion", "Working Capital", "Refinancing"];
+        let labels = ["Investment", "Working Capital", "Refinancing"];
+        let tooltip = [
+            "Investment is purchase of equipment, new branches/locations, renovation of new premises.",
+            "Working Capital is salaries, raw materials, prepaid services, inventory work-in-process, finished goods, returns and defects.",
+            "Refinancing is capital used to pay down previous loans or to buy out existing investor partners."
+        ]
+        let index = -1;
         var markup = labels.map((label) => {
+            index++
             let name = _camelCase(label)
             return (
                 <div className="flex-row justify-space-between align-center loan-section">
@@ -53,6 +61,10 @@ class AboutMain extends React.Component {
                             />
                         }
                         label={label}
+                    />
+                    <CustomizedTooltips
+                        title={tooltip[index]}
+                        arrow={true}
                     />
                     {this.state[name] ? <div className="flex-row align-center loan-section-percent">
                         <span className="small-helptext width-100-percent">Percentage of total</span>
@@ -74,6 +86,10 @@ class AboutMain extends React.Component {
         );
     }
 
+    LoanEquityCheckbox = () => {
+        
+    }
+
     submitHandler = (values) => {
         let reqObj = {};
         let loanAllocation = []
@@ -88,9 +104,9 @@ class AboutMain extends React.Component {
         }
         //reqObj.phoneNumber = values.phoneNumber ;
         //reqObj.email = values.email;
-        setwith(reqObj,'onboardingInfo.moneyRequired',parseInt(values.moneyRequired));
-        setwith(reqObj,'onboardingInfo.loanAllocation',loanAllocation);
-        setwith(reqObj,'onboardingInfo.timeFrame',values.timeFrame)
+        setwith(reqObj, 'onboardingInfo.moneyRequired', parseInt(values.moneyRequired));
+        setwith(reqObj, 'onboardingInfo.loanAllocation', loanAllocation);
+        setwith(reqObj, 'onboardingInfo.timeFrame', values.timeFrame)
         this.props.handleNext(reqObj)
 
     }
@@ -111,7 +127,7 @@ class AboutMain extends React.Component {
                     <div className="Onboarding_Title">Apply for Business Financing</div>
                     <div className="row justify-content-between pt-20">
                         <div className="col-sm-6">
-                            <div class="col-sm-12"><span className="onboarding-sub-title">How much funding do you need?</span></div>
+                            <div class="col-sm-12"><span className="onboarding-sub-title">How much funding do you think you may need?</span></div>
                             <Field
                                 label=""
                                 disabled={localStorage.getItem('disabled')}
@@ -125,18 +141,17 @@ class AboutMain extends React.Component {
                         </div>
                         <div className="col-sm-6 get-money">
                             <div class="col-sm-12">
-                                <span className="onboarding-sub-title">How soon do you need the money?</span>
+                                <span className="onboarding-sub-title">How soon will you need the money?</span>
                             </div>
                             <Field
                                 name="timeFrame"
                                 disabled={localStorage.getItem('disabled')}
                                 component={ToggleButtons}
                                 toggleList={[
-                                    { label: '30 Days', alinValue: '30 Days' },
-                                    { label: '3 Mnths', alinValue: '3 Mnths' },
-                                    { label: '6 Mnths', alinValue: '6 Mnths' },
-                                    { label: '1 Yr', alinValue: '1 Yr' },
-                                    { label: '>1 Yr', alinValue: '> 1 Year' }
+                                    { label: '< 1 Month', alinValue: '< 1 Month' },
+                                    { label: '1-3 Mnths', alinValue: '1-3 Mnths' },
+                                    { label: '3-6 Mnths', alinValue: '3-6 Mnths' },
+                                    { label: '> 6 Mnths', alinValue: '> 6 Mnths' }
                                 ]}
                             />
                         </div>
@@ -144,7 +159,7 @@ class AboutMain extends React.Component {
                     <div className="row justify-content-between pt-20">
 
                         <div className="col-sm-6">
-                            <div className="onboarding-sub-title">How will you see the loan?</div>
+                            <div className="onboarding-sub-title">How will you use the money?</div>
                             <div class="mdc-layout-grid__inner">
                                 <div class="mdc-layout-grid__cell--span-12">
                                     <div className="flex-column">
@@ -153,6 +168,7 @@ class AboutMain extends React.Component {
 
                                 </div>
                             </div>
+
                         </div>
 
                         <div className="col-sm-6">
@@ -168,7 +184,7 @@ class AboutMain extends React.Component {
                                                 component={GlobalTextField}
                                                 variant="outlined"
                                                 fullWidth={true}
-                                                
+
                                             />
                                         </div>
                                     </div>

@@ -29,11 +29,11 @@ class FinancialInformationMain extends React.Component {
       <React.Fragment>
         <form>
           <div className="Onboarding_Title"> Financial Summary</div>
-          <p> To Proceed with your loan request please share additional information on your company performance</p>
+          <p> Please share some additional information on your company performance.</p>
           <div className="row justify-content-between pt-20">
             <div className="col-sm-12 finan-tab">
               <div className={this.state.type == 'file' ? "active" : ""} onClick={() => this.handleSwitch('file')}> Upload File</div>
-              <div className={this.state.type == 'upload' ? "active" : ""} onClick={() => this.handleSwitch('upload')}>Fill out the file manually</div>
+              <div className={this.state.type == 'upload' ? "active" : ""} onClick={() => this.handleSwitch('upload')}>Fill out manually</div>
             </div>
           </div>
           <div className="row justify-content-between pt-20">

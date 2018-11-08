@@ -16,7 +16,7 @@ import showMessage from '../Redux/toastAction';
 import { getData } from '../Redux/getAction';
 import { APPLICATION_BFF_URL } from '../Redux/urlConstants'
 /* Components*/
-import CompanyOnBoarding from './components/About/AboutMain';
+import FundingMain from './components/Funding/FundingMain';
 import ContactContainer from './components/Contact/ContactContainer';
 import FinanceInformationMain from './components/Financial/FinancialInformaionMain';
 import Help from './components/Help';
@@ -100,8 +100,14 @@ class CompanyOnBoardingContainer extends React.Component {
     };
 
     handleNext = (values) => {
+        debugger
+        let id = this.props.id
+        if(!this.props.id && this.props.tempId){
+            id = this.props.tempId.split('#')[1]
+        }
+
         let reqObj = {
-            ...values, id: this.props.id
+            ...values, id: id
         }
         /* Post Form Data*/
         this.props.dispatch(
@@ -181,9 +187,9 @@ class CompanyOnBoardingContainer extends React.Component {
                                 textColor="primary"
                                 fullWidth
                             >
-                                <Tab label="About" />
+                                <Tab label="Funding" />
                                 <Tab label="Company" />
-                                <Tab label="Finance" />
+                                <Tab label="Financials" />
                             </Tabs>
                         </AppBar>
                         <SwipeableViews
@@ -192,7 +198,7 @@ class CompanyOnBoardingContainer extends React.Component {
                             onChangeIndex={this.handleChangeIndex}
                         >
                             <TabContainer dir={theme.direction}>
-                                <CompanyOnBoarding
+                                <FundingMain
                                     isFetching={this.props.isFetchingSave}
                                     initialValues={this.props.initialValuesAbout}
                                     handleNext={this.handleNext} />
@@ -237,7 +243,12 @@ function mapStateToProps(state) {
 
 
     let username = _get(state, 'BasicInfo.lookUpData.username', null);
-    let id = _get(state, 'BasicInfo.lookUpData.companyDetails.id');
+    let id = _get(state, 'BasicInfo.lookUpData.companyDetails.id', null);
+    
+    /* To be removed once fixed by Amrit */ 
+    let tempId = _get(state, 'BasicInfo.lookUpData.tempCompany', "");
+    /* --------------------------------- */ 
+
     let personalPhoneNumber = _get(state, 'BasicInfo.lookUpData.phoneNumber');
     let userEmail = _get(state, 'BasicInfo.lookUpData.email');
     let moneyRequired = _get(state, 'BasicInfo.lookUpData.companyDetails.onboardingInfo.moneyRequired');
@@ -293,8 +304,7 @@ function mapStateToProps(state) {
     let initialValuesFinance = {
         manualFinancial
     }
-
-    return { username, id, initialValuesAbout, initialValuesContact, initialValuesFinance, isFetchingSave, isFetchingApprove }
+    return { username, id, tempId, initialValuesAbout, initialValuesContact, initialValuesFinance, isFetchingSave, isFetchingApprove }
 }
 
 export default connect(mapStateToProps)(withStyles(styles, { withTheme: true })(CompanyOnBoardingContainer));

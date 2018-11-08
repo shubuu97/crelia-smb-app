@@ -3,12 +3,12 @@ import _get from 'lodash/get';
 /* Material Imports */
 import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
-/* Redux Imports*/ 
+/* Redux Imports*/
 import { Field, reduxForm, FormSection } from 'redux-form';
 import { connect } from 'react-redux';
 import { getData } from '../../../Redux/getAction';
-import {APPLICATION_BFF_URL} from '../../../Redux/urlConstants'
-/* Global Imports*/ 
+import { APPLICATION_BFF_URL } from '../../../Redux/urlConstants'
+/* Global Imports*/
 import GlobalTextField from '../../../Global/GlobalTextField'
 import RadioButtonGroup from '../../../Global/Radio';
 import Select from '../../../Global/Select';
@@ -39,23 +39,21 @@ class ContactContainer extends Component {
             })
         )
     }
-    submitFunction=(values)=>
-    {
-        let reqObj = {...values};
-        if(values.businessUnderName=='no')
-        setWith(reqObj,'onboardingInfo.otherCompanyName','')
-        else
-        {
-        setWith(reqObj,'onboardingInfo.otherCompanyName',values.otherCompanyName)
+    submitFunction = (values) => {
+        let reqObj = { ...values };
+        if (values.businessUnderName == 'no')
+            setWith(reqObj, 'onboardingInfo.otherCompanyName', '')
+        else {
+            setWith(reqObj, 'onboardingInfo.otherCompanyName', values.otherCompanyName)
         }
 
-        setWith(reqObj,'onboardingInfo.isOtherShortTermLoan',values.isOtherShortTermLoan);
+        setWith(reqObj, 'onboardingInfo.isOtherShortTermLoan', values.isOtherShortTermLoan);
 
         delete reqObj.isOtherShortTermLoan;
         delete reqObj.businessUnderName;
         delete reqObj.yearofStartBusiness;
         delete reqObj.otherCompanyName;
-        
+
         this.props.handleNext(reqObj);
     }
 
@@ -96,25 +94,27 @@ class ContactContainer extends Component {
                         />
                     </div>
                 </div>
+                <div className="col-sm-12">
+                    <FormControl margin="normal" required fullWidth>
+                        <Field
+                            disabled={localStorage.getItem('disabled')}
+                            label="Business Tax ID"
+                            name="taxId"
+                            component={GlobalTextField}
+                            variant="outlined"
+                            fullWidth="true"
+                        /></FormControl>
+                </div>
                 <div className="row justify-content-between pt-20">
                     <div className="col-sm-6">
                         <Field
                             disabled={localStorage.getItem('disabled')}
                             name="businessUnderName"
                             component={RadioButtonGroup}
-                            label='Do you do your business under a diffrent name?'
+                            label='Do you do or have previously done business under a different name?'
                             radioList={[{ label: "Yes", value: "yes" }, { label: "No", value: "no" }]}
                         />
 
-                    </div>
-                    <div className="col-sm-6">
-                        <Field
-                            disabled={localStorage.getItem('disabled')}
-                            name="isOtherShortTermLoan"
-                            component={RadioButtonGroup}
-                            label='Do you currently have other short-term financing?'
-                            radioList={[{ label: "Yes", value: "yes" }, { label: "No", value: "no" }]}
-                        />
                     </div>
                 </div>
                 {this.props.businessUnderNameValue === 'yes' &&
@@ -133,7 +133,7 @@ class ContactContainer extends Component {
                     </div>
                 }
                 <div className="row justify-content-between pt-20">
-                    <div className="onboarding-sub-title col-sm-12">What Date you start Business</div>
+                    <div className="onboarding-sub-title col-sm-12">Since when are you in business?</div>
                     <div className="col-sm-12">
                         <FormControl margin="normal" required fullWidth>
                             <Field
@@ -212,29 +212,19 @@ class ContactContainer extends Component {
                         />
                     </div>
                     <br />
-                    <div className="col-sm-12">
-                        <FormControl margin="normal" required fullWidth>
-                            <Field
-                                disabled={localStorage.getItem('disabled')}
-                                label="Business Tax ID"
-                                name="taxId"
-                                component={GlobalTextField}
-                                variant="outlined"
-                                fullWidth="true"
-                            /></FormControl>
-                    </div>
+
                 </div>
                 <div class="common-action-block">
                     <Button
                         type="submit"
-                        disabled={localStorage.getItem('companyStatus')=='PENDING_APPROVAL'?true:false||this.props.isFetching}
+                        disabled={localStorage.getItem('companyStatus') == 'PENDING_APPROVAL' ? true : false || this.props.isFetching}
                         fullWidth
                         // disabled={this.props.isFetching}
                         variant="contained"
                         color="primary"
                         className="btnprimary ml-50"
                     >
-                    {this.props.isFetching ? <CircularProgress size={24} /> : 'Save & continue'}
+                        {this.props.isFetching ? <CircularProgress size={24} /> : 'Save & continue'}
 
                     </Button>
                 </div>

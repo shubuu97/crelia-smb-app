@@ -19,7 +19,7 @@ class FinancialInfoUpload extends React.Component {
                 <div className="row justify-content-between ">
                     <div className="col-sm-6">
                         <DropzoneArea
-                            title="Financial Statement for last two years"
+                            title="Financial Statement for last three years"
                             fieldName='preview1'
                             onDrop={this.props.onDrop}
                             dropzone={this.props.state.preview1}
@@ -27,18 +27,27 @@ class FinancialInfoUpload extends React.Component {
                     </div>
                     <div className="col-sm-6">
                         <DropzoneArea
-                            title="2018 Forecast (optional)"
+                            title="2019 Forecast (optional)"
                             fieldName='preview2'
                             onDrop={this.props.onDrop}
                             dropzone={this.props.state.preview2}
                         />
+                    </div>
+                    <div className="col-sm-6">
+                        <DropzoneArea
+                            title="Business Plan"
+                            fieldName='preview3'
+                            onDrop={this.props.onDrop}
+                            dropzone={this.props.state.preview3}
+                        />
+                    </div>
+                    <div className="col-sm-6">
                     </div>
                     <div class="common-action-block col-sm-12">
                         <Button
                             type="submit"
                             fullWidth
                             disabled={localStorage.getItem('companyStatus') == 'PENDING_APPROVAL' ? true : false || this.props.isFetching}
-                            // disabled={this.props.isFetching}
                             variant="contained"
                             color="primary"
                             className="btnprimary"
