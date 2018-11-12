@@ -20,7 +20,7 @@ let dropzoneArea = (props)=> {
                             <path d="M0 0h24v24H0z" fill="none"/>
                             <path d="M5 4v2h14V4H5zm0 10h4v6h6v-6h4l-7-7-7 7z"/>
                         </svg>
-                        <span className='dropzoneMainText'>Try dropping some files here, or click to select files to upload.</span>
+                        <span className='dropzoneMainText'>Drag and drop your files here or click to select files to upload.</span>
                         <span>Available File Formats: XSLS, CSV</span>
                         <span>maximum size 15mb</span>
                     </div>

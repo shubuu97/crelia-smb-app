@@ -21,8 +21,15 @@ const styles = theme => ({
 
 class RegistrationSuccess extends React.Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            email: _get(this.props, "location.state.email", ""),
+        }
+    }
+
     handleResend = (values) => {
-        //this.props.history.push('/passwordSent')
+        //resend API
     }
 
     censorWord = (str) => {
@@ -39,7 +46,7 @@ class RegistrationSuccess extends React.Component {
 
     render() {
         const { classes, handleSubmit } = this.props;
-        const email = _get(this.props, "location.state.email", "");
+        const email = _get(this.state, "email", "");
         return (
             <React.Fragment>
                 <div className="msg-container">

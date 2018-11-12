@@ -9,15 +9,15 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 /* Redux Imports */
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-import { postData } from '../../Redux/postAction'
-import showMessage from '../../Redux/toastAction'
+import { postData } from '../../../Redux/postAction'
+import showMessage from '../../../Redux/toastAction'
+import { APPLICATION_BFF_URL } from '../../../Redux/urlConstants'
 /* Global Imports */
-import GlobalTextField from '../../Global/GlobalTextField';
+import GlobalTextField from '../../../Global/GlobalTextField';
 import * as qs from 'query-string';
-import asyncValidate from '../validation/setPassword'
+import asyncValidate from '../../validation/setPassword'
 /* Phone No. Input Imports */
-import PhoneInput from '../../Global/PhoneNumInput';
-import { APPLICATION_BFF_URL } from '../../Redux/urlConstants'
+import PhoneInput from '../../../Global/PhoneNumInput';
 /* reCaptcha */
 import ReCAPTCHA from "react-google-recaptcha";
 
@@ -43,22 +43,36 @@ class ResetPassword extends Component {
       expired: "false"
     }
   }
+
+  componentDidMount() {
+    localStorage.clear();
+    const params = qs.parse(this.props.location.search);
+    console.log(params, "parmas");
+    localStorage.setItem('authToken', params.token)
+    if (params.token) {
+      let tokenObj = jwtDecode(params.token);
+      this.setState({ tokenObj })
+    }
+    else {
+      this.props.history.push('/')
+    }
+  }
+
   handleSetPassword = (values, a, b) => {
     console.log(a, b, "xxxx");
     let localValue = { ...values }
     let reCaptchaResponse = this.state.value
     delete localValue.confirmNewPassword;
-    delete localValue.reCaptchaResponse;
     let obj = {};
     obj.email = this.state.tokenObj.email;
     obj.companyType = this.state.tokenObj.TOU;
+    
     let credential = { username: values.username, password: values.password }
-    let reqObj = { ...localValue, ...obj };
+    let reqObj = { ...localValue, ...obj, reCaptchaResponse };
     console.log(reqObj, "Request Object");
-
     if (reCaptchaResponse) {
       this.props.dispatch(
-        postData(`${APPLICATION_BFF_URL}/api/${this.state.tokenObj.URL}`, reqObj, 'password-data', {
+        postData(`${APPLICATION_BFF_URL}/api/${'createSMBUser'}`, reqObj, 'password-data', {
           init: 'set_init',
           success: 'set_success',
           error: 'set_error'
@@ -99,19 +113,7 @@ class ResetPassword extends Component {
       })
   }
 
-  componentDidMount() {
-    localStorage.clear();
-    const params = qs.parse(this.props.location.search);
-    console.log(params, "parmas");
-    localStorage.setItem('authToken', params.token)
-    if (params.token) {
-      let tokenObj = jwtDecode(params.token);
-      this.setState({ tokenObj })
-    }
-    else {
-      this.props.history.push('/')
-    }
-  }
+  
 
   handleChange = value => {
     console.log("Captcha value:", value);
@@ -137,20 +139,6 @@ class ResetPassword extends Component {
           <h4>Set Your Password</h4>
           <p>{_get(this.state, 'tokenObj.email', '')}</p>
           <form className={classes.form} onSubmit={handleSubmit(this.handleSetPassword)} >
-           
-          <FormControl margin="normal" required fullWidth>
-              <Field
-                label="User Name"
-                placeholder=""
-                name="username"
-                component={GlobalTextField}
-                variant="standard"
-                id="emailAddress"
-                fullWidth='fullWidth'
-                required='required'
-                autoFocus='autoFocus'
-              />
-            </FormControl>
             <div className="row">
               <div className="col-sm-4">
                 <FormControl margin="normal" required fullWidth>
@@ -237,7 +225,7 @@ class ResetPassword extends Component {
                 style={{ display: "inline-block" }}
                 theme="dark"
                 ref={this._reCaptchaRef}
-                sitekey="6LcEGngUAAAAAIvfn949fqP5SetBWpvjKYg12XWK"
+                sitekey="6LdlGHgUAAAAAO0YjKef6Ptcl8Cz-2B9ZrUhjriX"
                 onChange={this.handleChange}
                 asyncScriptOnLoad={this.asyncScriptOnLoad}
               />
@@ -271,7 +259,6 @@ ResetPassword = reduxForm({
 ResetPassword = withStyles(styles)(ResetPassword);
 
 function mapStateToProps(state) {
-
   let isFetching = _get(state, 'SetPassword.isFetching', false);
   return { isFetching };
 }

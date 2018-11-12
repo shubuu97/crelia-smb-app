@@ -1,19 +1,23 @@
 import React, { Component } from 'react';
-import FormControl from '@material-ui/core/FormControl';
-import { Field, reduxForm } from 'redux-form';
-import GlobalTextField from '../../Global/GlobalTextField';
-import Select from '../../Global/Select';
-import ToggleButtons from '../../Global/ToggleButton';
 import _get from 'lodash/get';
+/* Material Imports */
+import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
-import SideBar from './SideBar';
+/* Redux Imports*/ 
 import { postData } from '../../Redux/postAction';
 import { connect } from 'react-redux';
 import showMessage from '../../Redux/toastAction';
 import { getData } from '../../Redux/getAction';
-import { APPLICATION_BFF_URL } from '../../Redux/urlConstants';
-
+import {APPLICATION_BFF_URL} from '../../Redux/urlConstants';
+import { Field, reduxForm } from 'redux-form';
+/* Global Imports*/ 
+import GlobalTextField from '../../Global/GlobalTextField';
+import Select from '../../Global/Select';
+import ToggleButtons from '../../Global/ToggleButton';
+/* Components */ 
+import SideBar from './SideBar';
 var jwtDecode = require('jwt-decode');
+
 
 
 class About extends Component {
@@ -26,16 +30,8 @@ class About extends Component {
         if(localStorage.getItem('authToken'))
         {
         decodeData = jwtDecode(localStorage.getItem('authToken'));
-         role = decodeData.role
-        if(decodeData.role=='TempSMBUser') {
-            role = 'SMBUser';
-            localStorage.setItem('role',role)
-          }
-          if (decodeData.role == 'TempInvestorUser') {
-            role = 'InvestorUser';
-            localStorage.setItem('role',role)
-  
-          }
+         role = decodeData.role;
+         localStorage.setItem('role',role);
         }
         this.props.dispatch(
             getData(`${APPLICATION_BFF_URL}/api/${role}/${encodeURIComponent(decodeData.id)}`, 'fetchingbasicdata', {

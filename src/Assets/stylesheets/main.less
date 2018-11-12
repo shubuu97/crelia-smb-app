@@ -68,7 +68,28 @@ label, p{
 .fwidth{
     width: 100%;    
 }
+/* Global */
 
+.flex-row{
+    display: flex;
+    flex-direction: row;
+}
+.flex-column{
+    display: flex;
+    flex-direction: column;
+}
+.width-100-percent{
+    width: 100%;
+}
+.align-center{
+    align-items: center
+}
+.justify-center{
+    justify-content: center;
+}
+.justify-space-between{
+    justify-content: space-between
+}
 .master h1{
     font-size: 1.8rem;
     padding-bottom: 1rem;
@@ -556,6 +577,9 @@ height: 40px;
 }
 .master .get-money button:first-child{
 border-left: solid 1px #ddd;
+}
+.master .get-money .MuiToggleButton-label{
+    font-size: 0.9em;
 }
 .master .MuiTab-root-54{
     font-weight: bold;

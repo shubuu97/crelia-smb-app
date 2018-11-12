@@ -1,5 +1,6 @@
 import axios from 'axios';
 import _isEmpty from 'lodash/isEmpty';
+import generateV1uuid from '../Global/Uuid';
 //import { onLogout } from '../actions/userRoles';
 
 // pure function
@@ -58,7 +59,7 @@ const axiosMiddleware = store => next => (action) => {
   requestObject.url = path;
   if (config.body)
     requestObject.data = config.body;
-  requestObject.headers = { ...headers, correlationid: 'dfjkf', Authorization: `${authToken}`, 'Content-Type': 'application/json' }
+  requestObject.headers = { ...headers, correlationid: generateV1uuid(), Authorization: `${authToken}`, 'Content-Type': 'application/json' }
 
   axios(
     requestObject
