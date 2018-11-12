@@ -1,3 +1,4 @@
+import UpdateSMBFun from './commonReducer';
 import {combineReducers} from 'redux';
 import {reducer as formReducer}  from 'redux-form';
 import LoginData from '../Authorization/Reducer/login';
@@ -10,9 +11,10 @@ import EmpTypeList from '../CompanyProfile/Reducers/EmployeeType';
 import BasicInfo from '../Authorization/Reducer/basicData';
 import SetPassword from '../Authorization/Reducer/setPassword';
 import CobPostFun from './commonReducer';
-import CobApprovalFun from './commonReducer';
+import CobApprovalFun from './commonReducer';;
 let CobPost=CobPostFun('cobsave');
 let CobApproval=CobApprovalFun('cob-approval');
+let UpdateSMB = UpdateSMBFun('UpdateSMB');
 
 let rootRducer = combineReducers({
     form:formReducer,
@@ -26,7 +28,8 @@ let rootRducer = combineReducers({
     BasicInfo,
     SetPassword,
     CobPost,
-    CobApproval
+    CobApproval,
+    UpdateSMB
 })
 
 export default rootRducer;
