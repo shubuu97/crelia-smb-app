@@ -295,7 +295,7 @@ class AboutMain extends React.Component {
                             color="primary"
                             className="btnprimary ml-50"
                         >
-                            {this.props.isFetching ? <CircularProgress size={24} /> : 'Save & continue'}
+                            {this.props.isFetching ? <CircularProgress size={24} /> : 'Save Draft & continue'}
                         </Button>
                     </div>
                 </fieldset>

@@ -437,7 +437,7 @@ class FinancialInformationForm extends React.Component {
                         onClick={this.props.handleSubmitAprroval}                        variant='contained'
                         className="btnprimary  ml-35"
                         color='primary'>
-                        Review Data
+                        Review
                        </Button> 
                 </div>
             </form>
