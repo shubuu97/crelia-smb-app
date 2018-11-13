@@ -32,7 +32,7 @@ class FinancialInformationMain extends React.Component {
           <p> Please share some additional information on your company performance.</p>
           <div className="row justify-content-between pt-20">
             <div className="col-sm-12 finan-tab">
-              <div className={this.state.type == 'file' ? "active" : ""} onClick={() => this.handleSwitch('file')}> Upload File</div>
+              <div className={this.state.type == 'file' ? "active" : ""} onClick={() => this.handleSwitch('file')}> Upload File</div> <span>OR</span>
               <div className={this.state.type == 'upload' ? "active" : ""} onClick={() => this.handleSwitch('upload')}>Fill out manually</div>
             </div>
           </div>
