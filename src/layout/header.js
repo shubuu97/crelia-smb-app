@@ -79,7 +79,7 @@ class Header extends React.Component {
                 </div>
           
         <Menu
-          id="simple-menu"
+          id="simple-menuff"
           anchorEl={this.state.anchorEl}
           open={this.state.open}
           anchorOrigin={{vertical:'bottom',horizontal:'center'}}
