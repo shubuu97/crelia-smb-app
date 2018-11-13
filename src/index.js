@@ -41,7 +41,7 @@ import ChangePassword from './Authorization/components/ResetPassword/changePassw
 import RegistrationSuccess from './Authorization/components/Registration/RegistrationSuccess';
 import Registration from './Authorization/components/Registration/Register';
 import SetPassword from './Authorization/components/SetPassword/setPassword';
-
+import ReviewCOBInfo from './CompanyOnBoarding/components/ReviewCOBInfo/ReviewCOBInfoContainer.jsx'
 
 const generateClassName = createGenerateClassName({
   dangerouslyUseGlobalCSS: true,
@@ -91,6 +91,7 @@ ReactDOM.render(
                   <RouteWithLayout Layout={SignInLayout} exact path="/reset" Component={Reset} />
                   <RouteWithLayout Layout={SignInLayout} exact path="/setPassword" Component={SetPassword} />
                   <RouteWithLayout Layout={SignInLayout} exact path="/signInRejected" Component={signInRejected} />
+                  <RouteWithLayout Layout={MainLayout} exact path="/ReviewCOB" Component={ReviewCOBInfo} />
                   {RoutesConfig.map(rconfig => <RouteWithLayout Layout={MainLayout} exact path={rconfig.path} Component={rconfig.Component} />)}
                 </div>
               </Switch>

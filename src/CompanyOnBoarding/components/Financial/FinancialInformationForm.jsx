@@ -432,14 +432,13 @@ class FinancialInformationForm extends React.Component {
                         {this.props.isFetchingSave ? <CircularProgress size={24} /> : 'Save'}
 
                     </Button>
-                    {localStorage.getItem('companyStatus') != 'PENDING_APPROVAL' ? <Button
+                   <Button
                         fullWidth
-                        disabled={this.props.isFetchingApprove}
-                        onClick={this.props.handleSubmitAprroval}
-                        variant='contained'
+                        onClick={this.props.handleSubmitAprroval}                        variant='contained'
                         className="btnprimary  ml-35"
                         color='primary'>
-                        {this.props.isFetchingApprove ? <CircularProgress size={24} /> : 'submit for approval'}</Button> : null}
+                        Review Data
+                       </Button> 
                 </div>
             </form>
         );

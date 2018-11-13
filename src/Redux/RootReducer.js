@@ -11,9 +11,9 @@ import EmpTypeList from '../CompanyProfile/Reducers/EmployeeType';
 import BasicInfo from '../Authorization/Reducer/basicData';
 import SetPassword from '../Authorization/Reducer/setPassword';
 import CobPostFun from './commonReducer';
-import CobApprovalFun from './commonReducer';
+import CobPostMarketPlaceFun from './commonReducer';
 let CobPost=CobPostFun('cobsave');
-let CobApproval=CobApprovalFun('cob-approval');
+let CobPostMarketPlace=CobPostMarketPlaceFun('cob-post-marketplace');
 let UpdateSMB = UpdateSMBFun('UpdateSMB');
 
 let rootRducer = combineReducers({
@@ -28,7 +28,7 @@ let rootRducer = combineReducers({
     BasicInfo,
     SetPassword,
     CobPost,
-    CobApproval,
+    CobPostMarketPlace,
     UpdateSMB
 })
 

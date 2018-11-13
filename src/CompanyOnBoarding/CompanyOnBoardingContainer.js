@@ -147,27 +147,7 @@ class CompanyOnBoardingContainer extends React.Component {
     };
 
     handleSubmitAprroval = () => {
-        let reqObj = { id: this.props.id }
-        this.props.dispatch(
-            postData(`${APPLICATION_BFF_URL}/api/SendSMBForApproval`, reqObj, 'cob-approval', {
-                init: 'cob-approval_init',
-                success: 'cob-approval_success',
-                error: 'cob-approval_error'
-            })
-        ).then((data) => {
-            this.props.dispatch(showMessage({ text: 'Update Succesfully', isSuccess: true }));
-            this.basicDataFetcher();
-            setTimeout(() => {
-                this.props.dispatch(showMessage({}));
-            }, 1000);
-
-        })
-            .catch((err) => {
-                this.props.dispatch(showMessage({ text: err.msg, isSuccess: false }));
-                setTimeout(() => {
-                    this.props.dispatch(showMessage({}));
-                }, 6000);
-            })
+       this.props.history.push('/ReviewCOB')
     }
     render() {
         const { classes, theme } = this.props;
