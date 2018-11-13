@@ -36,12 +36,14 @@ class TextFieldRF extends Field
     }
 
 render() {
-    const { classes,field,disabled, InputLabelProps, defaultValue, input, id, variant, fullWidth, autoFocus, label, type, placeholder,required, custom, meta, startAdornment, endAdornment } = this.props;
+    const {multiline, classes,field,disabled, InputLabelProps, defaultValue, input, id, variant, fullWidth, autoFocus, label, type, placeholder,required, custom, meta, startAdornment, endAdornment } = this.props;
     console.log(this.props, "globalTextField")
    return (
         [
 
             <TextField
+                multiline={multiline}
+                rows={4}
                 fullWidth={fullWidth}
                 type={type}
                 disabled={disabled}

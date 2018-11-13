@@ -36,17 +36,23 @@ class AboutMain extends React.Component {
         if (_get(this.props, 'initialValues.workingCapital'))
             this.setState({ workingCapital: true });
         if (_get(this.props, 'initialValues.refinancing'))
-        this.setState({ refinancing: true })
+            this.setState({ refinancing: true })
         if (_get(this.props, 'initialValues.loan'))
             this.setState({ loan: true })
         if (_get(this.props, 'initialValues.equity'))
             this.setState({ equity: true });
         if (_get(this.props, 'initialValues.other'))
-            this.setState({ equity: true })
-            
-    }
+            this.setState({ equity: true });
+            if (_get(this.props, 'initialValues.otherLoanDescription'))
+            this.setState({ otherLoanDescription: true });
 
-    checkboxTest = () => {
+
+    }
+    toggleUseMoneyDesc = () => {
+
+        this.setState({ otherLoanDescription: !this.state.otherLoanDescription })
+    }
+    CheckboxTest = () => {
         let labels = ["Investment", "Working Capital", "Refinancing"];
         let tooltip = [
             "Investment is purchase of equipment, new branches/locations, renovation of new premises.",
@@ -71,7 +77,7 @@ class AboutMain extends React.Component {
                         }
                         label={label}
                     />
-                    
+
                     {this.state[name] ? <div className="flex-row align-center loan-section-percent">
                         <span className="small-helptext width-100-percent">Percentage of total</span>
                         <Field
@@ -92,7 +98,12 @@ class AboutMain extends React.Component {
         });
 
         return (
-            <div>{markup}</div>
+            <div>
+
+                <div>{markup}</div>
+                <div onClick={this.toggleUseMoneyDesc} ><a>Or tell us about the intended use of capital in your own words:</a></div>
+                <div>{this.state.otherLoanDescription ? <Field multiline={true} name='otherLoanDescription' component={GlobalTextField} /> : null}</div>
+            </div>
         );
     }
 
@@ -121,8 +132,8 @@ class AboutMain extends React.Component {
                         }
                         label={label}
                     />
-                   
-                    {this.state[name] ? <div className="flex-row align-center loan-section-percent">
+
+                    {this.state[name]&&!this.state.otherLoanDescription ? <div className="flex-row align-center loan-section-percent">
                         <span className="small-helptext width-100-percent">Percentage of total</span>
                         <Field
                             placeholder="Percentage of total"
@@ -158,6 +169,10 @@ class AboutMain extends React.Component {
         }
         if (values.workingCapital) {
             fundAllocation.push({ purpose: 'Working Capital', percentage: parseInt(values.workingCapital) })
+        }
+        if(values.otherLoanDescription)
+        {
+            fundAllocation.push({purpose:values.otherLoanDescription,percentage:100})
         }
 
         //funding type code fetching from redux form
@@ -227,20 +242,20 @@ class AboutMain extends React.Component {
                             <div class="col-sm-12">
                                 <span className="onboarding-sub-title">Or give us a date by when you need the money in the bank</span>
                             </div>
-                             <FormControl margin="normal" required fullWidth>
-                            <Field
-                                id="date"
-                                disabled={localStorage.getItem('disabled')}
-                                name="timeFrame"
-                                component={GlobalTextField}
-                                defaultValue="2017-05-24"
-                                type="date"
-                                variantType='outlined'
-                                fullWidth="true"
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
-                            /></FormControl>
+                            <FormControl margin="normal" required fullWidth>
+                                <Field
+                                    id="date"
+                                    disabled={localStorage.getItem('disabled')}
+                                    name="timeFrame"
+                                    component={GlobalTextField}
+                                    defaultValue="2017-05-24"
+                                    type="date"
+                                    variantType='outlined'
+                                    fullWidth="true"
+                                    InputLabelProps={{
+                                        shrink: true,
+                                    }}
+                                /></FormControl>
                         </div>
                     </div>
                     <div className="row justify-content-between pt-20">
@@ -250,7 +265,7 @@ class AboutMain extends React.Component {
                             <div class="mdc-layout-grid__inner">
                                 <div class="mdc-layout-grid__cell--span-12">
                                     <div className="flex-column">
-                                        {this.checkboxTest()}
+                                        {this.CheckboxTest()}
                                     </div>
 
                                 </div>
@@ -259,12 +274,12 @@ class AboutMain extends React.Component {
                         </div>
 
                         <div className="col-sm-6">
-                        <div className="onboarding-sub-title">Do you prefer to borrow or attract partners?</div>
+                            <div className="onboarding-sub-title">Do you prefer to borrow or attract partners?</div>
                             <div class="mdc-layout-grid__inner">
                                 <div class="mdc-layout-grid__cell--span-12">
 
-                                 {this.LoanEquityCheckbox()}
-                                  
+                                    {this.LoanEquityCheckbox()}
+
                                 </div>
                             </div>
                         </div>

@@ -256,6 +256,7 @@ function mapStateToProps(state) {
     let investment = 0;
     let workingCapital = 0;
     let refinancing = 0;
+    let otherLoanDescription = '';
     if (Array.isArray(fundAllocation)) {
         let ExpansionObj = _find(fundAllocation, { purpose: 'Expansion' });
         investment = _get(ExpansionObj, 'percentage');
@@ -263,19 +264,15 @@ function mapStateToProps(state) {
         workingCapital = _get(captialObj, 'percentage');
         let FinancingObj = _find(fundAllocation, { purpose: 'Re Financing' });
         refinancing = _get(FinancingObj, 'percentage');
+        if(fundAllocation.length==1&&!_find(fundAllocation, { purpose: 'Expansion' })&&!_find(fundAllocation, { purpose: 'Working Capital' })&&!_find(fundAllocation, { purpose: 'Re Financing' }))
+        {
+        otherLoanDescription=fundAllocation[0].purpose;
+        }
     }
 
     let loan = 0;
     let equity = 0;
     let other = 0;
-    if (Array.isArray(fundAllocation)) {
-        let loanObj = _find(fundingType, { purpose: 'Loan' });
-        loan = _get(loanObj, 'percentage');
-        let equityObj = _find(fundingType, { purpose: 'Equity' });
-        equity = _get(equityObj, 'percentage');
-        let otherObj = _find(fundingType, { purpose: 'Other' });
-        other = _get(otherObj, 'percentage');
-    }
 
     if (Array.isArray(fundingType)) {
         let loanObj = _find(fundingType, { fundingType: 'Loan' });
@@ -317,7 +314,7 @@ function mapStateToProps(state) {
 
     let initialValuesContact = { address, taxId, phoneNumber, legalEntityType, legalName, businessUnderName, otherCompanyName, incorporationDate, email }
 
-    let initialValuesAbout = { personalPhoneNumber, userEmail, moneyRequired, timeFrame, workingCapital, investment, refinancing,loan,equity,other };
+    let initialValuesAbout = { personalPhoneNumber, userEmail, moneyRequired, timeFrame, workingCapital, investment, refinancing,loan,equity,other,otherLoanDescription };
 
     let initialValuesFinance = {
         manualFinancial
