@@ -11,7 +11,7 @@ import EmpTypeList from '../CompanyProfile/Reducers/EmployeeType';
 import BasicInfo from '../Authorization/Reducer/basicData';
 import SetPassword from '../Authorization/Reducer/setPassword';
 import CobPostFun from './commonReducer';
-import CobApprovalFun from './commonReducer';;
+import CobApprovalFun from './commonReducer';
 let CobPost=CobPostFun('cobsave');
 let CobApproval=CobApprovalFun('cob-approval');
 let UpdateSMB = UpdateSMBFun('UpdateSMB');
