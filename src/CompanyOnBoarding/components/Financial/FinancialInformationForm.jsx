@@ -51,10 +51,12 @@ class FinancialInformationForm extends React.Component {
                 y2019[key] = parseInt(values.manualFinancial[totalKeys[i]])
             }
         }
-        data.push(y2016, y2017, y2018);
+        data.push(y2016, y2017, y2018,y2019);
         let reqObj = {};
         reqObj.financialInfo = {}
-        reqObj.financialInfo.financialData = data
+        reqObj.financialInfo.financialData = data;
+        reqObj.financialInfo.loanProvider = _get(values,'loanProvider',[]);
+        reqObj.financialInfo.financialLinks = _get(values,'financialLinks',[])
         this.props.handleNext(reqObj);
     }
 

@@ -47,9 +47,25 @@ class FinancialInformationMain extends React.Component {
           <div className="row justify-content-between pt-20">
             <div className="col-sm-12">
               {
-                this.state.type == 'file' ? <FinancialInfoUpload isFetchingApprove={this.props.isFetchingApprove} isFetchingSave={this.props.isFetchingSave} handleSubmitAprroval={this.handleSubmitAprroval} handleNext={this.props.handleNext} /> : 
+                this.state.type == 'file' ? <FinancialInfoUpload 
+                isFetchingApprove={this.props.isFetchingApprove} 
+                isFetchingSave={this.props.isFetchingSave} 
+                handleSubmitAprroval={this.handleSubmitAprroval} 
+                handleNext={this.props.handleNext} /> : 
                 
-            <div>{this.state.type=='upload'?  <FinancialInformationForm isFetchingApprove={this.props.isFetchingApprove} isFetchingSave={this.props.isFetchingSave} initialValues={this.props.initialValues} handleSubmitAprroval={this.handleSubmitAprroval} handleNext={this.props.handleNext} />:<LoanProvider/>}</div>
+            <div>{this.state.type=='upload'?  
+            <FinancialInformationForm 
+            isFetchingApprove={this.props.isFetchingApprove}
+            initialValues={this.props.initialValuesFinanceForm}
+             isFetchingSave={this.props.isFetchingSave} 
+             handleSubmitAprroval={this.handleSubmitAprroval}
+              handleNext={this.props.handleNext} />:
+              <LoanProvider
+              initialValues={this.props.initialValuesLoanProvider}
+               isFetchingApprove={this.props.isFetchingApprove}
+                isFetchingSave={this.props.isFetchingSave}
+                  handleSubmitAprroval={this.handleSubmitAprroval}
+                 handleNext={this.props.handleNext}/>}</div>
               }
             </div>
           </div>

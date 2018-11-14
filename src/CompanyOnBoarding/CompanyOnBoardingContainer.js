@@ -192,7 +192,8 @@ class CompanyOnBoardingContainer extends React.Component {
                                     isFetchingApprove={this.props.isFetchingApprove}
                                     handleSubmitAprroval={this.handleSubmitAprroval}
                                     handleNext={this.handleNext}
-                                    initialValues={this.props.initialValuesFinance} />
+                                    initialValuesLoanProvider={this.props.initialValuesLoanProvider}
+                                    initialValuesFinanceForm={this.props.initialValuesFinanceForm} />
                             </TabContainer>
                         </SwipeableViews>
                     </div>
@@ -289,6 +290,9 @@ function mapStateToProps(state) {
             else if (financialData[i].year == 2018) {
                 manualFinancial[`${keys[j]}-2018`] = financialData[i][keys[j]]
             }
+            else if (financialData[i].year == 2019) {
+                manualFinancial[`${keys[j]}-2019`] = financialData[i][keys[j]]
+            }
         }
     }
 
@@ -296,10 +300,13 @@ function mapStateToProps(state) {
 
     let initialValuesAbout = { personalPhoneNumber, userEmail, moneyRequired, timeFrame, workingCapital, investment, refinancing,loan,equity,other,otherLoanDescription };
 
-    let initialValuesFinance = {
-        manualFinancial
-    }
-    return { username, id, tempId, initialValuesAbout, initialValuesContact, initialValuesFinance, isFetchingSave, isFetchingApprove }
+    let initialValuesFinanceForm = {
+        manualFinancial,
+        loanProvider: _get(state,'BasicInfo.lookUpData.companyDetails.financialInfo.loanProvider',[]),
+        financialLinks:_get(state,'BasicInfo.lookUpData.companyDetails.financialInfo.financialLinks',[])
+    };
+    let initialValuesLoanProvider = _get(state,'BasicInfo.lookUpData.companyDetails.financialInfo',[])
+    return { username, id, tempId, initialValuesAbout, initialValuesContact, initialValuesFinanceForm, isFetchingSave, isFetchingApprove,initialValuesLoanProvider }
 }
 
 export default connect(mapStateToProps)(withStyles(styles, { withTheme: true })(CompanyOnBoardingContainer));
