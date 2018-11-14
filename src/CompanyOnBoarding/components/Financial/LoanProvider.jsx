@@ -12,19 +12,23 @@ const LoanProviderComp = (props)=>
   fields.push()
 return(   
 <div>
-<div> 
+<div>
 {fields.map((loanProvider, index) => (
-    <div key={index}>
-  <FormControl  margin="normal" required fullWidth>
+    <div   key={index}>
+    <div className="row">
+    <div className="col-sm-5">
+        <FormControl className="inner-control"  margin="normal" required fullWidth>
       <Field
         name={`${loanProvider}.providerName`}
         component={GlobalTextField}
         label='Provider Name'
         variant="standard"
         fullWidth='fullWidth'
-      />
+      />      
       </FormControl>
-      <FormControl  margin="normal" required fullWidth>
+      </div>
+      <div className="col-sm-5">
+        <FormControl className="inner-control"   margin="normal" required fullWidth>
         <Field
         name={`${loanProvider}.amount`}
         component={GlobalTextField}
@@ -33,12 +37,18 @@ return(
         fullWidth='fullWidth'
       />
       </FormControl>
-      <FormControl  margin="normal">    
- <Button variant='contained' color='secondary' onClick={()=>fields.remove(index)}>Remove</Button>
+      </div>
+      <div className="col-sm-2">
+         <FormControl    margin="normal">
+         <i title='Delete' class="material-icons delete-provider" color='secondary' onClick={()=>fields.remove(index)}>
+delete_outline
+</i>  
+ {/* <Button variant='contained' color='secondary' onClick={()=>fields.remove(index)}>Remove</Button> */}
  </FormControl>
+ </div>
+    </div>
     </div>
   ))}
-
 </div>
 <FormControl  margin="normal">   
 <Button variant='contained' color='primary' onClick={()=>fields.push()}>Add</Button>
