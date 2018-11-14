@@ -239,6 +239,7 @@ class AboutMain extends React.Component {
                                     { label: '> 6 Mnths', alinValue: '> 6 Mnths' }
                                 ]}
                             />
+                            <p>or</p>
                             <div class="col-sm-12">
                                 <span className="onboarding-sub-title">Or give us a date by when you need the money in the bank</span>
                             </div>
@@ -277,9 +278,7 @@ class AboutMain extends React.Component {
                             <div className="onboarding-sub-title">Do you prefer to borrow or attract partners?</div>
                             <div class="mdc-layout-grid__inner">
                                 <div class="mdc-layout-grid__cell--span-12">
-
                                     {this.LoanEquityCheckbox()}
-
                                 </div>
                             </div>
                         </div>
