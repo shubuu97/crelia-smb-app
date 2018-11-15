@@ -16,6 +16,9 @@ import Select from '../../Global/Select';
 import ToggleButtons from '../../Global/ToggleButton';
 /* Components */ 
 import SideBar from './SideBar';
+import LoaderButton from '../../Global/LoaderButton'
+
+
 var jwtDecode = require('jwt-decode');
 
 
@@ -65,7 +68,8 @@ class About extends Component {
                 error: 'UpdateSMB_error'
             })
         ).then((data) => {
-            this.props.showMessage({ text: 'Saved succesfully', isSuccess: true });
+            this.props.dispatch(showMessage({ text: 'Saved succesfully', isSuccess: true }));
+
             setTimeout(() => {
                 this.props.dispatch(showMessage({}));
             }, 6000);
@@ -152,20 +156,20 @@ class About extends Component {
                                         name="numberOfEmployees"
                                         component={ToggleButtons}
                                         toggleList={[
-                                            { label: '1-10', alinValue: '1' },
-                                            { label: '10-50', alinValue: '2' },
-                                            { label: '50-100', alinValue: '3' },
-                                            { label: '>100', alinValue: '4' }
+                                            { label: '1-10', alinValue: '1-10' },
+                                            { label: '10-50', alinValue: '10-50' },
+                                            { label: '50-100', alinValue: '50-100' },
+                                            { label: '>100', alinValue: '>100' }
                                         ]}
                                     />
                                 </FormControl>
                             </div>
                             <div class="action-block">
-                                <Button
-                                    disabled={this.props.isFetchingUpdateSMB}
+                                <LoaderButton
+                                    isFetching={this.props.isFetchingUpdateSMB}
                                     type="submit"
                                     color="primary"
-                                    variant="contained">Next</Button>
+                                    variant="contained">Save Draft</LoaderButton>
                             </div>
                         </div>
                     </div>
