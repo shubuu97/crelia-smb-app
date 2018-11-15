@@ -18,21 +18,29 @@ class FinancialInfoUpload extends React.Component {
     handleUploadFinancial=()=>
     {
      let reqObj = {};
-     reqObj.financialLinks=[];
+     reqObj.financialInfo = {}
+     reqObj.financialInfo.financialLinks=[];
     if(_get(this.props,'state.preview1link'))
     {
-        reqObj.financialLinks.push(_get(this.props,'state.preview1link'));
+        reqObj.financialInfo.financialLinks.push(_get(this.props,'state.preview1link'));
     }
     if(_get(this.props,'state.preview2link'))
     {
-        reqObj.financialLinks.push(_get(this.props,'state.preview2link'));
+        reqObj.financialInfo.financialLinks.push(_get(this.props,'state.preview2link'));
     }
     if(_get(this.props,'state.preview3link'))
     {
-        reqObj.financialLinks.push(_get(this.props,'state.preview3link'));
+        reqObj.financialInfo.financialLinks.push(_get(this.props,'state.preview3link'));
     }
-
-     this.handleNext(reqObj);
+    if(_get(this.props,'initialValues.loanProvider'))
+    {
+        reqObj.financialInfo.loanProvider = _get(this.props,'initialValues.loanProvider')
+    }
+    if(_get(this.props,'initialValues.financialData'))
+    {
+        reqObj.financialInfo.financialData = _get(this.props,'initialValues.financialData')
+    }
+     this.props.handleNext(reqObj);
 
     }
 

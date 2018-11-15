@@ -48,7 +48,8 @@ class FinancialInformationMain extends React.Component {
             <div className="col-sm-12">
               {
                 this.state.type == 'file' ? <FinancialInfoUpload 
-                isFetchingApprove={this.props.isFetchingApprove} 
+                isFetchingApprove={this.props.isFetchingApprove}
+                initialValues={this.props.initialValuesLoanProvider} 
                 isFetchingSave={this.props.isFetchingSave} 
                 handleSubmitAprroval={this.handleSubmitAprroval} 
                 handleNext={this.props.handleNext} /> : 
