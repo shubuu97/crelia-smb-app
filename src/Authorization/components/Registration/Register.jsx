@@ -12,9 +12,9 @@ import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { postData } from '../../../Redux/postAction'
 import showMessage from '../../../Redux/toastAction';
+import {APPLICATION_BFF_URL} from '../../../Redux/urlConstants'
 /* Global Imports */
 import GlobalTextField from '../../../Global/GlobalTextField';
-import {APPLICATION_BFF_URL} from '../../../Redux/urlConstants'
 
 import TabHoc from '../TabHoc';
 

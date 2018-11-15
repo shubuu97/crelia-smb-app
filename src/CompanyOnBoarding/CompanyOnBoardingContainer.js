@@ -16,13 +16,10 @@ import showMessage from '../Redux/toastAction';
 import { getData } from '../Redux/getAction';
 import { APPLICATION_BFF_URL } from '../Redux/urlConstants'
 /* Components*/
-import CompanyOnBoarding from './components/About/AboutMain';
+import FundingMain from './components/Funding/FundingMain';
 import ContactContainer from './components/Contact/ContactContainer';
 import FinanceInformationMain from './components/Financial/FinancialInformaionMain';
 import Help from './components/Help';
-
-
-
 
 var jwtDecode = require('jwt-decode');
 
@@ -69,10 +66,7 @@ class CompanyOnBoardingContainer extends React.Component {
             let decodeData = jwtDecode(localStorage.getItem('authToken'));
             
             let role = decodeData.role
-            if(role.search("Temp")){
-                role = role.substr(3)
-                localStorage.setItem('role', role)
-            }
+    
 
             this.props.dispatch(
                 getData(`${APPLICATION_BFF_URL}/api/${role}/${encodeURIComponent(decodeData.id)}`, 'fetchingbasicdata', {
@@ -100,8 +94,14 @@ class CompanyOnBoardingContainer extends React.Component {
     };
 
     handleNext = (values) => {
+        let id = this.props.id
+        if(!this.props.id && this.props.tempId){
+            id = this.props.tempId.split('#')[1]
+        }
+
         let reqObj = {
-            ...values, id: this.props.id
+            id:this.props.id,
+            ...values
         }
         /* Post Form Data*/
         this.props.dispatch(
@@ -144,32 +144,11 @@ class CompanyOnBoardingContainer extends React.Component {
     };
 
     handleSubmitAprroval = () => {
-        let reqObj = { id: this.props.id }
-        this.props.dispatch(
-            postData(`${APPLICATION_BFF_URL}/api/SendSMBForApproval`, reqObj, 'cob-approval', {
-                init: 'cob-approval_init',
-                success: 'cob-approval_success',
-                error: 'cob-approval_error'
-            })
-        ).then((data) => {
-            this.props.dispatch(showMessage({ text: 'Update Succesfully', isSuccess: true }));
-            this.basicDataFetcher();
-            setTimeout(() => {
-                this.props.dispatch(showMessage({}));
-            }, 1000);
-
-        })
-            .catch((err) => {
-                this.props.dispatch(showMessage({ text: err.msg, isSuccess: false }));
-                setTimeout(() => {
-                    this.props.dispatch(showMessage({}));
-                }, 6000);
-            })
+       this.props.history.push('/ReviewCOB')
     }
     render() {
         const { classes, theme } = this.props;
         return (
-
             <div className="row onboard-container">
                 <div className="col-sm-8">
                     <div className="card">
@@ -181,9 +160,9 @@ class CompanyOnBoardingContainer extends React.Component {
                                 textColor="primary"
                                 fullWidth
                             >
-                                <Tab label="About" />
+                                <Tab label="Funding" />
                                 <Tab label="Company" />
-                                <Tab label="Finance" />
+                                <Tab label="Financials" />
                             </Tabs>
                         </AppBar>
                         <SwipeableViews
@@ -192,7 +171,7 @@ class CompanyOnBoardingContainer extends React.Component {
                             onChangeIndex={this.handleChangeIndex}
                         >
                             <TabContainer dir={theme.direction}>
-                                <CompanyOnBoarding
+                                <FundingMain
                                     isFetching={this.props.isFetchingSave}
                                     initialValues={this.props.initialValuesAbout}
                                     handleNext={this.handleNext} />
@@ -209,7 +188,8 @@ class CompanyOnBoardingContainer extends React.Component {
                                     isFetchingApprove={this.props.isFetchingApprove}
                                     handleSubmitAprroval={this.handleSubmitAprroval}
                                     handleNext={this.handleNext}
-                                    initialValues={this.props.initialValuesFinance} />
+                                    initialValuesLoanProvider={this.props.initialValuesLoanProvider}
+                                    initialValuesFinanceForm={this.props.initialValuesFinanceForm} />
                             </TabContainer>
                         </SwipeableViews>
                     </div>
@@ -237,22 +217,47 @@ function mapStateToProps(state) {
 
 
     let username = _get(state, 'BasicInfo.lookUpData.username', null);
-    let id = _get(state, 'BasicInfo.lookUpData.companyDetails.id');
+    let id = _get(state, 'BasicInfo.lookUpData.companyDetails.id', null);
+    
+    /* To be removed once fixed by Amrit */ 
+    let tempId = _get(state, 'BasicInfo.lookUpData.tempCompany', "");
+    /* --------------------------------- */ 
+
     let personalPhoneNumber = _get(state, 'BasicInfo.lookUpData.phoneNumber');
     let userEmail = _get(state, 'BasicInfo.lookUpData.email');
     let moneyRequired = _get(state, 'BasicInfo.lookUpData.companyDetails.onboardingInfo.moneyRequired');
     let timeFrame = _get(state, 'BasicInfo.lookUpData.companyDetails.onboardingInfo.timeFrame');
-    let loanAllocation = _get(state, 'BasicInfo.lookUpData.companyDetails.onboardingInfo.loanAllocation');
-    let expansion = 0;
+    let fundAllocation = _get(state, 'BasicInfo.lookUpData.companyDetails.onboardingInfo.fundAllocation');
+    let fundingType = _get(state, 'BasicInfo.lookUpData.companyDetails.onboardingInfo.fundingType');
+
+    let investment = 0;
     let workingCapital = 0;
     let refinancing = 0;
-    if (Array.isArray(loanAllocation)) {
-        let ExpansionObj = _find(loanAllocation, { loanPurpose: 'Expansion' });
-        expansion = _get(ExpansionObj, 'percentage');
-        let captialObj = _find(loanAllocation, { loanPurpose: 'Working Capital' });
+    let otherLoanDescription = '';
+    if (Array.isArray(fundAllocation)) {
+        let ExpansionObj = _find(fundAllocation, { purpose: 'Expansion' });
+        investment = _get(ExpansionObj, 'percentage');
+        let captialObj = _find(fundAllocation, { purpose: 'Working Capital' });
         workingCapital = _get(captialObj, 'percentage');
-        let FinancingObj = _find(loanAllocation, { loanPurpose: 'Re Financing' });
+        let FinancingObj = _find(fundAllocation, { purpose: 'Re Financing' });
         refinancing = _get(FinancingObj, 'percentage');
+        if(fundAllocation.length==1&&!_find(fundAllocation, { purpose: 'Expansion' })&&!_find(fundAllocation, { purpose: 'Working Capital' })&&!_find(fundAllocation, { purpose: 'Re Financing' }))
+        {
+        otherLoanDescription=fundAllocation[0].purpose;
+        }
+    }
+
+    let loan = 0;
+    let equity = 0;
+    let other = 0;
+
+    if (Array.isArray(fundingType)) {
+        let loanObj = _find(fundingType, { fundingType: 'Loan' });
+        loan = _get(loanObj, 'percentage');
+        let equityObj = _find(fundingType, { fundingType: 'Equity' });
+        equity = _get(equityObj, 'percentage');
+        let otherObj = _find(fundingType, { fundingType: 'Other' });
+        other = _get(otherObj, 'percentage');
     }
 
     let address = _get(state, 'BasicInfo.lookUpData.companyDetails.address');
@@ -260,8 +265,6 @@ function mapStateToProps(state) {
     let phoneNumber = _get(state, 'BasicInfo.lookUpData.companyDetails.phoneNumber');
     let legalEntityType = _get(state, 'BasicInfo.lookUpData.companyDetails.legalEntityType');
     let legalName = _get(state, 'BasicInfo.lookUpData.companyDetails.legalName');
-    let isOtherShortTermLoan = _get(state, 'BasicInfo.lookUpData.companyDetails.onboardingInfo.isOtherShortTermLoan');
-    isOtherShortTermLoan = isOtherShortTermLoan ? 'yes' : 'no'
     let otherCompanyName = _get(state, 'BasicInfo.lookUpData.companyDetails.onboardingInfo.otherCompanyName', '');
     let businessUnderName = otherCompanyName ? 'yes' : 'no'
 
@@ -283,18 +286,23 @@ function mapStateToProps(state) {
             else if (financialData[i].year == 2018) {
                 manualFinancial[`${keys[j]}-2018`] = financialData[i][keys[j]]
             }
+            else if (financialData[i].year == 2019) {
+                manualFinancial[`${keys[j]}-2019`] = financialData[i][keys[j]]
+            }
         }
     }
 
-    let initialValuesContact = { address, taxId, phoneNumber, legalEntityType, legalName, businessUnderName, isOtherShortTermLoan, otherCompanyName, incorporationDate, email }
+    let initialValuesContact = { address, taxId, phoneNumber, legalEntityType, legalName, businessUnderName, otherCompanyName, incorporationDate, email }
 
-    let initialValuesAbout = { personalPhoneNumber, userEmail, moneyRequired, timeFrame, workingCapital, expansion, refinancing };
+    let initialValuesAbout = { personalPhoneNumber, userEmail, moneyRequired, timeFrame, workingCapital, investment, refinancing,loan,equity,other,otherLoanDescription };
 
-    let initialValuesFinance = {
-        manualFinancial
-    }
-
-    return { username, id, initialValuesAbout, initialValuesContact, initialValuesFinance, isFetchingSave, isFetchingApprove }
+    let initialValuesFinanceForm = {
+        manualFinancial,
+        loanProvider: _get(state,'BasicInfo.lookUpData.companyDetails.financialInfo.loanProvider',[]),
+        financialLinks:_get(state,'BasicInfo.lookUpData.companyDetails.financialInfo.financialLinks',[])
+    };
+    let initialValuesLoanProvider = _get(state,'BasicInfo.lookUpData.companyDetails.financialInfo',[])
+    return { username, id, tempId, initialValuesAbout, initialValuesContact, initialValuesFinanceForm, isFetchingSave, isFetchingApprove,initialValuesLoanProvider }
 }
 
 export default connect(mapStateToProps)(withStyles(styles, { withTheme: true })(CompanyOnBoardingContainer));

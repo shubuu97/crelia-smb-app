@@ -16,7 +16,8 @@ import AuthTabHoc from './components/TabHoc';
 import showMessage from '../Redux/toastAction'
 import { resolve } from 'path';
 import { rejects } from 'assert';
-import {APPLICATION_BFF_URL} from '../Redux/urlConstants'
+import { APPLICATION_BFF_URL } from '../Redux/urlConstants';
+import RouteDecider from './helpers/RouteDecider'
 
 
 var jwtDecode = require('jwt-decode');
@@ -35,59 +36,58 @@ class SignIn extends Component {
   }
 
   handleSignIn = (values) => {
+    this.props.dispatch(
+      postData(`${APPLICATION_BFF_URL}/api/login`, values, 'login-data', {
+        init: 'login_init',
+        success: 'login_success',
+        error: 'login_error'
+      })
+    ).then((data) => {
+      localStorage.setItem('authToken', data.token);
+      let decodeData = jwtDecode(data.token);
+      let role = decodeData.role;
+      console.log("========",role)
 
-      debugger
-      
+
+      localStorage.setItem('role', role)
+
       this.props.dispatch(
-        postData(`${APPLICATION_BFF_URL}/api/login`, values, 'login-data', {
-          init: 'login_init',
-          success: 'login_success',
-          error: 'login_error'
+        getData(`${APPLICATION_BFF_URL}/api/${role}/${encodeURIComponent(decodeData.id)}`, 'fetchingbasicdata', {
+          init: 'basicdata_init',
+          success: 'basicdata_success',
+          error: 'basicdata_error'
         })
       ).then((data) => {
-        localStorage.setItem('authToken', data.token);
-        let decodeData = jwtDecode(data.token);
-        let role = decodeData.role;
-      
-        if(decodeData.role=='TempSMBUser') {
-          role = 'SMBUser';
-          localStorage.setItem('role',role)
-        }
-        if (decodeData.role == 'TempInvestorUser') {
-          role = 'InvestorUser';
-          localStorage.setItem('role',role)
-        }
+        if (_get(data, 'companyDetail.status')) {
+          let route = RouteDecider(_get(data, 'companyDetail.status'));
+          this.props.history.push(`/${route}`);
 
-        this.props.dispatch(
-          getData(`${APPLICATION_BFF_URL}/api/${role}/${encodeURIComponent(decodeData.id)}`, 'fetchingbasicdata', {
-            init: 'basicdata_init',
-            success: 'basicdata_success',
-            error: 'basicdata_error'
-          })
-        ).then((data) => {
-          this.props.history.push('/onboard')
-        })
-          .catch((err) => {
-            this.props.dispatch(showMessage({ text: err.msg, isSuccess: false }));
-            setTimeout(() => {
-              this.props.dispatch(showMessage({}));
-            }, 6000);
-          })
+        }
+        else {
+          this.props.history.push('/onboard');
+        }
       })
         .catch((err) => {
           this.props.dispatch(showMessage({ text: err.msg, isSuccess: false }));
-    
           setTimeout(() => {
             this.props.dispatch(showMessage({}));
           }, 6000);
         })
-    
+    })
+      .catch((err) => {
+        this.props.dispatch(showMessage({ text: err.msg, isSuccess: false }));
+
+        setTimeout(() => {
+          this.props.dispatch(showMessage({}));
+        }, 6000);
+      })
+
   }
 
   handleLink = (activeTab) => {
     this.setState({ activeTab })
   }
- 
+
 
   render() {
     console.log(this.props, "props is hre")
@@ -129,12 +129,12 @@ class SignIn extends Component {
               <Button
                 type="submit"
                 fullWidth
-                disabled={this.props.isFetchingLogin||this.props.isFetchingBasicData}
+                disabled={this.props.isFetchingLogin || this.props.isFetchingBasicData}
                 variant="contained"
                 color="primary"
                 className="btnprimary ml-35"
               >
-                {this.props.isFetchingLogin||this.props.isFetchingBasicData ? <CircularProgress size={24} /> : 'Sign In'}
+                {this.props.isFetchingLogin || this.props.isFetchingBasicData ? <CircularProgress size={24} /> : 'Sign In'}
               </Button>
             </div>
           </form>
@@ -146,17 +146,17 @@ class SignIn extends Component {
 
 SignIn = reduxForm({
   form: 'SignInForm',
-  keepDirtyOnReinitialize:true,
-  enableReinitialize:true,
+  keepDirtyOnReinitialize: true,
+  enableReinitialize: true,
 })(SignIn);
 
 SignIn = withStyles(styles)(SignIn);
 
 function mapStateToProps(state) {
   let isFetchingLogin = _get(state, 'LoginData.isFetching', false);
-  let isFetchingBasicData = _get(state,'BasicInfo.isFetching')
+  let isFetchingBasicData = _get(state, 'BasicInfo.isFetching');
 
-  return { isFetchingLogin,isFetchingBasicData };
+  return { isFetchingLogin, isFetchingBasicData };
 }
 export default connect(mapStateToProps)(AuthTabHoc(SignIn))
 

@@ -351,6 +351,19 @@ a{
         }
     }
 
+    footer{
+        background: #313787;
+        color: #fff;
+
+        a{
+            color: #fafafa
+        }
+
+        .footer-copyright{
+            background: #1C2331;
+        }
+    }
+
 }
 
 .login-container{
@@ -578,6 +591,9 @@ height: 40px;
 .master .get-money button:first-child{
 border-left: solid 1px #ddd;
 }
+.master .get-money .MuiToggleButton-label{
+    font-size: 0.9em;
+}
 .master .MuiTab-root-54{
     font-weight: bold;
     font-size: 1rem;
@@ -600,10 +616,11 @@ box-shadow: none;
 .finan-tab div{
     cursor: pointer;
     padding: 10px 50px;
-    background: #fafafa;
+    background: #ececec;
     position: relative;
     border-bottom: solid 1px #afb2b5;
     margin-bottom: -1px;
+    margin-right: 20px;
    
  
 }
@@ -611,11 +628,38 @@ box-shadow: none;
 .finan-tab div.active{
     cursor: pointer;
     padding: 10px 50px;
-    background: #fff;
-    margin-right: 20px;
+    background-color: #313787;
+    color: #fff;
+   
     border: solid 1px #afb2b5;
     border-bottom: solid 1px #fff;
  
+}
+
+
+.finan-sub-tab {
+    display: flex;  
+    position: relative;
+    align-items: center;
+    justify-content: center;
+}
+
+.finan-sub-tab div{
+    cursor: pointer;
+    padding: 10px 50px;
+    background: #dedede;
+    position: relative;    
+    margin: 0 20px;
+  
+   
+ 
+}
+
+.finan-sub-tab div.active{
+    cursor: pointer;
+    padding: 10px 50px;
+    background: #2d2d2d;
+    color: #fff;
 }
 
 .info-secure, .questions, .request-assistance{
@@ -787,4 +831,21 @@ flex: 0 0 25%;
         .downlaod-external a:hover{text-decoration: none;}
         .downlaod-external i{font-size: 2.5rem; margin-right: 10px;}
 
+}
+
+.loan-provider-block{   
+
+}
+
+
+
+.delete-provider{
+    font-size: 30px;
+    color:#848383;
+    transition: ease .3s;
+    cursor: pointer;
+}
+
+.delete-provider:hover{
+    color:#e00000;
 }

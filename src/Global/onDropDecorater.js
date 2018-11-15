@@ -1,6 +1,7 @@
 import {withHandlers} from 'recompose';
 import { connect } from 'tls';
-import {postData} from '../Redux/postAction'
+import {postData} from '../Redux/postAction';
+import {getData} from '../Redux/getAction'
 import showMessage from '../Redux/toastAction';
 import {APPLICATION_BFF_URL} from '../Redux/urlConstants'
 const decorateWithOnDrop = withHandlers({
@@ -11,12 +12,20 @@ const decorateWithOnDrop = withHandlers({
         formData.append('mediaType', 'customer')
         formData.append('mediaTypeId', '1234567')
         props.dispatch(postData(`${APPLICATION_BFF_URL}/api/media`, formData, 'fileUpload',{
-            init:'File_Upload_init',
+            init:`File_Upload_init`,
             success:'File_Upload_Success',
             error:'File_Upload_Error'
 
         }))
             .then((data) => {
+                let linkname = name+'link'
+                props.setState({...props.state,[name+'link']:data.message.absoluteURL})
+                // props.dispatch(getData(`${APPLICATION_BFF_URL}/parser-service/cashFlowParser?files=${data.message.absoluteURL}`,'fileUpload',{
+                //     init:'File_Upload_init',
+                //     success:'File_Upload_Success',
+                //     error:'File_Upload_Error'
+        
+                // }))
                 props.dispatch(showMessage({ text: 'Upload success', isSuccess: true }));
                 setTimeout(() => {
                     props.dispatch(showMessage({ text: '', isSuccess: true }));

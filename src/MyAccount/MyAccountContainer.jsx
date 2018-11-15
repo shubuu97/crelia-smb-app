@@ -34,15 +34,11 @@ class UserForm extends Component {
     }
 
     basicDataFetcher = () => {
-        debugger
+        
         if (localStorage.getItem('authToken')) {
             let decodeData = jwtDecode(localStorage.getItem('authToken'));
-            let role = decodeData.role
-
-            if(role.search("Temp")){
-                role = role.substr(3)
-                localStorage.setItem('role', role)
-            }
+            let role = decodeData.role;
+             localStorage.setItem('role', role);
             
             this.props.dispatch(
                 getData(`${APPLICATION_BFF_URL}/api/${role}/${encodeURIComponent(decodeData.id)}`, 'fetchingbasicdata', {
@@ -52,51 +48,83 @@ class UserForm extends Component {
                 })
             )
         }
+    
         else {
             // this.props.history.push('/')
         }
     }
 
-    handleSubmit = () => {
+    handleSubmitUpdateSMBUser = (values) => {
+        let reqObj = {
+            username:this.props.username,
+            ...values
+        }
+        this.props.dispatch(
+            postData(`${APPLICATION_BFF_URL}/api/UpdateSMBUser`, reqObj, 'UpdateSMBUser', {
+                init: 'UpdateSMBUser_init',
+                success: 'UpdateSMBUser_success',
+                error: 'UpdateSMBUser_error'
+            })
+        ).then((data) => {
+            this.props.dispatch(showMessage({ text: 'Update Succesfully', isSuccess: true }));
+            this.basicDataFetcher();
+            setTimeout(() => {
+                this.props.dispatch(showMessage({}));
+            }, 1000);
 
+        })
+            .catch((err) => {
+                this.props.dispatch(showMessage({ text: err.msg, isSuccess: false }));
+                setTimeout(() => {
+                    this.props.dispatch(showMessage({}));
+                }, 6000);
+            })
     }
 
     render() {
-        const { invalid, anyTouched } = this.props;
         return (
-            <form class='container' onSubmit={this.handleSubmit(this.submitHandler)}>
+            <form class='container'>
                 <div class='row'>
-                    <UserCompanyData/>
-                    <div class='col-sm-4'>
+                    <UserCompanyData
+                    initialValues={
+                        { firstName:_get(this.props, 'userData.firstName'),
+                        lastName:_get(this.props, 'userData.lastName'),
+                        email:_get(this.props, 'userData.email'),
+                        phoneNumber:_get(this.props, 'userData.phoneNumber'),
+                        companyName:_get(this.props, 'userData.companyName'),
+                        positionCompany:_get(this.props, 'userData.positionCompany')}
+                    }
+                    handleSubmitUpdateSMBUser={this.handleSubmitUpdateSMBUser}
+                    isFetchingUpdateSMBUser={this.props.isFetchingUpdateSMBUser}
+                    />
+                    {/* <div class='col-sm-4'>
                         <PreviewUserForm
                             valid={!invalid}
                             anyTouched={this.props.anyTouched}
-                            firstName={_get(this.props, 'formValue.firstName')}
-                            lastName={_get(this.props, 'formValue.lastName')}
-                            email={_get(this.props, 'formValue.email')}
-                            contactNumber={_get(this.props, 'formValue.contactNumber')}
-                            companyName={_get(this.props, 'formValue.companyName')}
-                            positionCompany={_get(this.props, 'formValue.positionCompany')}
+                            firstName={_get(this.props, 'userData.firstName')}
+                            lastName={_get(this.props, 'userData.lastName')}
+                            email={_get(this.props, 'userData.email')}
+                            phoneNumber={_get(this.props, 'userData.phoneNumber')}
+                            companyName={_get(this.props, 'userData.companyName')}
+                            positionCompany={_get(this.props, 'userData.positionCompany')}
                         />
-                    </div>
+                    </div> */}
                 </div>
             </form>
         )
     }
 }
 
-UserForm = reduxForm({
-    form: 'UserForm',
-    asyncValidate
-})(UserForm);
 
 function mapStateToProps(state) {
 
     let userData = _get(state, 'BasicInfo.lookUpData');
+    let username = _get(state, 'BasicInfo.lookUpData.username', null);
+    let isFetchingUpdateSMBUser = _get(state, 'UpdateSMBUser.isFetching');
 
     console.log( userData, "userData updated")
 
-    return { userData }
+    return { userData,username,isFetchingUpdateSMBUser}
 }
 
 UserForm = connect(mapStateToProps)(UserForm)

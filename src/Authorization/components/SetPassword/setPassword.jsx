@@ -22,7 +22,7 @@ import PhoneInput from '../../../Global/PhoneNumInput';
 import ReCAPTCHA from "react-google-recaptcha";
 
 var jwtDecode = require('jwt-decode');
-const grecaptchaObject = window.grecaptcha
+const recaptchaRef = React.createRef();
 
 const styles = theme => ({
   form: {
@@ -72,7 +72,7 @@ class ResetPassword extends Component {
     console.log(reqObj, "Request Object");
     if (reCaptchaResponse) {
       this.props.dispatch(
-        postData(`${APPLICATION_BFF_URL}/api/${this.state.tokenObj.URL}`, reqObj, 'password-data', {
+        postData(`${APPLICATION_BFF_URL}/api/${'createSMBUser'}`, reqObj, 'password-data', {
           init: 'set_init',
           success: 'set_success',
           error: 'set_error'
@@ -90,6 +90,7 @@ class ResetPassword extends Component {
           setTimeout(() => {
             this.props.dispatch(showMessage({}));
           }, 3000);
+          recaptchaRef.current.reset()
         })
     }
     else{
@@ -224,7 +225,7 @@ class ResetPassword extends Component {
               <ReCAPTCHA
                 style={{ display: "inline-block" }}
                 theme="dark"
-                ref={this._reCaptchaRef}
+                ref={recaptchaRef}
                 sitekey="6LdlGHgUAAAAAO0YjKef6Ptcl8Cz-2B9ZrUhjriX"
                 onChange={this.handleChange}
                 asyncScriptOnLoad={this.asyncScriptOnLoad}

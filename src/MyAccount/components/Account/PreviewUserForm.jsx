@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 
-const PreviewUserForm = ({ firstName, lastName, email, contactNumber,companyName,positionCompany, valid, anyTouched }) => {
+const PreviewUserForm = ({ firstName, lastName, email, phoneNumber,companyName,positionCompany, valid, anyTouched }) => {
 
   return (
     <div classsName="form-output" style={{ width: '40%' }}>
@@ -9,7 +9,7 @@ const PreviewUserForm = ({ firstName, lastName, email, contactNumber,companyName
       <hr />
       <div> {firstName}</div>
       <div>{lastName}</div>
-      <div>{contactNumber}</div>
+      <div>{phoneNumber}</div>
       <div>{email}</div>
       <h5>Company Data</h5>
       <hr />
