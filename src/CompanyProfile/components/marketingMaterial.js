@@ -18,7 +18,8 @@ class MarketingMaterial extends Component
 {
     handleMarketingMaterialSubmit=(values)=>
     {
-
+    let reqObj = {};
+    
     }
 
 render(){
