@@ -82,6 +82,9 @@ var jwtDecode = require('jwt-decode');
                 />
                 <FinancialView
                 financialData={_get(this.props,'companyDetails.financialInfo.financialData',[])}
+                loanProvider={_get(this.props,'companyDetails.financialInfo.loanProvider',[])}
+                financialLinks={_get(this.props,'companyDetails.financialInfo.financialLinks',[])}
+
                 />
                 <Button disabled={this.props.isFetchingPostMarketPlace} onClick={this.postMarketPlace} variant='contained' color='primary'> 
                 {this.props.isFetchingPostMarketPlace ? <CircularProgress size={24} /> : 'POST TO THE MARKET PLACE'}
