@@ -63,31 +63,53 @@ var jwtDecode = require('jwt-decode');
   {
       return(
           <div>
-                <FundingView
-                moneyRequired={_get(this.props,'companyDetails.onboardingInfo.moneyRequired')}
-                timeFrame={_get(this.props,'companyDetails.onboardingInfo.timeFrame')}
-                fundAllocation={_get(this.props,'companyDetails.onboardingInfo.fundAllocation',[])}
-                fundingType={_get(this.props,'companyDetails.onboardingInfo.fundingType',[])}
-                />
-                <CompanyView
-                legalName={_get(this.props,'companyDetails.legalName')}
-                legalEntityType={_get(this.props,'companyDetails.legalEntityType')}
-                taxId={_get(this.props,'companyDetails.taxId')}
-                otherCompanyName={_get(this.props,'companyDetails.onboardingInfo.otherCompanyName')}
-                incorporationDate={_get(this.props,'companyDetails.incorporationDate')}
-                address={_get(this.props,'companyDetails.address')}
-                phoneNumber={_get(this.props,'companyDetails.phoneNumber')}
-                email={_get(this.props,'companyDetails.email')}
-                />
-                <FinancialView
-                financialData={_get(this.props,'companyDetails.financialInfo.financialData',[])}
-                loanProvider={_get(this.props,'companyDetails.financialInfo.loanProvider',[])}
-                financialLinks={_get(this.props,'companyDetails.financialInfo.financialLinks',[])}
 
-                />
+              <div className="funding-details">
+                    <h1>Funding Details</h1>
+                    <div className="col-sm-12 card" >
+                        <div className="row pad-20">
+                            <div className="col-sm-3" >
+                            <CompanyView
+                                legalName={_get(this.props,'companyDetails.legalName')}
+                                legalEntityType={_get(this.props,'companyDetails.legalEntityType')}
+                                taxId={_get(this.props,'companyDetails.taxId')}
+                                otherCompanyName={_get(this.props,'companyDetails.onboardingInfo.otherCompanyName')}
+                                incorporationDate={_get(this.props,'companyDetails.incorporationDate')}
+                                address={_get(this.props,'companyDetails.address')}
+                                phoneNumber={_get(this.props,'companyDetails.phoneNumber')}
+                                email={_get(this.props,'companyDetails.email')}
+                                />             
+
+                            <FundingView
+                                moneyRequired={_get(this.props,'companyDetails.onboardingInfo.moneyRequired')}
+                                timeFrame={_get(this.props,'companyDetails.onboardingInfo.timeFrame')}
+                                fundAllocation={_get(this.props,'companyDetails.onboardingInfo.fundAllocation',[])}
+                                fundingType={_get(this.props,'companyDetails.onboardingInfo.fundingType',[])}
+                                />                               
+                            </div>                          
+
+                            <div className="col-sm-9" >   
+                            <FinancialView
+                                financialData={_get(this.props,'companyDetails.financialInfo.financialData',[])}
+                                loanProvider={_get(this.props,'companyDetails.financialInfo.loanProvider',[])}
+                                financialLinks={_get(this.props,'companyDetails.financialInfo.financialLinks',[])}
+
+                                />                            
+                            </div>
+                            
+                        </div>
+                        <div className="common-action-block pb-15">
+               
                 <Button disabled={this.props.isFetchingPostMarketPlace} onClick={this.postMarketPlace} variant='contained' color='primary'> 
                 {this.props.isFetchingPostMarketPlace ? <CircularProgress size={24} /> : 'POST TO THE MARKET PLACE'}
                 </Button>
+                </div>
+                    </div>
+                </div>
+
+
+               
+               
             </div>
       )
   }

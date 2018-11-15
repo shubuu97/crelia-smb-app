@@ -101,8 +101,11 @@ class AboutMain extends React.Component {
             <div>
 
                 <div>{markup}</div>
-                <div onClick={this.toggleUseMoneyDesc} ><a>Or tell us about the intended use of capital in your own words:</a></div>
-                <div>{this.state.otherLoanDescription ? <Field multiline={true} name='otherLoanDescription' component={GlobalTextField} /> : null}</div>
+                <div className="extrablock">
+                    <span className="or mr-20">or</span>
+                    <div className="btncommon " onClick={this.toggleUseMoneyDesc} >tell us about the intended use of capital in your own words</div>
+                </div>
+                <div>{this.state.otherLoanDescription ? <FormControl margin="normal"  fullWidth><Field autoFocus={true} fullWidth={true} multiline={true} name='otherLoanDescription' component={GlobalTextField} /></FormControl> : null}</div>
             </div>
         );
     }
@@ -209,9 +212,9 @@ class AboutMain extends React.Component {
             <form onSubmit={handleSubmit(this.submitHandler)} className="fwidth" >
                 <fieldset disabled="">
                     <div className="Onboarding_Title">Apply for Business Financing</div>
-                    <div className="row justify-content-between pt-20">
-                        <div className="col-sm-6">
-                            <div class="col-sm-12"><span className="onboarding-sub-title">How much funding do you think you may need?</span></div>
+                    <div className="row justify-content-between pt-30">
+                        <div className="col-sm-8">
+                            <div><span className="onboarding-sub-title">How much funding do you think you may need?</span></div>
                             <Field
                                 label=""
                                 disabled={localStorage.getItem('disabled')}
@@ -223,68 +226,74 @@ class AboutMain extends React.Component {
                                 type="number"
                             />
                         </div>
-                        <div className="col-sm-6 get-money">
-                            <div class="col-sm-12">
-                                <span className="onboarding-sub-title">How soon will you need the money?</span>
-                            </div>
-                            <Field
-                                name="timeFrame"
-                                disabled={localStorage.getItem('disabled')}
-                                component={ToggleButtons}
-                                toggleList={[
-                                    { label: '< 1 Month', alinValue: '< 1 Month' },
-                                    { label: '1-3 Mnths', alinValue: '1-3 Mnths' },
-                                    { label: '3-6 Mnths', alinValue: '3-6 Mnths' },
-                                    { label: '> 6 Mnths', alinValue: '> 6 Mnths' }
-                                ]}
-                            />
-                            <p>or</p>
-                            <div class="col-sm-12">
-                                <span className="onboarding-sub-title">Or give us a date by when you need the money in the bank</span>
-                            </div>
-                            <FormControl margin="normal" required fullWidth>
+                        <div className="col-sm-12 get-money  pt-30">
+                            <div className="row align-items-center">
+                                <div className="col-sm-5">
+                                <div className=" pb-15" >
+                                    <span className="onboarding-sub-title ">How soon will you need the money?</span>
+                                </div>
                                 <Field
-                                    id="date"
-                                    disabled={localStorage.getItem('disabled')}
                                     name="timeFrame"
-                                    component={GlobalTextField}
-                                    defaultValue="2017-05-24"
-                                    type="date"
-                                    variantType='outlined'
-                                    fullWidth="true"
-                                    InputLabelProps={{
-                                        shrink: true,
-                                    }}
+                                    disabled={localStorage.getItem('disabled')}
+                                    component={ToggleButtons}
+                                    toggleList={[
+                                        { label: '< 1 Month', alinValue: '< 1 Month' },
+                                        { label: '1-3 Mnths', alinValue: '1-3 Mnths' },
+                                        { label: '3-6 Mnths', alinValue: '3-6 Mnths' },
+                                        { label: '> 6 Mnths', alinValue: '> 6 Mnths' }
+                                    ]}
                                 />
-                            </FormControl>
-                        </div>
-                    </div>
-                    <div className="row justify-content-between pt-20">
-
-                        <div className="col-sm-6">
-                            <div className="onboarding-sub-title">How will you use the money?</div>
-                            <div class="mdc-layout-grid__inner">
-                                <div class="mdc-layout-grid__cell--span-12">
-                                    <div className="flex-column">
-                                        {this.CheckboxTest()}
+                            </div>
+                                <div className="col-sm-1">
+                                    <span className="or">or</span>
+                                </div>
+                                <div className="col-sm-6">
+                                    <div>
+                                        <span className="onboarding-sub-title">Give us a date by when you need the money in the bank</span>
                                     </div>
-
+                                    <FormControl margin="normal" required fullWidth>
+                                        <Field
+                                            id="date"
+                                            disabled={localStorage.getItem('disabled')}
+                                            name="timeFrame"
+                                            component={GlobalTextField}
+                                            defaultValue="2017-05-24"
+                                            type="date"
+                                            variantType='outlined'
+                                            fullWidth="true"
+                                            InputLabelProps={{
+                                                shrink: true,
+                                            }}
+                                        />
+                                    </FormControl>
                                 </div>
                             </div>
+                        </div>                   
 
-                        </div>
-
-                        <div className="col-sm-6">
+                         <div className="col-sm-8 pt-30">
                             <div className="onboarding-sub-title">Do you prefer to borrow or attract partners?</div>
-                            <div class="mdc-layout-grid__inner">
-                                <div class="mdc-layout-grid__cell--span-12">
+                            <div className="mdc-layout-grid__inner">
+                                <div className="mdc-layout-grid__cell--span-12">
                                     {this.LoanEquityCheckbox()}
                                 </div>
                             </div>
                         </div>
+
+                        <div className="col-sm-8 pt-20">
+                            <div className="onboarding-sub-title">How will you use the money?</div>
+                            <div className="mdc-layout-grid__inner">
+                                <div className="mdc-layout-grid__cell--span-12">
+                                    <div className="flex-column">
+                                        {this.CheckboxTest()}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                       
                     </div>
 
-                    <div class="common-action-block pt-78">
+                    <div className="common-action-block pt-78">
                         <Button
                             type="submit"
                             fullWidth

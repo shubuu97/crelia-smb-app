@@ -91,7 +91,7 @@ class ContactContainer extends Component {
                             variantType="outlined"
                         />
                     </div>
-                </div>
+                
                 <div className="col-sm-12">
                     <FormControl margin="normal" required fullWidth>
                         <Field
@@ -103,13 +103,14 @@ class ContactContainer extends Component {
                             fullWidth="true"
                         /></FormControl>
                 </div>
+                </div>
                 <div className="row justify-content-between pt-20">
-                    <div className="col-sm-6">
+                <div className="onboarding-sub-title col-sm-12">Do you do or have previously done business under a different name?</div>
+                    <div className="col-sm-12">
                         <Field
                             disabled={localStorage.getItem('disabled')}
                             name="businessUnderName"
-                            component={RadioButtonGroup}
-                            label='Do you do or have previously done business under a different name?'
+                            component={RadioButtonGroup}                            
                             radioList={[{ label: "Yes", value: "yes" }, { label: "No", value: "no" }]}
                         />
 
@@ -130,7 +131,7 @@ class ContactContainer extends Component {
                         </div>
                     </div>
                 }
-                <div className="row justify-content-between pt-20">
+                <div className="row justify-content-between pt-10">
                     <div className="onboarding-sub-title col-sm-12">Since when are you in business?</div>
                     <div className="col-sm-12">
                         <FormControl margin="normal" required fullWidth>

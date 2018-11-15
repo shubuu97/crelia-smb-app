@@ -57,6 +57,9 @@ form {
 .master input{
 padding: 8px 0 9px;
 }
+.d-block{
+    display: block;
+}
 
 .MuiFormControl-marginNormal-3
 
@@ -99,6 +102,13 @@ label, p{
 .ml-35{
     margin-left: 35px!important;
 }
+.pad-20{
+    padding: 20px!important;
+}
+
+.mr-20{
+    margin-right: 20px!important;
+}
 .mt-16{
     margin-top: 16px!important;
 }
@@ -114,11 +124,17 @@ label, p{
 .p-abs{
     position: absolute;
 }
+.pt-10{
+    padding-top:10px!important;
+}
 .pt-15{
     padding-top:15px!important;
 }
 .pb-15{
     padding-bottom:15px!important;
+}
+.pb-20{
+    padding-bottom:20px!important;
 }
 .pt-60{
     padding-top: 6rem!important; 
@@ -145,6 +161,13 @@ label, p{
 a{
     color:#222222;
 }
+.or{
+    background:#313787; 
+    color: #fff;
+    padding: 7px 10px;
+    border-radius: 60%;
+    text-align: center;   
+}
 .common-action-block{
     display: flex;
     align-items: center;
@@ -162,6 +185,19 @@ a{
     border: 0;
     color: #fff;  
     cursor: pointer; 
+}
+
+.btncommon{
+    padding: 10px;
+    border: solid 1px #ddd;
+    border-radius: 4px;
+    background: #f9f9f9;
+    cursor: pointer; 
+    transition: ease .2s;
+}
+.btncommon:hover{    
+    background: #efefef;
+   
 }
 
 .btnsecondary{
@@ -311,6 +347,7 @@ a{
         background-repeat: no-repeat;
         background-blend-mode: multiply;
         background-size: 25%;  
+        min-height: 83vh;
     
     }
     .header{
@@ -581,6 +618,7 @@ a{
 }
 .master .onboarding-sub-title {
     font-size: 1.2em;
+    font-family: 'GTWalsheimMedium', sans-serif;
 }
 .master .get-money button{
  text-transform: capitalize;
@@ -602,6 +640,15 @@ border-left: solid 1px #ddd;
 .master  .MuiToggleButton-root-285:hover, .master .MuiToggleButton-selected-287{
 background-color: #313787;
 color: #fff;
+}
+
+.master .RadioButtonsGroup-formControl-357 {
+    margin: 0; 
+}
+
+.extrablock{
+    display: flex;  
+    align-items: center;
 }
 
 .master .MuiToggleButtonGroup-selected-284{
@@ -649,10 +696,7 @@ box-shadow: none;
     padding: 10px 50px;
     background: #dedede;
     position: relative;    
-    margin: 0 20px;
-  
-   
- 
+    margin: 0 20px;  
 }
 
 .finan-sub-tab div.active{
@@ -709,7 +753,6 @@ flex: 0 0 25%;
 
 
 .about-section{
-
     .card{
         padding:10px;
     }
@@ -833,9 +876,7 @@ flex: 0 0 25%;
 
 }
 
-.loan-provider-block{   
 
-}
 
 
 
@@ -848,4 +889,59 @@ flex: 0 0 25%;
 
 .delete-provider:hover{
     color:#e00000;
+}
+.add-more{
+    font-size: 32px;
+    color: #20ad61;
+    cursor: pointer;
+    padding-top: 20px;
+}
+.data-list{
+    display: flex;
+    flex-direction: column;
+}
+
+.funding-details{
+
+    .sub-head{
+        font-size: .9rem;
+        font-family: 'GTWalsheimMedium';
+        border-bottom: solid 1px #ddd;
+        padding-bottom: 4px;
+        margin: 15px 0;
+    }
+    .list-content{
+        display: flex;
+        justify-content: space-between;
+        font-size: .9rem;
+        padding-bottom: 5px;
+
+        span{
+            font-family: 'GTWalsheimProRegular';
+        }
+    }
+
+    .financial-links{
+        font-size: .9rem;
+        padding: 15px 0 0;
+        display: block;
+    }
+
+    .fund-type-head{
+        font-size: .9rem;
+        font-family: 'GTWalsheimMedium';
+        border-bottom: dotted 1px #ddd;
+        padding:3px 0; 
+    }
+
+    .s-level{
+
+        .list-content{
+            margin-left: 10px;
+        }
+    }
+    .address-detail{
+        text-align: right;
+    }
+
 }
