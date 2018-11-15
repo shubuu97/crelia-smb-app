@@ -8,13 +8,25 @@ import {Field,reduxForm} from 'redux-form';
 import RFTextField from '../../Global/GlobalTextField';
 import FormControl from '@material-ui/core/FormControl';
 import companypresentation from '../../Assets/images/company-presentation.png';
+import {connect} from 'react-redux';
+import LoaderButton from '../../Global/LoaderButton';
+import _get from 'lodash/get';
 
 
 
-let  MarketingMaterial = (props)=>{
-console.log(props,"11")
+class MarketingMaterial extends Component
 {
+    handleMarketingMaterialSubmit=(values)=>
+    {
+    let reqObj = {};
+    
+    }
+
+render(){
+    let {handleSubmit} = this.props;
+
     return(
+    <form onSubmit={handleSubmit(this.handleMarketingMaterialSubmit)}>
        <div className="row">
             <div className="col-sm-12">
                      <div className="row">
@@ -29,45 +41,60 @@ console.log(props,"11")
                     <div className="row pt-30">
                     <div className="col-sm-4">
                     <h4>Presentation</h4>
-                        <img
-                            className="img-fluid mb-20 minHeightbox"
-                            src={companypresentation} />
+                         <a href={_get(this.props,'state.presentaion')||_get(this.props,'state.presentaionlink')}>presentaion ppt</a> 
                           <DropzoneButton
                             name="Upload Presentation"
                             fieldName="presentaion"
-                            onDrop={props.onDrop}
+                            onDrop={this.props.onDrop}
                             />                
                     </div>
                     <div className="col-sm-4  offset-sm-1">
                     <h4>Video</h4>
-                         <video width="100%" className="mb-20 minHeightbox" controls>
-                            <source src="mov_bbb.mp4" type="video/mp4"/>
-                            <source src="mov_bbb.ogg" type="video/ogg"/>
+                    <a href={_get(this.props,'state.presentaionVideo')||_get(this.props,'state.presentaionVideolink')}>Video</a> 
+                         {/* <Player width="100%" className="mb-20 minHeightbox">
+                            <source src={_get(this.props,'state.presentaionVideo')||_get(this.props,'state.presentaionVideolink')||''}/>
                             Your browser does not support HTML5 video.
-                            </video>
+                            </Player> */}
                             <DropzoneButton
                             name="Upload Presentational Video"
                             fieldName="presentaionVideo"
-                            onDrop={props.onDrop}
+                            onDrop={this.props.onDrop}
                         />
+                        <div class="action-block">
+                    <LoaderButton
+                                    isFetching={this.props.isFetchingUpdateSMB}
+                                    type="submit"
+                                    color="primary"
+                                    variant="contained">Save Draft</LoaderButton>
+                    </div>
                     </div>  
+                    
                  </div>
             </div>
         </div>
+        </form>
 
     )
 }
 }
 
+
 let state = withState('state', 'setState', '')
 
-export default compose(
+MarketingMaterial = compose(
 state,
 decorateWithOnDrop,
 sidebar,
 reduxForm({form:'MarketingMaterial'}),
 
 )(MarketingMaterial);
+
+function mapStateToProps(state)
+{
+    return {}
+}
+
+export default connect(mapStateToProps)(MarketingMaterial);
 
 
 
