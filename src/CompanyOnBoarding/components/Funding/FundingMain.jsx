@@ -234,7 +234,6 @@ class AboutMain extends React.Component {
                                 </div>
                                 <Field
                                     name="timeFrame"
-<<<<<<< HEAD
                                     disabled={localStorage.getItem('disabled')}
                                     component={ToggleButtons}
                                     toggleList={[
@@ -278,18 +277,6 @@ class AboutMain extends React.Component {
                                     {this.LoanEquityCheckbox()}
                                 </div>
                             </div>
-=======
-                                    component={GlobalTextField}
-                                    defaultValue="2017-05-24"
-                                    type="date"
-                                    variantType='outlined'
-                                    fullWidth="true"
-                                    InputLabelProps={{
-                                        shrink: true,
-                                    }}
-                                />
-                            </FormControl>
->>>>>>> 0935f2e2e6d4125055ebe0259b2c374c25aeb9af
                         </div>
 
                         <div className="col-sm-8 pt-20">

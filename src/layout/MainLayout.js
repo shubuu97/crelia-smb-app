@@ -45,15 +45,9 @@ class MainLayout extends Component {
         </div>
 
         {/* Footer Content */}
-<<<<<<< HEAD
         <footer class="page-footer font-small">
           <div class="container-fluid text-center text-md-left">
             {/* <div class="row">
-=======
-        <footer class="page-footer font-small pt-4">
-          {/* <div class="container-fluid text-center text-md-left">
-            <div class="row">
->>>>>>> 0935f2e2e6d4125055ebe0259b2c374c25aeb9af
               <div class="col-md-6 mt-md-0 mt-3">
                 <h5 class="text-uppercase">Footer Content</h5>
                 <p>Here you can use rows and columns here to organize your footer content.</p>
@@ -93,13 +87,8 @@ class MainLayout extends Component {
                   </li>
                 </ul>
               </div>
-<<<<<<< HEAD
             </div>*/}
           </div> 
-=======
-            </div>
-          </div> */}
->>>>>>> 0935f2e2e6d4125055ebe0259b2c374c25aeb9af
           <div class="footer-copyright text-center py-3">© 2018 Copyright:
             <a> Crelia Capital</a>
           </div>
