@@ -43,13 +43,12 @@ var jwtDecode = require('jwt-decode');
             error: 'cob-post-marketplace_error'
         })
     ).then((data) => {
-        debugger;
         this.props.dispatch(showMessage({ text: 'Update Succesfully', isSuccess: true }));
        // this.basicDataFetcher();
        
         setTimeout(() => {
             this.props.dispatch(showMessage({}));
-            window.location.reload();
+            this.props.history.push('/OnBoardingAcknowlege')
         }, 1000);
 
     })
