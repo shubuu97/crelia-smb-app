@@ -15,48 +15,51 @@ const LoanProviderComp = (props)=>
   fields.push()
 return(   
 <div>
+
 <div>
 {fields.map((loanProvider, index) => (
     <div   key={index}>
-    <div className="row">
-    <div className="col-sm-5">
-        <FormControl className="inner-control"  margin="normal" required fullWidth>
-      <Field
-        name={`${loanProvider}.providerName`}
-        component={GlobalTextField}
-        label='Provider Name'
-        variant="standard"
-        fullWidth='fullWidth'
-      />      
-      </FormControl>
-      </div>
-      <div className="col-sm-5">
-        <FormControl className="inner-control"   margin="normal" required fullWidth>
+    <div className="row align-items-center pb-20">
+        <div className="col-sm-5">
+            <FormControl className="inner-control"  margin="normal" required fullWidth>
         <Field
-        name={`${loanProvider}.amount`}
-        component={GlobalTextField}
-        label='Ammount'
-        variant="standard"
-        fullWidth='fullWidth'
-      />
-      </FormControl>
-      </div>
-      <div className="col-sm-2">
+            name={`${loanProvider}.providerName`}
+            component={GlobalTextField}
+            label='Provider Name'
+            variant="standard"
+            fullWidth='fullWidth'
+        />      
+        </FormControl>
+        </div>
+        <div className="col-sm-5">
+            <FormControl className="inner-control"   margin="normal" required fullWidth>
+            <Field
+            name={`${loanProvider}.amount`}
+            component={GlobalTextField}
+            label='Ammount'
+            variant="standard"
+            fullWidth='fullWidth'
+        />
+        </FormControl>
+        </div>
+        <div className="col-sm-2">
          <FormControl    margin="normal">
-         <i title='Delete' class="material-icons delete-provider" color='secondary' onClick={()=>fields.remove(index)}>
-delete_outline
-</i>  
- {/* <Button variant='contained' color='secondary' onClick={()=>fields.remove(index)}>Remove</Button> */}
- </FormControl>
- </div>
+            <i title='Delete' class="material-icons delete-provider" color='secondary' onClick={()=>fields.remove(index)}>
+            delete_outline
+            </i>  
+            {/* <Button variant='contained' color='secondary' onClick={()=>fields.remove(index)}>Remove</Button> */}
+            </FormControl>
+        </div>
     </div>
     </div>
   ))}
 </div>
-<FormControl  margin="normal">   
-<Button variant='contained' color='primary' onClick={()=>fields.push()}>Add More</Button>
-</FormControl>
 
+<div className="row align-items-center pb-20">
+<div className="col-sm-2 offset-sm-10">
+        <i class="material-icons add-more"  onClick={()=>fields.push()}>add_circle_outline</i>    
+    </div>
+    </div>
 </div>
  )
 
@@ -87,7 +90,7 @@ delete_outline
         return (
             <form onSubmit={handleSubmit(this.handleSubmitLoanProvider)} >
             <FieldArray name='loanProvider' component={LoanProviderComp}/>
-            <div class="common-action-block col-sm-12">
+            <div class="common-action-block col-sm-12 pt-78">
                         <Button
                             type="submit"
                             fullWidth
