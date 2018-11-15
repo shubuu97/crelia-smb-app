@@ -190,7 +190,6 @@ class AboutMain extends React.Component {
         setwith(reqObj, 'onboardingInfo.moneyRequired', parseInt(values.moneyRequired));
         setwith(reqObj, 'onboardingInfo.fundAllocation', fundAllocation);
         setwith(reqObj, 'onboardingInfo.fundingType', fundingType);
-
         setwith(reqObj, 'onboardingInfo.timeFrame', values.timeFrame)
         this.props.handleNext(reqObj)
 
@@ -256,7 +255,8 @@ class AboutMain extends React.Component {
                                     InputLabelProps={{
                                         shrink: true,
                                     }}
-                                /></FormControl>
+                                />
+                            </FormControl>
                         </div>
                     </div>
                     <div className="row justify-content-between pt-20">
