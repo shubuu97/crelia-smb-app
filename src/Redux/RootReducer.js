@@ -12,9 +12,19 @@ import BasicInfo from '../Authorization/Reducer/basicData';
 import SetPassword from '../Authorization/Reducer/setPassword';
 import CobPostFun from './commonReducer';
 import CobPostMarketPlaceFun from './commonReducer';
+import UpdateSMBUserFun from './commonReducer';
+import AddTeamFun from './commonReducer';
+import  getEmployeeListFun from './commonReducer';
 let CobPost=CobPostFun('cobsave');
 let CobPostMarketPlace=CobPostMarketPlaceFun('cob-post-marketplace');
 let UpdateSMB = UpdateSMBFun('UpdateSMB');
+let UpdateSMBUser = UpdateSMBUserFun('UpdateSMBUser');
+let AddTeam = AddTeamFun('addTeam');
+let EmployeeList = getEmployeeListFun('getEmployeeList');
+
+
+
+
 
 let rootRducer = combineReducers({
     form:formReducer,
@@ -29,7 +39,10 @@ let rootRducer = combineReducers({
     SetPassword,
     CobPost,
     CobPostMarketPlace,
-    UpdateSMB
+    UpdateSMB,
+    UpdateSMBUser,
+    AddTeam,
+    EmployeeList
 })
 
 export default rootRducer;

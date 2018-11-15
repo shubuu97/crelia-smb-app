@@ -16,10 +16,33 @@ const financialView=(props)=>
 
     )
     })
+    let loanProviderView =  props.loanProvider.map(data=>
+        {
+        return (
+            <div>
+              <span>Provider Name-{data.providerName}</span>
+              <span>Amount-{data.amount}</span>
+            </div>
+    
+        )
+        })
+        let financialLinks =  props.financialLinks.map(data=>
+            {
+            return (
+                <div>
+                  <a>{data}</a>
+                </div>
+        
+            )
+            })
     return (
         <div>
-        <div>financialView will come here</div>
+        <div>financial Data</div>
         <div>{financialDataView}</div>
+        <div>Loan Provider Details</div>
+        <div>{loanProviderView}</div>
+        <div>Finacial Links</div>
+        <div>{financialLinks}</div>
         </div>
     )
 }

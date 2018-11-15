@@ -43,13 +43,12 @@ var jwtDecode = require('jwt-decode');
             error: 'cob-post-marketplace_error'
         })
     ).then((data) => {
-        debugger;
         this.props.dispatch(showMessage({ text: 'Update Succesfully', isSuccess: true }));
        // this.basicDataFetcher();
        
         setTimeout(() => {
             this.props.dispatch(showMessage({}));
-            window.location.reload();
+            this.props.history.push('/OnBoardingAcknowlege')
         }, 1000);
 
     })
@@ -82,6 +81,9 @@ var jwtDecode = require('jwt-decode');
                 />
                 <FinancialView
                 financialData={_get(this.props,'companyDetails.financialInfo.financialData',[])}
+                loanProvider={_get(this.props,'companyDetails.financialInfo.loanProvider',[])}
+                financialLinks={_get(this.props,'companyDetails.financialInfo.financialLinks',[])}
+
                 />
                 <Button disabled={this.props.isFetchingPostMarketPlace} onClick={this.postMarketPlace} variant='contained' color='primary'> 
                 {this.props.isFetchingPostMarketPlace ? <CircularProgress size={24} /> : 'POST TO THE MARKET PLACE'}

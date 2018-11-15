@@ -14,7 +14,8 @@ import Typography from '@material-ui/core/Typography';
 import red from '@material-ui/core/colors/red';
 
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-
+import _get from 'lodash/get';
+ 
 const styles = theme => ({
     card: {
         maxWidth: 400,
@@ -53,6 +54,7 @@ class TeamMemberCard extends React.Component {
 
     render() {
         const { classes } = this.props;
+        let data = _get(this.props, 'data', {})
 
         return (
             <Card className={classes.card}>
@@ -60,29 +62,27 @@ class TeamMemberCard extends React.Component {
                     avatar={
                         <Avatar aria-label="Recipe" className={classes.avatar}>
                             J
-            </Avatar>
+                        </Avatar>
                     }
                     action={
                         <IconButton>
                             <MoreVertIcon />
                         </IconButton>
                     }
-                    title="Jason Bourne"
-                    subheader="CFO"
+                    title={data.firstName}
+                    subheader={data.type}
                 />
 
                 <CardContent>
+
                     <Typography component="p">
-                        Email
+                        Phone Number: {data.phoneNumber}
                     </Typography>
                     <Typography component="p">
-                        jason.bourne@gmail.com
+                        email: {data.email}
                     </Typography>
                     <Typography component="p">
-                       Linkedin Profile
-                    </Typography>
-                    <Typography component="p">
-                        linkedin.com/jason
+                        Linkedin: {data.url}
                     </Typography>
                 </CardContent>
 

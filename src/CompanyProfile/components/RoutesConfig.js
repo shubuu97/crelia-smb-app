@@ -2,7 +2,7 @@ import About from './About';
 import Contacts from './Contacts';
 import Legal from './legal';
 import MarketingMaterial from './marketingMaterial';
-import AddTeam from './AddTeam';
+import AddTeam from './AddTeam.js';
 import BeneficiaryShareholder from './BeneficiaryShareholders';
 import Financial from './financials';
 
