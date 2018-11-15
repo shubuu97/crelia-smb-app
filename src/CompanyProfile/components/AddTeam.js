@@ -59,15 +59,18 @@ const styles = theme => ({
 
 class AddTeam extends React.Component {
 
-
+employeeDataFetcher=()=>
+{
+    this.props.dispatch(
+        getData(`${APPLICATION_BFF_URL}/api/CreateEmployee`, 'getEmployeeList-data', {
+            init: 'getEmployeeList_init',
+            success: 'getEmployeeList_success',
+            error: 'getEmployeeList_error'
+        })
+    )
+}
     componentDidMount() {
-        this.props.dispatch(
-            getData(`${APPLICATION_BFF_URL}/api/CreateEmployee`, 'getEmployeeList-data', {
-                init: 'getEmployeeList_init',
-                success: 'getEmployeeList_success',
-                error: 'getEmployeeList_error'
-            })
-        )
+      this.employeeDataFetcher()
     }
 
     render() {
