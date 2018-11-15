@@ -21,9 +21,6 @@ import ContactContainer from './components/Contact/ContactContainer';
 import FinanceInformationMain from './components/Financial/FinancialInformaionMain';
 import Help from './components/Help';
 
-
-
-
 var jwtDecode = require('jwt-decode');
 
 function TabContainer({ children, dir }) {
@@ -152,7 +149,6 @@ class CompanyOnBoardingContainer extends React.Component {
     render() {
         const { classes, theme } = this.props;
         return (
-
             <div className="row onboard-container">
                 <div className="col-sm-8">
                     <div className="card">
