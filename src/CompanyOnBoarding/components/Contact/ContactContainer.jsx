@@ -82,8 +82,8 @@ class ContactContainer extends Component {
                     <div className="col-sm-6">
                         <Field
                             disabled={localStorage.getItem('disabled')}
-                            label="Legal Business Name"
-                            placeholder="Legal Business Name"
+                            label="Types of incorporation"
+                            placeholder="Types of incorporation"
                             name="legalName"
                             component={GlobalTextField}
                             variant="outlined"
