@@ -6,12 +6,12 @@ const financialView=(props)=>
     return (
         <div className="data-list">
             <span className="sub-head">Year-{data.year}</span>         
-            <span className="list-content"><span>Cash-</span> <span>{data.cash}</span></span>
-            <span className="list-content"><span>EBITDA-</span> <span>{data.ebitda}</span></span>
-            <span className="list-content"><span>Interest Expense-</span> <span>{data.interestExpense}</span></span>
-            <span className="list-content"><span>Sales-</span> <span>{data.sales}</span></span>
-            <span className="list-content"><span>Total Financial Debt-</span> <span>{data.totalFinalDebt}</span></span>
-            <span className="list-content"><span>Total Share Holder Equity-</span> <span>{data.totalShareholderEquity}</span></span>
+            <span className="list-content"><span>Cash-</span> {data.cash}</span>
+            <span className="list-content"><span>EBITDA-</span> {data.ebitda}</span>
+            <span className="list-content"><span>Interest Expense-</span> {data.interestExpense}</span>
+            <span className="list-content"><span>Sales-</span> {data.sales}</span>
+            <span className="list-content"><span>Total Financial Debt-</span> {data.totalFinalDebt}</span>
+            <span className="list-content"><span>Total Share Holder Equity-</span> {data.totalShareholderEquity}</span>
           </div>
 
     )
@@ -21,9 +21,10 @@ const financialView=(props)=>
         return (
             <div  className="data-list">
              <span className="sub-head">{++index}</span>
-              <span className="list-content"><span>Provider Name-</span> <span>{data.providerName}</span></span>
-              <span className="list-content"><span>Amount-</span> <span>{data.amount}</span></span>
+              <span className="list-content"><span>Provider Name-</span> {data.providerName}</span>
+              <span className="list-content"><span>Amount-</span> {data.amount}</span>
             </div>
+    
         )
         })
         let financialLinks =  props.financialLinks.map(data=>

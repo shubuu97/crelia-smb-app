@@ -30,7 +30,7 @@ const decorateWithOnDrop = withHandlers({
                 setTimeout(() => {
                     props.dispatch(showMessage({ text: '', isSuccess: true }));
 
-                }, 6000)
+                }, 1000)
             })
             .catch((error) => {
                 console.log(error,"error")
@@ -38,7 +38,7 @@ const decorateWithOnDrop = withHandlers({
                 setTimeout(() => {
                  props.dispatch(showMessage({ text: '', isSuccess: true }));
 
-                }, 6000)
+                }, 1000)
             })
         props.setState({...props.state,[name]:accept[0]})
     }

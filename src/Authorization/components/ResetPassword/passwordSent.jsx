@@ -45,7 +45,6 @@ class PasswordSent extends React.Component {
     }
 
     render() {
-        debugger
         const { classes, handleSubmit } = this.props;
         const email = _get(this.state, "email", "");
         return (

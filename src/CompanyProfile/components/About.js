@@ -72,13 +72,13 @@ class About extends Component {
 
             setTimeout(() => {
                 this.props.dispatch(showMessage({}));
-            }, 6000);
+            }, 1000);
         })
             .catch((err) => {
                 this.props.dispatch(showMessage({ text: err.msg, isSuccess: false }));
                 setTimeout(() => {
                     this.props.dispatch(showMessage({}));
-                }, 6000);
+                }, 3000);
             })
 
     }
@@ -183,7 +183,9 @@ class About extends Component {
 }
 
 About = reduxForm({
-    form: 'About'
+    form: 'About',
+    enableReinitialize:true, 
+    keepDirtyOnReinitialize:true
 })(About);
 
 function mapStateToProps(state) {

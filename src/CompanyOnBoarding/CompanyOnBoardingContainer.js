@@ -111,6 +111,7 @@ class CompanyOnBoardingContainer extends React.Component {
                 error: 'cobsave_error'
             })
         ).then((data) => {
+
             this.props.dispatch(showMessage({ text: 'Update Succesfully', isSuccess: true }));
             this.basicDataFetcher();
             setTimeout(() => {
@@ -144,7 +145,7 @@ class CompanyOnBoardingContainer extends React.Component {
     };
 
     handleSubmitAprroval = () => {
-       this.props.history.push('/ReviewCOB')
+       this.props.history.push('/ReviewCOB');
     }
     render() {
         const { classes, theme } = this.props;
@@ -292,7 +293,7 @@ function mapStateToProps(state) {
         }
     }
 
-    let initialValuesContact = { address, taxId, phoneNumber, legalEntityType, legalName, businessUnderName, otherCompanyName, incorporationDate, email }
+    let initialValuesContact = { address, taxId, phoneNumber, legalEntityType, legalName, businessUnderName, otherCompanyName, incorporationDate, email,fundAllocation,fundingType }
 
     let initialValuesAbout = { personalPhoneNumber, userEmail, moneyRequired, timeFrame, workingCapital, investment, refinancing,loan,equity,other,otherLoanDescription };
 

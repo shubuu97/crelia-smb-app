@@ -84,20 +84,22 @@ employeeDataFetcher=()=>
 
                 <div className="row">
                     <ul className="staff-block">
-                        <li className="col-sm-4 mb-20"> <AddTeamForm /></li>
+                        <li className="col-sm-4 mb-20"> <AddTeamForm
+                        employeeDataFetcher={this.employeeDataFetcher}
+                        /></li>
                         {this.props.employees.map(option => (
                             <li className="col-sm-4 mb-20"> <TeamMemberCard data={option} /></li>
                         ))}
 
                     </ul>
                 </div>
-                <Button type="submit"
+                {/* <Button type="submit"
                     color="primary"
                     variant="contained"
                     style={{ 'float': 'right' }}
                     onClick={() => this.props.history.push('/sme/beneficiary')}>
                     Save & Continue
-                 </Button>
+                 </Button> */}
             </div>
         );
     }
