@@ -16,11 +16,11 @@ const financialView=(props)=>
 
     )
     })
-    let loanProviderView =  props.loanProvider.map(data=>
+    let loanProviderView =  props.loanProvider.map((data, index) =>
         {
         return (
             <div  className="data-list">
-             <span className="sub-head">1</span>
+             <span className="sub-head">{++index}</span>
               <span className="list-content"><span>Provider Name-</span> {data.providerName}</span>
               <span className="list-content"><span>Amount-</span> {data.amount}</span>
             </div>
@@ -39,7 +39,7 @@ const financialView=(props)=>
     return (
         <div className="row">
             <div className="col-sm-4">       
-                <div className="onboarding-sub-title" >financial Data</div>
+                <div className="onboarding-sub-title" >Financial Data</div>
                 <div>{financialDataView}</div>
             </div>
 

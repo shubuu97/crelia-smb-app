@@ -15,7 +15,7 @@ const fundingView = (props) => {
                 )}
             </span>
             <span className="s-level">
-                <div className="fund-type-head">funding Type</div>
+                <div className="fund-type-head">Funding Type</div>
                 {props.fundingType.map((type)=>
                 <div className="list-content">
                     <span>{type.fundingType}</span> {type.percentage+' '+'%'}
