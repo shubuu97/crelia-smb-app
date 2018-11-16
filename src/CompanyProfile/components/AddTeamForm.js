@@ -210,6 +210,8 @@ class AddTeamForm extends React.Component {
                                         name='photo'
                                         fieldName='photo'
                                         onDrop={this.props.onDrop}
+                                        avialableFormat="Available File Formats: jpeg, png"
+                                        accept={["image/jpg", "image/png", "image/jpeg"]}
                                     />
                                 </Grid>
                             </Grid>

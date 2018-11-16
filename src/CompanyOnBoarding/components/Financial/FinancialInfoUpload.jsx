@@ -23,7 +23,6 @@ class FinancialInfoUpload extends React.Component {
       }
 
     handleUploadFinancial = () => {
-        debugger
         let reqObj = {};
         reqObj.financialInfo = {}
         reqObj.financialInfo.financialLinks = [];

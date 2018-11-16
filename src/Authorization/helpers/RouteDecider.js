@@ -1,6 +1,5 @@
 function RoutedDecider(status)
 {
-debugger
 if(status=='APPROVED')
 {
 return 'about'

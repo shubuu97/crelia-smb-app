@@ -93,13 +93,13 @@ employeeDataFetcher=()=>
 
                     </ul>
                 </div>
-                <Button type="submit"
+                {/* <Button type="submit"
                     color="primary"
                     variant="contained"
                     style={{ 'float': 'right' }}
                     onClick={() => this.props.history.push('/sme/beneficiary')}>
                     Save & Continue
-                 </Button>
+                 </Button> */}
             </div>
         );
     }

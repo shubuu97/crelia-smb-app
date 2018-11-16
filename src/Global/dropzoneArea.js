@@ -1,6 +1,8 @@
 import React from 'react';
 import Dropzone from 'react-dropzone';
-import './globalStyles/dropzone.less'
+import './globalStyles/dropzone.less';
+import _get from 'lodash/get';
+
 
 let dropzoneArea = (props)=> {
 
@@ -12,6 +14,7 @@ let dropzoneArea = (props)=> {
             <Dropzone 
                 onDrop={(accept,reject)=>props.onDrop(accept,reject,props.fieldName)}
                 className='dropzone'
+                accept={props.accept}
             >
                 {
                     props.dropzone== undefined ||  props.dropzone=='' ?
@@ -21,7 +24,7 @@ let dropzoneArea = (props)=> {
                             <path d="M5 4v2h14V4H5zm0 10h4v6h6v-6h4l-7-7-7 7z"/>
                         </svg>
                         <span className='dropzoneMainText'>Drag and drop your files here or click to select files to upload.</span>
-                        <span>Available File Formats: XSLS, CSV</span>
+                        <span>{_get(props, "avialableFormat", "Available File Formats: XSLS, CSV")}</span>
                         <span>maximum size 15mb</span>
                     </div>
                     
@@ -39,6 +42,7 @@ let dropzoneArea = (props)=> {
                         <span>{props.dropzone}</span>
                     </div>
                 }
+                
             </Dropzone>
         </React.Fragment>
     )
