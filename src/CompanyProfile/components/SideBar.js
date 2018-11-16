@@ -29,8 +29,8 @@ function SideBar(WrappedComponent) {
                                     <li className={_get(this.props, 'location.pathname', "") == "/team" ? 'active' : null} onClick={() => this.handleRoute('team')}>Team</li>
                                     <li className={_get(this.props, 'location.pathname', "") == "/marketingMaterials" ? 'active' : null} onClick={() => this.handleRoute('marketingMaterials')}>Marketing Materials</li>
                                     <li className={_get(this.props, 'location.pathname', "") == "/legal" ? 'active' : null} onClick={() => this.handleRoute('legal')}>Legal</li>
-                                    <li className={_get(this.props, 'location.pathname', "") == "/financials" ? 'active' : null} onClick={() => this.handleRoute('financials')}>Financials</li>
-                                    <li className={_get(this.props, 'location.pathname', "") == "/beneficiary" ? 'active' : null} onClick={() => this.handleRoute('beneficiary')}>Benificiary Shareholders</li>
+                                    {/* <li className={_get(this.props, 'location.pathname', "") == "/financials" ? 'active' : null} onClick={() => this.handleRoute('financials')}>Financials</li> */}
+                                    {/* <li className={_get(this.props, 'location.pathname', "") == "/beneficiary" ? 'active' : null} onClick={() => this.handleRoute('beneficiary')}>Benificiary Shareholders</li> */}
                                     <li className={_get(this.props, 'location.pathname', "") == "/onboardingview" ? 'active' : null} onClick={() => this.handleRoute('onboardingview')}>OnBoarding View</li>
                                 </ul>
                             </div>
