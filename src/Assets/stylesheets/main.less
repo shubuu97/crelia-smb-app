@@ -697,6 +697,7 @@ box-shadow: none;
     background: #dedede;
     position: relative;    
     margin: 0 20px;  
+    border-radius: 4px;
 }
 
 .finan-sub-tab div.active{
@@ -704,7 +705,10 @@ box-shadow: none;
     padding: 10px 50px;
     background: #2d2d2d;
     color: #fff;
+    border-radius: 4px;
 }
+
+
 
 .info-secure, .questions, .request-assistance{
     display: flex;
@@ -915,10 +919,31 @@ flex: 0 0 25%;
         justify-content: space-between;
         font-size: .9rem;
         padding-bottom: 5px;
+        position: relative;
 
         span{
             font-family: 'GTWalsheimProRegular';
+            background-color: #fff;
+            position: relative;
+            z-index: 1;
         }
+
+        span:first-child{
+            padding-right: 5px;
+        }
+        span:last-child{
+            padding-left: 5px;
+        }
+
+    }
+
+    .list-content:before {
+        content: "";
+        display: block;
+        border-bottom: dotted 1px #bfbebe;
+        position: absolute;
+        width: 100%;
+        top: 11px;
     }
 
     .financial-links{
@@ -929,8 +954,7 @@ flex: 0 0 25%;
 
     .fund-type-head{
         font-size: .9rem;
-        font-family: 'GTWalsheimMedium';
-        border-bottom: dotted 1px #ddd;
+        font-family: 'GTWalsheimMedium';      
         padding:3px 0; 
     }
 

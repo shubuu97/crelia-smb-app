@@ -7,12 +7,12 @@ const companyView=(props)=>
     return (
         <div>
          <div className="onboarding-sub-title d-block pb-15">Company Details</div>
-        <div className="list-content"><span>legal Name</span> {props.legalName}</div>
-        <div className="list-content"><span>Entity Type</span> {props.legalEntityType}</div>
-        <div className="list-content"><span>tax Id</span> {props.taxId}</div>
-        <div className="list-content"><span>Other Company Name</span> {props.otherCompanyName}</div>
-        <div className="list-content"><span>Incorporation Date</span> {moment(props.incorporationDate).format('DD-MM-YYYY')}</div>
-        <div className="list-content"><span>Email</span> {props.email}</div>
+        <div className="list-content"><span>Legal Name</span> <span>{props.legalName}</span></div>
+        <div className="list-content"><span>Entity Type</span> <span>{props.legalEntityType}</span></div>
+        <div className="list-content"><span>Tax Id</span> <span>{props.taxId}</span></div>
+        <div className="list-content"><span>Other Company Name</span> <span>{props.otherCompanyName}</span></div>
+        <div className="list-content"><span>Incorporation Date</span> <span>{moment(props.incorporationDate).format('DD-MM-YYYY')}</span></div>
+        <div className="list-content"><span>Email</span> <span>{props.email}</span></div>
         <div className="list-content"><span>Address</span>
             <span className="address-detail">
             {_get(props,'address.line1')}<br/>
@@ -20,7 +20,7 @@ const companyView=(props)=>
             {_get(props,'address.zipCode')}  
             </span>      
         </div>        
-        <div  className="list-content"><span>phone Number</span>{props.phoneNumber}</div>
+        <div  className="list-content"><span>phone Number</span> <span>{props.phoneNumber}</span></div>
 
         </div>
     )
