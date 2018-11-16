@@ -16,6 +16,8 @@ import _get from 'lodash/get';
 import { APPLICATION_BFF_URL } from '../../Redux/urlConstants';
 
 import { getData } from '../../Redux/getAction';
+var jwtDecode = require('jwt-decode');
+
 
 const styles = theme => ({
     root: {
@@ -61,13 +63,26 @@ class AddTeam extends React.Component {
 
 employeeDataFetcher=()=>
 {
+   let  decodeData = jwtDecode(localStorage.getItem('authToken'));
+
     this.props.dispatch(
-        getData(`${APPLICATION_BFF_URL}/api/CreateEmployee`, 'getEmployeeList-data', {
+        getData(`${APPLICATION_BFF_URL}/api/${localStorage.getItem('role')}/${encodeURIComponent(decodeData.id)}`, 'fetchingbasicdata', {
+            init: 'basicdata_init',
+            success: 'basicdata_success',
+            error: 'basicdata_error'
+        })
+    ).then((data)=>
+{
+    let resource = encodeURIComponent('resource:'+data.companyDetails.$class+'#'+data.companyDetails.id)
+    this.props.dispatch(
+        getData(`${APPLICATION_BFF_URL}/api/queries/EmployeesWithCompanyId?resourceId=${resource}`, 'getEmployeeList-data', {
             init: 'getEmployeeList_init',
             success: 'getEmployeeList_success',
             error: 'getEmployeeList_error'
         })
     )
+})
+  
 }
     componentDidMount() {
       this.employeeDataFetcher()
