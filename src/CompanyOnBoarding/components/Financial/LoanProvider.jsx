@@ -35,9 +35,11 @@ const LoanProviderComp = (props) => {
                                     <Field
                                         name={`${loanProvider}.amount`}
                                         component={GlobalTextField}
-                                        label='Ammount'
+                                        label='Amount'
                                         variant="standard"
                                         fullWidth='fullWidth'
+                                        type="number"
+                                        startAdornment="$"
                                     />
                                 </FormControl>
                             </div>
