@@ -119,7 +119,7 @@ class MainLayout extends Component {
 
 function mapStateToProps(state) {
 
-  let message = state.ShowToast.message;
+  let message = _get(state,'ShowToast.message','')
   let companyStatus = _get(state, 'BasicInfo.lookUpData.companyDetails.status');
   localStorage.setItem('companyStatus', companyStatus);
   if (companyStatus == "PENDING_APPROVAL") {

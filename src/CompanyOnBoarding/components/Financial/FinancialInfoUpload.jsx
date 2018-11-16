@@ -17,6 +17,7 @@ class FinancialInfoUpload extends React.Component {
 
     handleUploadFinancial=()=>
     {
+      debugger;
      let reqObj = {};
      reqObj.financialInfo = {}
      reqObj.financialInfo.financialLinks=[];
@@ -92,7 +93,6 @@ class FinancialInfoUpload extends React.Component {
                     </div>
                     <div class="common-action-block col-sm-12">
                         <Button
-                            type="submit"
                             onClick={this.handleUploadFinancial}
                             fullWidth
                             disabled={localStorage.getItem('companyStatus') == 'PENDING_APPROVAL' ? true : false || this.props.isFetching}
