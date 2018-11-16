@@ -5,6 +5,8 @@ import MarketingMaterial from './marketingMaterial';
 import AddTeam from './AddTeam.js';
 import BeneficiaryShareholder from './BeneficiaryShareholders';
 import Financial from './financials';
+import SideBar from './SideBar'
+import onBoarding from './onBoardingView/ReviewCOBInfoContainer'
 
 export default [
     {path:'/About',Component:About},
@@ -13,8 +15,9 @@ export default [
     {path:'/financials',Component:Financial},
     {path:'/team',Component:AddTeam},
     {path:'/contacts',Component:Contacts},
-    {path:'/beneficiary',Component:BeneficiaryShareholder}
+    {path:'/beneficiary',Component:BeneficiaryShareholder},
+    {path:'/onboardingview',Component:SideBar(onBoarding)}
 
-
+    
 
 ]
