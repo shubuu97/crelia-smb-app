@@ -94,7 +94,6 @@ class CompanyOnBoardingContainer extends React.Component {
     };
 
     handleNext = (values) => {
-        debugger
         let id = this.props.id
         if(!this.props.id && this.props.tempId){
             id = this.props.tempId.split('#')[1]
@@ -112,7 +111,7 @@ class CompanyOnBoardingContainer extends React.Component {
                 error: 'cobsave_error'
             })
         ).then((data) => {
-            debugger
+
             this.props.dispatch(showMessage({ text: 'Update Succesfully', isSuccess: true }));
             this.basicDataFetcher();
             setTimeout(() => {
@@ -126,7 +125,6 @@ class CompanyOnBoardingContainer extends React.Component {
 
         })
             .catch((err) => {
-                debugger
                 this.props.dispatch(showMessage({ text: err.msg, isSuccess: false }));
                 setTimeout(() => {
                     this.props.dispatch(showMessage({}));
