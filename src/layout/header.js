@@ -47,71 +47,71 @@ class Header extends React.Component {
         localStorage.clear()
         this.props.history.push('/')
     }
-   
+
     handleMouseOver = event => {
         this.setState({ open: true, anchorEl: event.currentTarget });
-      };
-    
-      handleRequestClose = () => {
+    };
+
+    handleRequestClose = () => {
         this.setState({ open: false });
-      };
-    
+    };
+
 
     render() {
         const { classes } = this.props;
         return (
             <ClickAwayListener onClickAway={this.handleRequestClose}>
 
-            <div className="topnavcontainer">
-                <div className="nevbar-left">
-                    <div className="logo"><img src={logoimg} /></div>
-                    <div className="nevbar">
-                        <ul>
-                            <li><a >Users</a></li>
-                            <li><a >Organizations</a></li>
-                            <li><a >Loans</a></li>
-                            <li><a >Offers</a></li>
-                            <li><a >Requests</a></li>
-                            <li><a >Others <i class="material-icons droparrow">keyboard_arrow_down</i></a></li>
-                        </ul>
+                <div className="topnavcontainer">
+                    <div className="nevbar-left">
+                        <div className="logo"><img src={logoimg} /></div>
+                        <div className="nevbar">
+                            <ul>
+                                <li onClick={() => {this.props.history.push('/about');}}>
+                                    <a>Company Profile</a>
+                                </li>
+                                <li>
+                                    <a >Others <i class="material-icons droparrow">keyboard_arrow_down</i></a>
+                                </li>
+                            </ul>
+                        </div>
+
                     </div>
 
+                    <Menu
+                        id="simple-menu"
+                        anchorEl={this.state.anchorEl}
+                        open={this.state.open}
+                        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                        transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'center',
+                        }}
+                        onRequestClose={this.handleRequestClose}
+                    >
+                        <MenuItem onClick={() => {
+                            this.props.history.push('/about');
+                            this.setState({ open: false })
+                        }}>Company Profile</MenuItem>
+                        <MenuItem onClick={() => {
+                            this.props.history.push('/account');
+                            this.setState({ open: false })
+                        }}>My account</MenuItem>
+                        <MenuItem onClick={this.logout}>Logout</MenuItem>
+                    </Menu>
+
+                    <div className="nevbar-right">
+                        <ul className="myaccount">
+                            <li><a href="#"><i class="material-icons notification">notifications_none</i></a></li>
+                            <li onMouseOver={this.handleMouseOver}><a >
+                                <i className="material-icons useraccount" >person_outline</i>
+                                <i class="material-icons droparrow">keyboard_arrow_down</i></a>
+                            </li>
+
+                        </ul>
+                    </div>
                 </div>
-          
-        <Menu
-          id="simple-menu"
-          anchorEl={this.state.anchorEl}
-          open={this.state.open}
-          anchorOrigin={{vertical:'bottom',horizontal:'center'}}
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'center',
-          }}
-          onRequestClose={this.handleRequestClose}
-        >
-          <MenuItem onClick={()=>{this.props.history.push('/about');
-          this.setState({open:false})
-          
-        }}>Company Profile</MenuItem>
-          <MenuItem onClick={()=>{
-              this.props.history.push('/account');
-              this.setState({open:false})
-              }}>My account</MenuItem>
-          <MenuItem onClick={this.logout}>Logout</MenuItem>
-        </Menu>
-       
-                <div className="nevbar-right">
-                    <ul className="myaccount">
-                        <li><a href="#"><i class="material-icons notification">notifications_none</i></a></li>
-                        <li onMouseOver={this.handleMouseOver}><a >
-                            <i  className="material-icons useraccount" >person_outline</i>
-                            <i class="material-icons droparrow">keyboard_arrow_down</i></a>
-                        </li>
-                        
-                    </ul>
-                </div>
-            </div>
-             </ClickAwayListener>
+            </ClickAwayListener>
 
 
             // <div className={classes.root}>
