@@ -94,6 +94,7 @@ class CompanyOnBoardingContainer extends React.Component {
     };
 
     handleNext = (values) => {
+        debugger
         let id = this.props.id
         if(!this.props.id && this.props.tempId){
             id = this.props.tempId.split('#')[1]
@@ -111,6 +112,7 @@ class CompanyOnBoardingContainer extends React.Component {
                 error: 'cobsave_error'
             })
         ).then((data) => {
+            debugger
             this.props.dispatch(showMessage({ text: 'Update Succesfully', isSuccess: true }));
             this.basicDataFetcher();
             setTimeout(() => {
@@ -124,6 +126,7 @@ class CompanyOnBoardingContainer extends React.Component {
 
         })
             .catch((err) => {
+                debugger
                 this.props.dispatch(showMessage({ text: err.msg, isSuccess: false }));
                 setTimeout(() => {
                     this.props.dispatch(showMessage({}));
@@ -144,7 +147,7 @@ class CompanyOnBoardingContainer extends React.Component {
     };
 
     handleSubmitAprroval = () => {
-       this.props.history.push('/ReviewCOB')
+       this.props.history.push('/ReviewCOB');
     }
     render() {
         const { classes, theme } = this.props;
@@ -292,7 +295,7 @@ function mapStateToProps(state) {
         }
     }
 
-    let initialValuesContact = { address, taxId, phoneNumber, legalEntityType, legalName, businessUnderName, otherCompanyName, incorporationDate, email }
+    let initialValuesContact = { address, taxId, phoneNumber, legalEntityType, legalName, businessUnderName, otherCompanyName, incorporationDate, email,fundAllocation,fundingType }
 
     let initialValuesAbout = { personalPhoneNumber, userEmail, moneyRequired, timeFrame, workingCapital, investment, refinancing,loan,equity,other,otherLoanDescription };
 
