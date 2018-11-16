@@ -95,7 +95,7 @@ render(){
                     <div className="row pt-30">
                     <div className="col-sm-4">
                     <h4>Presentation</h4>
-                         <a href={_get(this.props,'state.presentaion')||_get(this.props,'state.presentaionlink')||_get(this.props,'presentationLink')}>presentaion ppt</a> 
+                         <a href={_get(this.props,'state.presentaion')||_get(this.props,'state.presentaionlink')||_get(this.props,'presentationLink')} target="_blank">presentaion ppt</a> 
                           <DropzoneButton
                             name="Upload Presentation"
                             fieldName="presentaion"
@@ -104,7 +104,7 @@ render(){
                     </div>
                     <div className="col-sm-4  offset-sm-1">
                     <h4>Video</h4>
-                    <a href={_get(this.props,'state.presentaionVideo')||_get(this.props,'state.presentaionVideolink')||_get(this.props,'videoLink')}>Video</a> 
+                    <a href={_get(this.props,'state.presentaionVideo')||_get(this.props,'state.presentaionVideolink')||_get(this.props,'videoLink')} target="_blank">Video</a> 
                          {/* <Player width="100%" className="mb-20 minHeightbox">
                             <source src={_get(this.props,'state.presentaionVideo')||_get(this.props,'state.presentaionVideolink')||''}/>
                             Your browser does not support HTML5 video.
