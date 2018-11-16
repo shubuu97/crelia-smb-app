@@ -84,7 +84,9 @@ employeeDataFetcher=()=>
 
                 <div className="row">
                     <ul className="staff-block">
-                        <li className="col-sm-4 mb-20"> <AddTeamForm /></li>
+                        <li className="col-sm-4 mb-20"> <AddTeamForm
+                        employeeDataFetcher={this.employeeDataFetcher}
+                        /></li>
                         {this.props.employees.map(option => (
                             <li className="col-sm-4 mb-20"> <TeamMemberCard data={option} /></li>
                         ))}
