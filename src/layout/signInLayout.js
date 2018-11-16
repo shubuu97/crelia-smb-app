@@ -68,8 +68,8 @@ class SignInLayout extends Component {
 
 function mapStateToProps(state)
 {
+  let message = _get(state,'ShowToast.message','')
 
-let message = state.ShowToast.message;
 return {message}
 }
 
