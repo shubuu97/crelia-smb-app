@@ -42,15 +42,24 @@ class ContactContainer extends Component {
     submitFunction = (values) => {
         let reqObj = { ...values };
         if (values.businessUnderName == 'no')
-            setWith(reqObj, 'onboardingInfo.otherCompanyName', '')
+        {
+            setWith(reqObj, 'onboardingInfo.otherCompanyName', '');
+            setWith(reqObj,'onboardingInfo.fundAllocation',_get(this.props,'initialValues.fundAllocation',[]))
+            setWith(reqObj,'onboardingInfo.fundingType',_get(this.props,'initialValues.fundingType',[]))
+        }
+
         else {
             setWith(reqObj, 'onboardingInfo.otherCompanyName', values.otherCompanyName)
+            setWith(reqObj,'onboardingInfo.fundAllocation',_get(this.props,'initialValues.fundAllocation',[]))
+            setWith(reqObj,'onboardingInfo.fundingType',_get(this.props,'initialValues.fundingType',[]))
         }
 
 
         delete reqObj.businessUnderName;
         delete reqObj.yearofStartBusiness;
         delete reqObj.otherCompanyName;
+        delete reqObj.fundingType;
+        delete reqObj.fundAllocation;
 
         this.props.handleNext(reqObj);
     }

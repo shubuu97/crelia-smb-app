@@ -29,13 +29,10 @@ class FinancialInformationForm extends React.Component {
     datapopulate = (values) => {
         // ********* Important **********
         // Code needs to be optimized and needs to be dynamic 
-
         let data = []
         var totalKeys = Object.keys(_get(values, 'manualFinancial', {}))
-        debugger
         var y2016 = { "year": 2016 }, y2017 = { "year": 2017 }, y2018 = { "year": 2018 }, y2019 = { "year": 2019 }
         for (let i = 0; i < totalKeys.length; i++) {
-            debugger
             let filter = totalKeys[i].split('-').pop().trim();
             let key = totalKeys[i].split('-')[0].trim();
             if (filter == 2016) {
@@ -58,12 +55,12 @@ class FinancialInformationForm extends React.Component {
         reqObj.financialInfo.loanProvider = _get(values,'loanProvider',[]);
         reqObj.financialInfo.financialLinks = _get(values,'financialLinks',[])
         this.props.handleNext(reqObj);
+        return reqObj
     }
 
     forecastLable = () => {
         // ********* Important **********
         // Code needs to be optimized and needs to be dynamic 
-
         return (
             <div className="flex-row">
                 <span>2019 forecast</span>
@@ -75,9 +72,14 @@ class FinancialInformationForm extends React.Component {
         )
     }
 
+    handleReview = () => {
+       let hocSubmitFunc =  this.props.handleSubmit(this.datapopulate);
+       hocSubmitFunc();
+
+        this.props.handleSubmitAprroval()
+    }
 
     render() {
-
         // ********* Important **********
         // Code needs to be optimized and needs to be dynamic 
 
@@ -431,12 +433,13 @@ class FinancialInformationForm extends React.Component {
                         variant="contained"
                         color="primary"
                         className="btnprimary">
-                        {this.props.isFetchingSave ? <CircularProgress size={24} /> : 'Save'}
+                        {this.props.isFetchingSave ? <CircularProgress size={24} /> : 'Save Draft'}
 
                     </Button>
                    <Button
                         fullWidth
-                        onClick={this.props.handleSubmitAprroval}                        variant='contained'
+                        onClick={this.handleReview}                        
+                        variant='contained'
                         className="btnprimary  ml-35"
                         color='primary'>
                         Review
