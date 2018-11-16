@@ -100,7 +100,7 @@ class FinancialInfoUpload extends React.Component {
                             color="primary"
                             className="btnprimary"
                         >
-                            {this.props.isFetchingSave ? <CircularProgress size={24} /> : 'Save'}
+                            {this.props.isFetchingSave ? <CircularProgress size={24} /> : 'Save Draft'}
 
                         </Button>
                         {localStorage.getItem('companyStatus') == 'PENDING_APPROVAL' ? null :

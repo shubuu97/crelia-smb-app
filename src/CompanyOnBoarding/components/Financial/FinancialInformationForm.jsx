@@ -431,7 +431,7 @@ class FinancialInformationForm extends React.Component {
                         variant="contained"
                         color="primary"
                         className="btnprimary">
-                        {this.props.isFetchingSave ? <CircularProgress size={24} /> : 'Save'}
+                        {this.props.isFetchingSave ? <CircularProgress size={24} /> : 'Save Draft'}
 
                     </Button>
                    <Button
