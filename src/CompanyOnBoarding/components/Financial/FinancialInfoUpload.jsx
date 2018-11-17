@@ -64,6 +64,7 @@ class FinancialInfoUpload extends React.Component {
     }
 
     render() {
+        console.log(this.props.state,'state is here')
         return (
             <React.Fragment>
                 <div className="row justify-content-between ">
@@ -72,6 +73,7 @@ class FinancialInfoUpload extends React.Component {
                             title="Financial Statement for last three years"
                             fieldName='preview1'
                             onDrop={this.props.onDrop}
+                            progress={_get(this.props,'state.preview1uploadProgress')}
                             dropzone={_get(this.props, 'state.preview1.name', '') || _get(this.props, 'state.preview1link', '') || _get(this.props, 'initialValues.financialLinks[0]')}
                         />
                     </div>
@@ -79,6 +81,7 @@ class FinancialInfoUpload extends React.Component {
                         <DropzoneArea
                             title="2019 Forecast (optional)"
                             fieldName='preview2'
+                            progress={_get(this.props,'state.preview2uploadProgress')}
                             onDrop={this.props.onDrop}
                             dropzone={_get(this.props, 'state.preview2.name', '') || _get(this.props, 'state.preview2link', '') || _get(this.props, 'initialValues.financialLinks[1]')}
                         />
@@ -86,6 +89,7 @@ class FinancialInfoUpload extends React.Component {
                     <div className="col-sm-6">
                         <DropzoneArea
                             title="Business Plan"
+                            progress={_get(this.props,'state.preview3uploadProgress')}
                             fieldName='preview3'
                             onDrop={this.props.onDrop}
                             dropzone={_get(this.props, 'state.preview3.name', '') || _get(this.props, 'state.preview3link', '') || _get(this.props, 'initialValues.financialLinks[2]')}

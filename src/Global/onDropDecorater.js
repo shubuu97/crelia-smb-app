@@ -10,13 +10,21 @@ const decorateWithOnDrop = withHandlers({
         let formData = new FormData();
         formData.append('file', accept[0])
         formData.append('mediaType', 'customer')
-        formData.append('mediaTypeId', '1234567')
+        formData.append('mediaTypeId', '1234567');
+        var percentCompleted = 0;
+          let uploadConfig =  function(progressEvent) {
+            let  percentCompleted = Math.round( (progressEvent.loaded * 100) / progressEvent.total );
+           
+           console.log(percentCompleted,"percent complete is here")
+             props.setState({...props.state,[name+'uploadProgress']:percentCompleted})
+            }
+          
         props.dispatch(postData(`${APPLICATION_BFF_URL}/api/media`, formData, 'fileUpload',{
             init:`File_Upload_init`,
             success:'File_Upload_Success',
             error:'File_Upload_Error'
 
-        }))
+        },'post',uploadConfig))
             .then((data) => {
                 let linkname = name+'link'
                 props.setState({...props.state,[name+'link']:data.message.absoluteURL})
