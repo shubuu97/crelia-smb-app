@@ -145,7 +145,7 @@ class CompanyOnBoardingContainer extends React.Component {
     };
 
     handleSubmitAprroval = () => {
-       this.props.history.push('/ReviewCOB');
+       this.props.history.push('/onboard/review');
     }
     render() {
         const { classes, theme } = this.props;
