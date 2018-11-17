@@ -80,11 +80,17 @@ class AddTeamForm extends React.Component {
     };
     handleAddTeam = (values) => {
         let reqObj = {};
+        let splittedClass = this.props.$class.split('.');
+        let companyType = splittedClass[splittedClass.length - 1];
+        let  profilePictureLink=_get(this.props,'state.photolink')
 
-       reqObj = { companyId:this.props.companyId,
-        companyType:'SMB',
-        id:Math.random(),
-    ...values}
+        reqObj = {
+            companyId: this.props.companyId,
+            companyType,
+            profilePictureLink,
+            id: Math.random(),
+            ...values
+        }
         console.log(values, 'values');
 
         this.props.dispatch(
@@ -94,12 +100,12 @@ class AddTeamForm extends React.Component {
                 error: 'addTeam_error'
             })
         ).then((data) => {
-           // this.props.employeeDataFetcher();
+            // this.props.employeeDataFetcher();
             this.props.dispatch(showMessage({ text: 'Employee added succesfully', isSuccess: true }));
             setTimeout(() => {
 
                 this.props.dispatch(showMessage({}));
-                window.location.reload();
+                this.props.employeeDataFetcher();
 
             }, 1000);
         })
@@ -133,7 +139,7 @@ class AddTeamForm extends React.Component {
                     Add Team
                 </span>
                 <ExpansionPanel className="boxshadownone" expanded={expanded === false}>
-                    
+
                     <form onSubmit={handleSubmit(this.handleAddTeam)}>
                         <ExpansionPanelDetails className={classes.details}>
 
@@ -252,7 +258,8 @@ function mapStateToProps(state) {
     return {
         empTypeList: empTypeList,
         isFetching: isFetching,
-       companyId:_get(state, 'BasicInfo.lookUpData.companyDetails.id', null)
+        companyId: _get(state, 'BasicInfo.lookUpData.companyDetails.id', null),
+        $class: _get(state, 'BasicInfo.lookUpData.companyDetails.$class', null)
 
     };
 }
