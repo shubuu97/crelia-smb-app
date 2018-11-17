@@ -224,7 +224,7 @@ class ResetPassword extends Component {
             <div className="recaptcha">
               <ReCAPTCHA
                 style={{ display: "inline-block" }}
-                theme="dark"
+                theme="light"
                 ref={recaptchaRef}
                 sitekey="6LdlGHgUAAAAAO0YjKef6Ptcl8Cz-2B9ZrUhjriX"
                 onChange={this.handleChange}
