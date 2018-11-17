@@ -92,7 +92,7 @@ class Legal extends Component {
                                 onDrop={this.props.onDrop} />
                         </div>
                         <div className="col-sm-4">
-                            <h4>Tax Id</h4>
+                            <h4>Organizational Chart</h4>
                             <div className="legal-images-container">
                                 <img src={_get(this.props, 'state.organizationalChartlink') || _get(this.props, 'organizationalChartLink')} className="legal-images"/>
                             </div>
@@ -103,7 +103,7 @@ class Legal extends Component {
                                 onDrop={this.props.onDrop} />
                         </div>
                         <div className="col-sm-4">
-                            <h4>Tax Id</h4>
+                            <h4>Tax Certificate</h4>
                             <div className="legal-images-container">
                                 <img src={_get(this.props, 'state.taxCertificatelink') || _get(this.props, 'taxCertificateLink')} className="legal-images"/>
                             </div>
