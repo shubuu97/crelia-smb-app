@@ -215,9 +215,12 @@ class AddTeamForm extends React.Component {
                                     <DropzoneArea
                                         name='photo'
                                         fieldName='photo'
+                                        progress={_get(this.props,'state.photouploadProgress')}
                                         onDrop={this.props.onDrop}
                                         avialableFormat="Available File Formats: jpeg, png"
                                         accept={["image/jpg", "image/png", "image/jpeg"]}
+
+                                        dropzone={_get(this.props, 'state.photo.name', '') || _get(this.props, 'state.photolink', '')}
                                     />
                                 </Grid>
                             </Grid>

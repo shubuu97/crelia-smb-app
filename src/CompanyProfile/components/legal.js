@@ -89,7 +89,7 @@ class Legal extends Component {
                     </span>
                 </div>
                 :
-                <img src={_get(this.props, `state.${name}link`) || _get(this.props, { name } + 'Link')} className="legal-images" />
+                <img src={_get(this.props, `state.${name}link`) || _get(this.props, `${name}Link`)} className="legal-images" />
         )
     }
 

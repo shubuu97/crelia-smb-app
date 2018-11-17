@@ -1,23 +1,26 @@
 import React, { Component } from 'react';
-import Button from '@material-ui/core/Button';
+import _get from 'lodash/get';
+/* Material Imports*/
+import FormControl from '@material-ui/core/FormControl';
+import CircularProgress from '@material-ui/core/CircularProgress';
+/* Global Imports*/
 import sidebar from './SideBar.js';
 import DropzoneButton from '../../Global/dropzoneButton'
 import decorateWithOnDrop from '../../Global/onDropDecorater';
-import { withState, compose } from 'recompose';
-import { Field, reduxForm } from 'redux-form';
 import RFTextField from '../../Global/GlobalTextField';
-import FormControl from '@material-ui/core/FormControl';
-import companypresentation from '../../Assets/images/company-presentation.png';
-import { connect } from 'react-redux';
 import LoaderButton from '../../Global/LoaderButton';
-import _get from 'lodash/get';
+
+/* Recompose Import*/
+import { withState, compose } from 'recompose';
+/* Redux Imports*/
+import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
 import { APPLICATION_BFF_URL } from '../../Redux/urlConstants';
 import { postData } from '../../Redux/postAction';
 import { getData } from '../../Redux/getAction';
 import showMessage from '../../Redux/toastAction';
+
 var jwtDecode = require('jwt-decode');
-
-
 
 class MarketingMaterial extends Component {
 
@@ -27,9 +30,7 @@ class MarketingMaterial extends Component {
     basicDataFetcher = () => {
         if (localStorage.getItem('authToken')) {
             let decodeData = jwtDecode(localStorage.getItem('authToken'));
-
             let role = decodeData.role
-
 
             this.props.dispatch(
                 getData(`${APPLICATION_BFF_URL}/api/${role}/${encodeURIComponent(decodeData.id)}`, 'fetchingbasicdata', {
@@ -72,6 +73,26 @@ class MarketingMaterial extends Component {
             })
     }
 
+    dropzoneImageProgressPopulate = (name) => {
+        return (
+            _get(this.props, `state.${name}uploadProgress`) ?
+                <div className="flex-column align-center justify-center mt-16">
+                    <CircularProgress
+                        className="progress"
+                        variant="static"
+                        value={_get(this.props, `state.${name}uploadProgress`)}
+                    />
+                    <span className="progress-text">
+                        {_get(this.props, `state.${name}uploadProgress`)} %
+                    </span>
+                </div>
+                :
+                <a href={_get(this.props, `state.${name}`) || _get(this.props, `state.${name}link`) || _get(this.props, `${name}Link`)} target="_blank">
+                    Link
+                </a>
+        )
+    }
+
     render() {
         let { handleSubmit } = this.props;
 
@@ -93,25 +114,30 @@ class MarketingMaterial extends Component {
                         <div className="row pt-30">
                             <div className="col-sm-4">
                                 <h4>Presentation</h4>
-                                <a href={_get(this.props, 'state.presentaion') || _get(this.props, 'state.presentaionlink') || _get(this.props, 'presentationLink')} target="_blank">presentaion ppt</a>
-                                <DropzoneButton
-                                    name="Upload Presentation"
-                                    fieldName="presentaion"
-                                    onDrop={this.props.onDrop}
-                                />
+                                {this.dropzoneImageProgressPopulate('presentation')}
+                                <div className="mt-16">
+                                    <DropzoneButton
+                                        name="Upload Presentation"
+                                        fieldName="presentation"
+                                        onDrop={this.props.onDrop}
+                                    />
+                                </div>
                             </div>
                             <div className="col-sm-4  offset-sm-1">
                                 <h4>Video</h4>
-                                <a href={_get(this.props, 'state.presentaionVideo') || _get(this.props, 'state.presentaionVideolink') || _get(this.props, 'videoLink')} target="_blank">Video</a>
+                                {this.dropzoneImageProgressPopulate('video')}
                                 {/* <Player width="100%" className="mb-20 minHeightbox">
                             <source src={_get(this.props,'state.presentaionVideo')||_get(this.props,'state.presentaionVideolink')||''}/>
                             Your browser does not support HTML5 video.
                             </Player> */}
-                                <DropzoneButton
-                                    name="Upload Presentational Video"
-                                    fieldName="presentaionVideo"
-                                    onDrop={this.props.onDrop}
-                                />
+                                <div className="mt-16">
+                                    <DropzoneButton
+                                        name="Upload Presentational Video"
+                                        fieldName="video"
+                                        onDrop={this.props.onDrop}
+                                    />
+                                </div>
+
                                 <div class="action-block">
                                     <LoaderButton
                                         isFetching={this.props.isFetchingUpdateSMB}

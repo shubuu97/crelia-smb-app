@@ -6,7 +6,6 @@ let dropzoneButton = (props) => {
 
   return (
     <div>
-      
       <Dropzone
         style={{}}
         ref={dropzoneRef}
