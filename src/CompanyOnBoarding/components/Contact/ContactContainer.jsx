@@ -82,8 +82,8 @@ class ContactContainer extends Component {
                     <div className="col-sm-6">
                         <Field
                             disabled={localStorage.getItem('disabled')}
-                            label="Types of incorporation"
-                            placeholder="Types of incorporation"
+                            label="Legal Business Name"
+                            placeholder="Legal Business Name"
                             name="legalName"
                             component={GlobalTextField}
                             variant="outlined"
@@ -94,7 +94,7 @@ class ContactContainer extends Component {
                         <Field
                             disabled={localStorage.getItem('disabled')}
                             name="legalEntityType"
-                            label='Leagal Entity Type'
+                            label='Types of incorporation'
                             component={Select}
                             options={this.props.legalEntityList}
                             variantType="outlined"
