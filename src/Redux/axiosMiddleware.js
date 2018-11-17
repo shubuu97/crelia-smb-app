@@ -56,7 +56,6 @@ const axiosMiddleware = store => next => (action) => {
 
   let requestObject = {};
   requestObject.method = method;
-  debugger;
   requestObject.url = path;
   if (config.body)
     requestObject.data = config.body;

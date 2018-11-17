@@ -60,8 +60,13 @@ class TeamMemberCard extends React.Component {
             <Card className={classes.card}>
                 <CardHeader
                     avatar={
-                        <Avatar aria-label="Recipe" className={classes.avatar}>
-                            J
+                        <Avatar 
+                        aria-label="Recipe"
+                        className={classes.avatar}
+                        src ={data.profilePictureLink}
+                        alt={data.firstName}
+                        >
+                        {!data.profilePictureLink?data.firstName.toUpperCase().split('')[0]:null}
                         </Avatar>
                     }
                     action={
@@ -69,12 +74,14 @@ class TeamMemberCard extends React.Component {
                             <MoreVertIcon />
                         </IconButton>
                     }
-                    title={data.firstName}
+                    title={data.firstName.toUpperCase()+' '+data.lastName.toUpperCase()}
                     subheader={data.type}
                 />
 
                 <CardContent>
-
+                <Typography component="p">
+                Designation: {data.designation}
+                    </Typography>
                     <Typography component="p">
                         Phone Number: {data.phoneNumber}
                     </Typography>

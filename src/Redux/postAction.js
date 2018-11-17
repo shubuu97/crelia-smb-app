@@ -3,7 +3,6 @@ import dynamicActionWrapper from './actionHelper';
 
 export const request = (subreddit,constants) =>
 {
-    debugger;
 console.log(constants,"constants")
 return ({
     type: constants.init,
