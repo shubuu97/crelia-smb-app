@@ -94,27 +94,24 @@ class ReviewCOBInfoContainer extends Component {
                                 financialLinks={_get(this.props, 'companyDetails.financialInfo.financialLinks', [])}
                             />
                         </div>
+
                         <div className="row">
                             <FinancialDataView
                                 financialData={_get(this.props, 'companyDetails.financialInfo.financialData', [])}
                             />
                         </div>
                         <div className="common-action-block pb-15">
-
                             <Button disabled={this.props.isFetchingPostMarketPlace} onClick={this.postMarketPlace} variant='contained' color='primary'>
                                 {this.props.isFetchingPostMarketPlace ? <CircularProgress size={24} /> : 'POST TO THE MARKET PLACE'}
                             </Button>
                         </div>
                     </div>
                 </div>
-
-
-
-
             </div>
         )
     }
 }
+
 function mapStateToProps(state) {
     let id = _get(state, 'BasicInfo.lookUpData.companyDetails.id', null);
 
