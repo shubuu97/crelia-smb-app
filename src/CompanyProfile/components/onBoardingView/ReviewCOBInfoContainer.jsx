@@ -9,12 +9,15 @@ import showMessage from '../../../Redux/toastAction';
 /* Material Imports */
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
+/* Global Imports*/
+import genericPostData from '../../../Global/genericPostData' 
 /* Components Import*/
 import CompanyView from './CompanyView';
 import FundingView from './FundingView';
 import FinancialDataTable from './FinancialDataTable';
 import LoanProvider from './LoanProvider';
 import FinancialLinks from './FinancialLinks';
+
 
 var jwtDecode = require('jwt-decode');
 
@@ -35,30 +38,23 @@ class ReviewCOBInfoContainer extends Component {
         )
     }
     postMarketPlace = () => {
-        let reqObj = { id: this.props.id }
-        this.props.dispatch(
-            postData(`${APPLICATION_BFF_URL}/api/PostSMB`, reqObj, 'cob-post-marketplace_init', {
+        let reqObj = { id: this.props.id };
+        genericPostData({
+            dispatch:this.props.dispatch,
+            reqObj:{...reqObj},
+            url:'/api/PostSMB',
+            constants:{
                 init: 'cob-post-marketplace_init',
                 success: 'cob-post-marketplace_success',
                 error: 'cob-post-marketplace_error'
-            })
-        ).then((data) => {
-            this.props.dispatch(showMessage({ text: 'Update Succesfully', isSuccess: true }));
-            // this.basicDataFetcher();
-
-            setTimeout(() => {
-                this.props.dispatch(showMessage({}));
-                this.props.history.push('/OnBoardingAcknowlege')
-            }, 1000);
+            },
+            identifier:'cob-post-marketplace_init',
+            successText:'Upload Success',
+            successTimeOutCb:()=>this.props.history.push('/OnBoardingAcknowlege')
 
         })
-            .catch((err) => {
-                this.props.dispatch(showMessage({ text: err.msg, isSuccess: false }));
-                setTimeout(() => {
-                    this.props.dispatch(showMessage({}));
-                }, 6000);
-            })
     }
+        
     render() {
         debugger
         return (

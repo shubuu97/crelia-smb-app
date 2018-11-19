@@ -4,11 +4,13 @@ import Button from '@material-ui/core/Button';
 
 const LoaderButton = (props)=>
 {
+  console.log('isFetching',props.isFetching)
     return(
         <Button
         type={props.type}
         fullWidth={props.fullWidth}
         disabled={props.isFetching}
+        onClick={props.onClick}
         variant={props.variant}
         color={props.color}
         className={props.className}

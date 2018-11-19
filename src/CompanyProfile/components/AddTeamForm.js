@@ -136,7 +136,7 @@ class AddTeamForm extends React.Component {
             <div className="addmore" >
                 <span className="title" onClick={this.handleChange(this.state.expanded)}>
                     <i class="material-icons"> person_add</i>
-                    Add Team
+                    {this.props.type}
                 </span>
                 <ExpansionPanel className="boxshadownone" expanded={expanded === false}>
 

@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import FormControl from '@material-ui/core/FormControl';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm,fiel } from 'redux-form';
 import Grid from '@material-ui/core/Grid';
 import GlobalTextField from '../../Global/GlobalTextField'
 
