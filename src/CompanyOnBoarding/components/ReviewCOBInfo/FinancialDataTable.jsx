@@ -19,12 +19,13 @@ const styles = theme => ({
     },
   });
 
-class FinancialDataView extends Component {
+class FinancialDataTable extends Component {
 
     constructor(props) {
         super(props);
     }
 
+    /*
     financialDataView = () => {
         let financialData = this.props.financialData.map(data => {
             return (
@@ -42,6 +43,7 @@ class FinancialDataView extends Component {
 
         return financialData
     }
+    */
 
     populateHeaders = () => {
         let currentYear = (new Date()).getFullYear();
@@ -58,16 +60,31 @@ class FinancialDataView extends Component {
 
     populateRows = (title, key) => {
         let currentYear = (new Date()).getFullYear();
-        let financialData = this.props.financialData
-        let rowData = financialData.map(data => {
-            return(
-                <TableCell numeric>{data[key]}</TableCell>
-            )
+        let financialData = this.props.financialData;
+        let first,second,third,fourth
+        financialData.map(data => {
+            switch(data.year){
+                case currentYear-2 :
+                    first = data[key]
+                    break
+                case currentYear-1 :
+                    second = data[key]
+                    break
+                case currentYear :
+                    third = data[key]
+                    break
+                case currentYear+1 :
+                    fourth = data[key]
+                    break
+            } 
         })
         return (
             <TableRow>
                 <TableCell>{title}</TableCell>
-                {rowData}
+                <TableCell numeric>{first}</TableCell>
+                <TableCell numeric>{second}</TableCell>
+                <TableCell numeric>{third}</TableCell>
+                <TableCell numeric>{fourth}</TableCell>
             </TableRow>
         )
     }
@@ -98,4 +115,4 @@ class FinancialDataView extends Component {
 
 }
 
-export default withStyles(styles)(FinancialDataView);
+export default withStyles(styles)(FinancialDataTable);
