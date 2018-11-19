@@ -10,9 +10,9 @@ const LoanProvider = (props) => {
             </div>
         )
     })
-    
+
     return (
-        <div className="col-sm-3" >
+        <div className="col-sm-6" >
             <div className="onboarding-sub-title" >Loan Provider Details</div>
             <div>{loanProviderView}</div>
         </div>

@@ -10,40 +10,20 @@ import Paper from '@material-ui/core/Paper';
 
 const styles = theme => ({
     root: {
-      width: '100%',
-      marginTop: theme.spacing.unit * 3,
-      overflowX: 'auto',
+        width: '100%',
+        marginTop: theme.spacing.unit * 3,
+        overflowX: 'auto',
     },
     table: {
-      minWidth: 700,
+        minWidth: 700,
     },
-  });
+});
 
 class FinancialDataTable extends Component {
 
     constructor(props) {
         super(props);
     }
-
-    /*
-    financialDataView = () => {
-        let financialData = this.props.financialData.map(data => {
-            return (
-                <div className="data-list">
-                    <span className="sub-head">Year-{data.year}</span>
-                    <span className="list-content"><span>Cash-</span> <span>{data.cash}</span></span>
-                    <span className="list-content"><span>EBITDA-</span> <span>{data.ebitda}</span></span>
-                    <span className="list-content"><span>Interest Expense-</span> <span>{data.interestExpense}</span></span>
-                    <span className="list-content"><span>Sales-</span> <span>{data.sales}</span></span>
-                    <span className="list-content"><span>Total Financial Debt-</span> <span>{data.totalFinalDebt}</span></span>
-                    <span className="list-content"><span>Total Share Holder Equity-</span> <span>{data.totalShareholderEquity}</span></span>
-                </div>
-            )
-        })
-
-        return financialData
-    }
-    */
 
     populateHeaders = () => {
         let currentYear = (new Date()).getFullYear();
@@ -61,22 +41,22 @@ class FinancialDataTable extends Component {
     populateRows = (title, key) => {
         let currentYear = (new Date()).getFullYear();
         let financialData = this.props.financialData;
-        let first,second,third,fourth
+        let first, second, third, fourth
         financialData.map(data => {
-            switch(data.year){
-                case currentYear-2 :
+            switch (data.year) {
+                case currentYear - 2:
                     first = data[key]
                     break
-                case currentYear-1 :
+                case currentYear - 1:
                     second = data[key]
                     break
-                case currentYear :
+                case currentYear:
                     third = data[key]
                     break
-                case currentYear+1 :
+                case currentYear + 1:
                     fourth = data[key]
                     break
-            } 
+            }
         })
         return (
             <TableRow>

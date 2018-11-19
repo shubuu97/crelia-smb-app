@@ -10,7 +10,7 @@ import showMessage from '../../../Redux/toastAction';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 /* Global Imports*/
-import genericPostData from '../../../Global/genericPostData' 
+import genericPostData from '../../../Global/genericPostData'
 /* Components Import*/
 import CompanyView from './CompanyView';
 import FundingView from './FundingView';
@@ -40,30 +40,28 @@ class ReviewCOBInfoContainer extends Component {
     postMarketPlace = () => {
         let reqObj = { id: this.props.id };
         genericPostData({
-            dispatch:this.props.dispatch,
-            reqObj:{...reqObj},
-            url:'/api/PostSMB',
-            constants:{
+            dispatch: this.props.dispatch,
+            reqObj: { ...reqObj },
+            url: '/api/PostSMB',
+            constants: {
                 init: 'cob-post-marketplace_init',
                 success: 'cob-post-marketplace_success',
                 error: 'cob-post-marketplace_error'
             },
-            identifier:'cob-post-marketplace_init',
-            successText:'Upload Success',
-            successTimeOutCb:()=>this.props.history.push('/OnBoardingAcknowlege')
+            identifier: 'cob-post-marketplace_init',
+            successText: 'Upload Success',
+            successTimeOutCb: () => this.props.history.push('/OnBoardingAcknowlege')
 
         })
     }
-        
+
     render() {
-        debugger
         return (
             <div>
                 <div className="funding-details">
                     <h1>Funding Details</h1>
                     <div className="col-sm-12 card" >
                         <div className="row pad-20">
-
                             <CompanyView
                                 legalName={_get(this.props, 'companyDetails.legalName')}
                                 legalEntityType={_get(this.props, 'companyDetails.legalEntityType')}
@@ -74,24 +72,22 @@ class ReviewCOBInfoContainer extends Component {
                                 phoneNumber={_get(this.props, 'companyDetails.phoneNumber')}
                                 email={_get(this.props, 'companyDetails.email')}
                             />
-
                             <FundingView
                                 moneyRequired={_get(this.props, 'companyDetails.onboardingInfo.moneyRequired')}
                                 timeFrame={_get(this.props, 'companyDetails.onboardingInfo.timeFrame')}
                                 fundAllocation={_get(this.props, 'companyDetails.onboardingInfo.fundAllocation', [])}
                                 fundingType={_get(this.props, 'companyDetails.onboardingInfo.fundingType', [])}
                             />
-
+                        </div>
+                        <div className="row pad-20">
                             <LoanProvider
                                 loanProvider={_get(this.props, 'companyDetails.financialInfo.loanProvider', [])}
                             />
-
                             <FinancialLinks
                                 financialLinks={_get(this.props, 'companyDetails.financialInfo.financialLinks', [])}
                             />
                         </div>
-
-                        <div className="row">
+                        <div className="row pad-20">
                             <FinancialDataTable
                                 financialData={_get(this.props, 'companyDetails.financialInfo.financialData', [])}
                             />
