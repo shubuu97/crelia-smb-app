@@ -30,7 +30,7 @@ class SignInLayout extends Component {
             <div className="col-sm-5 left-block">
             <div className="brand-block">
               <div className="logo"><img src={logoimg} /></div>
-              <div className="caption-line">Get more things done with Logged In platform.</div>  
+              <div className="caption-line">Please login to apply for business funding.</div>  
               </div>        
             </div>           
             <div className="col-sm-7">
@@ -39,7 +39,7 @@ class SignInLayout extends Component {
                   <div className="text-right backtosite"><i className="material-icons">navigate_before</i> <a href="#">Back to Website</a></div>
                     {this.props.children}
               </div>  
-              <div className="text-right">2016 © Crelia Capital</div>
+              <div className="text-right">2018 © Crelia Capital</div>
             </div>
           </div>
           </div>
@@ -68,8 +68,8 @@ class SignInLayout extends Component {
 
 function mapStateToProps(state)
 {
+  let message = _get(state,'ShowToast.message','')
 
-let message = state.ShowToast.message;
 return {message}
 }
 

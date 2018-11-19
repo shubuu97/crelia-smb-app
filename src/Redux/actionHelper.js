@@ -1,6 +1,7 @@
 const dynamicActionWrapper = ({
     id,
     path,
+    uploadConfig,
     isFormData,
     formData,
     method,
@@ -30,6 +31,7 @@ const dynamicActionWrapper = ({
     id,
     successCbPassOnParams,
     constants,
+    uploadConfig,
     fetchConfig: {
       path,
       method,

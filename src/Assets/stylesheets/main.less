@@ -57,9 +57,20 @@ form {
 .master input{
 padding: 8px 0 9px;
 }
+.d-block{
+    display: block;
+}
 
 .MuiFormControl-marginNormal-3
 
+// Consult Vishnu Ji
+.legal-images-container{
+    width: 30%;
+}
+.legal-images{
+    width: 100%;
+}
+// To be removed
 
 label, p{
     font-size: 1rem!important;
@@ -99,6 +110,13 @@ label, p{
 .ml-35{
     margin-left: 35px!important;
 }
+.pad-20{
+    padding: 20px!important;
+}
+
+.mr-20{
+    margin-right: 20px!important;
+}
 .mt-16{
     margin-top: 16px!important;
 }
@@ -114,11 +132,17 @@ label, p{
 .p-abs{
     position: absolute;
 }
+.pt-10{
+    padding-top:10px!important;
+}
 .pt-15{
     padding-top:15px!important;
 }
 .pb-15{
     padding-bottom:15px!important;
+}
+.pb-20{
+    padding-bottom:20px!important;
 }
 .pt-60{
     padding-top: 6rem!important; 
@@ -145,6 +169,13 @@ label, p{
 a{
     color:#222222;
 }
+.or{
+    background:#313787; 
+    color: #fff;
+    padding: 7px 10px;
+    border-radius: 60%;
+    text-align: center;   
+}
 .common-action-block{
     display: flex;
     align-items: center;
@@ -162,6 +193,19 @@ a{
     border: 0;
     color: #fff;  
     cursor: pointer; 
+}
+
+.btncommon{
+    padding: 10px;
+    border: solid 1px #ddd;
+    border-radius: 4px;
+    background: #f9f9f9;
+    cursor: pointer; 
+    transition: ease .2s;
+}
+.btncommon:hover{    
+    background: #efefef;
+   
 }
 
 .btnsecondary{
@@ -311,6 +355,7 @@ a{
         background-repeat: no-repeat;
         background-blend-mode: multiply;
         background-size: 25%;  
+        min-height: 83vh;
     
     }
     .header{
@@ -348,6 +393,19 @@ a{
         .footer-main{
             font-size: 1.5em;
             font-weight: bold;
+        }
+    }
+
+    footer{
+        background: #313787;
+        color: #fff;
+
+        a{
+            color: #fafafa
+        }
+
+        .footer-copyright{
+            background: #1C2331;
         }
     }
 
@@ -568,6 +626,7 @@ a{
 }
 .master .onboarding-sub-title {
     font-size: 1.2em;
+    font-family: 'GTWalsheimMedium', sans-serif;
 }
 .master .get-money button{
  text-transform: capitalize;
@@ -578,6 +637,9 @@ height: 40px;
 .master .get-money button:first-child{
 border-left: solid 1px #ddd;
 }
+.master .get-money .MuiToggleButton-label{
+    font-size: 0.9em;
+}
 .master .MuiTab-root-54{
     font-weight: bold;
     font-size: 1rem;
@@ -586,6 +648,15 @@ border-left: solid 1px #ddd;
 .master  .MuiToggleButton-root-285:hover, .master .MuiToggleButton-selected-287{
 background-color: #313787;
 color: #fff;
+}
+
+.master .RadioButtonsGroup-formControl-357 {
+    margin: 0; 
+}
+
+.extrablock{
+    display: flex;  
+    align-items: center;
 }
 
 .master .MuiToggleButtonGroup-selected-284{
@@ -600,10 +671,11 @@ box-shadow: none;
 .finan-tab div{
     cursor: pointer;
     padding: 10px 50px;
-    background: #fafafa;
+    background: #ececec;
     position: relative;
     border-bottom: solid 1px #afb2b5;
     margin-bottom: -1px;
+    margin-right: 20px;
    
  
 }
@@ -611,12 +683,40 @@ box-shadow: none;
 .finan-tab div.active{
     cursor: pointer;
     padding: 10px 50px;
-    background: #fff;
-    margin-right: 20px;
+    background-color: #313787;
+    color: #fff;
+   
     border: solid 1px #afb2b5;
     border-bottom: solid 1px #fff;
  
 }
+
+
+.finan-sub-tab {
+    display: flex;  
+    position: relative;
+    align-items: center;
+    justify-content: center;
+}
+
+.finan-sub-tab div{
+    cursor: pointer;
+    padding: 10px 50px;
+    background: #dedede;
+    position: relative;    
+    margin: 0 20px;  
+    border-radius: 4px;
+}
+
+.finan-sub-tab div.active{
+    cursor: pointer;
+    padding: 10px 50px;
+    background: #2d2d2d;
+    color: #fff;
+    border-radius: 4px;
+}
+
+
 
 .info-secure, .questions, .request-assistance{
     display: flex;
@@ -665,7 +765,6 @@ flex: 0 0 25%;
 
 
 .about-section{
-
     .card{
         padding:10px;
     }
@@ -786,5 +885,95 @@ flex: 0 0 25%;
         .downlaod-external a{display: flex; align-items: center; line-height: 16px;padding: 10px; border: dashed 1px;}
         .downlaod-external a:hover{text-decoration: none;}
         .downlaod-external i{font-size: 2.5rem; margin-right: 10px;}
+
+}
+
+
+
+
+
+.delete-provider{
+    font-size: 30px;
+    color:#848383;
+    transition: ease .3s;
+    cursor: pointer;
+}
+
+.delete-provider:hover{
+    color:#e00000;
+}
+.add-more{
+    font-size: 32px;
+    color: #20ad61;
+    cursor: pointer;
+    padding-top: 20px;
+}
+.data-list{
+    display: flex;
+    flex-direction: column;
+}
+
+.funding-details{
+
+    .sub-head{
+        font-size: .9rem;
+        font-family: 'GTWalsheimMedium';
+        border-bottom: solid 1px #ddd;
+        padding-bottom: 4px;
+        margin: 15px 0;
+    }
+    .list-content{
+        display: flex;
+        justify-content: space-between;
+        font-size: .9rem;
+        padding-bottom: 5px;
+        position: relative;
+
+        span{
+            font-family: 'GTWalsheimProRegular';
+            background-color: #fff;
+            position: relative;
+            z-index: 1;
+        }
+
+        span:first-child{
+            padding-right: 5px;
+        }
+        span:last-child{
+            padding-left: 5px;
+        }
+
+    }
+
+    .list-content:before {
+        content: "";
+        display: block;
+        border-bottom: dotted 1px #bfbebe;
+        position: absolute;
+        width: 100%;
+        top: 11px;
+    }
+
+    .financial-links{
+        font-size: .9rem;
+        padding: 15px 0 0;
+        display: block;
+    }
+
+    .fund-type-head{
+        font-size: .9rem;
+        font-family: 'GTWalsheimMedium';      
+        padding:3px 0; 
+    }
+
+    .s-level{
+
+        .list-content{
+            margin-left: 10px;
+        }
+    }
+    .address-detail{
+        text-align: right;
+    }
 
 }

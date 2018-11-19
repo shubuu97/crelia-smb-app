@@ -1,3 +1,4 @@
+import UpdateSMBFun from './commonReducer';
 import {combineReducers} from 'redux';
 import {reducer as formReducer}  from 'redux-form';
 import LoginData from '../Authorization/Reducer/login';
@@ -10,9 +11,20 @@ import EmpTypeList from '../CompanyProfile/Reducers/EmployeeType';
 import BasicInfo from '../Authorization/Reducer/basicData';
 import SetPassword from '../Authorization/Reducer/setPassword';
 import CobPostFun from './commonReducer';
-import CobApprovalFun from './commonReducer';
+import CobPostMarketPlaceFun from './commonReducer';
+import UpdateSMBUserFun from './commonReducer';
+import AddTeamFun from './commonReducer';
+import  getEmployeeListFun from './commonReducer';
 let CobPost=CobPostFun('cobsave');
-let CobApproval=CobApprovalFun('cob-approval');
+let CobPostMarketPlace=CobPostMarketPlaceFun('cob-post-marketplace');
+let UpdateSMB = UpdateSMBFun('UpdateSMB');
+let UpdateSMBUser = UpdateSMBUserFun('UpdateSMBUser');
+let AddTeam = AddTeamFun('addTeam');
+let EmployeeList = getEmployeeListFun('getEmployeeList');
+
+
+
+
 
 let rootRducer = combineReducers({
     form:formReducer,
@@ -26,7 +38,11 @@ let rootRducer = combineReducers({
     BasicInfo,
     SetPassword,
     CobPost,
-    CobApproval
+    CobPostMarketPlace,
+    UpdateSMB,
+    UpdateSMBUser,
+    AddTeam,
+    EmployeeList
 })
 
 export default rootRducer;

@@ -33,7 +33,7 @@ const axiosMiddleware = store => next => (action) => {
 
 
   const { dispatch } = store;
-  const { fetchConfig: config, subreddit, id, constants } = action;
+  const { fetchConfig: config, subreddit, id, constants,uploadConfig } = action;
   // @todo multiple params
   dispatch(config.initHandler(subreddit, constants));
 
@@ -60,6 +60,10 @@ const axiosMiddleware = store => next => (action) => {
   if (config.body)
     requestObject.data = config.body;
   requestObject.headers = { ...headers, correlationid: generateV1uuid(), Authorization: `${authToken}`, 'Content-Type': 'application/json' }
+  if(uploadConfig)  
+  requestObject.onUploadProgress=uploadConfig;
+
+    console.log(requestObject,"request object is here")
 
   axios(
     requestObject

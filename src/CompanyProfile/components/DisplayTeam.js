@@ -14,7 +14,8 @@ import Typography from '@material-ui/core/Typography';
 import red from '@material-ui/core/colors/red';
 
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-
+import _get from 'lodash/get';
+ 
 const styles = theme => ({
     card: {
         maxWidth: 400,
@@ -53,36 +54,42 @@ class TeamMemberCard extends React.Component {
 
     render() {
         const { classes } = this.props;
+        let data = _get(this.props, 'data', {})
 
         return (
             <Card className={classes.card}>
                 <CardHeader
                     avatar={
-                        <Avatar aria-label="Recipe" className={classes.avatar}>
-                            J
-            </Avatar>
+                        <Avatar 
+                        aria-label="Recipe"
+                        className={classes.avatar}
+                        src ={data.profilePictureLink}
+                        alt={data.firstName}
+                        >
+                        {!data.profilePictureLink?data.firstName.toUpperCase().split('')[0]:null}
+                        </Avatar>
                     }
                     action={
                         <IconButton>
                             <MoreVertIcon />
                         </IconButton>
                     }
-                    title="Jason Bourne"
-                    subheader="CFO"
+                    title={data.firstName.toUpperCase()+' '+data.lastName.toUpperCase()}
+                    subheader={data.type}
                 />
 
                 <CardContent>
-                    <Typography component="p">
-                        Email
+                <Typography component="p">
+                Designation: {data.designation}
                     </Typography>
                     <Typography component="p">
-                        jason.bourne@gmail.com
+                        Phone Number: {data.phoneNumber}
                     </Typography>
                     <Typography component="p">
-                       Linkedin Profile
+                        email: {data.email}
                     </Typography>
                     <Typography component="p">
-                        linkedin.com/jason
+                        Linkedin: {data.url}
                     </Typography>
                 </CardContent>
 

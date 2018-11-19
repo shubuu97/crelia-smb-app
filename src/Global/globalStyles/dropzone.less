@@ -1,4 +1,5 @@
 @black-border: rgba(0,0,0,0.25);
+@progress-color: #313787;
 
 .dropzoneTitle{
     font-size: 1em;
@@ -26,15 +27,26 @@
 }
 .dropzoneMainText{
     color: #000;
-    margin: 10px 0;
+    margin: 10px 20px;
+    text-align: center;
 }
 .dropzoneImgarea{
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 50%;
+  width: 80%;
 }
 .dropzoneImgarea span{
   margin: 8px 0;
+}
+.progress{
+    background: white;
+    border-color: @progress-color;
+}
+.progress-text{
+    margin-top: 10px;
+    font-size: 15px;
+    font-weight: bold;
+
 }
