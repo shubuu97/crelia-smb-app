@@ -10,6 +10,7 @@ import FinancialView from './financialView';
 import Button from '@material-ui/core/Button';
 import showMessage from '../../../Redux/toastAction';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import genericPostData from '../../../Global/genericPostData'
 
 
 var jwtDecode = require('jwt-decode');
@@ -31,30 +32,23 @@ class ReviewCOBInfoContainer extends Component {
         )
     }
     postMarketPlace = () => {
-        let reqObj = { id: this.props.id }
-        this.props.dispatch(
-            postData(`${APPLICATION_BFF_URL}/api/PostSMB`, reqObj, 'cob-post-marketplace_init', {
+        let reqObj = { id: this.props.id };
+        genericPostData({
+            dispatch:this.props.dispatch,
+            reqObj:{...reqObj},
+            url:'/api/PostSMB',
+            constants:{
                 init: 'cob-post-marketplace_init',
                 success: 'cob-post-marketplace_success',
                 error: 'cob-post-marketplace_error'
-            })
-        ).then((data) => {
-            this.props.dispatch(showMessage({ text: 'Update Succesfully', isSuccess: true }));
-            // this.basicDataFetcher();
-
-            setTimeout(() => {
-                this.props.dispatch(showMessage({}));
-                this.props.history.push('/OnBoardingAcknowlege')
-            }, 1000);
+            },
+            identifier:'cob-post-marketplace_init',
+            successText:'Upload Success',
+            successTimeOutCb:()=>this.props.history.push('/OnBoardingAcknowlege')
 
         })
-            .catch((err) => {
-                this.props.dispatch(showMessage({ text: err.msg, isSuccess: false }));
-                setTimeout(() => {
-                    this.props.dispatch(showMessage({}));
-                }, 6000);
-            })
     }
+        
     render() {
         return (
             <div>

@@ -15,7 +15,7 @@ export default [
     {path:'/financials',Component:Financial},
     {path:'/team',Component:AddTeam},
     {path:'/contacts',Component:Contacts},
-    {path:'/beneficiary',Component:BeneficiaryShareholder},
+    {path:'/beneficiary',Component:AddTeam},
     {path:'/onboardingview',Component:SideBar(onBoarding)}
 
     

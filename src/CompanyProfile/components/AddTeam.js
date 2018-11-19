@@ -100,6 +100,7 @@ employeeDataFetcher=()=>
                 <div className="row">
                     <ul className="staff-block">
                         <li className="col-sm-4 mb-20"> <AddTeamForm
+                        type={this.props.location.pathName=='team'?'Add Team':'Add Benificiary'}
                         employeeDataFetcher={this.employeeDataFetcher}
                         /></li>
                         {this.props.employees.map(option => (
@@ -132,11 +133,13 @@ AddTeam = reduxForm({
 //export default sidebar(withStyles(styles)(AddTeam));
 
 function mapStateToProps(state) {
+    let id = _get(state, 'BasicInfo.lookUpData.companyDetails.id');
 
     let employees = _get(state, 'EmployeeList.lookUpData', []);
 
     return {
-        employees
+        employees,
+        id
     };
 }
 
