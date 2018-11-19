@@ -12,7 +12,7 @@ import { reduxForm, Field, FieldArray } from 'redux-form';
 
 const LoanProviderComp = (props) => {
     const { fields } = props;
-    if (fields.length == 0)
+    if (fields.length == 0 || fields.length == undefined)
         fields.push()
     return (
         <div>
