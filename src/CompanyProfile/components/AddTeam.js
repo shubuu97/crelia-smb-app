@@ -73,7 +73,7 @@ employeeDataFetcher=()=>
         })
     ).then((data)=>
 {
-    let resource = encodeURIComponent('resource:'+data.companyDetails.$class+'#'+data.companyDetails.id)
+    let resource = encodeURIComponent('resource:'+_get(data,'companyDetails.$class')+'#'+_get(data,'companyDetails.id'))
     this.props.dispatch(
         getData(`${APPLICATION_BFF_URL}/api/queries/EmployeesWithCompanyId?resourceId=${resource}`, 'getEmployeeList-data', {
             init: 'getEmployeeList_init',
