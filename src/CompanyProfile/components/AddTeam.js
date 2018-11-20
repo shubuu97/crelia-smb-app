@@ -100,7 +100,9 @@ employeeDataFetcher=()=>
                 <div className="row">
                     <ul className="staff-block">
                         <li className="col-sm-4 mb-20"> <AddTeamForm
-                        type={this.props.location.pathName=='team'?'Add Team':'Add Benificiary'}
+                        location={this.props.location}
+                        showPosition={this.props.location.pathname=='/team'?true:false}
+                        type={this.props.location.pathname=='/team'?'Add Team':'Add Benificiary'}
                         employeeDataFetcher={this.employeeDataFetcher}
                         /></li>
                         {this.props.employees.map(option => (
