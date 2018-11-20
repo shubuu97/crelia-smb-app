@@ -106,7 +106,7 @@ class About extends Component {
                                     name="industryType"
                                     component={Select}
                                     variantType='outlined'
-                                    options={this.props.industryList}
+                                    options={this.props.industryList||[]}
 
                                 />
                             </FormControl>
@@ -117,7 +117,7 @@ class About extends Component {
                                     label="Incorporation Type"
                                     name="legalEntityType"
                                     component={Select}
-                                    options={this.props.legalEntityList}
+                                    options={this.props.legalEntityList||[]}
 
                                 />
                             </FormControl>
@@ -191,10 +191,10 @@ About = reduxForm({
 function mapStateToProps(state) {
     let industryList = [];
     let legalEntities = [];
-    _get(state.IndustryList, 'lookUpData', []).map(item => (
+    _get(state,'IndustryList.lookUpData', []).map(item => (
         industryList.push({ value: item.industry })
     ))
-    _get(state.LegalEntities, 'lookUpData', []).map(item => (
+    _get(state,'LegalEntities.lookUpData', []).map(item => (
         legalEntities.push({ value: item.type })
     ))
     let isFetchingUpdateSMB = _get(state, 'UpdateSMB.isFetching');
