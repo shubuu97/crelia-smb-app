@@ -1,4 +1,5 @@
 import React from 'react';
+import financialLink from "../../../Assets/images/financial-link.svg"
 
 const FinancialLinks = (props) => {
     
@@ -12,9 +13,11 @@ const FinancialLinks = (props) => {
     })
 
     return (
-        <div className="col-sm-3" >
-            <div className="onboarding-sub-title ">Finacial Links</div>
-            <div>{financialLinks}</div>
+        <div className="col-sm-12" >
+            <div className="inner-wrap">
+                <div className="onboarding-sub-title "><img src={financialLink} height="" width="40" /> Financial Links</div>
+                <div>{financialLinks}</div>
+            </div>
         </div>
     )
 }

@@ -88,16 +88,18 @@ class ReviewCOBInfoContainer extends Component {
 
                             <LoanProvider
                                 loanProvider={_get(this.props, 'companyDetails.financialInfo.loanProvider', [])}
-                            />
+                            />                           
+                        </div>
 
-                            <FinancialLinks
-                                financialLinks={_get(this.props, 'companyDetails.financialInfo.financialLinks', [])}
+                        <div className="row  pad-20">
+                            <FinancialDataView
+                                financialData={_get(this.props, 'companyDetails.financialInfo.financialData', [])}
                             />
                         </div>
 
-                        <div className="row">
-                            <FinancialDataView
-                                financialData={_get(this.props, 'companyDetails.financialInfo.financialData', [])}
+                          <div className="row  pad-20">
+                          <FinancialLinks
+                                financialLinks={_get(this.props, 'companyDetails.financialInfo.financialLinks', [])}
                             />
                         </div>
                         <div className="common-action-block pb-15">
