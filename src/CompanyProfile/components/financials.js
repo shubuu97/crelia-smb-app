@@ -19,7 +19,7 @@ class financial extends React.Component {
 
     successCb=()=>
     {
-        debugger;
+        console.log("Financial Success")
     }
     handleFinancialDataUpload=()=>
     {
