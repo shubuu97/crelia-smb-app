@@ -7,41 +7,22 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import financialdata from "../../../Assets/images/financial-data.svg"
 
 const styles = theme => ({
     root: {
-      width: '100%',
-      marginTop: theme.spacing.unit * 3,
-      overflowX: 'auto',
+        width: '100%',
+        marginTop: theme.spacing.unit * 3,
+        overflowX: 'auto',
     },
     table: {
-      minWidth: 700,
+        minWidth: 700,
     },
-  });
+});
 
-class FinancialDataView extends Component {
+class FinancialDataTable extends Component {
 
     constructor(props) {
         super(props);
-    }
-
-    financialDataView = () => {
-        let financialData = this.props.financialData.map(data => {
-            return (
-                <div className="data-list">
-                    <span className="sub-head">Year-{data.year}</span>
-                    <span className="list-content"><span>Cash-</span> <span>{data.cash}</span></span>
-                    <span className="list-content"><span>EBITDA-</span> <span>{data.ebitda}</span></span>
-                    <span className="list-content"><span>Interest Expense-</span> <span>{data.interestExpense}</span></span>
-                    <span className="list-content"><span>Sales-</span> <span>{data.sales}</span></span>
-                    <span className="list-content"><span>Total Financial Debt-</span> <span>{data.totalFinalDebt}</span></span>
-                    <span className="list-content"><span>Total Share Holder Equity-</span> <span>{data.totalShareholderEquity}</span></span>
-                </div>
-            )
-        })
-
-        return financialData
     }
 
     populateHeaders = () => {
@@ -59,16 +40,31 @@ class FinancialDataView extends Component {
 
     populateRows = (title, key) => {
         let currentYear = (new Date()).getFullYear();
-        let financialData = this.props.financialData
-        let rowData = financialData.map(data => {
-            return(
-                <TableCell numeric>{data[key]}</TableCell>
-            )
+        let financialData = this.props.financialData;
+        let first, second, third, fourth
+        financialData.map(data => {
+            switch (data.year) {
+                case currentYear - 2:
+                    first = data[key]
+                    break
+                case currentYear - 1:
+                    second = data[key]
+                    break
+                case currentYear:
+                    third = data[key]
+                    break
+                case currentYear + 1:
+                    fourth = data[key]
+                    break
+            }
         })
         return (
             <TableRow>
                 <TableCell>{title}</TableCell>
-                {rowData}
+                <TableCell numeric>{first}</TableCell>
+                <TableCell numeric>{second}</TableCell>
+                <TableCell numeric>{third}</TableCell>
+                <TableCell numeric>{fourth}</TableCell>
             </TableRow>
         )
     }
@@ -77,7 +73,7 @@ class FinancialDataView extends Component {
         const { classes } = this.props;
         return (
             <div className="col-sm-12" >
-                <div className="onboarding-sub-title" ><img src={financialdata} height="" width="35" /> Financial Data</div>
+                <div className="onboarding-sub-title" >Financial Data</div>
                 <Paper className={classes.root} >
                     <Table className={classes.table}>
                         <TableHead>
@@ -99,4 +95,4 @@ class FinancialDataView extends Component {
 
 }
 
-export default withStyles(styles)(FinancialDataView);
+export default withStyles(styles)(FinancialDataTable);

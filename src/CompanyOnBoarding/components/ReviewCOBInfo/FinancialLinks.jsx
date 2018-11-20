@@ -4,6 +4,7 @@ import financialLink from "../../../Assets/images/financial-link.svg"
 const FinancialLinks = (props) => {
     
     let financialLinks = props.financialLinks.map(data => {
+        if(data != "null")
         return (
             <div>
                 <a href={data} className="financial-links">{data}</a>

@@ -73,7 +73,7 @@ employeeDataFetcher=()=>
         })
     ).then((data)=>
 {
-    let resource = encodeURIComponent('resource:'+data.companyDetails.$class+'#'+data.companyDetails.id)
+    let resource = encodeURIComponent('resource:'+_get(data,'companyDetails.$class')+'#'+_get(data,'companyDetails.id'))
     this.props.dispatch(
         getData(`${APPLICATION_BFF_URL}/api/queries/EmployeesWithCompanyId?resourceId=${resource}`, 'getEmployeeList-data', {
             init: 'getEmployeeList_init',
@@ -100,6 +100,7 @@ employeeDataFetcher=()=>
                 <div className="row">
                     <ul className="staff-block">
                         <li className="col-sm-4 mb-20"> <AddTeamForm
+                        type={this.props.location.pathName=='team'?'Add Team':'Add Benificiary'}
                         employeeDataFetcher={this.employeeDataFetcher}
                         /></li>
                         {this.props.employees.map(option => (
@@ -132,11 +133,13 @@ AddTeam = reduxForm({
 //export default sidebar(withStyles(styles)(AddTeam));
 
 function mapStateToProps(state) {
+    let id = _get(state, 'BasicInfo.lookUpData.companyDetails.id');
 
     let employees = _get(state, 'EmployeeList.lookUpData', []);
 
     return {
-        employees
+        employees,
+        id
     };
 }
 

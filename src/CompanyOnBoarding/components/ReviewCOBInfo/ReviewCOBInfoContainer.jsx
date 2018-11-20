@@ -12,7 +12,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 /* Components Import*/
 import CompanyView from './CompanyView';
 import FundingView from './FundingView';
-import FinancialDataView from './FinancialDataView';
+import FinancialDataTable from './FinancialDataTable';
 import LoanProvider from './LoanProvider';
 import FinancialLinks from './FinancialLinks';
 
@@ -92,7 +92,7 @@ class ReviewCOBInfoContainer extends Component {
                         </div>
 
                         <div className="row  pad-20">
-                            <FinancialDataView
+                            <FinancialDataTable
                                 financialData={_get(this.props, 'companyDetails.financialInfo.financialData', [])}
                             />
                         </div>
