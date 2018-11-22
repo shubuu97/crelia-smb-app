@@ -27,28 +27,27 @@ class FinancialInformationForm extends React.Component {
     };
 
     datapopulate = (values) => {
-        // ********* Important **********
-        // Code needs to be optimized and needs to be dynamic 
         let data = []
+        let currentYear = (new Date()).getFullYear();
         var totalKeys = Object.keys(_get(values, 'manualFinancial', {}))
-        var y2016 = { "year": 2016 }, y2017 = { "year": 2017 }, y2018 = { "year": 2018 }, y2019 = { "year": 2019 }
+        var oldestYear = { "year": currentYear-2 }, lastYear = { "year": currentYear-1 }, current = { "year": currentYear }, forcastYear = { "year": currentYear+1 }
         for (let i = 0; i < totalKeys.length; i++) {
             let filter = totalKeys[i].split('-').pop().trim();
             let key = totalKeys[i].split('-')[0].trim();
-            if (filter == 2016) {
-                y2016[key] = parseInt(values.manualFinancial[totalKeys[i]])
+            if (filter == oldestYear.year) {
+                oldestYear[key] = parseInt(values.manualFinancial[totalKeys[i]])
             }
-            else if (filter == 2017) {
-                y2017[key] = parseInt(values.manualFinancial[totalKeys[i]])
+            else if (filter == lastYear.year) {
+                lastYear[key] = parseInt(values.manualFinancial[totalKeys[i]])
             }
-            else if (filter == 2018) {
-                y2018[key] = parseInt(values.manualFinancial[totalKeys[i]])
+            else if (filter == current.year) {
+                current[key] = parseInt(values.manualFinancial[totalKeys[i]])
             }
-            else if (filter == 2019) {
-                y2019[key] = parseInt(values.manualFinancial[totalKeys[i]])
+            else if (filter == forcastYear.year) {
+                forcastYear[key] = parseInt(values.manualFinancial[totalKeys[i]])
             }
         }
-        data.push(y2016, y2017, y2018,y2019);
+        data.push(oldestYear, lastYear, current, forcastYear);
         let reqObj = {};
         reqObj.financialInfo = {}
         reqObj.financialInfo.financialData = data;
@@ -59,11 +58,10 @@ class FinancialInformationForm extends React.Component {
     }
 
     forecastLable = () => {
-        // ********* Important **********
-        // Code needs to be optimized and needs to be dynamic 
+        let currentYear = (new Date()).getFullYear();
         return (
             <div className="flex-row">
-                <span>2019 forecast</span>
+                <span>{currentYear+1} forecast</span>
                 <CustomizedTooltips
                     title="The forecast is optional, but it really helps investors understand your business aspirations better, your effort to fill out as much as you can is appreciated"
                     arrow={true}
@@ -80,9 +78,7 @@ class FinancialInformationForm extends React.Component {
     }
 
     render() {
-        // ********* Important **********
-        // Code needs to be optimized and needs to be dynamic 
-
+        let currentYear = (new Date()).getFullYear();
         let { handleSubmit } = this.props;
         return (
             <form onSubmit={handleSubmit(this.datapopulate)} autoComplete="off">
@@ -95,9 +91,9 @@ class FinancialInformationForm extends React.Component {
                                 <div className="col-sm-3">
                                     <Field
                                         disabled={localStorage.getItem('companyStatus') == 'PENDING_APPROVAL' ? true : false}
-                                        name="sales-2016"
+                                        name={`sales-${currentYear-2}`}
                                         component={GlobalTextField}
-                                        label="2016"
+                                        label={currentYear-2}
                                         margin="normal"
                                         onChange={this.handleChange('name')}
                                         variant="outlined"
@@ -108,21 +104,8 @@ class FinancialInformationForm extends React.Component {
                                 <div className="col-sm-3">
                                     <Field
                                         disabled={localStorage.getItem('companyStatus') == 'PENDING_APPROVAL' ? true : false}
-                                        name="sales-2017"
-                                        label="2017"
-                                        component={GlobalTextField}
-                                        margin="normal"
-                                        onChange={this.handleChange('name')}
-                                        variant="outlined"
-                                        type="number"
-                                        startAdornment="$"
-                                    />
-                                </div>
-                                <div className="col-sm-3">
-                                    <Field
-                                        disabled={localStorage.getItem('companyStatus') == 'PENDING_APPROVAL' ? true : false}
-                                        name="sales-2018"
-                                        label="2018"
+                                        name={`sales-${currentYear-1}`}
+                                        label={currentYear-1}
                                         component={GlobalTextField}
                                         margin="normal"
                                         onChange={this.handleChange('name')}
@@ -134,7 +117,20 @@ class FinancialInformationForm extends React.Component {
                                 <div className="col-sm-3">
                                     <Field
                                         disabled={localStorage.getItem('companyStatus') == 'PENDING_APPROVAL' ? true : false}
-                                        name="sales-2019"
+                                        name={`sales-${currentYear}`}
+                                        label={currentYear}
+                                        component={GlobalTextField}
+                                        margin="normal"
+                                        onChange={this.handleChange('name')}
+                                        variant="outlined"
+                                        type="number"
+                                        startAdornment="$"
+                                    />
+                                </div>
+                                <div className="col-sm-3">
+                                    <Field
+                                        disabled={localStorage.getItem('companyStatus') == 'PENDING_APPROVAL' ? true : false}
+                                        name={`sales-${currentYear+1}`}
                                         label={this.forecastLable()}
                                         component={GlobalTextField}
                                         margin="normal"
@@ -150,34 +146,20 @@ class FinancialInformationForm extends React.Component {
                                 <div className="col-sm-3">
                                     <Field
                                         disabled={localStorage.getItem('companyStatus') == 'PENDING_APPROVAL' ? true : false}
-                                        name="ebitda-2016"
-                                        label="2016"
+                                        name={`ebitda-${currentYear-2}`}
+                                        label={currentYear-2}
                                         component={GlobalTextField}
                                         margin="normal"
                                         onChange={this.handleChange('name')}
                                         variant="outlined"
-                                        startAdornment="$"
-
-                                    />
-                                </div>
-                                <div className="col-sm-3">
-                                    <Field
-                                        disabled={localStorage.getItem('companyStatus') == 'PENDING_APPROVAL' ? true : false}
-                                        name="ebitda-2017"
-                                        label="2017"
-                                        component={GlobalTextField}
-                                        margin="normal"
-                                        onChange={this.handleChange('name')}
-                                        variant="outlined"
-                                        type="number"
                                         startAdornment="$"
                                     />
                                 </div>
                                 <div className="col-sm-3">
                                     <Field
                                         disabled={localStorage.getItem('companyStatus') == 'PENDING_APPROVAL' ? true : false}
-                                        name="ebitda-2018"
-                                        label="2018"
+                                        name={`ebitda-${currentYear-1}`}
+                                        label={currentYear-1}
                                         component={GlobalTextField}
                                         margin="normal"
                                         onChange={this.handleChange('name')}
@@ -189,7 +171,20 @@ class FinancialInformationForm extends React.Component {
                                 <div className="col-sm-3">
                                     <Field
                                         disabled={localStorage.getItem('companyStatus') == 'PENDING_APPROVAL' ? true : false}
-                                        name="ebitda-2019"
+                                        name={`ebitda-${currentYear}`}
+                                        label={currentYear}
+                                        component={GlobalTextField}
+                                        margin="normal"
+                                        onChange={this.handleChange('name')}
+                                        variant="outlined"
+                                        type="number"
+                                        startAdornment="$"
+                                    />
+                                </div>
+                                <div className="col-sm-3">
+                                    <Field
+                                        disabled={localStorage.getItem('companyStatus') == 'PENDING_APPROVAL' ? true : false}
+                                        name={`ebitda-${currentYear+1}`}
                                         label={this.forecastLable()}
                                         component={GlobalTextField}
                                         margin="normal"
@@ -206,8 +201,8 @@ class FinancialInformationForm extends React.Component {
                                 <div className="col-sm-3">
                                     <Field
                                         disabled={localStorage.getItem('companyStatus') == 'PENDING_APPROVAL' ? true : false}
-                                        name="interestExpense-2016"
-                                        label="2016"
+                                        name={`interestExpense-${currentYear-2}`}
+                                        label={currentYear-2}
                                         component={GlobalTextField}
                                         margin="normal"
                                         onChange={this.handleChange('name')}
@@ -219,8 +214,8 @@ class FinancialInformationForm extends React.Component {
                                 <div className="col-sm-3">
                                     <Field
                                         disabled={localStorage.getItem('companyStatus') == 'PENDING_APPROVAL' ? true : false}
-                                        name="interestExpense-2017"
-                                        label="2017"
+                                        name={`interestExpense-${currentYear-1}`}
+                                        label={currentYear-1}
                                         component={GlobalTextField}
                                         margin="normal"
                                         onChange={this.handleChange('name')}
@@ -232,8 +227,8 @@ class FinancialInformationForm extends React.Component {
                                 <div className="col-sm-3">
                                     <Field
                                         disabled={localStorage.getItem('companyStatus') == 'PENDING_APPROVAL' ? true : false}
-                                        name="interestExpense-2018"
-                                        label="2018"
+                                        name={`interestExpense-${currentYear}`}
+                                        label={currentYear}
                                         component={GlobalTextField}
                                         margin="normal"
                                         onChange={this.handleChange('name')}
@@ -245,7 +240,7 @@ class FinancialInformationForm extends React.Component {
                                 <div className="col-sm-3">
                                     <Field
                                         disabled={localStorage.getItem('companyStatus') == 'PENDING_APPROVAL' ? true : false}
-                                        name="interestExpense-2019"
+                                        name={`interestExpense-${currentYear+1}`}
                                         label={this.forecastLable()}
                                         component={GlobalTextField}
                                         margin="normal"
@@ -261,8 +256,8 @@ class FinancialInformationForm extends React.Component {
                                 <div className="col-sm-3">
                                     <Field
                                         disabled={localStorage.getItem('companyStatus') == 'PENDING_APPROVAL' ? true : false}
-                                        name="cash-2016"
-                                        label="2016"
+                                        name={`cash-${currentYear-2}`}
+                                        label={currentYear-2}
                                         component={GlobalTextField}
                                         margin="normal"
                                         onChange={this.handleChange('name')}
@@ -274,8 +269,8 @@ class FinancialInformationForm extends React.Component {
                                 <div className="col-sm-3">
                                     <Field
                                         disabled={localStorage.getItem('companyStatus') == 'PENDING_APPROVAL' ? true : false}
-                                        name="cash-2017"
-                                        label="2017"
+                                        name={`cash-${currentYear-1}`}
+                                        label={currentYear-1}
                                         component={GlobalTextField}
                                         margin="normal"
                                         onChange={this.handleChange('name')}
@@ -287,8 +282,8 @@ class FinancialInformationForm extends React.Component {
                                 <div className="col-sm-3">
                                     <Field
                                         disabled={localStorage.getItem('companyStatus') == 'PENDING_APPROVAL' ? true : false}
-                                        name="cash-2018"
-                                        label="2018"
+                                        name={`cash-${currentYear}`}
+                                        label={currentYear}
                                         component={GlobalTextField}
                                         margin="normal"
                                         onChange={this.handleChange('name')}
@@ -300,7 +295,7 @@ class FinancialInformationForm extends React.Component {
                                 <div className="col-sm-3">
                                     <Field
                                         disabled={localStorage.getItem('companyStatus') == 'PENDING_APPROVAL' ? true : false}
-                                        name="cash-2019"
+                                        name={`cash-${currentYear+1}`}
                                         label={this.forecastLable()}
                                         component={GlobalTextField}
                                         margin="normal"
@@ -316,8 +311,8 @@ class FinancialInformationForm extends React.Component {
                                 <div className="col-sm-3">
                                     <Field
                                         disabled={localStorage.getItem('companyStatus') == 'PENDING_APPROVAL' ? true : false}
-                                        name="totalFinalDebt-2016"
-                                        label="2016"
+                                        name={`totalFinalDebt-${currentYear-2}`}
+                                        label={currentYear-2}
                                         component={GlobalTextField}
                                         margin="normal"
                                         onChange={this.handleChange('name')}
@@ -329,8 +324,8 @@ class FinancialInformationForm extends React.Component {
                                 <div className="col-sm-3">
                                     <Field
                                         disabled={localStorage.getItem('companyStatus') == 'PENDING_APPROVAL' ? true : false}
-                                        name="totalFinalDebt-2017"
-                                        label="2017"
+                                        name={`totalFinalDebt-${currentYear-1}`}
+                                        label={currentYear-1}
                                         component={GlobalTextField}
                                         margin="normal"
                                         onChange={this.handleChange('name')}
@@ -342,8 +337,8 @@ class FinancialInformationForm extends React.Component {
                                 <div className="col-sm-3">
                                     <Field
                                         disabled={localStorage.getItem('companyStatus') == 'PENDING_APPROVAL' ? true : false}
-                                        name="totalFinalDebt-2018"
-                                        label="2018"
+                                        name={`totalFinalDebt-${currentYear}`}
+                                        label={currentYear}
                                         component={GlobalTextField}
                                         margin="normal"
                                         onChange={this.handleChange('name')}
@@ -355,7 +350,7 @@ class FinancialInformationForm extends React.Component {
                                 <div className="col-sm-3">
                                     <Field
                                         disabled={localStorage.getItem('companyStatus') == 'PENDING_APPROVAL' ? true : false}
-                                        name="totalFinalDebt-2019"
+                                        name={`totalFinalDebt-${currentYear+1}`}
                                         label={this.forecastLable()}
                                         component={GlobalTextField}
                                         margin="normal"
@@ -371,8 +366,8 @@ class FinancialInformationForm extends React.Component {
                                 <div className="col-sm-3">
                                     <Field
                                         disabled={localStorage.getItem('companyStatus') == 'PENDING_APPROVAL' ? true : false}
-                                        name="totalShareholderEquity-2016"
-                                        label="2016"
+                                        name={`totalShareholderEquity-${currentYear-2}`}
+                                        label={currentYear-2}
                                         component={GlobalTextField}
                                         margin="normal"
                                         onChange={this.handleChange('name')}
@@ -384,8 +379,8 @@ class FinancialInformationForm extends React.Component {
                                 <div className="col-sm-3">
                                     <Field
                                         disabled={localStorage.getItem('companyStatus') == 'PENDING_APPROVAL' ? true : false}
-                                        name="totalShareholderEquity-2017"
-                                        label="2017"
+                                        name={`totalShareholderEquity-${currentYear-1}`}
+                                        label={currentYear-1}
                                         component={GlobalTextField}
                                         margin="normal"
                                         onChange={this.handleChange('name')}
@@ -397,8 +392,8 @@ class FinancialInformationForm extends React.Component {
                                 <div className="col-sm-3">
                                     <Field
                                         disabled={localStorage.getItem('companyStatus') == 'PENDING_APPROVAL' ? true : false}
-                                        name="totalShareholderEquity-2018"
-                                        label="2018"
+                                        name={`totalShareholderEquity-${currentYear}`}
+                                        label={currentYear}
                                         component={GlobalTextField}
                                         margin="normal"
                                         onChange={this.handleChange('name')}
@@ -410,7 +405,7 @@ class FinancialInformationForm extends React.Component {
                                 <div className="col-sm-3">
                                     <Field
                                         disabled={localStorage.getItem('companyStatus') == 'PENDING_APPROVAL' ? true : false}
-                                        name="totalShareholderEquity-2019"
+                                        name={`totalShareholderEquity-${currentYear+1}`}
                                         label={this.forecastLable()}
                                         component={GlobalTextField}
                                         margin="normal"
@@ -429,7 +424,6 @@ class FinancialInformationForm extends React.Component {
                         type="submit"
                         disabled={localStorage.getItem('companyStatus') == 'PENDING_APPROVAL' ? true : false || this.props.isFetchingSave}
                         fullWidth
-                        // disabled={this.props.isFetching}
                         variant="contained"
                         color="primary"
                         className="btnprimary">
