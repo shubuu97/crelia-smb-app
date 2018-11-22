@@ -75,8 +75,8 @@ class SelectField extends React.Component {
                         }
                        
                     >
-                        {_get(this.props,'options')?_get(this.props, 'options', []).map(option => (
-                            <MenuItem value={option.value}>{option.value}</MenuItem>
+                        {_get(this.props,'options')?_get(this.props, 'options', []).map((option,index) => (
+                            <MenuItem key={index} value={option.value}>{option.value}</MenuItem>
                         )):null}
                     </Select>
 

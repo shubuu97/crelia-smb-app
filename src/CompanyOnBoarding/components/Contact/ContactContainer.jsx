@@ -250,16 +250,9 @@ ContactContainer = reduxForm({
 
 
 function mapStateToProps(state) {
-    debugger;
     let legalEntities = [];
     const tempBUNV = _get(state, 'form.COB_ContactStepForm.values', {});
-
-   legalEntities =  _get(state,'LegalEntities.lookUpData', [])
-   if(Array.isArray(legalEntities))
-   legalEntities.map(item => (
-        legalEntities.push({ value: item.type })
-    ))
-
+    legalEntities =  _get(state,'LegalEntities.lookUpData', []);
     return {
         businessUnderNameValue: tempBUNV.businessUnderName,
         legalEntityList: legalEntities
