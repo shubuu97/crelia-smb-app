@@ -7,6 +7,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import financialdata from "../../../Assets/images/financial-data.svg"
 
 const styles = theme => ({
     root: {
@@ -93,7 +94,7 @@ class FinancialDataTable extends Component {
         const { classes } = this.props;
         return (
             <div className="col-sm-12" >
-                <div className="onboarding-sub-title" >Financial Data</div>
+                <div className="onboarding-sub-title" ><img src={financialdata} height="" width="35" /> Financial Data</div>
                 <Paper className={classes.root} >
                     <Table className={classes.table}>
                         <TableHead>

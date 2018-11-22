@@ -45,6 +45,11 @@ body{
     color: rgba(0, 0, 0, 0.87)!important;   
 }
 
+input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill{
+    -webkit-box-shadow: 0 0 0px 1000px white inset !important; 
+    
+}
+
 input,
 textarea,
 select
@@ -915,7 +920,6 @@ flex: 0 0 25%;
 }
 
 .funding-details{
-
     .sub-head{
         font-size: .9rem;
         font-family: 'GTWalsheimMedium';
@@ -932,7 +936,7 @@ flex: 0 0 25%;
 
         span{
             font-family: 'GTWalsheimProRegular';
-            background-color: #fff;
+            background-color: #f6f6f6;
             position: relative;
             z-index: 1;
         }
@@ -942,6 +946,8 @@ flex: 0 0 25%;
         }
         span:last-child{
             padding-left: 5px;
+            max-width: 60%;
+            text-align: right;
         }
 
     }
@@ -975,6 +981,30 @@ flex: 0 0 25%;
     }
     .address-detail{
         text-align: right;
+        display: flex;
+        flex-direction: column;
+
+         p {
+            margin-bottom: 0;
+        }
+    }
+    .inner-wrap{
+        background: #f6f6f6;
+        height: 100%;
+        padding: 1rem;
+    }
+    .MuiTableCell-head{
+        font-size: 1.1rem;
+        font-weight: 600;
+    }
+    .onboarding-sub-title{
+        display: flex;
+        align-items: center;
+        
+
+        img{
+            margin-right: 15px;
+        }
     }
 
 }
