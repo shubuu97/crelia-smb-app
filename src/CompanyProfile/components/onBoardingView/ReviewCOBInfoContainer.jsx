@@ -60,8 +60,8 @@ class ReviewCOBInfoContainer extends Component {
             <div>
                 <div className="funding-details">
                     <h1>Funding Details</h1>
-                    <div className="col-sm-12 card" >
-                        <div className="row pad-20">
+                    <div>
+                        <div className="row">
                             <CompanyView
                                 legalName={_get(this.props, 'companyDetails.legalName')}
                                 legalEntityType={_get(this.props, 'companyDetails.legalEntityType')}
@@ -79,7 +79,7 @@ class ReviewCOBInfoContainer extends Component {
                                 fundingType={_get(this.props, 'companyDetails.onboardingInfo.fundingType', [])}
                             />
                         </div>
-                        <div className="row pad-20">
+                        <div className="row pt-20">
                             <LoanProvider
                                 loanProvider={_get(this.props, 'companyDetails.financialInfo.loanProvider', [])}
                             />
@@ -87,7 +87,7 @@ class ReviewCOBInfoContainer extends Component {
                                 financialLinks={_get(this.props, 'companyDetails.financialInfo.financialLinks', [])}
                             />
                         </div>
-                        <div className="row pad-20">
+                        <div className="row  pt-20">
                             <FinancialDataTable
                                 financialData={_get(this.props, 'companyDetails.financialInfo.financialData', [])}
                             />

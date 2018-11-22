@@ -133,14 +133,15 @@ class Legal extends Component {
                                 name="Upload File"
                                 onDrop={this.props.onDrop} />
                         </div>
-                        <div class="action-block">
+                       
+                    </div>
+                    <div class="action-block">
                             <LoaderButton
                                 isFetching={this.props.isFetchingUpdateSMB}
                                 type="submit"
                                 color="primary"
                                 variant="contained">Save Draft</LoaderButton>
                         </div>
-                    </div>
                 </div>
             </form>
         )

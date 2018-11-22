@@ -40,19 +40,15 @@ function SideBar(WrappedComponent) {
             return (
 
                 <div className="about-section">
-                    <div style={{
-                        'display': 'flex',
-                        alignItems: 'flex - end',
-                        justifyContent: 'space-between',
-                        flexDirection: 'row'
-                    }}>
+                    <div className="title-btn">                   
                         <h1>Company Profile</h1>
                         <LoaderButton
                         
                             isFetching={this.props.isFetchingPostUpdateToMarketPlace}
                             onClick={this.postMarketPlace}
                             color="primary"
-                            variant="contained">Post to market place</LoaderButton>
+                            className="mb-10"
+                            variant="contained">Post to market place</LoaderButton>                   
                     </div>
 
                     <div className="col-sm-12 card" >

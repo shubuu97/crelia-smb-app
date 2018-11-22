@@ -1,9 +1,11 @@
 import React from 'react';
+import fundIcon from "../../../Assets/images/fund-icon.svg"
 
 const FundingView = (props) => {
     return (
         <div className="col-sm-6">
-            <span className="onboarding-sub-title d-block pb-15">Funding Details</span>
+        <div className="inner-wrap">
+            <span className="onboarding-sub-title d-block pb-15"><img src={fundIcon} height="" width="50" /> Funding Details</span>
             <span className="list-content"><span>Money Required</span> <span>{props.moneyRequired}</span></span>
             <span className="list-content"><span>Time Frame</span> <span>{props.timeFrame}</span></span>
             <span className="s-level">
@@ -22,7 +24,7 @@ const FundingView = (props) => {
                     </div>
                 )}
             </span>
-        </div>
+        </div></div>
     )
 }
 
