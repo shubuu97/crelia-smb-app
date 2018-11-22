@@ -1,4 +1,5 @@
 import React from 'react';
+import loanProvider from "../../../Assets/images/loan-provider.svg"
 
 const LoanProvider = (props) => {
     let loanProviderView = props.loanProvider.map((data, index) => {
@@ -12,9 +13,11 @@ const LoanProvider = (props) => {
     })
     
     return (
-        <div className="col-sm-3" >
-            <div className="onboarding-sub-title" >Loan Provider Details</div>
+        <div className="col-sm-4" >
+         <div className="inner-wrap">
+            <div className="onboarding-sub-title" ><img src={loanProvider} height="" width="30" /> Provider Details</div>
             <div>{loanProviderView}</div>
+        </div>
         </div>
     )
 }
