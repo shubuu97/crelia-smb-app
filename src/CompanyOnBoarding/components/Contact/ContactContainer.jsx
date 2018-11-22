@@ -96,7 +96,7 @@ class ContactContainer extends Component {
                             name="legalEntityType"
                             label='Types of incorporation'
                             component={Select}
-                            options={this.props.legalEntityList}
+                            options={this.props.legalEntityList||[]}
                             variantType="outlined"
                         />
                     </div>
@@ -250,10 +250,13 @@ ContactContainer = reduxForm({
 
 
 function mapStateToProps(state) {
+    debugger;
     let legalEntities = [];
     const tempBUNV = _get(state, 'form.COB_ContactStepForm.values', {});
 
-    _get(state.LegalEntities, 'lookUpData', []).map(item => (
+   legalEntities =  _get(state,'LegalEntities.lookUpData', [])
+   if(Array.isArray(legalEntities))
+   legalEntities.map(item => (
         legalEntities.push({ value: item.type })
     ))
 

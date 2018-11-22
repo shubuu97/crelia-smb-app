@@ -80,12 +80,22 @@ class AddTeamForm extends React.Component {
     };
     handleAddTeam = (values) => {
         let reqObj = {};
-        let splittedClass = this.props.$class.split('.');
+        let designation='';
+        
+        if(this.props.location.pathname=='/beneficiary')
+        {
+            designation='benificiaryShareholder'
+        }
+        else{
+            designation=values.designation
+        }
+        let splittedClass = _get(this.props,'$class',).split('.');
         let companyType = splittedClass[splittedClass.length - 1];
         let  profilePictureLink=_get(this.props,'state.photolink')
 
         reqObj = {
             companyId: this.props.companyId,
+            designation,
             companyType,
             profilePictureLink,
             id: Math.random(),
@@ -149,7 +159,7 @@ class AddTeamForm extends React.Component {
                                 container
                                 spacing={24}
                             >
-                                <Grid item xs={12}>
+                               {this.props.showPosition?<Grid item xs={12}>
                                     <Field
                                         label="Select Position"
                                         placeholder=""
@@ -159,7 +169,7 @@ class AddTeamForm extends React.Component {
                                         options={this.props.empTypeList}
                                         fullWidth='fullWidth'
                                     />
-                                </Grid>
+                                </Grid>:null}
                                 <Grid item xs={6}>
                                     <Field
                                         label="First Name"
@@ -262,7 +272,7 @@ function mapStateToProps(state) {
         empTypeList: empTypeList,
         isFetching: isFetching,
         companyId: _get(state, 'BasicInfo.lookUpData.companyDetails.id', null),
-        $class: _get(state, 'BasicInfo.lookUpData.companyDetails.$class', null)
+        $class: _get(state, 'BasicInfo.lookUpData.companyDetails.$class', '.tempSMB')
 
     };
 }

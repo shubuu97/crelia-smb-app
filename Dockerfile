@@ -6,4 +6,4 @@ WORKDIR /crelia-finance-web-app
 ADD . /crelia-finance-web-app
 RUN npm install -g http-server
 RUN npm run build
-#CMD sh cmd.sh
+CMD sh cmd.sh
