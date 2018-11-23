@@ -28,11 +28,8 @@ const decorateWithOnDrop = withHandlers({
         }, 'post', uploadConfig))
             .then((data) => {
                 props.setState({ ...props.state, [name + 'link']: data.message.absoluteURL })
-                debugger;
                 if (parseData) {
-                    debugger;
                     let linkname = name + 'link'
-
                     props.dispatch(getData(`${APPLICATION_BFF_URL}/parser-service/cashFlowParser?files=${data.message.absoluteURL},`, 'fileUpload', {
                         init: 'Parse_Data_init',
                         success: 'Parse_Data_success',

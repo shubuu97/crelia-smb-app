@@ -66,7 +66,6 @@ class ResetPassword extends Component {
     let obj = {};
     obj.email = this.state.tokenObj.email;
     obj.companyType = this.state.tokenObj.TOU;
-    debugger
     let credential = { username: values.username, password: values.password }
     let reqObj = { ...localValue, ...obj, reCaptchaResponse };
     console.log(reqObj, "Request Object");

@@ -29,7 +29,6 @@ const styles = theme => ({
 class Registration extends Component {
 
   handleSignUp = (values) => {
-    debugger
     values.TOU = values.RegistrationUserType;
     this.props.dispatch(
       postData(`${APPLICATION_BFF_URL}/api/signup`, values, 'signup', {
