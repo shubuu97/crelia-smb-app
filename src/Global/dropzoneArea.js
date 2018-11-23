@@ -21,8 +21,8 @@ class dropzoneArea extends Component {
                 </span>
 
                 <Dropzone
-                    onDrop={(accept, reject) => props.onDrop(accept, reject, props.fieldName)}
-                    className='dropzone'
+                    onDrop={(accept, reject) => props.onDrop(accept, reject, props.fieldName,props.parseData,props.afterParseFunction)}
+                    className='dropzone'r
                     accept={props.accept}
                     disabled={props.progress ? true : false || this.state.hoverEvent}
                 >

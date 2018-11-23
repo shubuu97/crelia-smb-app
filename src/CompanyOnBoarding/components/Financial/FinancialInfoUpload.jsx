@@ -62,6 +62,10 @@ class FinancialInfoUpload extends React.Component {
         this.handleUploadFinancial()
         this.props.handleSubmitAprroval()
     }
+    preview1ParseAction=(data)=>
+    {
+        console.log(data,"data");
+    }
 
     render() {
         console.log(this.props.state,'state is here')
@@ -73,6 +77,8 @@ class FinancialInfoUpload extends React.Component {
                             title="Financial Statement for last three years"
                             fieldName='preview1'
                             onDrop={this.props.onDrop}
+                            afterParseFunction={this.preview1ParseAction}
+                            parseData={true}
                             progress={_get(this.props,'state.preview1uploadProgress')}
                             dropzone={_get(this.props, 'state.preview1.name', '') || _get(this.props, 'state.preview1link', '') || _get(this.props, 'initialValues.financialLinks[0]')}
                         />

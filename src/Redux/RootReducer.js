@@ -15,12 +15,14 @@ import CobPostMarketPlaceFun from './commonReducer';
 import UpdateSMBUserFun from './commonReducer';
 import AddTeamFun from './commonReducer';
 import  getEmployeeListFun from './commonReducer';
+import parseDataFun from './commonReducer'
 let CobPost=CobPostFun('cobsave');
 let CobPostMarketPlace=CobPostMarketPlaceFun('cob-post-marketplace');
 let UpdateSMB = UpdateSMBFun('UpdateSMB');
 let UpdateSMBUser = UpdateSMBUserFun('UpdateSMBUser');
 let AddTeam = AddTeamFun('addTeam');
 let EmployeeList = getEmployeeListFun('getEmployeeList');
+let ParseData = parseDataFun('Parse_Data');
 
 
 
@@ -42,7 +44,8 @@ let rootRducer = combineReducers({
     UpdateSMB,
     UpdateSMBUser,
     AddTeam,
-    EmployeeList
+    EmployeeList,
+    ParseData
 })
 
 export default rootRducer;

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import JssProvider from 'react-jss/lib/JssProvider';
 /* Redux Imports*/
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware,compose } from 'redux';
 import axiosMiddleWare from './Redux/axiosMiddleware';
 import { createLogger } from 'redux-logger';
 import thunk from 'redux-thunk';
@@ -61,8 +61,22 @@ const persistConfig = {
   blacklist: ['form','ShowToast']
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
+let store;
 
-let store = createStore(persistedReducer, applyMiddleware(...middleware));
+if (process.env.NODE_ENV !== 'production') {
+  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+
+ store = createStore(persistedReducer, 
+  composeEnhancers(applyMiddleware(...middleware))
+);
+}
+else
+{
+  store = createStore(persistedReducer, applyMiddleware(...middleware));
+
+}
+
 const persistor = persistStore(store)
 
 

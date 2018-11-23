@@ -5,8 +5,8 @@ import { getData } from '../Redux/getAction'
 import showMessage from '../Redux/toastAction';
 import { APPLICATION_BFF_URL } from '../Redux/urlConstants'
 const decorateWithOnDrop = withHandlers({
-    onDrop: (props) => (accept, reject, name) => {
-        console.log(accept, "accept is here");
+    onDrop: (props) => (accept, reject, name, parseData, afterParseFunction) => {
+        console.log(parseData, afterParseFunction, "accept is here");
         let formData = new FormData();
         formData.append('file', accept[0])
         formData.append('mediaType', 'customer')
@@ -27,20 +27,30 @@ const decorateWithOnDrop = withHandlers({
         }, 'post', uploadConfig))
             .then((data) => {
                 props.setState({ ...props.state, [name + 'link']: data.message.absoluteURL })
-                if (props.parsedData) {
+                debugger;
+                if (parseData) {
+                    debugger;
                     let linkname = name + 'link'
-                   
+
                     props.dispatch(getData(`${APPLICATION_BFF_URL}/parser-service/cashFlowParser?files=${data.message.absoluteURL},`, 'fileUpload', {
                         init: 'Parse_Data_init',
-                        success: 'Parse_Data_Success',
-                        error: 'Parse_Data_Error'
+                        success: 'Parse_Data_success',
+                        error: 'Parse_Data_error'
 
-                    }).then((data) => {
-                      if(props.afterParseFunction)
-                      {
-                          props.afterParseFunction(data);
-                      }
-                    }))
+                    })
+                    ).then((data) => {
+                        if (afterParseFunction) {
+                            afterParseFunction(data);
+                        }
+                    }).catch((error)=>
+                {
+                    console.log(error, "error")
+                    props.dispatch(showMessage({ text: 'Some error occured while parsing data', isSuccess: false }));
+                    setTimeout(() => {
+                        props.dispatch(showMessage({ text: '', isSuccess: true }));
+    
+                    }, 1000)
+                })
                 }
                 props.dispatch(showMessage({ text: 'Upload success', isSuccess: true }));
                 setTimeout(() => {
