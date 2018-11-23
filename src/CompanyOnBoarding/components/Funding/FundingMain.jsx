@@ -17,6 +17,10 @@ import CustomizedTooltips from '../../../Global/ToolTip'
 /* Styles */
 import '../../styles/CompanyOnBoarding.less';
 import FormControl from '@material-ui/core/FormControl';
+import formatMoney from '../../../Global/normalizingMoneyField';
+import deformatMoney from '../../../Global/denormalizingMoney';
+
+
 
 
 class AboutMain extends React.Component {
@@ -191,7 +195,7 @@ class AboutMain extends React.Component {
         }
         //reqObj.phoneNumber = values.phoneNumber ;
         //reqObj.email = values.email;
-        setwith(reqObj, 'onboardingInfo.moneyRequired', parseInt(values.moneyRequired));
+        setwith(reqObj, 'onboardingInfo.moneyRequired', deformatMoney(values.moneyRequired));
         setwith(reqObj, 'onboardingInfo.fundAllocation', fundAllocation);
         setwith(reqObj, 'onboardingInfo.fundingType', fundingType);
         setwith(reqObj, 'onboardingInfo.timeFrame', values.timeFrame)
@@ -224,7 +228,7 @@ class AboutMain extends React.Component {
                                 variant="outlined"
                                 fullWidth={true}
                                 startAdornment="$"
-                                type="number"
+                                normalize={formatMoney}
                             />
                         </div>
                         <div className="col-sm-12 get-money  pt-30">
