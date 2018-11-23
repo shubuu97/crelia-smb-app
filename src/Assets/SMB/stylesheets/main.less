@@ -1,0 +1,983 @@
+@primary-color: 10px;
+@primary-color-variant: 10px;
+@secondary-color: 10px;
+@seconadary-color-variant: 10px;
+@background: 10px;
+@secondary-background: 10px;
+@error-color: 10px;
+
+@font-face {
+    font-family: 'GTWalsheimMedium';
+    src: url('../fonts/GTWalsheimMedium.eot?#iefix') format('embedded-opentype'),  
+    url('../fonts/GTWalsheimMedium.woff') format('woff'), 
+    url('../fonts/GTWalsheimMedium.ttf')  format('truetype'),
+    url('../fonts/GTWalsheimMedium.svg#GTWalsheimMedium') format('svg');
+}
+  
+@font-face {
+    font-family: 'GTWalsheimProBold';
+    src: url('../fonts/GTWalsheimProBold.eot?#iefix') format('embedded-opentype'),  
+    url('../fonts/GTWalsheimProBold.woff') format('woff'), 
+    url('../fonts/GTWalsheimProBold.ttf')  format('truetype'), 
+    url('../fonts/GTWalsheimProBold.svg#GTWalsheimProBold') format('svg');
+}
+  
+@font-face {
+    font-family: 'GTWalsheimProLight';
+    src: url('../fonts/GTWalsheimProLight.eot?#iefix') format('embedded-opentype'),  
+    url('../fonts/GTWalsheimProLight.woff') format('woff'), 
+    url('../fonts/GTWalsheimProLight.ttf')  format('truetype'), 
+    url('../fonts/GTWalsheimProLight.svg#GTWalsheimProLight') format('svg');
+}
+  
+@font-face {
+    font-family: 'GTWalsheimProRegular';
+    src: url('../fonts/GTWalsheimProRegular.eot?#iefix') format('embedded-opentype'),  
+    url('../fonts/GTWalsheimProRegular.woff') format('woff'), 
+    url('../fonts/GTWalsheimProRegular.ttf')  format('truetype'), 
+    url('../fonts/GTWalsheimProRegular.svg#GTWalsheimProRegular') format('svg');
+}
+  
+
+
+
+body{
+    font-family: 'GTWalsheimProRegular', sans-serif;
+    margin: 0;
+    background-color: #fff;  
+    color: rgba(0, 0, 0, 0.87)!important;   
+}
+
+input,
+textarea,
+select
+form {  
+    font-family: 'GTWalsheimProLight', sans-serif!important;
+    font-size: 1.1rem!important;
+}
+.boxshadownone{
+    box-shadow: none!important;
+}
+.master input{
+padding: 8px 0 9px;
+}
+.d-block{
+    display: block;
+}
+
+.MuiFormControl-marginNormal-3
+
+// Consult Vishnu Ji
+.legal-images-container{
+    width: 30%;
+}
+.legal-images{
+    width: 100%;
+}
+// To be removed
+
+label, p{
+    font-size: 1rem!important;
+    font-family: 'GTWalsheimProLight', sans-serif!important;
+}
+.fwidth{
+    width: 100%;    
+}
+/* Global */
+
+.flex-row{
+    display: flex;
+    flex-direction: row;
+}
+.flex-column{
+    display: flex;
+    flex-direction: column;
+}
+.width-100-percent{
+    width: 100%;
+}
+.align-center{
+    align-items: center
+}
+.justify-center{
+    justify-content: center;
+}
+.justify-space-between{
+    justify-content: space-between
+}
+.master h1{
+    font-size: 1.8rem;
+    padding-bottom: 1rem;
+    font-family: 'GTWalsheimMedium', sans-serif!important;
+    margin-bottom: 0;
+}
+.ml-35{
+    margin-left: 35px!important;
+}
+.pad-20{
+    padding: 20px!important;
+}
+
+.mr-20{
+    margin-right: 20px!important;
+}
+.mt-16{
+    margin-top: 16px!important;
+}
+.no-pad{
+    padding:0!important;
+}
+.no-marg{
+    margin: 0!important;
+}
+.p-rel{
+    position: relative;
+}
+.p-abs{
+    position: absolute;
+}
+.pt-10{
+    padding-top:10px!important;
+}
+.pt-15{
+    padding-top:15px!important;
+}
+.pb-15{
+    padding-bottom:15px!important;
+}
+.pb-20{
+    padding-bottom:20px!important;
+}
+.pt-60{
+    padding-top: 6rem!important; 
+}
+.pt-30{
+    padding-top: 3rem!important; 
+}
+.pt-40{
+    padding-top: 4rem!important; 
+}
+.pt-20{
+    padding-top: 2rem!important; 
+}
+.pt-78{
+    padding-top: 7.8rem!important;
+}
+.mb-20{
+    margin-bottom: 2rem;
+}
+.mtrb-12{
+    margin:1.2rem;
+    margin-left: 0;
+}
+a{
+    color:#222222;
+}
+.or{
+    background:#313787; 
+    color: #fff;
+    padding: 7px 10px;
+    border-radius: 60%;
+    text-align: center;   
+}
+.common-action-block{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-top: 3rem;
+    flex:1;
+}
+
+.btnprimary{
+    background:#313787;
+    width:auto !important;
+    padding: 10px 30px!important;
+    border-radius: 3px!important;
+    box-shadow:none!important; 
+    border: 0;
+    color: #fff;  
+    cursor: pointer; 
+}
+
+.btncommon{
+    padding: 10px;
+    border: solid 1px #ddd;
+    border-radius: 4px;
+    background: #f9f9f9;
+    cursor: pointer; 
+    transition: ease .2s;
+}
+.btncommon:hover{    
+    background: #efefef;
+   
+}
+
+.btnsecondary{
+    background:#58626c;
+    width:auto !important;
+    padding: 10px 30px!important;
+    border-radius: 3px!important;
+    box-shadow:none!important; 
+    border: 0;
+    color: #fff;  
+    cursor: pointer; 
+}
+
+.lightgrayBG{
+    background: rgba(233, 233, 233, .4);
+    display: flex;
+    height: 100%;
+    padding: 2rem;
+}
+.master .MuiButton-root{
+    font-family: 'GTWalsheimProRegular', sans-serif;
+}
+
+.topnavcontainer{
+    background:#313787;
+    min-height: 80px;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    flex: 1;
+    padding: 0 2.5rem;
+    align-items: center;
+
+    > .nevbar-left{
+        flex: 1;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;  
+
+        > .nevbar ul{
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            display: flex;
+            align-items: center;
+                
+                a{
+                    color:#fff;
+                    padding: 30px 20px;
+                    display: flex;
+                    align-items: center; 
+                    transition: ease .5s;
+                    position: relative;
+
+                    > i.droparrow{
+                        font-size: 1.3rem;
+                    } 
+                } 
+
+                a:hover{
+
+                    background: #fff;
+                    color:#313787;
+                    text-decoration: none;
+                }
+                a:hover:before{
+                    content: "";
+                    width: 0; 
+                    height: 0; 
+                    border-left: 8px solid transparent;
+                    border-right: 8px solid transparent;                    
+                    border-top: 8px solid #313787;
+                    position: absolute;
+                    left: 0px;
+                    right: 0px;
+                    top: 0;
+                    margin: 0 auto;
+                }
+                
+                
+        }
+    }
+
+    > .nevbar-right{        
+        position: relative;
+        margin-left: 30px;      
+
+        > .myaccount{
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            display: flex;
+            
+
+            > li{
+                display: flex;
+                align-items: center;  
+                
+                a{                   
+                    padding: 0 .7rem;
+                    display: flex;
+                    align-items: center; 
+                    transition: ease .5s;
+                    color:#fff;
+                     
+                     > i.notification{
+                         font-size: 2.2rem;
+                     }
+                     > i.useraccount{
+                        font-size: 2.2rem;
+                    }
+                    > i.droparrow{
+                        font-size: 1.3rem;
+                    }                    
+                }
+
+                a:hover{                   
+                    color:#b9beff;
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+
+    .nevbar-right:before{
+        content: "";
+        height: 80%;
+        background:#fff; 
+        width:1px;
+        position: absolute;
+        left: -15px;
+        top: 10%;
+    }
+
+
+}
+
+
+.main-layout{
+
+    .main-content{
+      
+        padding:2.5rem;        
+        background-color: #fafafa;
+        background-image: url("../images/globe-bg.jpg"); 
+        background-position: right  top;
+        background-repeat: no-repeat;
+        background-blend-mode: multiply;
+        background-size: 25%;  
+        min-height: 83vh;
+    
+    }
+    .header{
+        background: black;
+        height: 50px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+        color: rgb(46, 128, 123);
+        font-weight: bold;
+
+        .header-title{
+            font-size: 1.3em;
+        }
+        div{
+            display: flex;
+            justify-content: space-between;
+
+            span{
+                padding: 0 5px;
+            }
+        }
+    }
+    .footer{
+       
+        height: 100px;
+        margin-top: 20px;
+        color: rgb(46, 128, 123);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+
+        .footer-main{
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+    }
+
+    footer{
+        background: #22265e;
+        color: #fff;
+
+        a{
+            color: #fafafa
+        }
+
+        .footer-copyright{
+            background: #22265e;
+        }
+    }
+
+}
+
+.login-container{
+    background: url("../images/globe-bg.jpg") right  top  no-repeat;   
+    background-blend-mode: color-burn;
+    background-size: 25%;  
+
+    h4{
+        color:#313787;
+    }
+    .errormsg{
+        position: absolute;
+        bottom: -1.1rem;
+        left: 0;
+    }
+
+    .react-phone-number-input__icon-image{
+        vertical-align: top!important;
+    }
+
+    .errormsg p{
+        font-size:.7rem!important;
+    }
+    .react-phone-number-input__input
+    {
+      
+      border-color:  rgba(0, 0, 0, 0.42)!important;
+      padding-bottom: 16px;
+      position: relative;
+    }
+
+  
+    .react-phone-number-input__input:hover
+    {
+       border-bottom:solid 2px rgba(0, 0, 0, 0.87)!important;
+       padding-bottom: 15px;
+    }
+
+    .login-tabs{
+        padding: 0;
+        list-style: none;
+        display: flex;
+        margin-bottom: 2rem;
+        width: 60%;
+        padding-top: 6rem;
+
+        > li{
+            padding: 0;
+            list-style: none;
+            font-size: 1.1rem;
+            margin-right: 5rem;
+            color:#afb2b5; 
+            position: relative;
+            cursor: pointer; 
+            font-family: 'GTWalsheimProLight', sans-serif;
+        }
+
+        li:after{
+            content: "";
+            height: 2px;
+            background:#afb2b5; 
+            width: 100%;
+            position: absolute;
+            bottom: -.3rem;
+            left: 0;
+            }
+
+            > li.active{                
+                color:#313787;
+                font-family: 'GTWalsheimMedium', sans-serif;
+            }
+
+            li.active:after{                
+                background:#313787;               
+            }
+    
+       
+    }
+    
+    .backtosite{
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .left-block{
+        background-color: #313787;
+        background-image: url("../images/login-screen-bg.jpg");
+        background-repeat: no-repeat;
+        background-blend-mode: color-burn;
+        background-size: cover;
+        min-height: 100vh; 
+        
+        .brand-block{
+            padding: 2rem; 
+    
+            .logo img{
+                max-width: 35%;
+            }
+    
+            .caption-line{
+                font-family: 'GTWalsheimProBold', sans-serif;
+                font-size: 2.2em;
+                color:#fff;
+                padding-top: 5rem;
+    
+            }
+        }
+    }   
+
+    .right-block{
+        min-height: 100vh; 
+        align-content: space-between;
+        display: flex;
+        flex-wrap: wrap;
+        padding: 2rem;  
+
+        > div{
+            flex: 0 0 100%; 
+            }
+
+        div.login-field{
+        width: 60%;               
+        } 
+        
+        div.addwidth{
+            width: 70%;               
+            }  
+        
+        .action-block{
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-top: 3rem;
+        }
+
+        div.msg-container{
+        width: 100%; 
+        padding-top: 6rem; 
+        display: flex;
+        align-items: center;  
+         flex-direction: column;      
+        }
+
+        .msg-container .action-block{
+           flex-direction: column; 
+           padding-top: 2rem;  
+            }
+
+            .msgicon{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        
+            .msgicon img{
+                max-width: 75%;
+               
+            }
+
+            .msgiconmail img {
+                max-width: 11%;
+            }
+         
+        
+    }   
+
+   
+ 
+}
+
+
+.card{
+    display: flex;
+    border-radius: 2px;
+    height: 100%;
+    min-width: 0;
+    position: relative;
+    text-decoration: none;
+    box-shadow: 0 2px 1px -1px rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 1px 3px 0 rgba(0,0,0,.12);
+}
+
+.master .MuiPaper-elevation4{
+    box-shadow: none;  
+    background: none;
+}
+.master .MuiTab-fullWidth{
+    padding: 15px 0;
+    background-color: #f6f6f6;
+    margin: .3%;
+}
+.master .MuiTab-fullWidth:nth-child(2)
+{
+    margin: .3% 0;
+}
+
+.master button:focus{
+    outline: none;
+}
+
+.master .TabIndicator-root-157{
+    height: 4px;
+     
+}
+.master .MuiTab-wrapper{
+    font-family: 'GTWalsheimMedium', sans-serif;
+    font-size: 1rem;
+}
+
+.master .main-content{
+    font-family: 'GTWalsheimProLight', sans-serif!important;
+}
+
+.master .Onboarding_Title{
+    color:#313787;
+}
+.master .onboarding-sub-title {
+    font-size: 1.2em;
+    font-family: 'GTWalsheimMedium', sans-serif;
+}
+.master .get-money button{
+ text-transform: capitalize;
+ border: solid 1px #ddd;
+ border-left: 0;
+height: 40px;
+}
+.master .get-money button:first-child{
+border-left: solid 1px #ddd;
+}
+.master .get-money .MuiToggleButton-label{
+    font-size: 0.9em;
+}
+.master .MuiTab-root-54{
+    font-weight: bold;
+    font-size: 1rem;
+    font-family: 'GTWalsheimMedium';
+}
+.master  .MuiToggleButton-root-285:hover, .master .MuiToggleButton-selected-287{
+background-color: #313787;
+color: #fff;
+}
+
+.master .RadioButtonsGroup-formControl-357 {
+    margin: 0; 
+}
+
+.extrablock{
+    display: flex;  
+    align-items: center;
+}
+
+.master .MuiToggleButtonGroup-selected-284{
+box-shadow: none;
+}
+.finan-tab {
+    display: flex;   
+    border-bottom: solid 1px #afb2b5;
+    position: relative;
+}
+
+.finan-tab div{
+    cursor: pointer;
+    padding: 10px 50px;
+    background: #ececec;
+    position: relative;
+    border-bottom: solid 1px #afb2b5;
+    margin-bottom: -1px;
+    margin-right: 20px;
+   
+ 
+}
+
+.finan-tab div.active{
+    cursor: pointer;
+    padding: 10px 50px;
+    background-color: #313787;
+    color: #fff;
+   
+    border: solid 1px #afb2b5;
+    border-bottom: solid 1px #fff;
+ 
+}
+
+
+.finan-sub-tab {
+    display: flex;  
+    position: relative;
+    align-items: center;
+    justify-content: center;
+}
+
+.finan-sub-tab div{
+    cursor: pointer;
+    padding: 10px 50px;
+    background: #f6f6f6;
+    position: relative;    
+    margin: 0 20px;  
+    border-radius: 4px;
+}
+
+.finan-sub-tab div.active{
+    cursor: pointer;
+    padding: 10px 50px;
+    background: #58626c;
+    color: #fff;
+    border-radius: 4px;
+}
+
+
+
+.info-secure, .questions, .request-assistance{
+    display: flex;
+    border-top: solid 1px #ddd;
+    padding-top: 50px;
+    margin-top: 40px;
+}
+
+.info-secure{
+    border-top: 0;
+    padding-top: 0;
+    margin-top: 0;
+}
+.info-secure .block-a, .questions .block-a {
+flex: 0 0 25%;
+}
+
+.info-secure .block-a img, .questions .block-a img{
+    max-width: 60%;
+    }
+
+.contact-block{
+    align-items: center;
+    display: flex;    
+}
+.contact-block-a, .contact-block-b{
+    border: solid 1px #ddd;
+    padding: 10px 12px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+.contact-block-b{
+    border-left: 0;}
+
+.contact-block-a i, .contact-block-b i{
+    margin-right:6px;
+}
+
+.questions span{
+    font-size: 1.5rem;
+    font-family: 'GTWalsheimMedium';
+    padding-top: 10px;
+    display: flex;
+}
+
+
+.about-section{
+    .card{
+        padding:10px;
+    }
+
+    .about-tab{
+        padding:0;
+        margin:0;
+        list-style: none;
+        background:#f6f6f6;
+        display: flex;
+        height: 100%;
+        flex-direction: column;
+
+        li{
+           border-bottom: solid 1px #fff;
+           padding:15px 20px;
+           cursor: pointer;
+           font-size: 1.1rem;
+        }
+        li:last-child{
+            border-bottom:0;
+           
+         }
+
+        li:hover{
+           background: #e6e8fd;
+         }
+         li.active{
+            background: #313787;
+            color:#fff;
+          }
+
+         .MuiFormControl-root-12{
+             display: flex!important;
+         }
+         
+
+        
+    }
+    .MuiExpansionPanel-root:before{
+        height: 0!important;
+    }
+
+    .staff-block{
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    .staff-block li{
+        float: left;
+    }
+
+
+    .addmore{
+        display: flex;
+        border-radius: 2px;
+        min-height: 212px;
+        min-width: 0;
+        position: relative;
+        border:dashed 2px #ddd;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        cursor: pointer;
+    }
+
+    .addmore span.title{
+        padding: 20px 0;
+        display: flex;
+        align-items: center;
+        font-size: 1.2rem;
+        font-family: 'GTWalsheimProBold';
+    }
+
+    .addmore span.title i{
+        padding-right: 10px;
+    }
+    
+    .action-block{
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding-top: 3rem;
+    }
+    h4{
+        font-family: 'GTWalsheimMedium', sans-serif!important;
+        font-size: 1.2rem;
+    }
+
+     .numberemployee button{
+        text-transform: capitalize;
+        border: solid 1px #ddd;
+        border-left: 0;
+       height: 40px;
+       }
+
+       .numberemployee button:first-child{
+        border-left: solid 1px #ddd;
+        }
+    
+        .numberOfEmployees-sub-title{
+            color: rgba(0, 0, 0, 0.54);
+            padding: 0;
+            font-size: 1rem;
+            font-family: "GTWalsheimProRegular", "sans-serif";
+            line-height: 1;
+        }
+        .minHeightbox{
+            min-height: 186px;
+        }
+
+        .dropzone{
+            cursor: pointer;
+        }
+        a{color:#313787}
+
+        .downlaod-external img{max-width: 15%;}
+        .downlaod-external a{display: flex; align-items: center; line-height: 16px;padding: 10px; border: dashed 1px;}
+        .downlaod-external a:hover{text-decoration: none;}
+        .downlaod-external i{font-size: 2.5rem; margin-right: 10px;}
+
+}
+
+
+
+
+
+.delete-provider{
+    font-size: 30px;
+    color:#848383;
+    transition: ease .3s;
+    cursor: pointer;
+}
+
+.delete-provider:hover{
+    color:#e00000;
+}
+.add-more{
+    font-size: 32px;
+    color: #20ad61;
+    cursor: pointer;
+    padding-top: 20px;
+}
+.data-list{
+    display: flex;
+    flex-direction: column;
+}
+
+.funding-details{
+
+    .sub-head{
+        font-size: .9rem;
+        font-family: 'GTWalsheimMedium';
+        border-bottom: solid 1px #ddd;
+        padding-bottom: 4px;
+        margin: 15px 0;
+    }
+    .list-content{
+        display: flex;
+        justify-content: space-between;
+        font-size: .9rem;
+        padding-bottom: 5px;
+        position: relative;
+
+        span{
+            font-family: 'GTWalsheimProRegular';
+            background-color: #fff;
+            position: relative;
+            z-index: 1;
+        }
+
+        span:first-child{
+            padding-right: 5px;
+        }
+        span:last-child{
+            padding-left: 5px;
+        }
+
+    }
+
+    .list-content:before {
+        content: "";
+        display: block;
+        border-bottom: dotted 1px #bfbebe;
+        position: absolute;
+        width: 100%;
+        top: 11px;
+    }
+
+    .financial-links{
+        font-size: .9rem;
+        padding: 15px 0 0;
+        display: block;
+    }
+
+    .fund-type-head{
+        font-size: .9rem;
+        font-family: 'GTWalsheimMedium';      
+        padding:3px 0; 
+    }
+
+    .s-level{
+
+        .list-content{
+            margin-left: 10px;
+        }
+    }
+    .address-detail{
+        text-align: right;
+    }
+
+}
