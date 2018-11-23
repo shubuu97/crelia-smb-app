@@ -103,13 +103,6 @@ employeeDataFetcher=()=>
 
                     </ul>
                 </div>
-                {/* <Button type="submit"
-                    color="primary"
-                    variant="contained"
-                    style={{ 'float': 'right' }}
-                    onClick={() => this.props.history.push('/sme/beneficiary')}>
-                    Save & Continue
-                 </Button> */}
             </div>
         );
     }
@@ -119,12 +112,9 @@ AddTeam.propTypes = {
     classes: PropTypes.object.isRequired
 };
 
-
 AddTeam = reduxForm({
     form: 'AddTeamForm',
 })(AddTeam)
-
-//export default sidebar(withStyles(styles)(AddTeam));
 
 function mapStateToProps(state) {
     let id = _get(state, 'BasicInfo.lookUpData.companyDetails.id');

@@ -11,10 +11,6 @@ import PreviewUserForm from './PreviewUserForm';
 import asyncValidate from './validate';
 
 class UserForm extends Component {
-
-    componentDidMount() {
-        //console.log(this.props.history.location.state.id,'props');
-    }
     
     render() {
         const { invalid, anyTouched } = this.props;
