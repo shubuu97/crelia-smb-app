@@ -29,7 +29,7 @@ const styles = theme => ({
 class Registration extends Component {
 
   handleSignUp = (values) => {
-    values.TOU = values.RegistrationUserType;
+    values.TOU = "SMB";
     this.props.dispatch(
       postData(`${APPLICATION_BFF_URL}/api/signup`, values, 'signup', {
         init: 'signup_init',
@@ -58,14 +58,6 @@ class Registration extends Component {
         <CssBaseline />
         <div className="login-field">
           <form className={classes.form} onSubmit={handleSubmit(this.handleSignUp)} >
-            <FormControl margin="normal" required fullWidth>
-              <Field
-                disabled={localStorage.getItem('disabled')}
-                name="RegistrationUserType"
-                component={Radio}
-                radioList={[{ label: "Investor", value: "Investor" }, { label: "SMB", value: "SMB" }]}
-              />
-            </FormControl>
             <FormControl margin="normal" required fullWidth>
               <Field
                 label="Enter your email address"

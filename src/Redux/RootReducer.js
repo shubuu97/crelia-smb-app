@@ -5,10 +5,10 @@ import {reducer as formReducer}  from 'redux-form';
 import LoginData from '../COMMON/Authorization/Reducer/login';
 import ShowToast from './toastReducer';
 import SignUpData from '../COMMON/Authorization/Reducer/signup';
-import CountryList from '../INVESTOR/CompanyProfile/Reducers/Country';
-import IndustryList from '../INVESTOR/CompanyProfile/Reducers/Industry';
-import LegalEntities from '../INVESTOR/CompanyProfile/Reducers/LegalEntity';
-import EmpTypeList from '../INVESTOR/CompanyProfile/Reducers/EmployeeType';
+import CountryList from '../COMMON/CompanyProfile/Reducers/Country';
+import IndustryList from '../COMMON/CompanyProfile/Reducers/Industry';
+import LegalEntities from '../COMMON/CompanyProfile/Reducers/LegalEntity';
+import EmpTypeList from '../COMMON/CompanyProfile/Reducers/EmployeeType';
 import BasicInfo from '../COMMON/Authorization/Reducer/basicData';
 import SetPassword from '../COMMON/Authorization/Reducer/setPassword';
 /* SMB Reducers*/

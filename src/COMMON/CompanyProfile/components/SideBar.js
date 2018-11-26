@@ -58,11 +58,15 @@ function SideBar(WrappedComponent) {
                     <div className="col-sm-12 card" >
                         <div className="row">
                             <div className="col-sm-3" >
-                                <ul className="about-tab">
-                                    <li className={_get(this.props, 'location.pathname', "") == "/company-profile/general" ? 'active' : null} onClick={() => this.handleRoute('about')}>About</li>
-                                    <li className={_get(this.props, 'location.pathname', "") == "/company-profile/contacts" ? 'active' : null} onClick={() => this.handleRoute('contacts')}>Contacts</li>
-                                    <li className={_get(this.props, 'location.pathname', "") == "/company-profile/team" ? 'active' : null} onClick={() => this.handleRoute('team')}>Team</li>
-                                    <li className={_get(this.props, 'location.pathname', "") == "/company-profile/assets" ? 'active' : null} onClick={() => this.handleRoute('legal')}>Legal</li>
+                            <ul className="about-tab">
+                                    <li className={_get(this.props, 'location.pathname', "") == "/about" ? 'active' : null} onClick={() => this.handleRoute('about')}>About</li>
+                                    <li className={_get(this.props, 'location.pathname', "") == "/contacts" ? 'active' : null} onClick={() => this.handleRoute('contacts')}>Contacts</li>
+                                    <li className={_get(this.props, 'location.pathname', "") == "/team" ? 'active' : null} onClick={() => this.handleRoute('team')}>Team</li>
+                                    <li className={_get(this.props, 'location.pathname', "") == "/marketingMaterials" ? 'active' : null} onClick={() => this.handleRoute('marketingMaterials')}>Marketing Materials</li>
+                                    <li className={_get(this.props, 'location.pathname', "") == "/legal" ? 'active' : null} onClick={() => this.handleRoute('legal')}>Legal</li>
+                                    <li className={_get(this.props, 'location.pathname', "") == "/financials" ? 'active' : null} onClick={() => this.handleRoute('financials')}>Financials</li>
+                                    <li className={_get(this.props, 'location.pathname', "") == "/beneficiary" ? 'active' : null} onClick={() => this.handleRoute('beneficiary')}>Benificiary Shareholders</li>
+                                    <li className={_get(this.props, 'location.pathname', "") == "/onboardingview" ? 'active' : null} onClick={() => this.handleRoute('onboardingview')}>OnBoarding View</li>
                                 </ul>
                             </div>
                             <div className="col-sm-9" >

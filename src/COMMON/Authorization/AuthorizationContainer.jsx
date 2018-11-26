@@ -60,9 +60,6 @@ class SignIn extends Component {
         if (role == "SMBUser") {
           this.props.history.push('/onboard');
         }
-        else if (role == "InvestorUser") {
-          this.props.history.push('/company-profile/general');
-        }
       })
         .catch((err) => {
           this.props.dispatch(showMessage({ text: err.msg, isSuccess: false }));

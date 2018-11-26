@@ -71,7 +71,7 @@ class ResetPassword extends Component {
     console.log(reqObj, "Request Object");
     if (reCaptchaResponse) {
       this.props.dispatch(
-        postData(`${APPLICATION_BFF_URL}/api/${'CreateInvestorUser'}`, reqObj, 'password-data', {
+        postData(`${APPLICATION_BFF_URL}/api/${'CreateSMBUser'}`, reqObj, 'password-data', {
           init: 'set_init',
           success: 'set_success',
           error: 'set_error'
