@@ -29,7 +29,7 @@ const styles = theme => ({
 class Registration extends Component {
 
   handleSignUp = (values) => {
-    values.TOU = values.RegistrationUserType;
+    values.TOU = 'SMB';
     this.props.dispatch(
       postData(`${APPLICATION_BFF_URL}/api/signup`, values, 'signup', {
         init: 'signup_init',
