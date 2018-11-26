@@ -71,12 +71,29 @@ class AddTeam extends React.Component {
             })
         ).then((data) => {
             let resource = encodeURIComponent('resource:' + data.companyDetails.$class + '#' + data.companyDetails.id)
-            this.props.dispatch(
-                getData(`${APPLICATION_BFF_URL}/api/queries/EmployeesWithCompanyId?resourceId=${resource}`, 'getEmployeeList-data', {
+            let deciderKey='';
+            let constants = {}
+            if(this.props.location.pathname == '/team')
+            {
+                deciderKey = 'EmployeesWithCompanyId';
+                constants = {
                     init: 'getEmployeeList_init',
                     success: 'getEmployeeList_success',
                     error: 'getEmployeeList_error'
-                })
+                }
+            }
+            else{
+
+                deciderKey = 'ShareHoldersWithCompanyId';
+                constants = {
+                    init: 'getshareHolderList_init',
+                    success: 'getshareHolderList_success',
+                    error: 'getshareHolderList_error'
+                }
+            }
+            
+            this.props.dispatch(
+                getData(`${APPLICATION_BFF_URL}/api/queries/${deciderKey}?resourceId=${resource}`, 'getEmployeeList-data', constants)
             )
         })
     }
@@ -88,10 +105,14 @@ class AddTeam extends React.Component {
                 <div className="row">
                     <ul className="staff-block">
                         <li className="col-sm-4 mb-20"> <AddTeamForm
-                            type={this.props.location.pathName == 'team' ? 'Add Team' : 'Add Benificiary'}
-                            employeeDataFetcher={this.employeeDataFetcher}
+                            type={this.props.location.pathname == '/team' ? 'Add Team' : 'Add Benificiary'}
+                            employeeDataFetcher={this.employeeDataFetcher
+                            }
+                            location = {this.props.location}
                         /></li>
-                        {this.props.employees.map(option => (
+                        {this.props.location.pathname=='/team'?this.props.employees.map(option => (
+                            <li className="col-sm-4 mb-20"> <TeamMemberCard data={option} /></li>
+                        )):this.props.shareHolders.map(option => (
                             <li className="col-sm-4 mb-20"> <TeamMemberCard data={option} /></li>
                         ))}
                     </ul>
@@ -112,10 +133,11 @@ AddTeam = reduxForm({
 function mapStateToProps(state) {
     let id = _get(state, 'BasicInfo.lookUpData.companyDetails.id');
     let employees = _get(state, 'EmployeeList.lookUpData', []);
-
+    let shareHolders = _get(state,'shareHolders.lookUpData',[]);
     return {
         employees,
-        id
+        id,
+        shareHolders
     };
 }
 

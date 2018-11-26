@@ -35,7 +35,6 @@ import CompanyOnBoardingContainer from './SMB/CompanyOnBoarding/CompanyOnBoardin
 import ReviewCOBInfoContainer from './SMB/CompanyOnBoarding/components/ReviewCOBInfo/ReviewCOBInfoContainer.jsx'
 import OnBoardingAcknowlege from './SMB/Acknowledge/OnBoradingAckowledge'
 import AccountSMB from './SMB/MyAccount/MyAccountContainer'
-import RoutesConfigSMB from './SMB/CompanyProfile/components/RoutesConfig';
 
 
 /* Common Container Imports*/

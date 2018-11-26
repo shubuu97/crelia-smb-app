@@ -20,6 +20,7 @@ import CobPostMarketPlaceFun from './commonReducer';
 import UpdateSMBUserFun from './commonReducer';
 import AddTeamFun from './commonReducer';
 import getEmployeeListFun from './commonReducer';
+import shareHoldersFun from './commonReducer';
 
 
 let CobPost=CobPostFun('cobsave');
@@ -29,6 +30,7 @@ let UpdateSMBUser = UpdateSMBUserFun('UpdateSMBUser');
 let AddTeam = AddTeamFun('addTeam');
 let EmployeeList = getEmployeeListFun('getEmployeeList');
 let ParseData = parseDataFun('Parse_Data');
+let shareHolders = shareHoldersFun('getshareHolderList')
 
 let rootRducer = combineReducers({
     form:formReducer,
@@ -47,7 +49,8 @@ let rootRducer = combineReducers({
     UpdateSMBUser,
     AddTeam,
     EmployeeList,
-    ParseData
+    ParseData,
+    shareHolders
 })
 
 export default rootRducer;
