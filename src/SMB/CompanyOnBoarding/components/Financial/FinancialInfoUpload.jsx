@@ -10,6 +10,8 @@ import { connect } from 'react-redux';
 /* Global Components*/
 import DropzoneArea from '../../../../Global/dropzone/dropzoneArea';
 import decorateWithOnDrop from '../../../../Global/dropzone/onDropDecorater';
+import LoaderButton from '../../../../Global/Components/LoaderButton'
+
 /* CSS Imports*/
 import '../../styles/finance.css';
 import {withRouter} from 'react-router-dom';
@@ -23,6 +25,7 @@ import ParseInfo from '../ParserInfo/ParserInfoContainer'
 
 //lodash imports
 import _setWith from 'lodash/setWith'
+
 
 
 class FinancialInfoUpload extends React.Component {
@@ -79,7 +82,7 @@ class FinancialInfoUpload extends React.Component {
             reqObj.financialInfo.financialData = _get(this.props, 'initialValues.financialData')
         }
         this.setState({ reqObj: reqObj })
-        this.props.handleNext(reqObj);
+        this.props.handleNext(reqObj,()=>this.setState({openModal:false}));
     }
 
     handleReview = () => {
@@ -157,7 +160,7 @@ class FinancialInfoUpload extends React.Component {
           </DialogContent>
           <DialogActions>
           <Button color='primary' variant='outlined' onClick={()=>this.setState({openModal:false})}>Re-upload Statements</Button>
-                <Button color='primary' variant='contained' onClick={this.handleUploadFinancial}>Confirm Statements</Button>
+                <LoaderButton isFetching={this.props.isFetchingSave} color='primary' variant='contained' onClick={this.handleUploadFinancial}>Confirm Statements</LoaderButton>
           </DialogActions>
         </Dialog>
                 </div>
