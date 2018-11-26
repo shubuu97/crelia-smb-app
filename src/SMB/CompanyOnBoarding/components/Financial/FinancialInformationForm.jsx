@@ -7,7 +7,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 /* Global Imports */
 import GlobalTextField from '../../../../Global/Components/GlobalTextField';
 import CustomizedTooltips from '../../../../Global/Components/ToolTip'
-
+import _setWith from 'lodash/setWith';
 class FinancialInformationForm extends React.Component {
 
     state = {
@@ -44,12 +44,12 @@ class FinancialInformationForm extends React.Component {
                 forcastYear[key] = parseInt(values.manualFinancial[totalKeys[i]])
             }
         }
+        debugger;
         data.push(oldestYear, lastYear, current, forcastYear);
         let reqObj = {};
-        reqObj.financialInfo = {}
-        reqObj.financialInfo.financialData = data;
-        reqObj.financialInfo.loanProvider = _get(values, 'loanProvider', []);
-        reqObj.financialInfo.financialLinks = _get(values, 'financialLinks', [])
+        delete values.manualFinancial
+        reqObj = {...values};
+        _setWith(reqObj,'financialInfo.financialData',data)
         this.props.handleNext(reqObj);
         return reqObj
     }

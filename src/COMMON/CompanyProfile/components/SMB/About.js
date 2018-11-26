@@ -179,9 +179,11 @@ About = reduxForm({
 function mapStateToProps(state) {
     let industryList = [];
     let legalEntities = [];
+    // Map Issue to be fixed
     _get(state.IndustryList, 'lookUpData', []).map(item => (
         industryList.push({ value: item.value })
     ))
+    // Map Issue to be fixed
     _get(state.LegalEntities, 'lookUpData', []).map(item => (
         legalEntities.push({ value: item.value })
     ))

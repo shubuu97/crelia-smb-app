@@ -12,6 +12,17 @@ import DropzoneArea from '../../../../Global/dropzone/dropzoneArea';
 import decorateWithOnDrop from '../../../../Global/dropzone/onDropDecorater';
 /* CSS Imports*/
 import '../../styles/finance.css';
+import {withRouter} from 'react-router-dom';
+
+//Dialogue import 
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import ParseInfo from '../ParserInfo/ParserInfoContainer'
+
+//lodash imports
+import _setWith from 'lodash/setWith'
 
 
 class FinancialInfoUpload extends React.Component {
@@ -23,35 +34,43 @@ class FinancialInfoUpload extends React.Component {
         }
     }
 
-    preview1ParseAction = (data) => {
-        console.log(data, "data");
+    cashFlowParseAction = (data) => {
+        this.setState({openModal:true})
     }
+
+ 
 
     handleUploadFinancial = () => {
         let reqObj = {};
         reqObj.financialInfo = {}
-        reqObj.financialInfo.financialLinks = [];
 
-        if (_get(this.props, 'state.preview1link')) {
-            reqObj.financialInfo.financialLinks.push(_get(this.props, 'state.preview1link'));
+        if (_get(this.props, 'state.cashFlowlink')) {
+            debugger;
+
+            _setWith(reqObj.financialInfo,'cashFlow',[_get(this.props, 'state.cashFlowlink')]);
+
         }
         else {
-            if (_get(this.props, 'initialValues.financialLinks[0]'))
-                reqObj.financialInfo.financialLinks.push(_get(this.props, 'initialValues.financialLinks[0]'));
+            if (_get(this.props, 'initialValues.cashFlow'))
+            _setWith(reqObj.financialInfo,'cashFlow',_get(this.props, 'initialValues.cashFlow'));
+
         }
-        if (_get(this.props, 'state.preview2link')) {
-            reqObj.financialInfo.financialLinks.push(_get(this.props, 'state.preview2link'));
-        }
-        else {
-            if (_get(this.props, 'initialValues.financialLinks[0]'))
-                reqObj.financialInfo.financialLinks.push(_get(this.props, 'initialValues.financialLinks[1]'));
-        }
-        if (_get(this.props, 'state.preview3link')) {
-            reqObj.financialInfo.financialLinks.push(_get(this.props, 'state.preview3link'));
+        if (_get(this.props, 'state.businessPlanlink')) {
+            _setWith(reqObj.financialInfo,'businessPlan',[_get(this.props, 'state.businessPlanlink')]);
         }
         else {
-            if (_get(this.props, 'initialValues.financialLinks[0]'))
-                reqObj.financialInfo.financialLinks.push(_get(this.props, 'initialValues.financialLinks[2]'));
+            if (_get(this.props, 'initialValues.businessPlanlink'))
+            _setWith(reqObj.financialInfo,'businessPlan',_get(this.props, 'initialValues.businessPlanlink'));
+
+        }
+        if (_get(this.props, 'state.forecastlink')) {
+            _setWith(reqObj.financialInfo,'forecast',[_get(this.props, 'state.forecastlink')]);
+
+        }
+        else {
+            if (_get(this.props, 'initialValues.forecast'))
+            _setWith(reqObj.financialInfo,'forecast',_get(this.props, 'initialValues.businessPlanlink'));
+
         }
         if (_get(this.props, 'initialValues.loanProvider')) {
             reqObj.financialInfo.loanProvider = _get(this.props, 'initialValues.loanProvider')
@@ -76,30 +95,30 @@ class FinancialInfoUpload extends React.Component {
                     <div className="col-sm-6">
                         <DropzoneArea
                             title="Financial Statement for last three years"
-                            fieldName='preview1'
+                            fieldName='cashFlow'
                             onDrop={this.props.onDrop}
-                            afterParseFunction={this.preview1ParseAction}
+                            afterParseFunction={this.cashFlowParseAction}
                             parseData={true}
-                            progress={_get(this.props, 'state.preview1uploadProgress')}
-                            dropzone={_get(this.props, 'state.preview1.name', '') || _get(this.props, 'state.preview1link', '') || _get(this.props, 'initialValues.financialLinks[0]')}
+                            progress={_get(this.props, 'state.cashFlowuploadProgress')}
+                            dropzone={_get(this.props, 'state.cashFlow.name', '') || _get(this.props, 'state.cashFlowlink', '') || _get(this.props, 'initialValues.cashFlow')}
                         />
                     </div>
                     <div className="col-sm-6">
                         <DropzoneArea
                             title="2019 Forecast (optional)"
-                            fieldName='preview2'
-                            progress={_get(this.props, 'state.preview2uploadProgress')}
+                            fieldName='businessPlan'
+                            progress={_get(this.props, 'state.businessPlanuploadProgress')}
                             onDrop={this.props.onDrop}
-                            dropzone={_get(this.props, 'state.preview2.name', '') || _get(this.props, 'state.preview2link', '') || _get(this.props, 'initialValues.financialLinks[1]')}
+                            dropzone={_get(this.props, 'state.businessPlan.name', '') || _get(this.props, 'state.businessPlanlink', '') || _get(this.props, 'initialValues.businessPlan')}
                         />
                     </div>
                     <div className="col-sm-6">
                         <DropzoneArea
                             title="Business Plan"
-                            progress={_get(this.props, 'state.preview3uploadProgress')}
-                            fieldName='preview3'
+                            progress={_get(this.props, 'state.forecastuploadProgress')}
+                            fieldName='forecast'
                             onDrop={this.props.onDrop}
-                            dropzone={_get(this.props, 'state.preview3.name', '') || _get(this.props, 'state.preview3link', '') || _get(this.props, 'initialValues.financialLinks[2]')}
+                            dropzone={_get(this.props, 'state.forecast.name', '') || _get(this.props, 'state.forecastlink', '') || _get(this.props, 'initialValues.forecast')}
                         />
                     </div>
                     <div className="col-sm-6">
@@ -126,6 +145,21 @@ class FinancialInfoUpload extends React.Component {
                           </Button>
                         }
                     </div>
+                    <Dialog
+          open={this.state.openModal}
+          onClose={()=>this.setState({openModal:false})}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">{"Preview Your Data and Confirm"}</DialogTitle>
+          <DialogContent>
+            <ParseInfo/>
+          </DialogContent>
+          <DialogActions>
+          <Button color='primary' variant='outlined' onClick={()=>this.setState({openModal:false})}>Re-upload Statements</Button>
+                <Button color='primary' variant='contained' onClick={this.handleUploadFinancial}>Confirm Statements</Button>
+          </DialogActions>
+        </Dialog>
                 </div>
             </React.Fragment>
         );
@@ -143,4 +177,8 @@ function mapStateToProps(state) {
     return {}
 }
 
-export default connect(mapStateToProps)(state(decorateWithOnDrop(FinancialInfoUpload)));
+export default connect(mapStateToProps)(state(
+  withRouter(  decorateWithOnDrop(
+        FinancialInfoUpload)
+    ))
+);

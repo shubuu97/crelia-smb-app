@@ -284,8 +284,7 @@ function mapStateToProps(state) {
 
     let initialValuesFinanceForm = {
         manualFinancial,
-        loanProvider: _get(state,'BasicInfo.lookUpData.companyDetails.financialInfo.loanProvider',[]),
-        financialLinks:_get(state,'BasicInfo.lookUpData.companyDetails.financialInfo.financialLinks',[])
+        financialInfo:_get(state,'BasicInfo.lookUpData.companyDetails.financialInfo',[])
     };
     let initialValuesLoanProvider = _get(state,'BasicInfo.lookUpData.companyDetails.financialInfo',{'loanProvider': []})
     return { username, id, tempId, initialValuesAbout, initialValuesContact, initialValuesFinanceForm, isFetchingSave, isFetchingApprove,initialValuesLoanProvider }

@@ -2,27 +2,27 @@ import React from "react";
 import PropTypes from "prop-types";
 import { withState, recompose } from 'recompose';
 import _get from 'lodash/get';
-/* Material Imports*/
+/* Material Imports */ 
 import { withStyles } from "@material-ui/core/styles";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import ExpansionPanelActions from "@material-ui/core/ExpansionPanelActions";
 import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
+import { Field, reduxForm } from 'redux-form';
 import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
-/* Redux Import*/
-import { Field, reduxForm } from 'redux-form';
+/* Redux Imports */ 
 import { connect } from 'react-redux';
-import { getData } from '../../../../Redux/getAction';
-import { APPLICATION_BFF_URL } from '../../../../Redux/urlConstants';
-import { postData } from '../../../../Redux/postAction';
-import showMessage from '../../../../Redux/toastAction';
-/* Global Imports*/
-import GlobalTextField from '../../../../Global/Components/GlobalTextField'
-import SelectField from '../../../../Global/Components/Select'
-import DropzoneArea from '../../../../Global/dropzone/dropzoneArea';
-import dropzoneHandler from '../../../../Global/dropzone/onDropDecorater';
+import { getData } from '../../../Redux/getAction';
+import { APPLICATION_BFF_URL } from '../../../Redux/urlConstants';
+import { postData } from '../../../Redux/postAction';
+import showMessage from '../../../Redux/toastAction';
+/* Global Imports */ 
+import GlobalTextField from '../../../Global/Components/GlobalTextField'
+import SelectField from '../../../Global/Components/Select'
+import DropzoneArea from '../../../Global/dropzone/dropzoneArea';
+import dropzoneHandler from '../../../Global/dropzone/onDropDecorater';
 
 const styles = theme => ({
     root: {
@@ -66,27 +66,15 @@ const styles = theme => ({
 
 
 class AddTeamForm extends React.Component {
-
     state = {
         expanded: true,
     };
-
-    componentDidMount() {
-        this.props.dispatch(
-            getData(`${APPLICATION_BFF_URL}/reference-service/empType`, 'empTypeList-data', {
-                init: 'empType_init',
-                success: 'empType_success',
-                error: 'empType_error'
-            })
-        )
-    }
 
     handleChange = panel => (event, expanded) => {
         this.setState({
             expanded: !panel,
         });
-    }
-
+    };
     handleAddTeam = (values) => {
         let reqObj = {};
         let urlToHit='';
@@ -141,10 +129,20 @@ class AddTeamForm extends React.Component {
             })
 
     }
+    componentDidMount() {
+        this.props.dispatch(
+            getData(`${APPLICATION_BFF_URL}/reference-service/empType`, 'empTypeList-data', {
+                init: 'empType_init',
+                success: 'empType_success',
+                error: 'empType_error'
+            })
+        )
+    }
 
     render() {
         const { classes, handleSubmit } = this.props;
         const { expanded } = this.state;
+
         return (
             <div className="addmore" >
                 <span className="title" onClick={this.handleChange(this.state.expanded)}>
@@ -162,7 +160,7 @@ class AddTeamForm extends React.Component {
                                 container
                                 spacing={24}
                             >
-                                <Grid item xs={12}>
+                               {this.props.showPosition?<Grid item xs={12}>
                                     <Field
                                         label="Select Position"
                                         placeholder=""
@@ -172,7 +170,7 @@ class AddTeamForm extends React.Component {
                                         options={this.props.empTypeList}
                                         fullWidth='fullWidth'
                                     />
-                                </Grid>
+                                </Grid>:null}
                                 <Grid item xs={6}>
                                     <Field
                                         label="First Name"
@@ -228,7 +226,7 @@ class AddTeamForm extends React.Component {
                                     <DropzoneArea
                                         name='photo'
                                         fieldName='photo'
-                                        progress={_get(this.props, 'state.photouploadProgress')}
+                                        progress={_get(this.props,'state.photouploadProgress')}
                                         onDrop={this.props.onDrop}
                                         avialableFormat="Available File Formats: jpeg, png"
                                         accept={["image/jpg", "image/png", "image/jpeg"]}
@@ -237,8 +235,6 @@ class AddTeamForm extends React.Component {
                                     />
                                 </Grid>
                             </Grid>
-
-
                         </ExpansionPanelDetails>
                         <Divider />
                         <ExpansionPanelActions>
@@ -275,7 +271,7 @@ function mapStateToProps(state) {
         empTypeList: empTypeList,
         isFetching: isFetching,
         companyId: _get(state, 'BasicInfo.lookUpData.companyDetails.id', null),
-        $class: _get(state, 'BasicInfo.lookUpData.companyDetails.$class', null)
+        $class: _get(state, 'BasicInfo.lookUpData.companyDetails.$class', '.tempSMB')
 
     };
 }
