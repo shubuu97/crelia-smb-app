@@ -3,23 +3,23 @@ import _get from 'lodash/get';
 /* Material Imports */
 import FormControl from '@material-ui/core/FormControl';
 /* Redux Imports*/
-import { postData } from '../../../Redux/postAction';
+import { postData } from '../../../../Redux/postAction';
 import { connect } from 'react-redux';
-import showMessage from '../../../Redux/toastAction';
-import { getData } from '../../../Redux/getAction';
-import { APPLICATION_BFF_URL } from '../../../Redux/urlConstants';
+import showMessage from '../../../../Redux/toastAction';
+import { getData } from '../../../../Redux/getAction';
+import { APPLICATION_BFF_URL } from '../../../../Redux/urlConstants';
 import { Field, reduxForm } from 'redux-form';
 /* Global Imports*/
-import GlobalTextField from '../../../Global/Components/GlobalTextField';
-import Select from '../../../Global/Components/Select';
-import ToggleButtons from '../../../Global/Components/ToggleButton';
-import LoaderButton from '../../../Global/Components/LoaderButton'
+import GlobalTextField from '../../../../Global/Components/GlobalTextField';
+import Select from '../../../../Global/Components/Select';
+import ToggleButtons from '../../../../Global/Components/ToggleButton';
+import LoaderButton from '../../../../Global/Components/LoaderButton'
 /* Components */
-import SideBar from './SideBar';
+import SideBar from '../SideBar';
 
 var jwtDecode = require('jwt-decode');
 
-class About extends Component {
+class General extends Component {
     constructor(props) {
         super(props)
     }
@@ -108,7 +108,7 @@ class About extends Component {
                             <FormControl margin="normal" required fullWidth>
                                 <Field
                                     variantType="outlined"
-                                    label="Incorporation Type"
+                                    label="Investor Type"
                                     name="legalEntityType"
                                     component={Select}
                                     options={this.props.legalEntityList}
@@ -118,7 +118,7 @@ class About extends Component {
                             <FormControl margin="normal" required fullWidth>
                                 <Field
                                     type="date"
-                                    label="Date Of Incorporation"
+                                    label="Date of incorporation"
                                     defaultValue='2017-05-24'
                                     name="incorporationDate"
                                     InputLabelProps={{
@@ -131,30 +131,14 @@ class About extends Component {
 
                             <FormControl margin="normal" required fullWidth>
                                 <Field
-                                    label="Registration Number"
+                                    label="Company Registration Number"
                                     name="registrationNumber"
                                     component={GlobalTextField}
                                     variant={localStorage.getItem('TextFilledVaraint') || 'standard'}
                                     fullWidth={true}
                                 />
                             </FormControl>
-                            <div className="numberemployee">
-
-                                <div className="numberOfEmployees-sub-title pt-20">Number Of Employees</div>
-
-                                <FormControl margin="normal" required fullWidth>
-                                    <Field
-                                        name="numberOfEmployees"
-                                        component={ToggleButtons}
-                                        toggleList={[
-                                            { label: '1-10', alinValue: '1-10' },
-                                            { label: '10-50', alinValue: '10-50' },
-                                            { label: '50-100', alinValue: '50-100' },
-                                            { label: '>100', alinValue: '>100' }
-                                        ]}
-                                    />
-                                </FormControl>
-                            </div>
+                            
                             <div class="action-block">
                                 <LoaderButton
                                     isFetching={this.props.isFetchingUpdateSMB}
@@ -170,11 +154,11 @@ class About extends Component {
     }
 }
 
-About = reduxForm({
-    form: 'About',
+General = reduxForm({
+    form: 'General',
     enableReinitialize: true,
     keepDirtyOnReinitialize: true
-})(About);
+})(General);
 
 function mapStateToProps(state) {
     let industryList = [];
@@ -182,12 +166,9 @@ function mapStateToProps(state) {
     _get(state.IndustryList, 'lookUpData', []).map(item => (
         industryList.push({ value: item.industry })
     ))
-    let LegalEntitiesArr = _get(state.LegalEntities, 'lookUpData', [])
-    if (LegalEntitiesArr != null) {
-        LegalEntitiesArr.map(item => (
-            legalEntities.push({ value: item.type })
-        ))
-    }
+    _get(state.LegalEntities, 'lookUpData', []).map(item => (
+        legalEntities.push({ value: item.type })
+    ))
     let isFetchingUpdateSMB = _get(state, 'UpdateSMB.isFetching');
 
     let id = _get(state, 'BasicInfo.lookUpData.companyDetails.id');
@@ -210,5 +191,5 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps)(SideBar(About));
+export default connect(mapStateToProps)(SideBar(General));
 

@@ -55,6 +55,7 @@ import RegistrationSuccess from './COMMON/Authorization/components/Registration/
 import Registration from './COMMON/Authorization/components/Registration/Register';
 import SetPassword from './COMMON/Authorization/components/SetPassword/setPassword';
 import signInRejected from './COMMON/Authorization/components/signInRejected' // to be removed
+import RoutesConfig from './COMMON/CompanyProfile/components/RoutesConfig';
 
 
 const generateClassName = createGenerateClassName({
@@ -115,6 +116,7 @@ ReactDOM.render(
                   <RouteWithLayout Layout={SignInLayout} exact path="/reset" Component={Reset} />
                   <RouteWithLayout Layout={SignInLayout} exact path="/setPassword" Component={SetPassword} />
                   <RouteWithLayout Layout={SignInLayout} exact path="/signInRejected" Component={signInRejected} />
+                  {RoutesConfig.map(rconfig => <RouteWithLayout Layout={MainLayout} exact path={rconfig.path} Component={rconfig.Component} />)}
 
                   {/* Main Routes */}
 
@@ -124,7 +126,7 @@ ReactDOM.render(
                     localStorage.getItem("role") == 'InvestorUser' ?
                       <div>
                         <RouteWithLayout Layout={MainLayout} exact path="/account" Component={AccountInvestor} />
-                        {RoutesConfigInvestor.map(rconfig => <RouteWithLayout Layout={MainLayout} exact path={rconfig.path} Component={rconfig.Component} />)}
+                        {/* {RoutesConfigInvestor.map(rconfig => <RouteWithLayout Layout={MainLayout} exact path={rconfig.path} Component={rconfig.Component} />)} */}
                       </div>
                       :
                       null
@@ -136,7 +138,7 @@ ReactDOM.render(
                         <RouteWithLayout Layout={MainLayout} exact path="/onboard" Component={CompanyOnBoardingContainer} />
                         <RouteWithLayout Layout={MainLayout} exact path="/onboard/review" Component={ReviewCOBInfoContainer} />
                         <RouteWithLayout Layout={MainLayout} exact path="/OnBoardingAcknowlege" Component={OnBoardingAcknowlege} />
-                        {RoutesConfigSMB.map(rconfig => <RouteWithLayout Layout={MainLayout} exact path={rconfig.path} Component={rconfig.Component} />)}
+                        {/* {RoutesConfigSMB.map(rconfig => <RouteWithLayout Layout={MainLayout} exact path={rconfig.path} Component={rconfig.Component} />)} */}
                         <RouteWithLayout Layout={MainLayout} exact path="/account" Component={AccountSMB} />
                       </div>
                       :

@@ -3,19 +3,19 @@ import _get from 'lodash/get';
 /* Material Imports */
 import FormControl from '@material-ui/core/FormControl';
 /* Redux Imports*/
-import { postData } from '../../../Redux/postAction';
+import { postData } from '../../../../Redux/postAction';
 import { connect } from 'react-redux';
-import showMessage from '../../../Redux/toastAction';
-import { getData } from '../../../Redux/getAction';
-import { APPLICATION_BFF_URL } from '../../../Redux/urlConstants';
+import showMessage from '../../../../Redux/toastAction';
+import { getData } from '../../../../Redux/getAction';
+import { APPLICATION_BFF_URL } from '../../../../Redux/urlConstants';
 import { Field, reduxForm } from 'redux-form';
 /* Global Imports*/
-import GlobalTextField from '../../../Global/Components/GlobalTextField';
-import Select from '../../../Global/Components/Select';
-import ToggleButtons from '../../../Global/Components/ToggleButton';
-import LoaderButton from '../../../Global/Components/LoaderButton'
+import GlobalTextField from '../../../../Global/Components/GlobalTextField';
+import Select from '../../../../Global/Components/Select';
+import ToggleButtons from '../../../../Global/Components/ToggleButton';
+import LoaderButton from '../../../../Global/Components/LoaderButton'
 /* Components */
-import SideBar from './SideBar';
+import SideBar from '../SideBar';
 
 var jwtDecode = require('jwt-decode');
 
@@ -182,12 +182,9 @@ function mapStateToProps(state) {
     _get(state.IndustryList, 'lookUpData', []).map(item => (
         industryList.push({ value: item.industry })
     ))
-    let LegalEntitiesArr = _get(state.LegalEntities, 'lookUpData', [])
-    if (LegalEntitiesArr != null) {
-        LegalEntitiesArr.map(item => (
-            legalEntities.push({ value: item.type })
-        ))
-    }
+    _get(state.LegalEntities, 'lookUpData', []).map(item => (
+        legalEntities.push({ value: item.type })
+    ))
     let isFetchingUpdateSMB = _get(state, 'UpdateSMB.isFetching');
 
     let id = _get(state, 'BasicInfo.lookUpData.companyDetails.id');
