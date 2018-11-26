@@ -30,20 +30,12 @@ import UiSetting from './Global/uiSettings/uiSettings';
 import SignInLayout from './Global/layout/signInLayout';
 
 
-
-/* Investor Container Imports*/
-import AccountInvestor from './INVESTOR/MyAccount/MyAccountContainer'
-import RoutesConfigInvestor from './INVESTOR/CompanyProfile/components/RoutesConfig';
-
-
-
 /* SMB Container Imports*/
 import CompanyOnBoardingContainer from './SMB/CompanyOnBoarding/CompanyOnBoardingContainer';
 import ReviewCOBInfoContainer from './SMB/CompanyOnBoarding/components/ReviewCOBInfo/ReviewCOBInfoContainer.jsx'
 import OnBoardingAcknowlege from './SMB/Acknowledge/OnBoradingAckowledge'
 import AccountSMB from './SMB/MyAccount/MyAccountContainer'
 import RoutesConfigSMB from './SMB/CompanyProfile/components/RoutesConfig';
-
 
 
 /* Common Container Imports*/
@@ -55,6 +47,7 @@ import RegistrationSuccess from './COMMON/Authorization/components/Registration/
 import Registration from './COMMON/Authorization/components/Registration/Register';
 import SetPassword from './COMMON/Authorization/components/SetPassword/setPassword';
 import signInRejected from './COMMON/Authorization/components/signInRejected' // to be removed
+import RoutesConfig from './COMMON/CompanyProfile/components/RoutesConfig';
 
 
 const generateClassName = createGenerateClassName({
@@ -106,7 +99,7 @@ ReactDOM.render(
 
 
 
-                  {/* Common Routes */}
+                  {/* Main Routes */}
                   <RouteWithLayout Layout={SignInLayout} exact path="/" Component={SignIn} />
                   <RouteWithLayout Layout={SignInLayout} exact path="/register" Component={Registration} />
                   <RouteWithLayout Layout={SignInLayout} exact path="/registerSuccess" Component={RegistrationSuccess} />
@@ -116,32 +109,13 @@ ReactDOM.render(
                   <RouteWithLayout Layout={SignInLayout} exact path="/setPassword" Component={SetPassword} />
                   <RouteWithLayout Layout={SignInLayout} exact path="/signInRejected" Component={signInRejected} />
 
-                  {/* Main Routes */}
+                  <RouteWithLayout Layout={MainLayout} exact path="/onboard" Component={CompanyOnBoardingContainer} />
+                  <RouteWithLayout Layout={MainLayout} exact path="/onboard/review" Component={ReviewCOBInfoContainer} />
+                  <RouteWithLayout Layout={MainLayout} exact path="/OnBoardingAcknowlege" Component={OnBoardingAcknowlege} />
+                  <RouteWithLayout Layout={MainLayout} exact path="/account" Component={AccountSMB} />
+                  
+                  {RoutesConfig.map(rconfig => <RouteWithLayout Layout={MainLayout} exact path={rconfig.path} Component={rconfig.Component} />)}
 
-
-
-                  {
-                    localStorage.getItem("role") == 'InvestorUser' ?
-                      <div>
-                        <RouteWithLayout Layout={MainLayout} exact path="/account" Component={AccountInvestor} />
-                        {RoutesConfigInvestor.map(rconfig => <RouteWithLayout Layout={MainLayout} exact path={rconfig.path} Component={rconfig.Component} />)}
-                      </div>
-                      :
-                      null
-                  }
-
-                  {
-                    localStorage.getItem("role") == 'SMBUser' ?
-                      <div>
-                        <RouteWithLayout Layout={MainLayout} exact path="/onboard" Component={CompanyOnBoardingContainer} />
-                        <RouteWithLayout Layout={MainLayout} exact path="/onboard/review" Component={ReviewCOBInfoContainer} />
-                        <RouteWithLayout Layout={MainLayout} exact path="/OnBoardingAcknowlege" Component={OnBoardingAcknowlege} />
-                        {RoutesConfigSMB.map(rconfig => <RouteWithLayout Layout={MainLayout} exact path={rconfig.path} Component={rconfig.Component} />)}
-                        <RouteWithLayout Layout={MainLayout} exact path="/account" Component={AccountSMB} />
-                      </div>
-                      :
-                      null
-                  }
 
 
 

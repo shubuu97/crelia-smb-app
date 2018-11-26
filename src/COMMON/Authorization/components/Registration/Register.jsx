@@ -60,14 +60,6 @@ class Registration extends Component {
           <form className={classes.form} onSubmit={handleSubmit(this.handleSignUp)} >
             <FormControl margin="normal" required fullWidth>
               <Field
-                disabled={localStorage.getItem('disabled')}
-                name="RegistrationUserType"
-                component={Radio}
-                radioList={[{ label: "Investor", value: "Investor" }, { label: "SMB", value: "SMB" }]}
-              />
-            </FormControl>
-            <FormControl margin="normal" required fullWidth>
-              <Field
                 label="Enter your email address"
                 placeholder=""
                 name="email"

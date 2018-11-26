@@ -5,17 +5,17 @@ import _get from 'lodash/get';
 import FormControl from '@material-ui/core/FormControl';
 /* Redux Imports*/ 
 import { connect } from 'react-redux';
-import { getData } from '../../../Redux/getAction';
-import { APPLICATION_BFF_URL } from '../../../Redux/urlConstants';
-import { postData } from '../../../Redux/postAction';
-import showMessage from '../../../Redux/toastAction';
+import { getData } from '../../../../Redux/getAction';
+import { APPLICATION_BFF_URL } from '../../../../Redux/urlConstants';
+import { postData } from '../../../../Redux/postAction';
+import showMessage from '../../../../Redux/toastAction';
 import {FormSection} from 'redux-form';
 /* Global Imports*/ 
-import Select from '../../../Global/Components/Select';
-import GlobalTextField from '../../../Global/Components/GlobalTextField';
-import LoaderButton from '../../../Global/Components/LoaderButton'
+import Select from '../../../../Global/Components/Select';
+import GlobalTextField from '../../../../Global/Components/GlobalTextField';
+import LoaderButton from '../../../../Global/Components/LoaderButton'
 /*Components Imports*/
-import sidebar from './SideBar'; 
+import sidebar from '../SideBar'; 
 
 var jwtDecode = require('jwt-decode');
 

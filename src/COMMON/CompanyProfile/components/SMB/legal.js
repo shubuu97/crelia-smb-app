@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
 import _get from 'lodash/get';
 /* Global Imports*/
-import sidebar from './SideBar.js';
-import DropzoneButton from '../../../Global/dropzone/dropzoneButton'
-import decorateWithOnDrop from '../../../Global/dropzone/onDropDecorater';
-import LoaderButton from '../../../Global/Components/LoaderButton';
+import sidebar from '../SideBar.js';
+import DropzoneButton from '../../../../Global/dropzone/dropzoneButton'
+import decorateWithOnDrop from '../../../../Global/dropzone/onDropDecorater';
+import LoaderButton from '../../../../Global/Components/LoaderButton';
 /* Recompose*/
 import { withState, compose } from 'recompose';
 /* Redux Imports*/
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-import { APPLICATION_BFF_URL } from '../../../Redux/urlConstants';
-import { postData } from '../../../Redux/postAction';
-import { getData } from '../../../Redux/getAction';
-import showMessage from '../../../Redux/toastAction';
+import { APPLICATION_BFF_URL } from '../../../../Redux/urlConstants';
+import { postData } from '../../../../Redux/postAction';
+import { getData } from '../../../../Redux/getAction';
+import showMessage from '../../../../Redux/toastAction';
 /* Material Imports */
 import CircularProgress from '@material-ui/core/CircularProgress';
 

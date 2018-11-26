@@ -14,15 +14,15 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 /* Redux Import*/
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-import { getData } from '../../../Redux/getAction';
-import { APPLICATION_BFF_URL } from '../../../Redux/urlConstants';
-import { postData } from '../../../Redux/postAction';
-import showMessage from '../../../Redux/toastAction';
+import { getData } from '../../../../Redux/getAction';
+import { APPLICATION_BFF_URL } from '../../../../Redux/urlConstants';
+import { postData } from '../../../../Redux/postAction';
+import showMessage from '../../../../Redux/toastAction';
 /* Global Imports*/
-import GlobalTextField from '../../../Global/Components/GlobalTextField'
-import SelectField from '../../../Global/Components/Select'
-import DropzoneArea from '../../../Global/dropzone/dropzoneArea';
-import dropzoneHandler from '../../../Global/dropzone/onDropDecorater';
+import GlobalTextField from '../../../../Global/Components/GlobalTextField'
+import SelectField from '../../../../Global/Components/Select'
+import DropzoneArea from '../../../../Global/dropzone/dropzoneArea';
+import dropzoneHandler from '../../../../Global/dropzone/onDropDecorater';
 
 const styles = theme => ({
     root: {

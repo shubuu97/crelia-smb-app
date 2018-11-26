@@ -3,16 +3,16 @@ import _get from 'lodash/get';
 /* Redux Imports*/
 import { connect } from 'react-redux';
 /* Global Components*/
-import DropzoneArea from '../../../Global/dropzone/dropzoneArea';
-import decorateWithOnDrop from '../../../Global/dropzone/onDropDecorater';
-import basicDataFetcher from '../../../Global/dataFetch/basicDataFetcher';
-import LoaderButton from '../../../Global/Components/LoaderButton';
-import genericPostData from '../../../Global/dataFetch/genericPostData'
+import DropzoneArea from '../../../../Global/dropzone/dropzoneArea';
+import decorateWithOnDrop from '../../../../Global/dropzone/onDropDecorater';
+import basicDataFetcher from '../../../../Global/dataFetch/basicDataFetcher';
+import LoaderButton from '../../../../Global/Components/LoaderButton';
+import genericPostData from '../../../../Global/dataFetch/genericPostData'
 import { withState, compose, renderComponent } from 'recompose';
 /* Assets */
-import imgquestion from '../../../Assets/images/question.png';
+import imgquestion from '../../../../Assets/images/question.png';
 /* Components Import */
-import sidebar from './SideBar.js';
+import sidebar from '../SideBar.js';
 
 class financial extends React.Component {
 

@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import _get from 'lodash/get';
 /* Redux Imports*/
 import { connect } from 'react-redux';
-import { APPLICATION_BFF_URL } from '../../../../Redux/urlConstants';
-import { getData } from '../../../../Redux/getAction';
+import { APPLICATION_BFF_URL } from '../../../../../Redux/urlConstants';
+import { getData } from '../../../../../Redux/getAction';
 /* Material Imports */
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 /* Global Imports*/
-import genericPostData from '../../../../Global/dataFetch/genericPostData'
+import genericPostData from '../../../../../Global/dataFetch/genericPostData'
 /* Components Import*/
 import CompanyView from './CompanyView';
 import FundingView from './FundingView';

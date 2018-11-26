@@ -7,11 +7,11 @@ import FormControl from '@material-ui/core/FormControl';
 /* Redux Imports*/
 import { Field, reduxForm, fiel } from 'redux-form';
 /* Global Imports*/
-import GlobalTextField from '../../../Global/Components/GlobalTextField'
-import DropzoneArea from '../../../Global/dropzone/dropzoneArea';
-import dropzoneHandler from '../../../Global/dropzone/onDropDecorater';
+import GlobalTextField from '../../../../Global/Components/GlobalTextField'
+import DropzoneArea from '../../../../Global/dropzone/dropzoneArea';
+import dropzoneHandler from '../../../../Global/dropzone/onDropDecorater';
 /* Components Imports*/
-import sidebar from './SideBar.js'
+import sidebar from '../SideBar.js'
 
 const styles = theme => ({
     root: {

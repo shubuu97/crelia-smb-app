@@ -6,12 +6,12 @@ import { withStyles } from "@material-ui/core/styles";
 /* Redux Imports*/
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { APPLICATION_BFF_URL } from '../../../Redux/urlConstants';
-import { getData } from '../../../Redux/getAction';
+import { APPLICATION_BFF_URL } from '../../../../Redux/urlConstants';
+import { getData } from '../../../../Redux/getAction';
 /* Components*/
 import TeamMemberCard from './DisplayTeam'
 import AddTeamForm from './AddTeamForm'
-import sidebar from './SideBar.js';
+import sidebar from '../SideBar.js';
 
 var jwtDecode = require('jwt-decode');
 
