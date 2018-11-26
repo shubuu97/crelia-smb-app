@@ -180,8 +180,9 @@ Contacts = reduxForm({
 
 function mapStateToProps(state) {
     let countryList = [];
+    // Map Issue to be fixed
     _get(state.CountryList, 'lookUpData', []).map(item => (
-        countryList.push({ value: item.name })
+        countryList.push({ value: item.value })
     ))
     let id = _get(state, 'BasicInfo.lookUpData.companyDetails.id');
 

@@ -97,8 +97,8 @@ class About extends Component {
 
                             <FormControl margin="normal" required fullWidth>
                                 <Field
-                                    label="Industry"
-                                    name="industryType"
+                                    label="Country"
+                                    name="country"
                                     component={Select}
                                     variantType='outlined'
                                     options={this.props.industryList}
@@ -180,10 +180,10 @@ function mapStateToProps(state) {
     let industryList = [];
     let legalEntities = [];
     _get(state.IndustryList, 'lookUpData', []).map(item => (
-        industryList.push({ value: item.industry })
+        industryList.push({ value: item.value })
     ))
     _get(state.LegalEntities, 'lookUpData', []).map(item => (
-        legalEntities.push({ value: item.type })
+        legalEntities.push({ value: item.value })
     ))
     let isFetchingUpdateSMB = _get(state, 'UpdateSMB.isFetching');
 
