@@ -77,14 +77,18 @@ class AddTeamForm extends React.Component {
     };
     handleAddTeam = (values) => {
         let reqObj = {};
-        let designation='';
+        let urlToHit='';
+        let designation = ''
         
         if(this.props.location.pathname=='/beneficiary')
         {
-            designation='benificiaryShareholder'
+            urlToHit = '/api/CreateShareHolder';
+            designation='Benificiary ShareHolder';
         }
         else{
+            urlToHit = '/api/CreateEmployee';
             designation=values.designation
+
         }
         let splittedClass = _get(this.props,'$class',).split('.');
         let companyType = splittedClass[splittedClass.length - 1];
@@ -92,8 +96,8 @@ class AddTeamForm extends React.Component {
 
         reqObj = {
             companyId: this.props.companyId,
-            designation,
             companyType,
+            designation,
             profilePictureLink,
             id: Math.random(),
             ...values
@@ -101,7 +105,7 @@ class AddTeamForm extends React.Component {
         console.log(values, 'values');
 
         this.props.dispatch(
-            postData(`${APPLICATION_BFF_URL}/api/CreateEmployee`, reqObj, 'addTeam-data', {
+            postData(`${APPLICATION_BFF_URL}${urlToHit}`, reqObj, 'addTeam-data', {
                 init: 'addTeam_init',
                 success: 'addTeam_success',
                 error: 'addTeam_error'
