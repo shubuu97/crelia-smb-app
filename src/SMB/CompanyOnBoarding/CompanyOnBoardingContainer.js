@@ -90,7 +90,7 @@ class CompanyOnBoardingContainer extends React.Component {
         variant: 'outlined',
     };
 
-    handleNext = (values) => {
+    handleNext = (values,afterSuccess) => {
         let id = this.props.id
         if(!this.props.id && this.props.tempId){
             id = this.props.tempId.split('#')[1]
@@ -110,6 +110,8 @@ class CompanyOnBoardingContainer extends React.Component {
         ).then((data) => {
 
             this.props.dispatch(showMessage({ text: 'Update Succesfully', isSuccess: true }));
+            if(afterSuccess)
+            afterSuccess()
             this.basicDataFetcher();
             setTimeout(() => {
                 let tabVal = this.state.value;

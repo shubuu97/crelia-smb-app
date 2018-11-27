@@ -268,7 +268,7 @@ AddTeamForm = state(dropzoneHandler(AddTeamForm));
 function mapStateToProps(state) {
     let empTypeList = [];
     _get(state.EmpTypeList, 'lookUpData', []).map(item => (
-        empTypeList.push({ value: item.type })
+        empTypeList.push({ value: item.value })
     ))
     let isFetching = _get(state, 'AddTeam.isFetching', false);
     return {
