@@ -97,8 +97,8 @@ class About extends Component {
 
                             <FormControl margin="normal" required fullWidth>
                                 <Field
-                                    label="Country"
-                                    name="country"
+                                    label="Industry Type"
+                                    name="industryType"
                                     component={Select}
                                     variantType='outlined'
                                     options={this.props.industryList}

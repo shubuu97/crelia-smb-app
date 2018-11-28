@@ -34,7 +34,9 @@ import SignInLayout from './Global/layout/signInLayout';
 import CompanyOnBoardingContainer from './SMB/CompanyOnBoarding/CompanyOnBoardingContainer';
 import ReviewCOBInfoContainer from './SMB/CompanyOnBoarding/components/ReviewCOBInfo/ReviewCOBInfoContainer.jsx'
 import OnBoardingAcknowlege from './SMB/Acknowledge/OnBoradingAckowledge'
-import AccountSMB from './SMB/MyAccount/MyAccountContainer'
+import AccountSMB from './SMB/MyAccount/MyAccountContainer';
+import LoanRequestContainer from './SMB/LoanRequest/LoanRequestContainer';
+import CreateRequestContainer from './SMB/CreateRequest/CreateRequestContainer'
 
 
 /* Common Container Imports*/
@@ -47,6 +49,7 @@ import Registration from './COMMON/Authorization/components/Registration/Registe
 import SetPassword from './COMMON/Authorization/components/SetPassword/setPassword';
 import signInRejected from './COMMON/Authorization/components/signInRejected' // to be removed
 import RoutesConfig from './COMMON/CompanyProfile/components/RoutesConfig';
+import { isMoment } from 'moment';
 
 
 const generateClassName = createGenerateClassName({
@@ -62,7 +65,7 @@ const persistConfig = {
   key: 'SMEInvestorRoot',
   storage,
   stateReconciler: hardSet,
-  //blacklist: ['form','ShowToast']
+  blacklist: ['form','ShowToast']
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -112,7 +115,10 @@ ReactDOM.render(
                   <RouteWithLayout Layout={MainLayout} exact path="/onboard/review" Component={ReviewCOBInfoContainer} />
                   <RouteWithLayout Layout={MainLayout} exact path="/OnBoardingAcknowlege" Component={OnBoardingAcknowlege} />
                   <RouteWithLayout Layout={MainLayout} exact path="/account" Component={AccountSMB} />
-                  
+                  <RouteWithLayout Layout={MainLayout} exact path='/LoanRequest' Component={LoanRequestContainer}/>
+                  <RouteWithLayout Layout={MainLayout} exact path='/CreateLoanRequest' Component={CreateRequestContainer}/>
+
+
                   {RoutesConfig.map(rconfig => <RouteWithLayout Layout={MainLayout} exact path={rconfig.path} Component={rconfig.Component} />)}
 
 
