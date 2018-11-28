@@ -58,6 +58,26 @@ class FinancialInfoUpload extends React.Component {
             _setWith(reqObj.financialInfo,'cashFlow',_get(this.props, 'initialValues.cashFlow'));
 
         }
+        if (_get(this.props, 'state.balanceSheetlink')) {
+            debugger;
+
+            _setWith(reqObj.financialInfo,'balanceSheet',[_get(this.props, 'state.balanceSheetlink')]);
+
+        }
+        else {
+            if (_get(this.props, 'initialValues.balanceSheet'))
+            _setWith(reqObj.financialInfo,'balanceSheet',_get(this.props, 'initialValues.balanceSheet'));
+
+        }
+        if (_get(this.props, 'state.incomeStatementlink')) {
+            _setWith(reqObj.financialInfo,'incomeStatement',[_get(this.props, 'state.incomeStatementlink')]);
+
+        }
+        else {
+            if (_get(this.props, 'initialValues.incomeStatement'))
+            _setWith(reqObj.financialInfo,'incomeStatement',_get(this.props, 'initialValues.incomeStatement'));
+
+        }
         if (_get(this.props, 'state.businessPlanlink')) {
             _setWith(reqObj.financialInfo,'businessPlan',[_get(this.props, 'state.businessPlanlink')]);
         }
@@ -95,9 +115,10 @@ class FinancialInfoUpload extends React.Component {
         return (
             <React.Fragment>
                 <div className="row justify-content-between ">
-                    <div className="col-sm-6">
+                <div className="col-sm-12"><span className="onboarding-sub-title">Financial Statement for last three years</span></div>
+                    <div className="col-sm-4">
                         <DropzoneArea
-                            title="Financial Statement for last three years"
+                           title='1.Cash Flow'
                             fieldName='cashFlow'
                             onDrop={this.props.onDrop}
                             afterParseFunction={this.cashFlowParseAction}
@@ -106,9 +127,31 @@ class FinancialInfoUpload extends React.Component {
                             dropzone={_get(this.props, 'state.cashFlow.name', '') || _get(this.props, 'state.cashFlowlink', '') || _get(this.props, 'initialValues.cashFlow')}
                         />
                     </div>
-                    <div className="col-sm-6">
+                    <div className="col-sm-4">
                         <DropzoneArea
-                            title="2019 Forecast (optional)"
+                            title='2.Balance Sheet'
+                            fieldName='balanceSheet'
+                            onDrop={this.props.onDrop}
+                            afterParseFunction={this.cashFlowParseAction}
+                            parseData={true}
+                            progress={_get(this.props, 'state.balanceSheetProgress')}
+                            dropzone={_get(this.props, 'state.balanceSheet.name', '') || _get(this.props, 'state.balanceSheetlink', '') || _get(this.props, 'initialValues.balanceSheet')}
+                        />
+                    </div>
+                    <div className="col-sm-4">
+                        <DropzoneArea
+                            title='3.Income Statement'
+                            fieldName='incomeStatement'
+                            onDrop={this.props.onDrop}
+                            afterParseFunction={this.cashFlowParseAction}
+                            parseData={true}
+                            progress={_get(this.props, 'state.incomeStatementProgress')}
+                            dropzone={_get(this.props, 'state.incomeStatement.name', '') || _get(this.props, 'state.incomeStatementlink', '') || _get(this.props, 'initialValues.incomeStatement')}
+                        />
+                    </div>
+                    <div className="col-sm-6">
+                    <div className="col-sm-12"><span className="onboarding-sub-title">2019 Forecast (optional)</span></div>
+                        <DropzoneArea
                             fieldName='businessPlan'
                             progress={_get(this.props, 'state.businessPlanuploadProgress')}
                             onDrop={this.props.onDrop}
@@ -116,8 +159,9 @@ class FinancialInfoUpload extends React.Component {
                         />
                     </div>
                     <div className="col-sm-6">
+                    <div className="col-sm-12"><span className="onboarding-sub-title">Business Plan</span></div>
+
                         <DropzoneArea
-                            title="Business Plan"
                             progress={_get(this.props, 'state.forecastuploadProgress')}
                             fieldName='forecast'
                             onDrop={this.props.onDrop}
