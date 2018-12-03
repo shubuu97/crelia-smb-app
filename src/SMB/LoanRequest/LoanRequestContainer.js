@@ -109,19 +109,19 @@ function mapStateToProps(state) {
 
     let rawData = _get(this, "props.loanData", [])
     let TableData = []
-    loanData.map((data, index) => {
-        console.log("TableData data - ", data)
-        let obj = {
-            CompanyName: "N/A",
-            Amount: `${data.moneyRange.minAmount} - ${data.moneyRange.maxAmount}`,
-            Currency: `${data.moneyRange.currency}`,
-            Time: `${data.term}yrs`,
-            Region: "N/A",
-            Sector: "N/A",
-        }
-        console.log("TableData obj - ", obj)
-        TableData.push(obj)
-    })
+    // loanData.map((data, index) => {
+    //     console.log("TableData data - ", data)
+    //     let obj = {
+    //         CompanyName: "N/A",
+    //         Amount: `${data.moneyRange.minAmount} - ${data.moneyRange.maxAmount}`,
+    //         Currency: `${data.moneyRange.currency}`,
+    //         Time: `${data.term}yrs`,
+    //         Region: "N/A",
+    //         Sector: "N/A",
+    //     }
+    //     console.log("TableData obj - ", obj)
+    //     TableData.push(obj)
+    // })
 
     console.log("TableData - ", TableData)
 
