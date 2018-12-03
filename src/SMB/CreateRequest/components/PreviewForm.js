@@ -13,11 +13,11 @@ class PreviewForm extends Component {
              <h6>SUMMARY</h6>
              <div>
              <span>Amount-</span>
-             {_get(formValues,'minimum')}-{_get(formValues,'maximum')}{_get(formValues,'currency')}
+             {_get(formValues,'moneyRange.minAmount')}-{_get(formValues,'moneyRange.maxAmount')}{_get(formValues,'moneyRange.currency')}
              </div>
              <div>
              <span>Desired Rate-</span>
-             {_get(formValues,'desiredRate')}
+             {_get(formValues,'interestRate')}
              </div>
              <div>
              <span>Loan Purpose</span>    
@@ -29,7 +29,7 @@ class PreviewForm extends Component {
             <div>
             <span>Other Purpose-</span>{_get(formValues,'otherPurpose')}
             </div>
-             {_get(formValues,'loanTerm')}
+             {_get(formValues,'term')}
              <div>
              <span>Time Frame-</span>{_get(formValues,'timeFrame')}
              </div>
