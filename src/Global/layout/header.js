@@ -62,6 +62,9 @@ class Header extends React.Component {
                                 <li onClick={() => { this.props.history.push('/about'); }}>
                                     <a>Company Profile</a>
                                 </li>
+                                <li onClick={() => { this.props.history.push('/ProfileHistory'); }}>
+                                    <a>Profile Updates History</a>
+                                </li>
                                 <li onClick={() => { this.props.history.push('/LoanRequest'); }}>
                                     <a>Requests</a>
                                 </li>

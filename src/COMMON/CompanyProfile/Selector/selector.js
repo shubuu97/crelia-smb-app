@@ -11,6 +11,11 @@ const mapBasicInfo = data => ({
         get(data, 'legalEntityType') || get(data, 'legalName') || get(data, 'incorporationDate') || get(data, 'registrationNumber') || get(data, 'numberOfEmployees') || get(data, 'industryType') ? 'p-filled' : 'u-filled'
 })
 
+const showStatusAddress = data => ({
+    status:get(data, 'legalEntityType') && get(data, 'legalName') && get(data, 'incorporationDate') && get(data, 'registrationNumber') && get(data, 'industryType') ? 'green' :
+    get(data, 'legalEntityType') || get(data, 'legalName') || get(data, 'incorporationDate') || get(data, 'registrationNumber') || get(data, 'numberOfEmployees') || get(data, 'industryType') ? 'yellow' : 'red'
+
+})
  
 
 
@@ -19,11 +24,10 @@ const formStatusAbout = createSelector(
     basicInfoData,
     mapBasicInfo
 )
-
 const formStatusContact = createSelector(
     basicInfoData,
     mapAddressInfo,
-    mapBasicInfo
+    showStatusAddress
 )
 
 
