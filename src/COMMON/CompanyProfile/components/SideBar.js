@@ -45,24 +45,20 @@ function SideBar(WrappedComponent) {
 
             return (
                 <div className="about-section">
-                    <div style={{
-                        'display': 'flex',
-                        alignItems: 'flex - end',
-                        justifyContent: 'space-between',
-                        flexDirection: 'row'
-                    }}>
+                    <div className="title-btn ">
                         <h1>Company Profile</h1>
                         <LoaderButton
                             isFetching={this.props.isFetchingPostUpdateToMarketPlace}
                             onClick={this.postMarketPlace}
                             color="primary"
+                            className="mb-10"
                             variant="contained">Post to market place</LoaderButton>
                     </div>
                     <div className="col-sm-12 card" >
                         <div className="row">
                             <div className="col-sm-3" >
                                 <ul className="about-tab">
-                                    <li className={_get(this.props, 'location.pathname', "") == "/about" ? 'active' : null} onClick={() => this.handleRoute('about')}>About {_get(this, 'props.formStatusAbout.status')}</li>
+                                    <li className={_get(this.props, 'location.pathname', "") == "/about" ? `active ${_get(this, 'props.formStatusAbout.status')} ` : null} onClick={() => this.handleRoute('about')}>About </li>
                                     <li className={_get(this.props, 'location.pathname', "") == "/contacts" ? 'active' : null} onClick={() => this.handleRoute('contacts')}>Contacts</li>
                                     <li className={_get(this.props, 'location.pathname', "") == "/team" ? 'active' : null} onClick={() => this.handleRoute('team')}>Team</li>
                                     <li className={_get(this.props, 'location.pathname', "") == "/marketingMaterials" ? 'active' : null} onClick={() => this.handleRoute('marketingMaterials')}>Marketing Materials</li>

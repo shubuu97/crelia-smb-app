@@ -111,137 +111,195 @@ class CreateRequestContainer extends Component {
 
         console.log(this.props, 'qqqqq')
         return (
-            <div className="row">
-                <div className='col-sm-8'>
-                    <FormSection name='moneyRange'>
-                        <FormControl margin="normal" required fullWidth>
-                            <Field
-                                label='Minimum'
-                                name='minAmount'
-                                component={GlobalTextField}
-                                fullWidth={true}
-                                normalize={formatMoney}
-                            />
-                        </FormControl>
-                        <FormControl margin="normal" required fullWidth>
-                            <Field
-                                label='Maximum'
-                                name='maxAmount'
-                                component={GlobalTextField}
-                                fullWidth={true}
-                                normalize={formatMoney}
-                            />
-                        </FormControl>
-                        <FormControl margin="normal" required fullWidth>
-                            <Field
-                                label="Currency"
-                                name="currency"
-                                component={Select}
-                                variantType='outlined'
-                                options={this.props.currencyList}
-                            />
-                        </FormControl>
-                    </FormSection>
-                    <FormControl margin="normal" required fullWidth>
-                        <Field
-                            label='Desired Rate'
-                            name='interestRate'
-                            component={GlobalTextField}
-                            fullWidth={true}
-                            normalize={formatMoney}
-                            endAdornment="%"
-                        />
-                    </FormControl>
-                    <FormControl margin="normal" required fullWidth>
-                        <Field
-                            label='Working Capital'
-                            name='workingCapital'
-                            color='primary'
-                            component={GlobalCheckBox}
-                            onChange={(e, value) => this.handleCheck('workingCapitalPecentage', value)}
-                        />
-                        {_get(this.props, 'formValues.workingCapital', false) ?
-                            <Field
-                                label='Part of loan(%)'
-                                name='workingCapitalPecentage'
-                                component={GlobalTextField}
-                                fullWidth={true}
-                                normalize={formatMoney}
-                                endAdornment="%"
-                            /> : null
-                        }
-                    </FormControl>
-                    <FormControl margin="normal" required fullWidth>
-                        <Field
-                            label='Capital Expense'
-                            name='capitalExpense'
-                            color='primary'
-                            component={GlobalCheckBox}
-                            onChange={(e, value) => this.handleCheck('capitalExpensePecentage', value)}
-                        />
-                        {_get(this.props, 'formValues.capitalExpense', false) ?
-                            <Field
-                                label='Part of loan(%)'
-                                name='capitalExpensePecentage'
-                                component={GlobalTextField}
-                                fullWidth={true}
-                                normalize={formatMoney}
-                                endAdornment="%"
-                            /> : null
-                        }
-                    </FormControl>
-                    <FormControl margin="normal" required fullWidth>
-                        <Field
-                            label='Refinancing'
-                            name='refinancing'
-                            color='primary'
-                            component={GlobalCheckBox}
-                            onChange={(e, value) => this.handleCheck('refinancingPecentage', value)}
-                        />
-                        {_get(this.props, 'formValues.refinancing', false) ?
-                            <Field
-                                label='Part of loan(%)'
-                                name='refinancingPecentage'
-                                component={GlobalTextField}
-                                fullWidth={true}
-                                normalize={formatMoney}
-                                endAdornment="%"
-                            /> : null
-                        }
-                    </FormControl>
-                    <FormControl margin="normal" required fullWidth>
-                        <Field
-                            label='Other purpose..'
-                            name='otherPurpose'
-                            component={GlobalTextField}
-                            fullWidth={true}
-                        />
-                    </FormControl>
-                    <FormControl margin="normal" required fullWidth>
-                        <Field
-                            label="Loan Term"
-                            name="term"
-                            component={Select}
-                            variantType='outlined'
-                            options={[{ label: '1 year', value: 1 }, { label: '3 year', value: 3 }, { label: '5 year', value: 5 }]}
-                        />
-                    </FormControl>
-                    <FormControl margin="normal" required fullWidth>
-                        <Field
-                            label='Time Frame'
-                            name='timeFrame'
-                            component={GlobalTextField}
-                            type='date'
-                            fullWidth={true}
-                        />
-                    </FormControl>
-                </div>
-                <div className='col-sm-4'>
-                    <PreviewForm
-                        submitLoanDetails={this.props.handleSubmit(this.submitLoanDetails)}
-                        formValues={this.props.formValues} />
-                </div>
+
+            <div className="loan-request">
+                    <div className="col-sm-12 ">
+                        <h1>Loan Request</h1>                       
+                        <div className="cardwrapper">
+                        <div className="row">
+                            <div className='col-sm-8'>                           
+                                <div className="search-area">
+                                <h4>Loan Amount</h4>
+                                <FormSection name='moneyRange'>
+                                    <div className="row">
+                                        <div className='col-sm-5'>
+                                            <FormControl margin="normal" required fullWidth>
+                                                <Field
+                                                    label='Minimum'
+                                                    name='minAmount'
+                                                    component={GlobalTextField}
+                                                    fullWidth={true}
+                                                    normalize={formatMoney}
+                                                />
+                                            </FormControl>
+                                        </div>
+                                        <div className='col-sm-5'>
+                                            <FormControl margin="normal" required fullWidth>
+                                                <Field
+                                                    label='Maximum'
+                                                    name='maxAmount'
+                                                    component={GlobalTextField}
+                                                    fullWidth={true}
+                                                    normalize={formatMoney}
+                                                />
+                                            </FormControl>
+                                        </div>
+                                        <div className='col-sm-2'>
+                                            <FormControl margin="normal" required fullWidth>
+                                                <Field
+                                                    label="Currency"
+                                                    name="currency"
+                                                    component={Select}
+                                                    variantType='outlined'
+                                                    options={this.props.currencyList}
+                                                />
+                                            </FormControl>
+                                        </div>
+                                    </div>
+                                </FormSection>
+                                <div className="row">
+                                    <div className='col-sm-5'>
+                                        <FormControl margin="normal" required fullWidth>
+                                            <Field
+                                                label='Desired Rate'
+                                                name='interestRate'
+                                                component={GlobalTextField}
+                                                fullWidth={true}
+                                                normalize={formatMoney}
+                                                endAdornment="%"
+                                            />
+                                        </FormControl>
+                                    </div>
+                                </div>
+                                <h4 className="pt-30">Purpose of Loan</h4>
+                                <FormControl margin="normal" required fullWidth>
+                                <div className="row">
+                                <div className='col-sm-3'>
+                                    <Field
+                                        label='Working Capital'
+                                        name='workingCapital'
+                                        color='primary'
+                                        component={GlobalCheckBox}
+                                        onChange={(e, value) => this.handleCheck('workingCapitalPecentage', value)}
+                                    />
+                                    </div>
+                                    <div className='col-sm-7'>
+                                    {_get(this.props, 'formValues.workingCapital', false) ?
+                                        <Field
+                                            label='Part of loan(%)'
+                                            name='workingCapitalPecentage'
+                                            component={GlobalTextField}
+                                            fullWidth={true}
+                                            normalize={formatMoney}
+                                            endAdornment="%"
+                                        /> : null
+                                    }
+                                    </div>
+                                    </div>
+                                </FormControl>
+                                
+                                <FormControl margin="normal" required fullWidth>
+                                <div className="row">
+                                    <div className='col-sm-3'>
+                                    <Field
+                                        label='Capital Expense'
+                                        name='capitalExpense'
+                                        color='primary'
+                                        component={GlobalCheckBox}
+                                        onChange={(e, value) => this.handleCheck('capitalExpensePecentage', value)}
+                                    />
+                                     </div>                                   
+                                    <div className='col-sm-7'>
+                                    {_get(this.props, 'formValues.capitalExpense', false) ?
+                                        <Field
+                                            label='Part of loan(%)'
+                                            name='capitalExpensePecentage'
+                                            component={GlobalTextField}
+                                            fullWidth={true}
+                                            normalize={formatMoney}
+                                            endAdornment="%"
+                                        /> : null
+                                    }
+                                    </div>
+                                    </div>
+                                </FormControl>
+                                <FormControl margin="normal" required fullWidth>
+                                <div className="row">
+                                    <div className='col-sm-3'>
+                                    <Field
+                                        label='Refinancing'
+                                        name='refinancing'
+                                        color='primary'
+                                        component={GlobalCheckBox}
+                                        onChange={(e, value) => this.handleCheck('refinancingPecentage', value)}
+                                    />
+                                      </div>                                  
+                                    <div className='col-sm-7'>
+                                    {_get(this.props, 'formValues.refinancing', false) ?
+                                        <Field
+                                            label='Part of loan(%)'
+                                            name='refinancingPecentage'
+                                            component={GlobalTextField}
+                                            fullWidth={true}
+                                            normalize={formatMoney}
+                                            endAdornment="%"
+                                        /> : null
+                                    }
+                                     </div>
+                                    </div>
+                                </FormControl>
+                                <FormControl margin="normal" required fullWidth>
+                                <div className="row">
+                                    <div className='col-sm-10'>
+                                    <Field
+                                        label='Other purpose..'
+                                        name='otherPurpose'
+                                        component={GlobalTextField}
+                                        fullWidth={true}
+                                    />
+                                    </div>
+                                    </div>
+                                </FormControl>
+
+                                <h4 className="pt-30">Term</h4>
+                                <div className="row">
+                                    <div className='col-sm-10'>
+                                <FormControl margin="normal" required fullWidth>
+                               
+                                    <Field
+                                        label="Loan Term"
+                                        name="term"
+                                        component={Select}
+                                        variantType='outlined'
+                                        options={[{ label: '1 year', value: 1 }, { label: '3 year', value: 3 }, { label: '5 year', value: 5 }]}
+                                    />
+                                </FormControl>
+                                </div>
+                                <div className='col-sm-10'>
+                                <FormControl margin="normal" required fullWidth>
+                                    <Field
+                                        label='Time Frame'
+                                        name='timeFrame'
+                                        component={GlobalTextField}
+                                        type='date'
+                                        fullWidth={true}
+                                    />
+                                </FormControl>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
+                            <div className='col-sm-4'>
+                            <div className="details-block">
+                                <PreviewForm
+                                    submitLoanDetails={this.props.handleSubmit(this.submitLoanDetails)}
+                                    formValues={this.props.formValues} />
+                            </div>
+                            </div>
+                        </div>
             </div>
+            </div>
+        </div>
         )
     }
 }
