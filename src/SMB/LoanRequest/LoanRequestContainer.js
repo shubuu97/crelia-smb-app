@@ -114,7 +114,7 @@ class LoanRequestsContainer extends React.PureComponent {
         }
         let id = decodeData.id
         this.props.dispatch(
-            getData(`${APPLICATION_BFF_URL}/api/Loan/${id}`, 'fetchingLoanRequestData', {
+            getData(`${APPLICATION_BFF_URL}/api/fund`, 'fetchingLoanRequestData', {
                 init: 'fetchingLoanRequestData_init',
                 success: 'fetchingLoanRequestData_success',
                 error: 'fetchingLoanRequestData_error'
