@@ -6,7 +6,7 @@ import SliderFilter from './FilterTypes/SliderFilter';
 import TextboxFilter from './FilterTypes/TextboxFilter';
 import RadioFilter from './FilterTypes/RadioFilter';
 
-class Heading extends Component {
+class Filters extends Component {
 
     constructor() {
         super();
@@ -68,4 +68,4 @@ class Heading extends Component {
     }
 }
 
-export default Heading;
+export default Filters;

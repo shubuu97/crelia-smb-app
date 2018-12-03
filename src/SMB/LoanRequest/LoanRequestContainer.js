@@ -57,43 +57,6 @@ let dummyData1 = [
     }
 ]
 
-let dummyData2 = [
-    {
-        CompanyName: "Tesla",
-        Amount: "50,000,000 - 100,000,000",
-        Currency: "USD",
-        Time: "5yrs",
-        Region: "United States",
-        Sector: "Manufacturing",
-        extendedRow: {
-            DateOfIncorporation: "02 June 1995",
-            IncorporationType: "Limited Liability Company (LLC)",
-            NoOfEmployees: "500"
-        }
-    },
-    {
-        CompanyName: "Rockstar Games",
-        Amount: "70,000,000 - 100,000,000",
-        Currency: "USD",
-        Time: "3yrs",
-        Region: "United States",
-        Sector: "Manufacturing",
-        extendedRow: {
-            DateOfIncorporation: "02 June 1995",
-            IncorporationType: "Limited Liability Company (LLC)",
-            NoOfEmployees: "500"
-        }
-    },
-    {
-        CompanyName: "Ubisoft",
-        Amount: "10,000,000 - 80,000,000",
-        Currency: "INR",
-        Time: "8yrs",
-        Region: "United Kingdom",
-        Sector: "Manufacturing",
-    }
-]
-
 class LoanRequestsContainer extends React.PureComponent {
 
     constructor() {
@@ -114,7 +77,7 @@ class LoanRequestsContainer extends React.PureComponent {
         }
         let id = decodeData.id
         this.props.dispatch(
-            getData(`${APPLICATION_BFF_URL}/api/Loan/${id}`, 'fetchingLoanRequestData', {
+            getData(`${APPLICATION_BFF_URL}/api/fund`, 'fetchingLoanRequestData', {
                 init: 'fetchingLoanRequestData_init',
                 success: 'fetchingLoanRequestData_success',
                 error: 'fetchingLoanRequestData_error'
@@ -122,33 +85,13 @@ class LoanRequestsContainer extends React.PureComponent {
         )
     }
 
-    dataGenerator = () => {
-        let rawData = _get(this, "props.loanData", [])
-        let TableData = []
-        TableData = rawData.map((data, index) => {
-            let obj = {
-                CompanyName: "N/A",
-                Amount: `${data.moneyRange.minAmount} - ${data.moneyRange.maxAmount}`,
-                Currency: `${data.moneyRange.currency}`,
-                Time: `${data.term}yrs`,
-                Region: "N/A",
-                Sector: "N/A",
-            }
-            return obj
-        })
-        this.setState({
-            tableData: TableData,
-        })
-    }
-
     render() {
         const props = this.props;
-        console.log("TableData2 - ", this.props.TableData)
         return (
             <div>
                 {/* Card Rows */}
                 <CardTable
-                    data={this.props.TableData}
+                    data={dummyData1}
                     actions={true}
                     isExtended={true}
                     filter={false}
