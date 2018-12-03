@@ -36,7 +36,9 @@ import ReviewCOBInfoContainer from './SMB/CompanyOnBoarding/components/ReviewCOB
 import OnBoardingAcknowlege from './SMB/Acknowledge/OnBoradingAckowledge'
 import AccountSMB from './SMB/MyAccount/MyAccountContainer';
 import LoanRequestContainer from './SMB/LoanRequest/LoanRequestContainer';
-import CreateRequestContainer from './SMB/CreateRequest/CreateRequestContainer'
+import CreateRequestContainer from './SMB/CreateRequest/CreateRequestContainer';
+import ProfileHistory from './SMB/TransactionHistory/ProfileHistory';
+
 
 
 /* Common Container Imports*/
@@ -117,6 +119,7 @@ ReactDOM.render(
                   <RouteWithLayout Layout={MainLayout} exact path="/account" Component={AccountSMB} />
                   <RouteWithLayout Layout={MainLayout} exact path='/LoanRequest' Component={LoanRequestContainer}/>
                   <RouteWithLayout Layout={MainLayout} exact path='/CreateLoanRequest' Component={CreateRequestContainer}/>
+                  <RouteWithLayout Layout={MainLayout} exact path='/ProfileHistory' Component={ProfileHistory}/>
 
 
                   {RoutesConfig.map(rconfig => <RouteWithLayout Layout={MainLayout} exact path={rconfig.path} Component={rconfig.Component} />)}

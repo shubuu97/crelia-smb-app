@@ -60,53 +60,63 @@ class ReviewCOBInfoContainer extends Component {
             })
     }
     render() {
+        let companyDetails = {}
+     if(this.props.fetchFromProp==true)
+     {
+        companyDetails = this.props.companyDetailsProp
+     }
+     else{
+         companyDetails=this.props.companyDetails
+     }
+
+
         return (
             <div>
 
-                <div className="funding-details">
-                    <h1>Funding Details</h1>
+               <div className="funding-details">
+               {!this.props.fetchFromProp? <h1>Funding Details</h1>:null}
                     <div className="col-sm-12 card" >
                         <div className="row pad-20">
 
                             <CompanyView
-                                legalName={_get(this.props, 'companyDetails.legalName')}
-                                legalEntityType={_get(this.props, 'companyDetails.legalEntityType')}
-                                taxId={_get(this.props, 'companyDetails.taxId')}
-                                otherCompanyName={_get(this.props, 'companyDetails.onboardingInfo.otherCompanyName')}
-                                incorporationDate={_get(this.props, 'companyDetails.incorporationDate')}
-                                address={_get(this.props, 'companyDetails.address')}
-                                phoneNumber={_get(this.props, 'companyDetails.phoneNumber')}
-                                email={_get(this.props, 'companyDetails.email')}
+                                legalName={_get(companyDetails, 'legalName')}
+                                legalEntityType={_get(companyDetails, 'legalEntityType')}
+                                taxId={_get(companyDetails, 'taxId')}
+                                otherCompanyName={_get(companyDetails, 'onboardingInfo.otherCompanyName')}
+                                incorporationDate={_get(companyDetails, 'incorporationDate')}
+                                address={_get(companyDetails, 'address')}
+                                phoneNumber={_get(companyDetails, 'phoneNumber')}
+                                email={_get(companyDetails, 'email')}
                             />
 
                             <FundingView
-                                moneyRequired={_get(this.props, 'companyDetails.onboardingInfo.moneyRequired')}
-                                timeFrame={_get(this.props, 'companyDetails.onboardingInfo.timeFrame')}
-                                fundAllocation={_get(this.props, 'companyDetails.onboardingInfo.fundAllocation', [])}
-                                fundingType={_get(this.props, 'companyDetails.onboardingInfo.fundingType', [])}
+                                moneyRequired={_get(companyDetails, 'onboardingInfo.moneyRequired')}
+                                timeFrame={_get(companyDetails, 'onboardingInfo.timeFrame')}
+                                fundAllocation={_get(companyDetails, 'onboardingInfo.fundAllocation', [])}
+                                fundingType={_get(companyDetails, 'onboardingInfo.fundingType', [])}
                             />
 
                             <LoanProvider
-                                loanProvider={_get(this.props, 'companyDetails.financialInfo.loanProvider', [])}
-                            />                           
+                                loanProvider={_get(companyDetails, 'financialInfo.loanProvider', [])}
+                            />
                         </div>
 
                         <div className="row  pad-20">
                             <FinancialDataTable
-                                financialData={_get(this.props, 'companyDetails.financialInfo.financialData', [])}
+                                financialData={_get(companyDetails, 'financialInfo.financialData', [])}
                             />
                         </div>
 
-                          <div className="row  pad-20">
-                          <FinancialLinks
-                                financialLinks={_get(this.props, 'companyDetails.financialInfo.financialLinks', [])}
+                        <div className="row  pad-20">
+                            <FinancialLinks
+                                financialLinks={_get(companyDetails, 'financialInfo.financialLinks', [])}
                             />
                         </div>
-                        <div className="common-action-block pb-15">
+                       {!this.props.fetchFromProp ?<div className="common-action-block pb-15">
                             <Button disabled={this.props.isFetchingPostMarketPlace} onClick={this.postMarketPlace} variant='contained' color='primary'>
                                 {this.props.isFetchingPostMarketPlace ? <CircularProgress size={24} /> : 'POST TO THE MARKET PLACE'}
                             </Button>
-                        </div>
+                        </div>:null}
                     </div>
                 </div>
             </div>
@@ -118,8 +128,9 @@ function mapStateToProps(state) {
     let id = _get(state, 'BasicInfo.lookUpData.companyDetails.id', null);
 
     let companyDetails = _get(state, 'BasicInfo.lookUpData.companyDetails');
+    let TransactionDetails = _get(state, 'TransactionDetails.lookUpData')
     let isFetchingPostMarketPlace = _get(state, 'CobPostMarketPlace.isFetching')
-    return { companyDetails, isFetchingPostMarketPlace, id }
+    return { companyDetails, isFetchingPostMarketPlace, id, TransactionDetails }
 }
 
 
