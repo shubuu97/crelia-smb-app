@@ -12,7 +12,7 @@ const basicDataFetcher = (dispatch) => {
         let role = decodeData.role
 
 
-          dispatch(
+       return  dispatch(
             getData(`${APPLICATION_BFF_URL}/api/${role}/${encodeURIComponent(decodeData.id)}`, 'fetchingbasicdata', {
                 init: 'basicdata_init',
                 success: 'basicdata_success',
