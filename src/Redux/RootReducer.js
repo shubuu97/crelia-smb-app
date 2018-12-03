@@ -23,6 +23,7 @@ import getEmployeeListFun from './commonReducer';
 import shareHoldersFun from './commonReducer';
 import currencyFun from './commonReducer';
 import LoanFun from './commonReducer'
+import getLoanRequest from './commonReducer';
 
 
 let CobPost=CobPostFun('cobsave');
@@ -35,6 +36,7 @@ let ParseData = parseDataFun('Parse_Data');
 let shareHolders = shareHoldersFun('getshareHolderList');
 let currency = currencyFun('currency');
 let CreateLoan = LoanFun('create_loan');
+let LoanRequest = getLoanRequest('fetchingLoanRequestData');
 
 let rootRducer = combineReducers({
     form:formReducer,
@@ -56,7 +58,8 @@ let rootRducer = combineReducers({
     ParseData,
     shareHolders,
     currency,
-    CreateLoan
+    CreateLoan,
+    LoanRequest
 })
 
 export default rootRducer;

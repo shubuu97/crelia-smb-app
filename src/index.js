@@ -116,7 +116,7 @@ ReactDOM.render(
                   <RouteWithLayout Layout={MainLayout} exact path="/OnBoardingAcknowlege" Component={OnBoardingAcknowlege} />
                   <RouteWithLayout Layout={MainLayout} exact path="/account" Component={AccountSMB} />
                   <RouteWithLayout Layout={MainLayout} exact path='/LoanRequest' Component={LoanRequestContainer}/>
-                  <RouteWithLayout Layout={MainLayout} exact path='/CreateLoanRequest' Component={CreateRequestContainer}/>
+                  <RouteWithLayout Layout={MainLayout} exact path='/LoanRequest/create' Component={CreateRequestContainer}/>
 
 
                   {RoutesConfig.map(rconfig => <RouteWithLayout Layout={MainLayout} exact path={rconfig.path} Component={rconfig.Component} />)}
