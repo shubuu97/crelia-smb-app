@@ -47,8 +47,8 @@ class MarketingMaterial extends Component {
 
     handleMarketingMaterialSubmit = (values) => {
         let reqObj = {
-            presentationLink: _get(this.props, 'state.presentaionlink'),
-            videoLink: _get(this.props, 'state.presentaionVideolink'),
+            presentationLink: _get(this.props, 'state.presentationlink'),
+            videoLink: _get(this.props, 'state.videolink'),
             id: this.props.id,
             url: _get(values, 'url'),
         };
