@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import _get from 'lodash/get'
+import _get from 'lodash/get';
+import Button from '@material-ui/core/Button'
 
 class PreviewForm extends Component {
 
@@ -31,6 +32,9 @@ class PreviewForm extends Component {
              {_get(formValues,'loanTerm')}
              <div>
              <span>Time Frame-</span>{_get(formValues,'timeFrame')}
+             </div>
+             <div>
+             <Button onClick={this.props.submitLoanDetails} color='primary' variant='contained'>Submit Details</Button>
              </div>
              
             </div>

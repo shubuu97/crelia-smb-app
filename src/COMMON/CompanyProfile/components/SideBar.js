@@ -6,7 +6,7 @@ import genericPostData from '../../../Global/dataFetch/genericPostData';
 /* Redux Imports */
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-
+import { formStatusAbout } from '../Selector/selector';
 function SideBar(WrappedComponent) {
     return class SideBar extends Component {
 
@@ -35,6 +35,9 @@ function SideBar(WrappedComponent) {
                 successText: 'Upload Success',
             })
         }
+        formStatus = (status) => {
+            console.log(status, "status")
+        }
 
         render() {
             console.log("render");
@@ -58,8 +61,8 @@ function SideBar(WrappedComponent) {
                     <div className="col-sm-12 card" >
                         <div className="row">
                             <div className="col-sm-3" >
-                            <ul className="about-tab">
-                                    <li className={_get(this.props, 'location.pathname', "") == "/about" ? 'active' : null} onClick={() => this.handleRoute('about')}>About</li>
+                                <ul className="about-tab">
+                                    <li className={_get(this.props, 'location.pathname', "") == "/about" ? 'active' : null} onClick={() => this.handleRoute('about')}>About {_get(this, 'props.formStatusAbout.status')}</li>
                                     <li className={_get(this.props, 'location.pathname', "") == "/contacts" ? 'active' : null} onClick={() => this.handleRoute('contacts')}>Contacts</li>
                                     <li className={_get(this.props, 'location.pathname', "") == "/team" ? 'active' : null} onClick={() => this.handleRoute('team')}>Team</li>
                                     <li className={_get(this.props, 'location.pathname', "") == "/marketingMaterials" ? 'active' : null} onClick={() => this.handleRoute('marketingMaterials')}>Marketing Materials</li>
@@ -71,7 +74,7 @@ function SideBar(WrappedComponent) {
                             </div>
                             <div className="col-sm-9" >
                                 <div className="mtrb-12">
-                                    <WrappedComponent {...this.props} />
+                                    <WrappedComponent formStatus={this.formStatus} {...this.props} />
                                 </div>
                             </div>
                         </div>
@@ -83,8 +86,31 @@ function SideBar(WrappedComponent) {
 }
 
 function mapStateToProps(state) {
-    let isFetchingPostUpdateToMarketPlace = _get(state, 'CobPostMarketPlace.isFetching')
-    return { isFetchingPostUpdateToMarketPlace }
+    //getting all the data for about
+    // let formStatusAbout = '';
+    let isFetchingPostUpdateToMarketPlace = _get(state, 'CobPostMarketPlace.isFetching');
+    // let legalEntityType = _get(state, 'BasicInfo.lookUpData.companyDetails.legalEntityType', null);
+    // let legalName = _get(state, 'BasicInfo.lookUpData.companyDetails.legalName');
+    // let incorporationDate = _get(state, 'BasicInfo.lookUpData.companyDetails.incorporationDate', '').split('T')[0].trim();
+    // let registrationNumber = _get(state, 'BasicInfo.lookUpData.companyDetails.registrationNumber');
+    // let numberOfEmployees = _get(state, 'BasicInfo.lookUpData.companyDetails.numberOfEmployees');
+    // let industryType = _get(state, 'BasicInfo.lookUpData.companyDetails.industryType');
+
+
+    // "line1" "line2" "zipCode" "city" "region" "country" "phoneNumber" "email"
+
+    //Login to show status for formStatus in About section
+    // if (legalEntityType && legalName && incorporationDate && registrationNumber && industryType) {
+    //     formStatusAbout = 'green'
+    // }
+    // else if (legalEntityType || legalName || incorporationDate || registrationNumber || numberOfEmployees || industryType) {
+    //     formStatusAbout = 'yellow'
+    // }
+    // else {
+    //     formStatusAbout = 'red'
+    // }
+
+    return { isFetchingPostUpdateToMarketPlace, formStatusAbout: formStatusAbout(state) }
 }
 export default compose(
     connect(mapStateToProps, null),

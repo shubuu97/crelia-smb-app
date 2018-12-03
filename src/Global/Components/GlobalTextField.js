@@ -32,7 +32,7 @@ class TextFieldRF extends Field
         console.log(this.props,"888")
         super.componentWillUnmount();
         this.context._reduxForm.dispatch(
-        clearFields(this.context._reduxForm.form, false, false, this.props.name));
+        clearFields(this.context._reduxForm.form, false, false, this.props.input.name));
     }
 
 render() {

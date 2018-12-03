@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import _get from 'lodash/get';
+import _find from 'lodash/find'
 /* Material Imports */
 import FormControl from '@material-ui/core/FormControl';
 /* Redux Imports*/
@@ -21,7 +22,8 @@ var jwtDecode = require('jwt-decode');
 
 class About extends Component {
     constructor(props) {
-        super(props)
+        super(props);
+        this.state = { legalEntityList: null }
     }
     componentDidMount() {
         let decodeData;
@@ -55,7 +57,8 @@ class About extends Component {
 
     }
     aboutSubmit = (values) => {
-        let reqObj = { ...values, id: this.props.id }
+        let reqObj = { ...values, id: this.props.id };
+        delete reqObj.region;
         this.props.dispatch(
             postData(`${APPLICATION_BFF_URL}/api/SaveSMB`, reqObj, 'UpdateSMB-data', {
                 init: 'UpdateSMB_init',
@@ -75,6 +78,14 @@ class About extends Component {
                     this.props.dispatch(showMessage({}));
                 }, 3000);
             })
+
+    }
+    handleRegionSelect = (a, b, c) => {
+        debugger;
+        console.log(this.props.alllegalEntitiesList, "here")
+        let legalEnitryForRegion = _find(this.props.alllegalEntitiesList, { regionName: b });
+        let legalEntities = _get(legalEnitryForRegion, 'legalEntities', []);
+        this.setState({ 'legalEntityList': legalEntities })
 
     }
     render() {
@@ -101,7 +112,18 @@ class About extends Component {
                                     name="industryType"
                                     component={Select}
                                     variantType='outlined'
-                                    options={this.props.industryList}
+                                    options={this.props.industryList.filter((industry) => industry.isAllowed)}
+                                />
+                            </FormControl>
+
+                            <FormControl margin="normal" required fullWidth>
+                                <Field
+                                    variantType="outlined"
+                                    label="Region"
+                                    name="region"
+                                    component={Select}
+                                    onChange={this.handleRegionSelect}
+                                    options={this.props.regionList}
                                 />
                             </FormControl>
 
@@ -111,7 +133,7 @@ class About extends Component {
                                     label="Incorporation Type"
                                     name="legalEntityType"
                                     component={Select}
-                                    options={this.props.legalEntityList}
+                                    options={this.state.legalEntityList || this.props.legalEntityList}
                                 />
                             </FormControl>
 
@@ -177,35 +199,48 @@ About = reduxForm({
 })(About);
 
 function mapStateToProps(state) {
-    let industryList = [];
-    let legalEntities = [];
-    // Map Issue to be fixed
-    _get(state.IndustryList, 'lookUpData', []).map(item => (
-        industryList.push({ value: item.value })
-    ))
-    // Map Issue to be fixed
-    _get(state.LegalEntities, 'lookUpData', []).map(item => (
-        legalEntities.push({ value: item.value })
-    ))
+    let industryList = _get(state, 'IndustryList.lookUpData');
+    let regionList = [];
+    let region = '';
+    let alllegalEntitiesList = _get(state, 'LegalEntities.lookUpData');
+    let legalEntityList = [];
     let isFetchingUpdateSMB = _get(state, 'UpdateSMB.isFetching');
-
     let id = _get(state, 'BasicInfo.lookUpData.companyDetails.id');
-
-    let legalEntityType = _get(state, 'BasicInfo.lookUpData.companyDetails.legalEntityType');
     let legalName = _get(state, 'BasicInfo.lookUpData.companyDetails.legalName');
     let incorporationDate = _get(state, 'BasicInfo.lookUpData.companyDetails.incorporationDate', '').split('T')[0].trim();
     let registrationNumber = _get(state, 'BasicInfo.lookUpData.companyDetails.registrationNumber');
     let numberOfEmployees = _get(state, 'BasicInfo.lookUpData.companyDetails.numberOfEmployees');
-    let industryType = _get(state, 'BasicInfo.lookUpData.companyDetails.industryType')
+    let industryType = _get(state, 'BasicInfo.lookUpData.companyDetails.industryType');
+    let legalEntityType = _get(state, 'BasicInfo.lookUpData.companyDetails.legalEntityType', null);
+     
+    // Map Issue to be fixed
+     _get(state.LegalEntities, 'lookUpData', []).map(item => (
+        regionList.push({ cc: item.cc, value: item.regionName })
+    ))
 
-    let initialValues = { legalEntityType, legalName, incorporationDate, registrationNumber, numberOfEmployees, industryType };
+    //Login to show region and legalEnittyList from type (to be fixed)
+    if (legalEntityType != null) {
+        let filteredEntity = alllegalEntitiesList.filter((legalEntitiesByRegion) => {
+            let legalEntities = _get(legalEntitiesByRegion, 'legalEntities');
+            return _find(legalEntities, { value: legalEntityType })
+
+        })
+        legalEntityList = filteredEntity[0].legalEntities;
+        region = filteredEntity[0].regionName;
+    }
+
+    //assigning the values to  initialValues variable so redux form can show values into fields
+    let initialValues = { legalEntityType, legalName, region, incorporationDate, registrationNumber, numberOfEmployees, industryType };
 
     return {
         industryList: industryList,
-        legalEntityList: legalEntities,
+        regionList: regionList,
         initialValues,
         isFetchingUpdateSMB,
-        id
+        id,
+        alllegalEntitiesList,
+        legalEntityList,
+
     };
 }
 

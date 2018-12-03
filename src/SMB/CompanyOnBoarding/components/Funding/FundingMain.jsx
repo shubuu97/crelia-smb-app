@@ -48,9 +48,8 @@ class AboutMain extends React.Component {
     }
 
     toggleUseMoneyDesc = () => {
-        if(this.state.otherLoanDescription)
-        {
-            this.setState({investment:false,workingCapital:false,refinancing:false})
+        if (this.state.otherLoanDescription) {
+            this.setState({ investment: false, workingCapital: false, refinancing: false })
         }
         this.setState({ otherLoanDescription: !this.state.otherLoanDescription })
     }

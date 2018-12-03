@@ -21,6 +21,8 @@ import UpdateSMBUserFun from './commonReducer';
 import AddTeamFun from './commonReducer';
 import getEmployeeListFun from './commonReducer';
 import shareHoldersFun from './commonReducer';
+import currencyFun from './commonReducer';
+import LoanFun from './commonReducer'
 
 
 let CobPost=CobPostFun('cobsave');
@@ -30,7 +32,9 @@ let UpdateSMBUser = UpdateSMBUserFun('UpdateSMBUser');
 let AddTeam = AddTeamFun('addTeam');
 let EmployeeList = getEmployeeListFun('getEmployeeList');
 let ParseData = parseDataFun('Parse_Data');
-let shareHolders = shareHoldersFun('getshareHolderList')
+let shareHolders = shareHoldersFun('getshareHolderList');
+let currency = currencyFun('currency');
+let CreateLoan = LoanFun('create_loan');
 
 let rootRducer = combineReducers({
     form:formReducer,
@@ -50,7 +54,9 @@ let rootRducer = combineReducers({
     AddTeam,
     EmployeeList,
     ParseData,
-    shareHolders
+    shareHolders,
+    currency,
+    CreateLoan
 })
 
 export default rootRducer;
