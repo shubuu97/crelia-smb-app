@@ -10,7 +10,7 @@ import { postData } from '../../Redux/postAction';
 import showMessage from '../../Redux/toastAction';
 import { getData } from '../../Redux/getAction';
 import { APPLICATION_BFF_URL } from '../../Redux/urlConstants'
-import {commonActionCreater} from '../../Redux/commonAction'
+import { commonActionCreater } from '../../Redux/commonAction'
 /* Components */
 import CardTable from '../../Global/CardTable/CardTable';
 import Button from '@material-ui/core/Button';
@@ -94,6 +94,8 @@ class LoanRequestsContainer extends React.PureComponent {
         reqObj.interestRate = _get(this.props, `loanData[${index}].interestRate`);
         reqObj.term = _get(this.props, `loanData[${index}].term`);
         reqObj.timeFrame = _get(this.props, `loanData[${index}].timeFrame`);
+        reqObj.fundAllocation = _get(this.props, `loanData[${index}].fundAllocation`);
+
 
 
 
@@ -107,25 +109,69 @@ class LoanRequestsContainer extends React.PureComponent {
                 success: 'CreateLoan_success',
                 error: 'CreateLoan_error',
                 identifier: 'CreateLoan_init'
-            }
+            },
+            successCb:this.basicDataFetcher
         })
 
     }
 
-    handleEdit=(data,index)=>
-    {
+    handleEdit = (data, index) => {
         this.props.dispatch(commonActionCreater({
             reqID: _get(this.props, `loanData[${index}].id`)
         }, 'SAVE_FUND_REQ_ID'));
         this.props.history.push('/LoanRequest/create');
     }
+
+    handleCloseRequest=(data,index)=>
+    {
+        let reqObj = {};
+        reqObj.id = _get(this.props, `loanData[${index}].id`);
+        let $class = _get(this.props, `loanData[${index}].$class`);
+        let $classarr = $class.split('.');
+        reqObj.fundType = $classarr[$classarr.length - 1];
+        reqObj.comment = 'some dummy comment';
+        PostData({
+            dispatch: this.props.dispatch,
+            reqObj,
+            url: '/api/CloseFund',
+            successText: 'Suspended succesfully',
+            constants: {
+                init: 'suspendloan_init',
+                success: 'suspendloan_success',
+                error: 'suspendloan_error',
+                identifier: 'suspendloan_init'
+            },
+            successCb:this.basicDataFetcher
+        })
+    }
+    handleSuspend = (data, index) => {
+        let reqObj = {};
+        reqObj.id = _get(this.props, `loanData[${index}].id`);
+        let $class = _get(this.props, `loanData[${index}].$class`);
+        let $classarr = $class.split('.');
+        reqObj.fundType = $classarr[$classarr.length - 1];
+        reqObj.comment = 'some dummy comment';
+        PostData({
+            dispatch: this.props.dispatch,
+            reqObj,
+            url: '/api/SuspendFund',
+            successText: 'Suspended succesfully',
+            constants: {
+                init: 'suspendloan_init',
+                success: 'suspendloan_success',
+                error: 'suspendloan_error',
+                identifier: 'suspendloan_init'
+            },
+            successCb:this.basicDataFetcher
+        })
+    }
     onShowSizeChange = (current, pageSize) => {
         console.log(current, 'current');
         console.log(pageSize);
     }
-
     onPageChange = (current, pageSize) => {
         console.log('onChange:current=', current);
+
         console.log('onChange:pageSize=', pageSize);
     }
     render() {
@@ -189,7 +235,7 @@ function mapStateToProps(state) {
             Amount: `${_get(data, 'moneyRange.minAmount')} - ${_get(data, 'moneyRange.maxAmount')}`,
             Currency: `${_get(data, 'moneyRange.currency')}`,
             Time: `${data.term}yrs`,
-            Region: "N/A",
+            purpose: [_get(data, 'fundAllocation[0].purpose'), _get(data, 'fundAllocation[1].purpose'), _get(data, 'fundAllocation[2].purpose')]
         }
         console.log("TableData obj - ", obj)
         TableData.push(obj)

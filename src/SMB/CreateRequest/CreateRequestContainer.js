@@ -137,7 +137,7 @@ class CreateRequestContainer extends Component {
             reqObj.fundAllocation.push({ purpose: 'Expansion', percentage: parseInt(values.capitalExpensePecentage) })
         }
         if (values.workingCapitalPecentage) {
-            reqObj.fundAllocation.push({ purpose: ',Working Capital', percentage: parseInt(values.workingCapitalPecentage) })
+            reqObj.fundAllocation.push({ purpose: 'Working Capital', percentage: parseInt(values.workingCapitalPecentage) })
         }
         if (values.refinancingPecentage) {
             reqObj.fundAllocation.push({ purpose: 'Refinancing', percentage: parseInt(values.refinancingPecentage) })
