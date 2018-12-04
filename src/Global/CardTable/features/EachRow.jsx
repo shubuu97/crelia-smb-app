@@ -2,27 +2,80 @@ import React, { Component } from 'react';
 import _get from 'lodash/get';
 /* Material Imports*/
 import Button from '@material-ui/core/Button';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem'
 /* Redux Imports */
 import { connect } from 'react-redux';
 
-let PopulateRows = (props) => {
-    let data = _get(props, "rows", {});
-    let rows = Object.keys(data).map((keyname, index) => {
-        if (keyname != "extendedRow")
-            return (
-                <div key={index} className="data-col">{data[keyname]}</div>
+
+
+class PopulateRows extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            anchorEl: null,
+            open: false
+        }
+    }
+
+    handleClick = event => {
+        this.setState({ open: true, anchorEl: event.currentTarget });
+    };
+
+    handleMenuClick=(actionEvent,data,index)=>
+    {
+    return (event)=>
+    {
+    actionEvent(data,this.props.rowId);
+    this.setState({open:false});
+    }
+    }
+    render() {
+        let data = _get(this.props, "rows", {});
+        let rows = Object.keys(data).map((keyname, index) => {
+            if (keyname != "extendedRow")
+                return (
+                    <div key={index} className="data-col">{data[keyname]}</div>
+                )
+        })
+        if (this.props.actions) {
+            rows.push(
+                <div className="data-col">
+                    <Button onClick={this.handleClick} >...</Button>
+                    <Menu
+                        id="simple-menu"
+                        anchorEl={this.state.anchorEl}
+                        open={this.state.open}
+                        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                        transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'center',
+                        }}
+                        onRequestClose={this.handleRequestClose}
+
+
+                    >
+                        {this.props.actionData.map((actionData, index) => {
+                           return( <MenuItem key={index} onClick={
+                               this.handleMenuClick(actionData.actionEvent,data,index)
+                               }>
+                                {actionData.Text}
+                            </MenuItem>)
+                        })}
+                        
+</Menu>
+                </div>
             )
-    })
-    if (props.actions) {
-        rows.push(
-            <div className="data-col">
-                <Button>Make Offer</Button>
-            </div>
+        }
+        return (
+            <React.Fragment>
+
+                {rows}
+
+
+            </React.Fragment>
         )
     }
-    return (
-            rows
-    )
 }
 
 let PopulateExtendedRows = (props) => {
@@ -65,12 +118,12 @@ class EachRow extends Component {
         const props = this.props;
         return (
             <div className="longCard" onClick={this.props.onClick}>
-            <div className="table-col">
-                {/* Card Rows */}
-                <PopulateRows
-                    {...this.props}
-                />
-            </div>
+                <div className="table-col">
+                    {/* Card Rows */}
+                    <PopulateRows
+                        {...this.props}
+                    />
+                </div>
                 {/* When Extended card view */}
                 {
                     props.isExtended ?

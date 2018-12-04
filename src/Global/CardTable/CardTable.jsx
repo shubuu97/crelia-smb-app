@@ -129,7 +129,6 @@ class LongCard extends Component {
     }
 
     componentDidMount() {
-        this.populateHeading();
         this.toggleExtendedStateUpdate();
     }
 
@@ -145,25 +144,6 @@ class LongCard extends Component {
         })
     }
 
-    /* Isolating Heading Data and saving in State */
-    /* Headings are pulled from first group of DataSet removing extendedData and adding actions if prompted */
-    populateHeading = () => {
-        let allData = _get(this, "props.data[0]", {})
-        let headingData = Object.keys(allData).filter((keyname) => {
-            if (keyname != "extendedRow") {
-                return true
-            }
-            return false
-        })
-        if (this.props.actions) {
-            headingData.push("Actions");
-        }
-        console.log("headingData - " + headingData);
-        this.setState({
-            headingData: headingData
-        })
-    }
-
     /* Isolating Row data and generating EachRow components */
     populateRows = () => {
         let allData = _get(this, "props.data", []);
@@ -171,6 +151,8 @@ class LongCard extends Component {
         let Rows = allData.map((data, index) => {
             return (
                 <EachRow
+                    rowId={index}
+                    actionData={this.props.actionData}
                     rows={data}
                     actions={this.props.actions}
                     isExtended={this.state.toggleExtendedState[index]}
@@ -236,7 +218,7 @@ class LongCard extends Component {
                     <div className="custom-table">
                         {/* Heading */}
                         <Heading
-                            headingData={this.state.headingData}
+                            headingData={this.props.headingData}
                         />
                         {this.populateRows()}
                     </div>

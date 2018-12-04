@@ -11,7 +11,8 @@ import showMessage from '../../Redux/toastAction';
 import { getData } from '../../Redux/getAction';
 import { APPLICATION_BFF_URL } from '../../Redux/urlConstants'
 /* Components */
-import CardTable from '../../Global/CardTable/CardTable'
+import CardTable from '../../Global/CardTable/CardTable';
+import Button from '@material-ui/core/Button'
 
 var jwtDecode = require('jwt-decode');
 
@@ -84,14 +85,25 @@ class LoanRequestsContainer extends React.PureComponent {
             })
         )
     }
-
+    handleSendToApproval=(data,index)=>
+    {
+        console.log(data,index,"data is here")
+    }
     render() {
         const props = this.props;
         return (
             <div>
+
                 {/* Card Rows */}
+                <Button
+                onClick={()=>this.props.history.push('LoanRequest/create')}
+                color='primary'
+                variant='contained'
+                >Create Request</Button>
                 <CardTable
-                    data={dummyData1}
+                    actionData = {[{Text:'Send To Approval',actionEvent:this.handleSendToApproval},{Text:'Edit',actionEvent:this.handleEdit},{Text:'Suspend',actionEvent:this.handleSuspend},{Text:'Close Request',actionEvent:this.handleCloseRequest}]}
+                    headingData = {['Status','Amount','Currency','Term and Time frame','Purpose Of loan','Action']}
+                    data={this.props.TableData}
                     actions={true}
                     isExtended={true}
                     filter={false}
@@ -104,24 +116,22 @@ class LoanRequestsContainer extends React.PureComponent {
 
 function mapStateToProps(state) {
 
-    let loanData = _get(state, "LoanRequest.lookUpData", []);
+    let loanData = _get(state, "LoanRequest.lookUpData.rows", []);
     console.log("loanData - ", loanData)
 
-    let rawData = _get(this, "props.loanData", [])
     let TableData = []
-    // loanData.map((data, index) => {
-    //     console.log("TableData data - ", data)
-    //     let obj = {
-    //         CompanyName: "N/A",
-    //         Amount: `${data.moneyRange.minAmount} - ${data.moneyRange.maxAmount}`,
-    //         Currency: `${data.moneyRange.currency}`,
-    //         Time: `${data.term}yrs`,
-    //         Region: "N/A",
-    //         Sector: "N/A",
-    //     }
-    //     console.log("TableData obj - ", obj)
-    //     TableData.push(obj)
-    // })
+    loanData.map((data, index) => {
+        console.log("TableData data - ", data)
+        let obj = {
+            status: "N/A",
+            Amount: `${data.moneyRange.minAmount} - ${data.moneyRange.maxAmount}`,
+            Currency: `${data.moneyRange.currency}`,
+            Time: `${data.term}yrs`,
+            Region: "N/A",
+        }
+        console.log("TableData obj - ", obj)
+        TableData.push(obj)
+    })
 
     console.log("TableData - ", TableData)
 
