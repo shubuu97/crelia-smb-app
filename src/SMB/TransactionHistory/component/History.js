@@ -24,7 +24,7 @@ export default class History extends Component {
         super(props);
         this.state = {
             openModal: false,
-            companyDetails:{}
+            companyDetails: {}
         }
 
     }
@@ -41,7 +41,7 @@ export default class History extends Component {
 
         }).then((data) => {
             console.log(data, "data")
-            this.setState({ openModal: !this.state.openModal,companyDetails:_get(data,'eventsEmitted[0].company') })
+            this.setState({ openModal: !this.state.openModal, companyDetails: _get(data, 'eventsEmitted[0].company') })
         })
     }
 
@@ -55,8 +55,20 @@ export default class History extends Component {
 
                 <div className='longCard'
                     onClick={() => this.handleFetchTransaction()}>
-                    <span>{_get(eventsEmitted, 'eventName')}</span>
-                    <span>{moment(_get(this.props, 'ProfileHistory.transactionTimestamp')).format('DD-MM-YYYY,h:mm:ss a')}</span>
+                    <div>
+                        <div>
+                            <span>Event Name-</span>
+                            <span>{_get(eventsEmitted, 'eventName')}</span>
+                        </div>
+                        <div>
+                            <span>Transaction Date-</span>
+                            <span>{moment(_get(this.props, 'ProfileHistory.transactionTimestamp')).format('DD-MM-YYYY,h:mm:ss a')}</span>
+                        </div>
+                        <div>
+                            <span>Transaction ID-</span>
+                            <span>{_get(this.props, 'ProfileHistory.transactionId')}</span>
+                        </div>
+                    </div>
                 </div>
                 {/* <Dialog
                     open={this.state.openModal}
@@ -77,9 +89,9 @@ export default class History extends Component {
                     </DialogActions>
                 </Dialog> */}
 
-             {this.state.openModal?<ReviewCOBInfoContainer
-             fetchFromProp={true}
-             companyDetailsProp={this.state.companyDetails}/>:null}
+                {this.state.openModal ? <ReviewCOBInfoContainer
+                    fetchFromProp={true}
+                    companyDetailsProp={this.state.companyDetails} /> : null}
 
             </div>
 

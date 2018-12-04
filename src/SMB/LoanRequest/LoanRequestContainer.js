@@ -185,7 +185,7 @@ function mapStateToProps(state) {
     loanData.map((data, index) => {
         console.log("TableData data - ", data)
         let obj = {
-            status: "N/A",
+            status: data.status,
             Amount: `${_get(data, 'moneyRange.minAmount')} - ${_get(data, 'moneyRange.maxAmount')}`,
             Currency: `${_get(data, 'moneyRange.currency')}`,
             Time: `${data.term}yrs`,

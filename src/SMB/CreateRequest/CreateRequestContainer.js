@@ -43,7 +43,7 @@ class CreateRequestContainer extends Component {
             debugger;
             genericGetData({
                 dispatch: this.props.dispatch,  
-                url: `api/Loan/${encodeURIComponent(this.props.fundId)}`,
+                url: `/api/Loan/${encodeURIComponent(this.props.fundId)}`,
                 constant: {
                     init: 'loan_id_init',
                     success: 'loan_id_success',
