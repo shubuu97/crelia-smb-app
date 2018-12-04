@@ -184,16 +184,6 @@ class LongCard extends Component {
         })
     }
 
-    onShowSizeChange = (current, pageSize) => {
-        console.log(current);
-        console.log(pageSize);
-    }
-
-    onChange = (current, pageSize) => {
-        console.log('onChange:current=', current);
-        console.log('onChange:pageSize=', pageSize);
-    }
-
     render() {
         const props = this.props;
         console.log("CardTable states - ", this.state);
@@ -224,8 +214,8 @@ class LongCard extends Component {
                     </div>
 
                     <Pagination
-                        onShowSizeChange={this.onShowSizeChange}
-                        onChange={this.onChange}
+                        onShowSizeChange={this.props.onShowSizeChange}
+                        onChange={this.props.onPageChange}
                         total={30}
 
                     />

@@ -13,6 +13,10 @@ import BasicInfo from '../COMMON/Authorization/Reducer/basicData';
 import SetPassword from '../COMMON/Authorization/Reducer/setPassword';
 /* SMB Reducers*/
 
+//static Reducer
+
+import staticReducers from './staticReducers'
+
 /* COMMON Reducers*/ 
 import parseDataFun from './commonReducer'
 import CobPostFun from './commonReducer';
@@ -65,7 +69,8 @@ let rootRducer = combineReducers({
     CreateLoan,
     ProfileHistory,
     TransactionDetails,
-    LoanRequest
+    LoanRequest,
+    staticReducers
 })
 
 export default rootRducer;

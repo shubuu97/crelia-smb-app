@@ -47,7 +47,11 @@ class Header extends React.Component {
     handleRequestClose = () => {
         this.setState({ open: false });
     };
+    handleRequestClose=()=>
+    {
+        this.setState({ open: false });
 
+    }
 
     render() {
         const { classes } = this.props;

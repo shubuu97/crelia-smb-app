@@ -225,8 +225,8 @@ function mapStateToProps(state) {
             return _find(legalEntities, { value: legalEntityType })
 
         })
-        legalEntityList = filteredEntity[0].legalEntities;
-        region = filteredEntity[0].regionName;
+        legalEntityList = _get(filteredEntity[0],'legalEntities',[]);
+        region =   _get(filteredEntity[0],'regionName',[]);
     }
 
     //assigning the values to  initialValues variable so redux form can show values into fields

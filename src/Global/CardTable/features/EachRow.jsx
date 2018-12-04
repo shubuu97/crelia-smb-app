@@ -6,6 +6,8 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem'
 /* Redux Imports */
 import { connect } from 'react-redux';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+
 
 
 
@@ -14,7 +16,8 @@ class PopulateRows extends Component {
         super(props);
         this.state = {
             anchorEl: null,
-            open: false
+            open: false,
+            hoverEvent:false
         }
     }
 
@@ -22,13 +25,14 @@ class PopulateRows extends Component {
         this.setState({ open: true, anchorEl: event.currentTarget });
     };
 
-    handleMenuClick=(actionEvent,data,index)=>
-    {
-    return (event)=>
-    {
-    actionEvent(data,this.props.rowId);
-    this.setState({open:false});
+    handleMenuClick = (actionEvent, data, index) => {
+        return (event) => {
+            actionEvent(data, this.props.rowId);
+            this.setState({ open: false });
+        }
     }
+    handleRequestClose = () => {
+        this.setState({ open: false })
     }
     render() {
         let data = _get(this.props, "rows", {});
@@ -41,29 +45,38 @@ class PopulateRows extends Component {
         if (this.props.actions) {
             rows.push(
                 <div className="data-col">
-                    <Button onClick={this.handleClick} >...</Button>
-                    <Menu
-                        id="simple-menu"
-                        anchorEl={this.state.anchorEl}
-                        open={this.state.open}
-                        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-                        transformOrigin={{
-                            vertical: 'top',
-                            horizontal: 'center',
-                        }}
-                        onRequestClose={this.handleRequestClose}
+                    <ClickAwayListener onClickAway={this.handleRequestClose}>
+
+                        <Button
+                        onMouseOver={
+                            this.props.handleOnMouseOver
+                        }
+                        onMouseOut={this.props.handleOnMouseOut}
+                        onClick={this.handleClick} >...</Button>
+                        <Menu
+                            id="simple-menu"
+                            anchorEl={this.state.anchorEl}
+                            open={this.state.open}
+                            anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'center',
+                            }}
+                            onRequestClose={this.handleRequestClose}
 
 
-                    >
-                        {this.props.actionData.map((actionData, index) => {
-                           return( <MenuItem key={index} onClick={
-                               this.handleMenuClick(actionData.actionEvent,data,index)
-                               }>
-                                {actionData.Text}
-                            </MenuItem>)
-                        })}
-                        
-</Menu>
+                        >
+                            {this.props.actionData.map((actionData, index) => {
+                                return (<MenuItem key={index} onClick={
+                                    this.handleMenuClick(actionData.actionEvent, data, index)
+                                }>
+                                    {actionData.Text}
+                                </MenuItem>)
+                            })}
+
+                        </Menu>
+                    </ClickAwayListener>
+
                 </div>
             )
         }
@@ -71,6 +84,7 @@ class PopulateRows extends Component {
             <React.Fragment>
 
                 {rows}
+
 
 
             </React.Fragment>
@@ -108,10 +122,23 @@ class EachRow extends Component {
 
     constructor() {
         super();
+        this.state = {
+            hoverEvent:false
+        }
     }
 
     extendedData = (props) => {
 
+    }
+
+    handleOnMouseOver=()=>
+    {
+        debugger;
+        this.setState({hoverEvent:true})
+    }
+    handleOnMouseOut=()=>
+    {
+        this.setState({hoverEvent:false})
     }
 
     render() {
@@ -126,8 +153,10 @@ class EachRow extends Component {
                 </div>
                 {/* When Extended card view */}
                 {
-                    props.isExtended ?
+                    props.isExtended&&!this.state.hoverEvent ?
                         <PopulateExtendedRows
+                        handleOnMouseOver={this.handleOnMouseOver}
+                        handleOnMouseOut={this.handleOnMouseOut}
                             {...this.props}
                         />
                         :
