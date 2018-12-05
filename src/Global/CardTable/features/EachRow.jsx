@@ -34,12 +34,44 @@ class PopulateRows extends Component {
     handleRequestClose = () => {
         this.setState({ open: false })
     }
+    chooseColor = (status) => {
+        let statusIconColor = '';
+        switch (status) {
+            case 'ACTIVE': {
+                statusIconColor = '#008000';
+                break;
+            }
+            // case 'BLOCKED': {
+            //     statusIconColor = '#ff0000';
+            //     break;
+            // }
+            // case 'DELETED': {
+            //     statusIconColor = '#D3D3D3';
+            //     break;
+            // }
+            case 'DRAFT': {
+                statusIconColor = '#ADFF2F';
+                break;
+            }
+            case 'default': {
+    
+            }
+        }
+       return  statusIconColor
+    }
+    
     render() {
         let data = _get(this.props, "rows", {});
         let rows = Object.keys(data).map((keyname, index) => {
             if (keyname != "extendedRow")
                 return (
-                    <div key={index} className="data-col">{data[keyname]}</div>
+                    <div key={index} className="data-col">
+                    {keyname=='status'?
+                    <svg style={{ width: '12px', height: '12px' }} viewBox="0 0 24 24">
+                <path fill={this.chooseColor(data[keyname])} d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
+            </svg>:null}
+
+                    {data[keyname]}</div>
                 )
         })
         if (this.props.actions) {

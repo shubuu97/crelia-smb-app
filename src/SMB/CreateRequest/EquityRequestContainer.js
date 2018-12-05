@@ -113,8 +113,8 @@ class EquityRequest extends Component {
         console.log(values, "values is here");
         let reqObj = {};
         reqObj.companyId = this.props.companyId;
-        reqObj.lower = _get(values,'lower');
-        reqObj.upper =  _get(values,'upper');
+        reqObj.lowerValue = _get(values,'lowerValue');
+        reqObj.upperValue =  _get(values,'upperValue');
         reqObj.fundAllocation = [];
         reqObj.comment = values.comment;
         reqObj.equityType = "COMMON";
@@ -131,11 +131,11 @@ class EquityRequest extends Component {
 
 
         // logic to add fundallocation array
-        if (values.capitalExpensePecentage) {
-            reqObj.fundAllocation.push({ purpose: 'Expansion', percentage: parseInt(values.capitalExpensePecentage) })
+        if (values.expansionPecentage) {
+            reqObj.fundAllocation.push({ purpose: 'Expansion', percentage: parseInt(values.expansionPecentage) })
         }
-        if (values.refinancingPecentage) {
-            reqObj.fundAllocation.push({ purpose: 'Refinancing', percentage: parseInt(values.refinancingPecentage) })
+        if (values.recapitalizationPecentage) {
+            reqObj.fundAllocation.push({ purpose: 'Recapitalization', percentage: parseInt(values.recapitalizationPecentage) })
         }
         //logic end here
 
@@ -199,7 +199,7 @@ class EquityRequest extends Component {
                                         <FormControl margin="normal" required fullWidth>
                                             <Field
                                                 label="Range From"
-                                                name="lower"
+                                                name="lowerValue"
                                                 component={GlobalTextField}
                                                 fullWidth={true}
                                                 normalize={formatMoney}
@@ -211,7 +211,7 @@ class EquityRequest extends Component {
                                         <FormControl margin="normal" required fullWidth>
                                             <Field
                                                 label="Range To"
-                                                name="upper"
+                                                name="upperValue"
                                                 component={GlobalTextField}
                                                 fullWidth={true}
                                                 normalize={formatMoney}
@@ -299,7 +299,7 @@ class EquityRequest extends Component {
 
                                 <div className="row">
                                     <div className="col-sm-8">
-                                        {_get(this.props, 'formValues.upperValue', 0) > 10 ?
+                                        {_get(this.props, 'formValues.upperValueValue', 0) > 10 ?
                                             <FormControl margin="normal" required fullWidth>
                                                 <Field
                                                     label='Are you willing to offer Board Membership to lead investor?'

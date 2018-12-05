@@ -92,12 +92,12 @@ class LoanRequestsContainer extends React.PureComponent {
         let url
         reqObj.companyId = this.props.companyId;
         reqObj.id = _get(this.props, `loanData[${index}].id`);
-        // reqObj.moneyRange = _get(this.props, `loanData[${index}].moneyRange`);
-        // reqObj.interestRateType = _get(this.props, `loanData[${index}].interestRateType`);
-        // reqObj.interestRate = _get(this.props, `loanData[${index}].interestRate`);
-        // reqObj.term = _get(this.props, `loanData[${index}].term`);
-        // reqObj.timeFrame = _get(this.props, `loanData[${index}].timeFrame`);
-        // reqObj.fundAllocation = _get(this.props, `loanData[${index}].fundAllocation`);
+        reqObj.moneyRange = _get(this.props, `loanData[${index}].moneyRange`);
+        reqObj.interestRateType = _get(this.props, `loanData[${index}].interestRateType`);
+        reqObj.interestRate = _get(this.props, `loanData[${index}].interestRate`);
+        reqObj.term = _get(this.props, `loanData[${index}].term`);
+        reqObj.timeFrame = _get(this.props, `loanData[${index}].timeFrame`);
+        reqObj.fundAllocation = _get(this.props, `loanData[${index}].fundAllocation`);
 
      let fundType =  this.getFundType(_get(this.props, `loanData[${index}].$class`));
      if(fundType=='Equity')
@@ -196,6 +196,31 @@ class LoanRequestsContainer extends React.PureComponent {
         let fundType = $classarr[$classarr.length - 1];
         return fundType
     }
+    chooseColor = (status) => {
+        let statusIconColor = '';
+        switch (status) {
+            case 'ACTIVE': {
+                statusIconColor = '#008000';
+                break;
+            }
+            // case 'BLOCKED': {
+            //     statusIconColor = '#ff0000';
+            //     break;
+            // }
+            // case 'DELETED': {
+            //     statusIconColor = '#D3D3D3';
+            //     break;
+            // }
+            case 'DRAFT': {
+                statusIconColor = '#ADFF2F';
+                break;
+            }
+            case 'default': {
+    
+            }
+        }
+       return  statusIconColor
+    }
     render() {
         const props = this.props;
         return (
@@ -237,6 +262,8 @@ class LoanRequestsContainer extends React.PureComponent {
                     filter={false}
                     onShowSizeChange={this.onShowSizeChange}
                     onPageChange={this.onPageChange}
+                    chooseColor={this.chooseColor}
+
                 />
             </div>
         )
