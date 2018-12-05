@@ -89,12 +89,13 @@ class PopulateRows extends Component {
                         onClick={this.props.editAction.actionEvent} >{this.props.editAction.Text}</span>:null}
                     <ClickAwayListener onClickAway={this.handleRequestClose}>
 
-                        <Button
+                        <span
+                        className="more-icon"
                         onMouseOver={
                             this.props.handleOnMouseOver
                         }
                         onMouseOut={this.props.handleOnMouseOut}
-                        onClick={this.handleClick} >...</Button>
+                        onClick={this.handleClick} >...</span>
                         <Menu
                             id="simple-menu"
                             anchorEl={this.state.anchorEl}
