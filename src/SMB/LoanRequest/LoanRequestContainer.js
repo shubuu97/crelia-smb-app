@@ -342,7 +342,12 @@ function mapStateToProps(state) {
     let companyId = _get(state, 'BasicInfo.lookUpData.companyDetails.id', null);
 
     loanData.map((data, index) => {
-        console.log("TableData data - ", data)
+        console.log("TableData data - ", data);
+        let time = _get(data, 'term', '-')
+        if(time != '-'){
+            time = time + " year"
+            
+        }
         let obj = {
             status: {
                 offerCount: _get(data, 'offerCount', ''),
@@ -350,7 +355,7 @@ function mapStateToProps(state) {
             },
             Amount: `${_get(data, 'moneyRange.minAmount')} - ${_get(data, 'moneyRange.maxAmount')}`,
             Currency: `${_get(data, 'moneyRange.currency')}`,
-            Time: `${_get(data,'term','-')} years`,
+            Time:time,
             purpose: [_get(data, 'fundAllocation[0].purpose', ''), _get(data, 'fundAllocation[1].purpose', ''), _get(data, 'fundAllocation[2].purpose', '')],
         }
         console.log("TableData obj - ", obj);
