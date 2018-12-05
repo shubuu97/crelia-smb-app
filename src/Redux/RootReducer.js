@@ -13,8 +13,7 @@ import BasicInfo from '../COMMON/Authorization/Reducer/basicData';
 import SetPassword from '../COMMON/Authorization/Reducer/setPassword';
 /* SMB Reducers*/
 
-//static Reducer
-
+/* Static Reducer */
 import staticReducers from './staticReducers'
 
 /* COMMON Reducers*/ 
