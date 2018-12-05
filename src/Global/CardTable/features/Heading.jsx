@@ -15,7 +15,10 @@ class Heading extends Component {
     }
 
     componentDidMount(){
+        if(!this.props.hideHeader)
         var height = document.getElementById('table-heading').clientHeight;
+        else
+        var height = 0;
         this.setState({
             top : height
         })

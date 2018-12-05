@@ -4,9 +4,12 @@ import _get from 'lodash/get';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem'
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 /* Redux Imports */
 import { connect } from 'react-redux';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import Badge from '@material-ui/core/Badge'
+
+
 
 
 class PopulateRows extends Component {
@@ -15,7 +18,7 @@ class PopulateRows extends Component {
         this.state = {
             anchorEl: null,
             open: false,
-            hoverEvent: false,
+            hoverEvent: false
         }
     }
 
@@ -35,60 +38,109 @@ class PopulateRows extends Component {
     chooseColor = (status) => {
         let statusIconColor = '';
         switch (status) {
-            case 'ACTIVE': {
-                statusIconColor = '#008000';
-                break;
-            }
-            // case 'BLOCKED': {
-            //     statusIconColor = '#ff0000';
-            //     break;
-            // }
-            // case 'DELETED': {
-            //     statusIconColor = '#D3D3D3';
-            //     break;
-            // }
-            case 'DRAFT': {
-                statusIconColor = '#ADFF2F';
-                break;
-            }
-            case 'default': {
-
-            }
+                case 'ACTIVE': {
+                    return statusIconColor = '#32CD32' //Light Green   
+                }
+                case 'DECLINED': {
+                    return statusIconColor = '#ff0000'; //Red
+                }
+                case 'SUSPENDED': {
+                    return statusIconColor = '#FFFF00'; // Yellow    
+                }
+                case 'DRAFT': {
+                    return statusIconColor = '#DCDCDC'; // Light Grey  
+                }
+                case 'PENDING': {
+                    return statusIconColor = '#A9A9A9'// Dark light Grey 
+                }
+                case 'OFFERED': {
+                    return statusIconColor = '#008000'; //Green
+                }
+                case 'CLOSED': {
+                    return statusIconColor = '#000000'; //Black
+                }
+                case 'GRANTED': {
+                    return statusIconColor = '#0000ff'; //Blue
+                }
+                case 'BLOCKED': {
+                    return statusIconColor = '#ff0000'; //Red
+                }
+                case 'GRANTED': {
+                    return statusIconColor = '#0000ff'; //Blue
+                }
+                case 'POSTED': {
+                    return statusIconColor = '#008000'; //Green
+                }
+                case 'DELETED': {
+                    return statusIconColor = '#A9A9A9'; //Dark light Grey
+                }
+                case 'default': {
+                    return '#000000';
+                }
+            
         }
-        return statusIconColor
     }
 
     render() {
         let data = _get(this.props, "rows", {});
         let rows = Object.keys(data).map((keyname, index) => {
-            if (keyname != "extendedRow")
-                return (
-                    <div key={index} className="data-col">
-                        {keyname == 'status' ?
-                            <svg style={{ width: '12px', height: '12px' }} viewBox="0 0 24 24">
-                                <path fill={this.chooseColor(data[keyname])} d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
-                            </svg> : null}
+            if (keyname != "extendedRow") {
+                if (typeof data[keyname] != 'object') {
+                    return <div key={index} className="data-col">{data[keyname]}</div>
+                }
+                else {
+                    if (Array.isArray(data[keyname])) {
+                        return <div className="data-col"
 
-                        {data[keyname]}</div>
-                )
+                        >{data[keyname]}</div>
+                    }
+                    return <div
+                        onClick={() => data.status.offerCount ? this.props.openOfferModal(data, this.props.rowId) : null}
+                        style={data.status.offerCount ? { cursor: 'pointer' } : null} key={index} className="data-col">
+                        <svg style={{ width: '12px', height: '12px' }} viewBox="0 0 24 24">
+                            <path fill={this.chooseColor(data.status.status)} d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
+                        </svg>
+                        <span>&nbsp;{data.status.status}</span>
+                        {data.status.offerCount ? <div className="data-badge"><Badge badgeContent={data.status.offerCount} color="primary"> </Badge>
+                        </div> : null}
+                    </div>
+                }
+            }
+
+            // return (
+
+
+            //     <div key={index} className="data-col">
+            //         {keyname == 'status' ?
+            //             <svg style={{ width: '12px', height: '12px' }} viewBox="0 0 24 24">
+            //                 <path fill={this.chooseColor(data[keyname])} d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
+            //             </svg> : null}
+
+            //         {keyname == 'status' ? <span>&nbsp;</span> : null}
+
+            //         {keyname == 'status' ? null : data[keyname]}
+
+            //         {keyname == 'status' ? <div className="data-badge"><Badge badgeContent={data['offerCount']} color="primary">
+
+            //         </Badge></div>
+            //             : null}
+
+            //     </div>
+            // )
         })
         if (this.props.actions) {
             rows.push(
                 <div className="data-col">
 
-                    {
-                        this.props.editAction ?
-                            <span
-                                title='edit'
-                                className='edit-icon'
-                                onMouseOver={
-                                    this.props.handleOnMouseOver
-                                }
-                                onMouseOut={this.props.handleOnMouseOut}
-                                onClick={this.props.editAction.actionEvent} >
-                                {this.props.editAction.Text}
-                            </span> : null
-                    }
+                    {this.props.editAction ?
+                        <span
+                            title='edit'
+                            className='edit-icon'
+                            onMouseOver={
+                                this.props.handleOnMouseOver
+                            }
+                            onMouseOut={this.props.handleOnMouseOut}
+                            onClick={this.handleMenuClick(this.props.editAction.actionEvent, data)} >{this.props.editAction.Text}</span> : null}
                     <ClickAwayListener onClickAway={this.handleRequestClose}>
 
                         <span
@@ -121,12 +173,17 @@ class PopulateRows extends Component {
 
                         </Menu>
                     </ClickAwayListener>
+
                 </div>
             )
         }
         return (
             <React.Fragment>
+
                 {rows}
+
+
+
             </React.Fragment>
         )
     }
@@ -136,10 +193,9 @@ let PopulateExtendedRows = (props) => {
     let data = _get(props, "rows.extendedRow", {});
     let rows = []
     rows = Object.keys(data).map((keyname, index) => {
-        let key = keyname.replace(/([a-z])([A-Z])/g, '$1 $2');
         return (
             <div key={index} className="mb-10">
-                <span className="title-text"> {key} : </span>
+                <span className="title-text"> {keyname} : </span>
                 <span className="primary-text">{data[keyname]}</span>
             </div>
         )
@@ -171,7 +227,9 @@ class EachRow extends Component {
     extendedData = (props) => {
 
     }
+
     handleOnMouseOver = () => {
+        debugger;
         this.setState({ hoverEvent: true })
     }
     handleOnMouseOut = () => {
@@ -200,9 +258,11 @@ class EachRow extends Component {
                         null
                 }
             </div>
+
         )
     }
 }
+
 
 function mapStateToProps(state) {
 

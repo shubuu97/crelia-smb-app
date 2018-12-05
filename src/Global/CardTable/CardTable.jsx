@@ -185,6 +185,7 @@ class CardTable extends Component {
                     height="69px"
                     getHeight={this.getHeight}
                     editAction={this.props.editAction}
+                    openOfferModal={this.props.openOfferModal}
                 />
             )
         })
@@ -214,6 +215,7 @@ class CardTable extends Component {
         const props = this.props;
         return (
             <div className="loan-request">
+            {!this.props.hideHeader ?
                 <div className="title-btn sticky " id="table-heading">
                     <h1>{this.props.title}</h1>
                     <div>
@@ -229,7 +231,7 @@ class CardTable extends Component {
                             Create Request
                         </Button>
                     </div>
-                </div>
+                </div>: <div id="table-heading"></div>}
                 <div>
                     {
                         this.state.filterPanelToggle ?
@@ -243,6 +245,7 @@ class CardTable extends Component {
                     <div className="custom-table">
                         {/* Heading */}
                         <Heading
+                       hideHeader = { this.props.hideHeader}
                             headingData={_get(this, 'props.headingData', this.state.headingData)}
                         />
                         {this.populateRows()}

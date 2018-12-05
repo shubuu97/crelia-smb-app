@@ -45,11 +45,23 @@ class EquityRequest extends Component {
     componentDidMount() {
         this.getApiCall('reference-service/allowedCurrencies', 'allowedCurrencies');
         if (this.props.fundId) {
-            this.getApiCall(`api/Loan/${encodeURIComponent(this.props.fundId)}`, 'fundDataById').then(data => {
-                this.props.autofill('moneyRange', data.moneyRange);
-                this.props.autofill('interestRate', data.interestRate);
-                this.props.autofill('term', data.term);
+            debugger;
+            this.getApiCall(`api/Equity/${encodeURIComponent(this.props.fundId)}`, 'fundDataById').then(data => {
+                
+                console.log(data,"data")
+                this.props.autofill('money', data.money);
+                this.props.autofill('isBoardMembership', data.isBoardMembership);
+                this.props.autofill('isNationAgreement', data.isNationAgreement);
                 this.props.autofill('timeFrame', data.timeFrame.split('T')[0]);
+                this.props.autofill('isSafeOffering',data.isSafeOffering)
+                this.props.autofill('timeFrame', data.timeFrame.split('T')[0]);
+                this.props.autofill('notSureRange', data.notSureRange);
+                this.props.autofill('lowerValue', parseInt(data.lowerValue));
+                this.props.autofill('upperValue', parseInt(data.upperValue));
+
+                
+
+                
 
 
                 _get(data, 'fundAllocation', []).map((Allocation) => {
@@ -189,8 +201,8 @@ class EquityRequest extends Component {
                                 </div>
                                 </FormSection>
 
-                                {/* Needs css changes here */}
                                 <br />
+                                {/* Needs css changes here */}
                                 <div className="onboarding-sub-title">
                                     What percentage range are you offering for this amount?
                                 </div>
@@ -411,7 +423,7 @@ function mapStateToProps(state) {
         companyId,
         currencyList: _get(state, 'currency.lookUpData', []),
         formValues: getFormValues('createLoanRequest')(state),
-        fundId: _get(state, 'CommonData.fund.reqID', ''),
+        fundId: _get(state, 'staticReducers.fund.reqID', ''),
     }
 
 }

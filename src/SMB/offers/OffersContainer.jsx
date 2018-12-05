@@ -14,17 +14,7 @@ import { commonActionCreater } from '../../Redux/commonAction'
 /* Components */
 import CardTable from '../../Global/CardTable/CardTable';
 import Button from '@material-ui/core/Button';
-import PostData from '../../Global/dataFetch/genericPostData';
-
-//Dialogue import 
-
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import withMobileDialog from '@material-ui/core/withMobileDialog';
-import OffersContainer from '../offers/OffersContainer'
+import PostData from '../../Global/dataFetch/genericPostData'
 
 
 var jwtDecode = require('jwt-decode');
@@ -72,15 +62,14 @@ let dummyData1 = [
     }
 ]
 
-class LoanRequestsContainer extends React.PureComponent {
+class OfferContainer extends React.PureComponent {
 
     constructor() {
         super();
         this.state = {
             tableData: [],
-            first: 0,
-            limit: 10,
-            open: false
+            first:1,
+            limit:10
         }
     }
 
@@ -88,30 +77,14 @@ class LoanRequestsContainer extends React.PureComponent {
         this.basicDataFetcher();
     }
 
-    basicDataFetcher = (first, limit) => {
-
+    basicDataFetcher = () => {
         this.props.dispatch(
-            postData(
-                `${APPLICATION_BFF_URL}/api/fundList`,
-                {
-                    getAll: false,
-                    skip: this.state.first,
-                    limit: this.state.limit
-                },
-                'fetchingOfferData',
-                {
-                    init: 'fetchingLoanRequestData_init',
-                    success: 'fetchingLoanRequestData_success',
-                    error: 'fetchingLoanRequestData_error'
-                }
-        ));
-        // this.props.dispatch(
-        //     getData(`${APPLICATION_BFF_URL}/api/fund?first=${this.state.first}&limit=${this.state.limit}`, 'fetchingLoanRequestData', {
-        //         init: 'fetchingLoanRequestData_init',
-        //         success: 'fetchingLoanRequestData_success',
-        //         error: 'fetchingLoanRequestData_error'
-        //     })
-        // )
+            getData(`${APPLICATION_BFF_URL}/api/offersByFund/${this.props.fundId}`, 'fetchingLoanRequestData', {
+                init: 'OfferData_init',
+                success: 'OfferData_success',
+                error: 'OfferData_error'
+            })
+        )
     }
     handleSendToApproval = (data, index) => {
         console.log(_get(this.props, `loanData[${index}]`), "data is here");
@@ -126,13 +99,15 @@ class LoanRequestsContainer extends React.PureComponent {
         reqObj.timeFrame = _get(this.props, `loanData[${index}].timeFrame`);
         reqObj.fundAllocation = _get(this.props, `loanData[${index}].fundAllocation`);
 
-        let fundType = this.getFundType(_get(this.props, `loanData[${index}].$class`));
-        if (fundType == 'Equity') {
-            url = '/api/SendEquityRequest'
-        }
-        else {
-            url = '/api/SendLoanRequest'
-        }
+     let fundType =  this.getFundType(_get(this.props, `loanData[${index}].$class`));
+     if(fundType=='Equity')
+     {
+        url = '/api/SendEquityRequest'
+     }
+     else
+     {
+         url = '/api/SendLoanRequest'
+     }
 
 
         PostData({
@@ -146,39 +121,20 @@ class LoanRequestsContainer extends React.PureComponent {
                 error: 'CreateLoan_error',
                 identifier: 'CreateLoan_init'
             },
-            successCb: this.basicDataFetcher
+            successCb:this.basicDataFetcher
         })
 
     }
 
-    openOfferModal = (data, index) => {
-
-        this.props.dispatch(commonActionCreater({
-            reqID: _get(this.props, `loanData[${index}].id`)
-        }, 'SAVE_FUND_REQ_ID'));
-        this.setState({open:true})
-
-    }
-
-
     handleEdit = (data, index) => {
-        console.log(index, "ff");
-        console.log(this.props.loanData)
         this.props.dispatch(commonActionCreater({
             reqID: _get(this.props, `loanData[${index}].id`)
         }, 'SAVE_FUND_REQ_ID'));
-        console.log(_get(this.props, `loanData[${index}]`));
-        let $class = _get(this.props, `loanData[${index}].$class`);
-        let fundType = this.getFundType($class);
-        if (fundType == 'Equity') {
-            this.props.history.push('/LoanRequest/Equitycreate');
-        }
-        else {
-            this.props.history.push('/LoanRequest/create');
-        }
+        this.props.history.push('/LoanRequest/create');
     }
 
-    handleCloseRequest = (data, index) => {
+    handleCloseRequest=(data,index)=>
+    {
         let reqObj = {};
         reqObj.id = _get(this.props, `loanData[${index}].id`);
         let $class = _get(this.props, `loanData[${index}].$class`);
@@ -196,7 +152,7 @@ class LoanRequestsContainer extends React.PureComponent {
                 error: 'suspendloan_error',
                 identifier: 'suspendloan_init'
             },
-            successCb: this.basicDataFetcher
+            successCb:this.basicDataFetcher
         })
     }
     handleSuspend = (data, index) => {
@@ -217,31 +173,28 @@ class LoanRequestsContainer extends React.PureComponent {
                 error: 'suspendloan_error',
                 identifier: 'suspendloan_init'
             },
-            successCb: this.basicDataFetcher
+            successCb:this.basicDataFetcher
         })
     }
     onShowSizeChange = (current, pageSize) => {
-        this.state.first = (((current - 1) * (pageSize)) + 1) - 1;
-        this.state.limit = pageSize;
+        this.state.first = ((current-1)*(pageSize))+1;
+        this.state.limit=pageSize;
         this.basicDataFetcher();
-        this.setState({ first: this.state.first, limit: this.state.limit })
+        this.setState({first:this.state.first,limit:this.state.limit})
 
     }
     onPageChange = (current, pageSize) => {
-        this.state.first = (((current - 1) * (pageSize)) + 1) - 1;
-        this.state.limit = pageSize;
+        this.state.first =  ((current-1)*(pageSize))+1;
+        this.state.limit=pageSize;
         this.basicDataFetcher();
-        this.setState({ first: this.state.first, limit: this.state.limit })
+        this.setState({first:this.state.first,limit:this.state.limit})
     }
 
-    getFundType = ($class) => {
+    getFundType=($class)=>
+    {
         let $classarr = $class.split('.');
         let fundType = $classarr[$classarr.length - 1];
         return fundType
-    }
-    handleClose=()=>
-    {
-        this.setState({open:false})
     }
     chooseColor = (status) => {
         let statusIconColor = '';
@@ -263,10 +216,19 @@ class LoanRequestsContainer extends React.PureComponent {
                 break;
             }
             case 'default': {
-
+    
             }
         }
-        return statusIconColor
+       return  statusIconColor
+    }
+    handleRequestNegotion=()=>
+    {
+        this.setState({open:false})
+    }
+
+    handleDecline=()=>
+    {
+        
     }
     render() {
         const props = this.props;
@@ -274,32 +236,23 @@ class LoanRequestsContainer extends React.PureComponent {
             <div>
 
                 {/* Card Rows */}
-
+                
                 <CardTable
-                    title="Loan Requests"
-
                     actionData={[{
-                        Text: 'Send To Approval',
-                        actionEvent: this.handleSendToApproval
+                        Text: 'Request Negotiation',
+                        actionEvent: this.handleRequestNegotion
                     },
                     {
-                        Text: 'Suspend',
-                        actionEvent: this.handleSuspend
-                    },
-                    {
-                        Text: 'Close Request',
-                        actionEvent: this.handleCloseRequest
+                        Text: 'Decline',
+                        actionEvent: this.handleDecline
                     }]}
-                    editAction={{
-                        Text: 'Edit',
-                        actionEvent: this.handleEdit
-                    }}
+                  
                     headingData={[
-                        'Status',
+                        'Investor',
                         'Amount',
                         'Currency',
-                        'Term and Time Frame',
-                        'Purpose Of Loan',
+                        'Term',
+                        'Interest Rate',
                         'Action']}
                     data={this.props.TableData}
                     actions={true}
@@ -309,26 +262,10 @@ class LoanRequestsContainer extends React.PureComponent {
                     onPageChange={this.onPageChange}
                     chooseColor={this.chooseColor}
                     history={this.props.history}
-                    openOfferModal={this.openOfferModal}
+                    hideHeader={true}
 
                 />
-                <Dialog
-                    open={this.state.open}
-                    onClose={this.handleClose}
-                    maxWidth='md'
-                    fullWidth={true}
-                    aria-labelledby="responsive-dialog-title"
-                >
-                    <DialogTitle id="responsive-dialog-title">{"Available Offers"}</DialogTitle>
-                    <DialogContent>
-                    <OffersContainer/>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={this.handleClose} color="primary">
-                            Close
-                        </Button>
-                    </DialogActions>
-                </Dialog>
+
             </div>
         )
     }
@@ -337,39 +274,50 @@ class LoanRequestsContainer extends React.PureComponent {
 
 function mapStateToProps(state) {
 
-    let loanData = _get(state, "LoanRequest.lookUpData.rows", []);
+    let offerData = _get(state, "OfferData.lookUpData.rows", []);
     let TableData = [];
     let companyId = _get(state, 'BasicInfo.lookUpData.companyDetails.id', null);
+    
 
-    loanData.map((data, index) => {
+    offerData.map((data, index) => {
+        let time = _get(data, 'term', '-')
+        if(time != '-'){
+            time = time + " year"
+            
+        }
         console.log("TableData data - ", data)
         let obj = {
-            status: {
-                offerCount: _get(data, 'offerCount', ''),
-                status: data.status
-            },
+            name: _get(data,'investor.legalName'),
             Amount: `${_get(data, 'moneyRange.minAmount')} - ${_get(data, 'moneyRange.maxAmount')}`,
             Currency: `${_get(data, 'moneyRange.currency')}`,
-            Time: `${_get(data,'term','-')} years`,
-            purpose: [_get(data, 'fundAllocation[0].purpose', ''), _get(data, 'fundAllocation[1].purpose', ''), _get(data, 'fundAllocation[2].purpose', '')],
+            term:time,
+            interestRate: `${_get(data,'interestRate')}%`,
+            
+            
+
         }
         console.log("TableData obj - ", obj);
-        let $class = _get(data, '$class');
+        let $class = _get(data,'$class');
         let $classarr = $class.split('.');
         let fundType = $classarr[$classarr.length - 1];
-        if (fundType == 'Equity') {
+        if(fundType=='Equity')
+        {
             obj.Amount = _get(data, 'money.amount');
-            obj.Currency = _get(data, 'money.currency')
+            obj.Currency = _get(data,'money.currency')
         }
         TableData.push(obj)
     })
 
     console.log("TableData - ", TableData)
 
-    return { loanData, TableData, companyId }
+    return { offerData, 
+        TableData, 
+        companyId,
+        fundId:_get(state,'staticReducers.fund.reqID')
+     }
 
 }
 
-LoanRequestsContainer = connect(mapStateToProps)(LoanRequestsContainer)
+OfferContainer = connect(mapStateToProps)(OfferContainer)
 
-export default LoanRequestsContainer;
+export default OfferContainer;
