@@ -4,9 +4,12 @@ import _get from 'lodash/get';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem'
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 /* Redux Imports */
 import { connect } from 'react-redux';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+
+
+
 
 
 class PopulateRows extends Component {
@@ -15,7 +18,7 @@ class PopulateRows extends Component {
         this.state = {
             anchorEl: null,
             open: false,
-            hoverEvent: false,
+            hoverEvent:false
         }
     }
 
@@ -52,52 +55,48 @@ class PopulateRows extends Component {
                 break;
             }
             case 'default': {
-
+    
             }
         }
-        return statusIconColor
+       return  statusIconColor
     }
-
+    
     render() {
         let data = _get(this.props, "rows", {});
         let rows = Object.keys(data).map((keyname, index) => {
             if (keyname != "extendedRow")
                 return (
                     <div key={index} className="data-col">
-                        {keyname == 'status' ?
-                            <svg style={{ width: '12px', height: '12px' }} viewBox="0 0 24 24">
-                                <path fill={this.chooseColor(data[keyname])} d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
-                            </svg> : null}
+                    {keyname=='status'?
+                    <svg style={{ width: '12px', height: '12px' }} viewBox="0 0 24 24">
+                <path fill={this.chooseColor(data[keyname])} d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
+            </svg>:null}
 
-                        {data[keyname]}</div>
+                    {data[keyname]}</div>
                 )
         })
         if (this.props.actions) {
             rows.push(
                 <div className="data-col">
 
-                    {
-                        this.props.editAction ?
-                            <span
-                                title='edit'
-                                className='edit-icon'
-                                onMouseOver={
-                                    this.props.handleOnMouseOver
-                                }
-                                onMouseOut={this.props.handleOnMouseOut}
-                                onClick={this.props.editAction.actionEvent} >
-                                {this.props.editAction.Text}
-                            </span> : null
-                    }
+                {this.props.editAction?
+                         <span
+                         title='edit'
+                         className='edit-icon'
+                        onMouseOver={
+                            this.props.handleOnMouseOver
+                        }
+                        onMouseOut={this.props.handleOnMouseOut}
+                        onClick={this.props.editAction.actionEvent} >{this.props.editAction.Text}</span>:null}
                     <ClickAwayListener onClickAway={this.handleRequestClose}>
 
                         <span
-                            className="more-icon"
-                            onMouseOver={
-                                this.props.handleOnMouseOver
-                            }
-                            onMouseOut={this.props.handleOnMouseOut}
-                            onClick={this.handleClick} >...</span>
+                        className="more-icon"
+                        onMouseOver={
+                            this.props.handleOnMouseOver
+                        }
+                        onMouseOut={this.props.handleOnMouseOut}
+                        onClick={this.handleClick} >...</span>
                         <Menu
                             id="simple-menu"
                             anchorEl={this.state.anchorEl}
@@ -121,12 +120,17 @@ class PopulateRows extends Component {
 
                         </Menu>
                     </ClickAwayListener>
+
                 </div>
             )
         }
         return (
             <React.Fragment>
+
                 {rows}
+
+
+
             </React.Fragment>
         )
     }
@@ -136,10 +140,9 @@ let PopulateExtendedRows = (props) => {
     let data = _get(props, "rows.extendedRow", {});
     let rows = []
     rows = Object.keys(data).map((keyname, index) => {
-        let key = keyname.replace(/([a-z])([A-Z])/g, '$1 $2');
         return (
             <div key={index} className="mb-10">
-                <span className="title-text"> {key} : </span>
+                <span className="title-text"> {keyname} : </span>
                 <span className="primary-text">{data[keyname]}</span>
             </div>
         )
@@ -164,18 +167,22 @@ class EachRow extends Component {
     constructor() {
         super();
         this.state = {
-            hoverEvent: false
+            hoverEvent:false
         }
     }
 
     extendedData = (props) => {
 
     }
-    handleOnMouseOver = () => {
-        this.setState({ hoverEvent: true })
+
+    handleOnMouseOver=()=>
+    {
+        debugger;
+        this.setState({hoverEvent:true})
     }
-    handleOnMouseOut = () => {
-        this.setState({ hoverEvent: false })
+    handleOnMouseOut=()=>
+    {
+        this.setState({hoverEvent:false})
     }
 
     render() {
@@ -190,19 +197,21 @@ class EachRow extends Component {
                 </div>
                 {/* When Extended card view */}
                 {
-                    props.isExtended && !this.state.hoverEvent ?
+                    props.isExtended&&!this.state.hoverEvent ?
                         <PopulateExtendedRows
-                            handleOnMouseOver={this.handleOnMouseOver}
-                            handleOnMouseOut={this.handleOnMouseOut}
+                        handleOnMouseOver={this.handleOnMouseOver}
+                        handleOnMouseOut={this.handleOnMouseOut}
                             {...this.props}
                         />
                         :
                         null
                 }
             </div>
+
         )
     }
 }
+
 
 function mapStateToProps(state) {
 
