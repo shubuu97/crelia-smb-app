@@ -192,11 +192,11 @@ class LongCard extends Component {
         const props = this.props;
         console.log("CardTable states - ", this.state);
         return (
-            <div>
+            <div className="loan-request">
                  <div className="title-btn sticky " id="table-heading">
                         <h1>Loan Requests</h1>
                         <div>
-                        <Button color='primary' variant='outlined' className='mb-10 mr-20' onClick={() => this.toggleFilterPanel()}>Filter</Button>
+                        <Button color='primary' variant='outlined' className='mb-10 mr-20 g-filters' onClick={() => this.toggleFilterPanel()}>Filter</Button>
                         <Button
                     onClick={() => this.props.history.push('LoanRequest/SelectLoanType')}
                     color='primary'
@@ -215,7 +215,7 @@ class LongCard extends Component {
                             null
                     }
                 </div>
-                <div className="loan-request">
+                <div >
                     <div className="custom-table">
                         {/* Heading */}
                         <Heading
