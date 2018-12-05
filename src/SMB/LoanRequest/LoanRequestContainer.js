@@ -67,7 +67,9 @@ class LoanRequestsContainer extends React.PureComponent {
     constructor() {
         super();
         this.state = {
-            tableData: []
+            tableData: [],
+            first:1,
+            limit:10
         }
     }
 
@@ -75,7 +77,7 @@ class LoanRequestsContainer extends React.PureComponent {
         this.basicDataFetcher();
     }
 
-    basicDataFetcher = () => {
+    basicDataFetcher = (first,limit) => {
         this.props.dispatch(
             getData(`${APPLICATION_BFF_URL}/api/fund`, 'fetchingLoanRequestData', {
                 init: 'fetchingLoanRequestData_init',
@@ -87,22 +89,31 @@ class LoanRequestsContainer extends React.PureComponent {
     handleSendToApproval = (data, index) => {
         console.log(_get(this.props, `loanData[${index}]`), "data is here");
         let reqObj = {};
+        let url
         reqObj.companyId = this.props.companyId;
         reqObj.id = _get(this.props, `loanData[${index}].id`);
-        reqObj.moneyRange = _get(this.props, `loanData[${index}].moneyRange`);
-        reqObj.interestRateType = _get(this.props, `loanData[${index}].interestRateType`);
-        reqObj.interestRate = _get(this.props, `loanData[${index}].interestRate`);
-        reqObj.term = _get(this.props, `loanData[${index}].term`);
-        reqObj.timeFrame = _get(this.props, `loanData[${index}].timeFrame`);
-        reqObj.fundAllocation = _get(this.props, `loanData[${index}].fundAllocation`);
+        // reqObj.moneyRange = _get(this.props, `loanData[${index}].moneyRange`);
+        // reqObj.interestRateType = _get(this.props, `loanData[${index}].interestRateType`);
+        // reqObj.interestRate = _get(this.props, `loanData[${index}].interestRate`);
+        // reqObj.term = _get(this.props, `loanData[${index}].term`);
+        // reqObj.timeFrame = _get(this.props, `loanData[${index}].timeFrame`);
+        // reqObj.fundAllocation = _get(this.props, `loanData[${index}].fundAllocation`);
 
-
+     let fundType =  this.getFundType(_get(this.props, `loanData[${index}].$class`));
+     if(fundType=='Equity')
+     {
+        url = '/api/SendEquityRequest'
+     }
+     else
+     {
+         url = '/api/SendLoanRequest'
+     }
 
 
         PostData({
             dispatch: this.props.dispatch,
             reqObj,
-            url: '/api/SendLoanRequest',
+            url,
             successText: 'Request Sent Succesfully for approval',
             constants: {
                 init: 'CreateLoan_init',
@@ -166,13 +177,24 @@ class LoanRequestsContainer extends React.PureComponent {
         })
     }
     onShowSizeChange = (current, pageSize) => {
-        console.log(current, 'current');
-        console.log(pageSize);
+        this.state.first = 0;
+        this.state.limit=pageSize;
+        this.basicDataFetcher();
+        this.setState({first:this.state.first,limit:this.state.limit})
+
     }
     onPageChange = (current, pageSize) => {
-        console.log('onChange:current=', current);
+        this.state.first = current*pageSize;
+        this.state.limit=pageSize;
+        this.basicDataFetcher();
+        this.setState({first:this.state.first,limit:this.state.limit})
+    }
 
-        console.log('onChange:pageSize=', pageSize);
+    getFundType=($class)=>
+    {
+        let $classarr = $class.split('.');
+        let fundType = $classarr[$classarr.length - 1];
+        return fundType
     }
     render() {
         const props = this.props;
@@ -181,7 +203,7 @@ class LoanRequestsContainer extends React.PureComponent {
 
                 {/* Card Rows */}
                 <Button
-                    onClick={() => this.props.history.push('LoanRequest/create')}
+                    onClick={() => this.props.history.push('LoanRequest/SelectLoanType')}
                     color='primary'
                     variant='contained'
                 >Create Request</Button>
@@ -237,7 +259,15 @@ function mapStateToProps(state) {
             Time: `${data.term}yrs`,
             purpose: [_get(data, 'fundAllocation[0].purpose'), _get(data, 'fundAllocation[1].purpose'), _get(data, 'fundAllocation[2].purpose')]
         }
-        console.log("TableData obj - ", obj)
+        console.log("TableData obj - ", obj);
+        let $class = _get(data,'$class');
+        let $classarr = $class.split('.');
+        let fundType = $classarr[$classarr.length - 1];
+        if(fundType=='Equity')
+        {
+            obj.Amount = _get(data, 'money.amount');
+            obj.Currency = _get(data,'money.currency')
+        }
         TableData.push(obj)
     })
 

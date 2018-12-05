@@ -23,7 +23,7 @@ export default class PaginationComp extends Component
           showQuickJumper
           showSizeChanger
           defaultPageSize={10}
-          defaultCurrent={5}
+          defaultCurrent={1}
           onShowSizeChange={this.props.onShowSizeChange}
           onChange={this.props.onChange}
           total={this.props.total}
