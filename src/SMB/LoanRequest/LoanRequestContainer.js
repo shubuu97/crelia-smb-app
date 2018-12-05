@@ -10,7 +10,7 @@ import { postData } from '../../Redux/postAction';
 import showMessage from '../../Redux/toastAction';
 import { getData } from '../../Redux/getAction';
 import { APPLICATION_BFF_URL } from '../../Redux/urlConstants'
-import {commonActionCreater} from '../../Redux/commonAction'
+import { commonActionCreater } from '../../Redux/commonAction'
 /* Components */
 import CardTable from '../../Global/CardTable/CardTable';
 import Button from '@material-ui/core/Button';
@@ -67,7 +67,9 @@ class LoanRequestsContainer extends React.PureComponent {
     constructor() {
         super();
         this.state = {
-            tableData: []
+            tableData: [],
+            first:1,
+            limit:10
         }
     }
 
@@ -75,9 +77,9 @@ class LoanRequestsContainer extends React.PureComponent {
         this.basicDataFetcher();
     }
 
-    basicDataFetcher = () => {
+    basicDataFetcher = (first,limit) => {
         this.props.dispatch(
-            getData(`${APPLICATION_BFF_URL}/api/fund`, 'fetchingLoanRequestData', {
+            getData(`${APPLICATION_BFF_URL}/api/fund?first=${this.state.first}&limit=${this.state.limit}`, 'fetchingLoanRequestData', {
                 init: 'fetchingLoanRequestData_init',
                 success: 'fetchingLoanRequestData_success',
                 error: 'fetchingLoanRequestData_error'
@@ -87,6 +89,7 @@ class LoanRequestsContainer extends React.PureComponent {
     handleSendToApproval = (data, index) => {
         console.log(_get(this.props, `loanData[${index}]`), "data is here");
         let reqObj = {};
+        let url
         reqObj.companyId = this.props.companyId;
         reqObj.id = _get(this.props, `loanData[${index}].id`);
         reqObj.moneyRange = _get(this.props, `loanData[${index}].moneyRange`);
@@ -94,39 +97,129 @@ class LoanRequestsContainer extends React.PureComponent {
         reqObj.interestRate = _get(this.props, `loanData[${index}].interestRate`);
         reqObj.term = _get(this.props, `loanData[${index}].term`);
         reqObj.timeFrame = _get(this.props, `loanData[${index}].timeFrame`);
+        reqObj.fundAllocation = _get(this.props, `loanData[${index}].fundAllocation`);
 
+     let fundType =  this.getFundType(_get(this.props, `loanData[${index}].$class`));
+     if(fundType=='Equity')
+     {
+        url = '/api/SendEquityRequest'
+     }
+     else
+     {
+         url = '/api/SendLoanRequest'
+     }
 
 
         PostData({
             dispatch: this.props.dispatch,
             reqObj,
-            url: '/api/SendLoanRequest',
+            url,
             successText: 'Request Sent Succesfully for approval',
             constants: {
                 init: 'CreateLoan_init',
                 success: 'CreateLoan_success',
                 error: 'CreateLoan_error',
                 identifier: 'CreateLoan_init'
-            }
+            },
+            successCb:this.basicDataFetcher
         })
 
     }
 
-    handleEdit=(data,index)=>
-    {
+    handleEdit = (data, index) => {
         this.props.dispatch(commonActionCreater({
             reqID: _get(this.props, `loanData[${index}].id`)
         }, 'SAVE_FUND_REQ_ID'));
         this.props.history.push('/LoanRequest/create');
     }
+
+    handleCloseRequest=(data,index)=>
+    {
+        let reqObj = {};
+        reqObj.id = _get(this.props, `loanData[${index}].id`);
+        let $class = _get(this.props, `loanData[${index}].$class`);
+        let $classarr = $class.split('.');
+        reqObj.fundType = $classarr[$classarr.length - 1];
+        reqObj.comment = 'some dummy comment';
+        PostData({
+            dispatch: this.props.dispatch,
+            reqObj,
+            url: '/api/CloseFund',
+            successText: 'Suspended succesfully',
+            constants: {
+                init: 'suspendloan_init',
+                success: 'suspendloan_success',
+                error: 'suspendloan_error',
+                identifier: 'suspendloan_init'
+            },
+            successCb:this.basicDataFetcher
+        })
+    }
+    handleSuspend = (data, index) => {
+        let reqObj = {};
+        reqObj.id = _get(this.props, `loanData[${index}].id`);
+        let $class = _get(this.props, `loanData[${index}].$class`);
+        let $classarr = $class.split('.');
+        reqObj.fundType = $classarr[$classarr.length - 1];
+        reqObj.comment = 'some dummy comment';
+        PostData({
+            dispatch: this.props.dispatch,
+            reqObj,
+            url: '/api/SuspendFund',
+            successText: 'Suspended succesfully',
+            constants: {
+                init: 'suspendloan_init',
+                success: 'suspendloan_success',
+                error: 'suspendloan_error',
+                identifier: 'suspendloan_init'
+            },
+            successCb:this.basicDataFetcher
+        })
+    }
     onShowSizeChange = (current, pageSize) => {
-        console.log(current, 'current');
-        console.log(pageSize);
+        this.state.first = ((current-1)*(pageSize))+1;
+        this.state.limit=pageSize;
+        this.basicDataFetcher();
+        this.setState({first:this.state.first,limit:this.state.limit})
+
+    }
+    onPageChange = (current, pageSize) => {
+        this.state.first =  ((current-1)*(pageSize))+1;
+        this.state.limit=pageSize;
+        this.basicDataFetcher();
+        this.setState({first:this.state.first,limit:this.state.limit})
     }
 
-    onPageChange = (current, pageSize) => {
-        console.log('onChange:current=', current);
-        console.log('onChange:pageSize=', pageSize);
+    getFundType=($class)=>
+    {
+        let $classarr = $class.split('.');
+        let fundType = $classarr[$classarr.length - 1];
+        return fundType
+    }
+    chooseColor = (status) => {
+        let statusIconColor = '';
+        switch (status) {
+            case 'ACTIVE': {
+                statusIconColor = '#008000';
+                break;
+            }
+            // case 'BLOCKED': {
+            //     statusIconColor = '#ff0000';
+            //     break;
+            // }
+            // case 'PENDING': {
+            //     statusIconColor = '#D3D3D3';
+            //     break;
+            // }
+            case 'DRAFT': {
+                statusIconColor = '#ADFF2F';
+                break;
+            }
+            case 'default': {
+    
+            }
+        }
+       return  statusIconColor
     }
     render() {
         const props = this.props;
@@ -134,19 +227,11 @@ class LoanRequestsContainer extends React.PureComponent {
             <div>
 
                 {/* Card Rows */}
-                <Button
-                    onClick={() => this.props.history.push('LoanRequest/create')}
-                    color='primary'
-                    variant='contained'
-                >Create Request</Button>
+                
                 <CardTable
                     actionData={[{
                         Text: 'Send To Approval',
                         actionEvent: this.handleSendToApproval
-                    },
-                    {
-                        Text: 'Edit',
-                        actionEvent: this.handleEdit
                     },
                     {
                         Text: 'Suspend',
@@ -156,6 +241,10 @@ class LoanRequestsContainer extends React.PureComponent {
                         Text: 'Close Request',
                         actionEvent: this.handleCloseRequest
                     }]}
+                    editAction={{
+                        Text: 'Edit',
+                        actionEvent: this.handleEdit
+                }}
                     headingData={[
                         'Status',
                         'Amount',
@@ -169,6 +258,8 @@ class LoanRequestsContainer extends React.PureComponent {
                     filter={false}
                     onShowSizeChange={this.onShowSizeChange}
                     onPageChange={this.onPageChange}
+                    chooseColor={this.chooseColor}
+
                 />
             </div>
         )
@@ -185,13 +276,21 @@ function mapStateToProps(state) {
     loanData.map((data, index) => {
         console.log("TableData data - ", data)
         let obj = {
-            status: "N/A",
+            status: data.status,
             Amount: `${_get(data, 'moneyRange.minAmount')} - ${_get(data, 'moneyRange.maxAmount')}`,
             Currency: `${_get(data, 'moneyRange.currency')}`,
             Time: `${data.term}yrs`,
-            Region: "N/A",
+            purpose: [_get(data, 'fundAllocation[0].purpose'), _get(data, 'fundAllocation[1].purpose'), _get(data, 'fundAllocation[2].purpose')]
         }
-        console.log("TableData obj - ", obj)
+        console.log("TableData obj - ", obj);
+        let $class = _get(data,'$class');
+        let $classarr = $class.split('.');
+        let fundType = $classarr[$classarr.length - 1];
+        if(fundType=='Equity')
+        {
+            obj.Amount = _get(data, 'money.amount');
+            obj.Currency = _get(data,'money.currency')
+        }
         TableData.push(obj)
     })
 

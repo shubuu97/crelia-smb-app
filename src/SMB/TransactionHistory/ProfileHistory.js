@@ -42,7 +42,7 @@ import Button from '@material-ui/core/Button';
    return  (
        <div className='smbhistory'>
           <div className="title-btn ">
-                        <h1>UPDATES HISTORY </h1>
+                        <h1>Updates History </h1>
                         <Button
                             isFetching={this.props.isFetchingPostUpdateToMarketPlace}
                             onClick={this.postMarketPlace}

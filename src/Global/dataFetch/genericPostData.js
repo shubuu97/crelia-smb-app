@@ -8,7 +8,7 @@ function genericPostData({dispatch,reqObj,url,constants,identifier,successText,s
     dispatch(
         postData(`${APPLICATION_BFF_URL}${url}`, reqObj,identifier ,constants)
     ).then((data) => {
-        dispatch(showMessage({ text: 'Updated SuccessFully', isSuccess: true }));
+        dispatch(showMessage({ text: successText||'Updated SuccessFully', isSuccess: true }));
         if(successCb)
         successCb();
         // this.basicDataFetcher();

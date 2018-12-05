@@ -38,6 +38,9 @@ import AccountSMB from './SMB/MyAccount/MyAccountContainer';
 import LoanRequestContainer from './SMB/LoanRequest/LoanRequestContainer';
 import CreateRequestContainer from './SMB/CreateRequest/CreateRequestContainer';
 import ProfileHistory from './SMB/TransactionHistory/ProfileHistory';
+import EquityRequestContainer from './SMB/CreateRequest/EquityRequestContainer';
+import SelectLoanType from './SMB/CreateRequest/components/SelectLoanType'
+
 
 
 
@@ -120,6 +123,8 @@ ReactDOM.render(
                   <RouteWithLayout Layout={MainLayout} exact path='/LoanRequest' Component={LoanRequestContainer}/>
                   <RouteWithLayout Layout={MainLayout} exact path='/ProfileHistory' Component={ProfileHistory}/>
                   <RouteWithLayout Layout={MainLayout} exact path='/LoanRequest/create' Component={CreateRequestContainer}/>
+                  <RouteWithLayout Layout={MainLayout} exact path='/LoanRequest/Equitycreate' Component={EquityRequestContainer}/>
+                  <RouteWithLayout Layout={MainLayout} exact path='/LoanRequest/SelectLoanType' Component={SelectLoanType}/>
 
 
                   {RoutesConfig.map(rconfig => <RouteWithLayout Layout={MainLayout} exact path={rconfig.path} Component={rconfig.Component} />)}
