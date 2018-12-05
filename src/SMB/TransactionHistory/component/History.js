@@ -55,20 +55,23 @@ export default class History extends Component {
 
                 <div className='longCard'
                     onClick={() => this.handleFetchTransaction()}>
-                    <div>
-                        <div>
-                            <span>Event Name-</span>
+                    <div className='event-wrapper'>
+                        <div className="wrap-block">
+                            <span>Event Name</span>
                             <span>{_get(eventsEmitted, 'eventName')}</span>
                         </div>
-                        <div>
-                            <span>Transaction Date-</span>
+                        <div className="wrap-block">
+                            <span>Transaction Date</span>
                             <span>{moment(_get(this.props, 'ProfileHistory.transactionTimestamp')).format('DD-MM-YYYY,h:mm:ss a')}</span>
                         </div>
-                        <div>
-                            <span>Transaction ID-</span>
+                        <div className="wrap-block">
+                            <span>Transaction ID</span>
                             <span>{_get(this.props, 'ProfileHistory.transactionId')}</span>
                         </div>
                     </div>
+                    {this.state.openModal ? <ReviewCOBInfoContainer
+                    fetchFromProp={true}
+                    companyDetailsProp={this.state.companyDetails} /> : null}
                 </div>
                 {/* <Dialog
                     open={this.state.openModal}
@@ -89,9 +92,7 @@ export default class History extends Component {
                     </DialogActions>
                 </Dialog> */}
 
-                {this.state.openModal ? <ReviewCOBInfoContainer
-                    fetchFromProp={true}
-                    companyDetailsProp={this.state.companyDetails} /> : null}
+                
 
             </div>
 

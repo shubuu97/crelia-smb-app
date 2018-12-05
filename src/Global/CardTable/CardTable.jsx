@@ -11,7 +11,10 @@ import Filters from './features/Filters'
 import Heading from './features/Heading';
 import Pagination from './features/Pagination'
 
-import './styles/cardTable.less'
+import './styles/cardTable.less';
+
+
+
 
 let dummyFilterData = [
     {
@@ -159,6 +162,7 @@ class LongCard extends Component {
                     onClick={() => this.toggleExtended(index)}
                     height="69px"
                     getHeight={this.getHeight}
+                    editAction={this.props.editAction}
                 />
             )
         })
@@ -189,14 +193,21 @@ class LongCard extends Component {
         console.log("CardTable states - ", this.state);
         return (
             <div>
-                <div class="row align-items-center sticky" id="table-heading">
-                    <div class="col-sm-6 ">
+                 <div className="title-btn sticky " id="table-heading">
                         <h1>Loan Requests</h1>
+                        <div>
+                        <Button color='primary' variant='outlined' className='mb-10 mr-20' onClick={() => this.toggleFilterPanel()}>Filter</Button>
+                        <Button
+                    onClick={() => this.props.history.push('LoanRequest/SelectLoanType')}
+                    color='primary'
+                    variant='contained'
+                    className="mb-10 "
+                >Create Request</Button>
+
                     </div>
-                    <div class="col-sm-6 d-flex justify-content-end ">
-                        <Button onClick={() => this.toggleFilterPanel()}>Filter</Button>
                     </div>
-                    {
+                <div>
+                {
                         this.state.filterPanelToggle ?
                             <Filters
                                 filterData={this.state.filterData}

@@ -79,7 +79,7 @@ class LoanRequestsContainer extends React.PureComponent {
 
     basicDataFetcher = (first,limit) => {
         this.props.dispatch(
-            getData(`${APPLICATION_BFF_URL}/api/fund`, 'fetchingLoanRequestData', {
+            getData(`${APPLICATION_BFF_URL}/api/fund?first=${this.state.first}&limit=${this.state.limit}`, 'fetchingLoanRequestData', {
                 init: 'fetchingLoanRequestData_init',
                 success: 'fetchingLoanRequestData_success',
                 error: 'fetchingLoanRequestData_error'
@@ -177,14 +177,14 @@ class LoanRequestsContainer extends React.PureComponent {
         })
     }
     onShowSizeChange = (current, pageSize) => {
-        this.state.first = 0;
+        this.state.first = ((current-1)*(pageSize))+1;
         this.state.limit=pageSize;
         this.basicDataFetcher();
         this.setState({first:this.state.first,limit:this.state.limit})
 
     }
     onPageChange = (current, pageSize) => {
-        this.state.first = current*pageSize;
+        this.state.first =  ((current-1)*(pageSize))+1;
         this.state.limit=pageSize;
         this.basicDataFetcher();
         this.setState({first:this.state.first,limit:this.state.limit})
@@ -207,7 +207,7 @@ class LoanRequestsContainer extends React.PureComponent {
             //     statusIconColor = '#ff0000';
             //     break;
             // }
-            // case 'DELETED': {
+            // case 'PENDING': {
             //     statusIconColor = '#D3D3D3';
             //     break;
             // }
@@ -227,19 +227,11 @@ class LoanRequestsContainer extends React.PureComponent {
             <div>
 
                 {/* Card Rows */}
-                <Button
-                    onClick={() => this.props.history.push('LoanRequest/SelectLoanType')}
-                    color='primary'
-                    variant='contained'
-                >Create Request</Button>
+                
                 <CardTable
                     actionData={[{
                         Text: 'Send To Approval',
                         actionEvent: this.handleSendToApproval
-                    },
-                    {
-                        Text: 'Edit',
-                        actionEvent: this.handleEdit
                     },
                     {
                         Text: 'Suspend',
@@ -249,6 +241,10 @@ class LoanRequestsContainer extends React.PureComponent {
                         Text: 'Close Request',
                         actionEvent: this.handleCloseRequest
                     }]}
+                    editAction={{
+                        Text: 'Edit',
+                        actionEvent: this.handleEdit
+                }}
                     headingData={[
                         'Status',
                         'Amount',

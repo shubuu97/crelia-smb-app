@@ -36,7 +36,16 @@
   }
   
 
-
+.edit-icon
+{
+    background-image: url("../images/edit.svg"); 
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    cursor: pointer;
+    text-indent: -9999px;
+}
 
 body{
     font-family: 'GTWalsheimProRegular', sans-serif;
@@ -70,6 +79,7 @@ padding: 8px 0 9px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding-top: 10px;
 }
 
 
@@ -1104,7 +1114,7 @@ flex: 0 0 25%;
         transition: 0.1s ease-in; 
         margin: 7px 0;
         overflow: hidden;
-        padding:10px;
+        padding:15px;
       }
       
       .longCard:nth-child(2){
@@ -1241,4 +1251,18 @@ h4 {
         margin: 20px 0;
     }
 }
+}
+
+.event-wrapper{
+    display: flex;
+    justify-content: space-between;
+    .wrap-block
+    {
+        display: flex;
+        flex-direction: column;
+
+        span:first-child{
+            font-weight: bold;
+        }
+    }
 }

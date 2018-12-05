@@ -77,6 +77,16 @@ class PopulateRows extends Component {
         if (this.props.actions) {
             rows.push(
                 <div className="data-col">
+
+                {this.props.editAction?
+                         <span
+                         title='edit'
+                         className='edit-icon'
+                        onMouseOver={
+                            this.props.handleOnMouseOver
+                        }
+                        onMouseOut={this.props.handleOnMouseOut}
+                        onClick={this.props.editAction.actionEvent} >{this.props.editAction.Text}</span>:null}
                     <ClickAwayListener onClickAway={this.handleRequestClose}>
 
                         <Button
