@@ -16,7 +16,7 @@ class PhoneNumInput extends Component {
             <div>
                 <PhoneInput
                     country="US"
-                    placeholder="Enter phone number"
+                    placeholder="Enter Phone Number"
                     value={this.props.input.value}
                     onChange={(phone)=>this.props.input.onChange(phone)}
                 />

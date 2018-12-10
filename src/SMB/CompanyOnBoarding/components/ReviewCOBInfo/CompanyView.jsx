@@ -21,7 +21,7 @@ const CompanyView = (props) => {
                     <p>{_get(props, 'address.zipCode')}</p>
                 </span>
             </div>
-            <div className="list-content"><span>phone Number</span> <span>{props.phoneNumber}</span></div>
+            <div className="list-content"><span>Phone Number</span> <span>{props.phoneNumber}</span></div>
         </div>
         </div>
     )
