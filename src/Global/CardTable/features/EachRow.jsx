@@ -90,9 +90,9 @@ class PopulateRows extends Component {
                 }
                 else {
                     if (Array.isArray(data[keyname])) {
-                        return <div className="data-col"
-
-                        >{data[keyname]}</div>
+                        console.log(data[keyname],'xxxxx')
+                        return (<div  className="data-col">
+                         {data[keyname].map((dt,index)=><React.Fragment>{dt}{index+1!=data[keyname].length?<br/>:null}</React.Fragment>)}</div>)
                     }
                     return <div
                         onClick={() => data.status.offerCount ? this.props.openOfferModal(data, this.props.rowId) : null}
