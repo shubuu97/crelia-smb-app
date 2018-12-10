@@ -55,6 +55,7 @@ class ContactContainer extends Component {
     }
 
     submitFunction = (values) => {
+        delete values.region
         let reqObj = { ...values };
         if (values.businessUnderName == 'no') {
             setWith(reqObj, 'onboardingInfo.otherCompanyName', '');
@@ -99,7 +100,7 @@ class ContactContainer extends Component {
             <form onSubmit={handleSubmit(this.submitFunction)}>
                 <div className="Onboarding_Title">Business Information</div>
                 <div className="row justify-content-between pt-20">
-                    <div className="col-sm-6">
+                    <div className="col-sm-4">
                         <Field
                             disabled={localStorage.getItem('disabled')}
                             label="Legal Business Name"
@@ -110,7 +111,7 @@ class ContactContainer extends Component {
                             fullWidth="true"
                         />
                     </div>
-                    <div className="col-sm-3">
+                    <div className="col-sm-4">
                         <Field
                             variantType="outlined"
                             label="Region"
@@ -120,7 +121,7 @@ class ContactContainer extends Component {
                             options={this.props.regionList}
                         />
                     </div>
-                    <div className="col-sm-3">
+                    <div className="col-sm-4">
                         <Field
                             disabled={localStorage.getItem('disabled')}
                             name="legalEntityType"
@@ -289,13 +290,25 @@ function mapStateToProps(state) {
     let alllegalEntitiesList = _get(state, 'LegalEntities.lookUpData');
     let legalEntityList = [];
     let BasicInfo = _get(state, 'BasicInfo', null);
+    let legalEntityType = _get(state, 'BasicInfo.lookUpData.companyDetails.legalEntityType', null);
+    console.log(legalEntityType,"jordaar")
      
     // Map Issue to be fixed
      _get(state.LegalEntities, 'lookUpData', []).map(item => (
         regionList.push({ cc: item.cc, value: item.regionName })
     ))
 
+//Login to show region and legalEnittyList from type (to be fixed)
+if (legalEntityType != null) {
+    let filteredEntity = alllegalEntitiesList.filter((legalEntitiesByRegion) => {
+        let legalEntities = _get(legalEntitiesByRegion, 'legalEntities');
+        return _find(legalEntities, { value: legalEntityType })
 
+    })
+    console.log(filteredEntity,"jordaar")
+    legalEntityList = _get(filteredEntity[0],'legalEntities',[]);
+    region =   _get(filteredEntity[0],'regionName',[]);
+}
     return {
         regionList: regionList,
         alllegalEntitiesList,
