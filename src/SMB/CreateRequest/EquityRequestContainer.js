@@ -45,7 +45,6 @@ class EquityRequest extends Component {
     componentDidMount() {
         this.getApiCall('reference-service/allowedCurrencies', 'allowedCurrencies');
         if (this.props.fundId) {
-            debugger;
             this.getApiCall(`api/Equity/${encodeURIComponent(this.props.fundId)}`, 'fundDataById').then(data => {
                 
                 console.log(data,"data")

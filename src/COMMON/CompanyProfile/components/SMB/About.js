@@ -14,7 +14,8 @@ import { Field, reduxForm } from 'redux-form';
 import GlobalTextField from '../../../../Global/Components/GlobalTextField';
 import Select from '../../../../Global/Components/Select';
 import ToggleButtons from '../../../../Global/Components/ToggleButton';
-import LoaderButton from '../../../../Global/Components/LoaderButton'
+import LoaderButton from '../../../../Global/Components/LoaderButton';
+import genericGetData from '../../../../Global/dataFetch/genericGetData'
 /* Components */
 import SideBar from '../SideBar';
 
@@ -33,13 +34,15 @@ class About extends Component {
             role = decodeData.role;
             localStorage.setItem('role', role);
         }
-        this.props.dispatch(
-            getData(`${APPLICATION_BFF_URL}/api/${role}/${encodeURIComponent(decodeData.id)}`, 'fetchingbasicdata', {
-                init: 'basicdata_init',
-                success: 'basicdata_success',
-                error: 'basicdata_error'
-            })
-        )
+        genericGetData({dispatch:this.props.dispatch,
+            url:`/api/${role}/${encodeURIComponent(decodeData.id)}`,
+        constant:{
+            init: 'basicdata_init',
+            success: 'basicdata_success',
+            error: 'basicdata_error'
+        },
+    identifier:'fetchingbasicdata'
+    })
         this.props.dispatch(
             getData(`${APPLICATION_BFF_URL}/reference-service/industries`, 'IndustryList-data', {
                 init: 'industry_init',

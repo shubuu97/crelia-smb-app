@@ -6,7 +6,7 @@ import genericPostData from '../../../Global/dataFetch/genericPostData';
 /* Redux Imports */
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { formStatusAbout } from '../Selector/selector';
+import { formStatusAbout,formStatusContact,formStatusMarketingMaterial,formStatusLegal } from '../Selector/selector';
 function SideBar(WrappedComponent) {
     return class SideBar extends Component {
 
@@ -58,14 +58,14 @@ function SideBar(WrappedComponent) {
                         <div className="row">
                             <div className="col-sm-3" >
                                 <ul className="about-tab">
-                                    <li className={_get(this.props, 'location.pathname', "") == "/about" ? `active ${_get(this, 'props.formStatusAbout.status')} ` : null} onClick={() => this.handleRoute('about')}>About </li>
-                                    <li className={_get(this.props, 'location.pathname', "") == "/contacts" ? 'active' : null} onClick={() => this.handleRoute('contacts')}>Contacts</li>
-                                    <li className={_get(this.props, 'location.pathname', "") == "/team" ? 'active' : null} onClick={() => this.handleRoute('team')}>Team</li>
-                                    <li className={_get(this.props, 'location.pathname', "") == "/marketingMaterials" ? 'active' : null} onClick={() => this.handleRoute('marketingMaterials')}>Marketing Materials</li>
-                                    <li className={_get(this.props, 'location.pathname', "") == "/legal" ? 'active' : null} onClick={() => this.handleRoute('legal')}>Legal</li>
-                                    <li className={_get(this.props, 'location.pathname', "") == "/financials" ? 'active' : null} onClick={() => this.handleRoute('financials')}>Financials</li>
-                                    <li className={_get(this.props, 'location.pathname', "") == "/beneficiary" ? 'active' : null} onClick={() => this.handleRoute('beneficiary')}>Benificiary Shareholders</li>
-                                    <li className={_get(this.props, 'location.pathname', "") == "/onboardingview" ? 'active' : null} onClick={() => this.handleRoute('onboardingview')}>OnBoarding View</li>
+                                    <li className={_get(this.props, 'location.pathname', "") == "/about" ? `active ${_get(this, 'props.formStatusAbout.status')} ` : `${_get(this, 'props.formStatusAbout.status')} `} onClick={() => this.handleRoute('about')}>About </li>
+                                    <li className={_get(this.props, 'location.pathname', "") == "/contacts" ? `active ${_get(this, 'props.formStatusContact.status')}` : `${_get(this, 'props.formStatusContact.status')}`} onClick={() => this.handleRoute('contacts')}>Contacts</li>
+                                    <li className={_get(this.props, 'location.pathname', "") == "/team" ? `active ${_get(this, 'props.formStatusAbout.status')} ` : `${_get(this, 'props.formStatusAbout.status')} `} onClick={() => this.handleRoute('team')}>Team</li>
+                                    <li className={_get(this.props, 'location.pathname', "") == "/marketingMaterials" ? `active ${_get(this, 'props.formStatusMarketingMaterial.status')} ` : `${_get(this, 'props.formStatusMarketingMaterial.status')} `} onClick={() => this.handleRoute('marketingMaterials')}>Marketing Materials</li>
+                                    <li className={_get(this.props, 'location.pathname', "") == "/legal" ? `active ${_get(this, 'props.formStatusLegal.status')} ` : `${_get(this, 'props.formStatusLegal.status')} `} onClick={() => this.handleRoute('legal')}>Legal</li>
+                                    <li className={_get(this.props, 'location.pathname', "") == "/financials" ? `active ${_get(this, 'props.formStatusAbout.status')} ` : `${_get(this, 'props.formStatusAbout.status')} `} onClick={() => this.handleRoute('financials')}>Financials</li>
+                                    <li className={_get(this.props, 'location.pathname', "") == "/beneficiary" ? `active ${_get(this, 'props.formStatusAbout.status')} ` : `${_get(this, 'props.formStatusAbout.status')} `} onClick={() => this.handleRoute('beneficiary')}>Benificiary Shareholders</li>
+                                    <li className={_get(this.props, 'location.pathname', "") == "/onboardingview" ? `active ${_get(this, 'props.formStatusAbout.status')} ` : `${_get(this, 'props.formStatusAbout.status')} `} onClick={() => this.handleRoute('onboardingview')}>OnBoarding View</li>
                                 </ul>
                             </div>
                             <div className="col-sm-9" >
@@ -82,31 +82,13 @@ function SideBar(WrappedComponent) {
 }
 
 function mapStateToProps(state) {
-    //getting all the data for about
-    // let formStatusAbout = '';
     let isFetchingPostUpdateToMarketPlace = _get(state, 'CobPostMarketPlace.isFetching');
-    // let legalEntityType = _get(state, 'BasicInfo.lookUpData.companyDetails.legalEntityType', null);
-    // let legalName = _get(state, 'BasicInfo.lookUpData.companyDetails.legalName');
-    // let incorporationDate = _get(state, 'BasicInfo.lookUpData.companyDetails.incorporationDate', '').split('T')[0].trim();
-    // let registrationNumber = _get(state, 'BasicInfo.lookUpData.companyDetails.registrationNumber');
-    // let numberOfEmployees = _get(state, 'BasicInfo.lookUpData.companyDetails.numberOfEmployees');
-    // let industryType = _get(state, 'BasicInfo.lookUpData.companyDetails.industryType');
-
-
-    // "line1" "line2" "zipCode" "city" "region" "country" "phoneNumber" "email"
-
-    //Login to show status for formStatus in About section
-    // if (legalEntityType && legalName && incorporationDate && registrationNumber && industryType) {
-    //     formStatusAbout = 'green'
-    // }
-    // else if (legalEntityType || legalName || incorporationDate || registrationNumber || numberOfEmployees || industryType) {
-    //     formStatusAbout = 'yellow'
-    // }
-    // else {
-    //     formStatusAbout = 'red'
-    // }
-
-    return { isFetchingPostUpdateToMarketPlace, formStatusAbout: formStatusAbout(state) }
+    return { isFetchingPostUpdateToMarketPlace,
+         formStatusAbout: formStatusAbout(state),
+         formStatusContact:formStatusContact(state),
+         formStatusMarketingMaterial:formStatusMarketingMaterial(state),
+         formStatusLegal:formStatusLegal(state)
+        };
 }
 export default compose(
     connect(mapStateToProps, null),
