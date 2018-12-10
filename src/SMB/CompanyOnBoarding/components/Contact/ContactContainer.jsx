@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 /* Lodash Imports */
 import _get from 'lodash/get';
-import setWith from 'lodash/setWith'
+import setWith from 'lodash/setWith';
+import _find from 'lodash/find';
 /* Material Imports */
 import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
@@ -21,6 +22,7 @@ class ContactContainer extends Component {
         super(props)
         this.state = {
             yearList: [],
+            legalEntityList: null
         };
     }
 
@@ -35,6 +37,17 @@ class ContactContainer extends Component {
                 error: 'legalEntities_error'
             })
         )
+        let legalEntityType = _get(this.props, 'BasicInfo.lookUpData.companyDetails.legalEntityType', null);
+        if (legalEntityType != null) {
+            let filteredEntity = this.props.alllegalEntitiesList.filter((legalEntitiesByRegion) => {
+                let legalEntities = _get(legalEntitiesByRegion, 'legalEntities');
+                return _find(legalEntities, { value: legalEntityType })
+    
+            })
+           let legalEntityList = _get(filteredEntity[0],'legalEntities',[]);
+            let region =   _get(filteredEntity[0],'regionName',[]);
+            this.props.autofill('region',region);
+        }
     }
 
     handleBusinessUnderDiffName = (event) => {
@@ -71,6 +84,14 @@ class ContactContainer extends Component {
             return false;
         }
     }
+    handleRegionSelect = (a, b, c) => {
+        debugger;
+        console.log(this.props.alllegalEntitiesList, "here")
+        let legalEnitryForRegion = _find(this.props.alllegalEntitiesList, { regionName: b });
+        let legalEntities = _get(legalEnitryForRegion, 'legalEntities', []);
+        this.setState({ 'legalEntityList': legalEntities })
+
+    }
 
     render() {
         let { handleSubmit } = this.props;
@@ -89,13 +110,23 @@ class ContactContainer extends Component {
                             fullWidth="true"
                         />
                     </div>
-                    <div className="col-sm-6">
+                    <div className="col-sm-3">
+                        <Field
+                            variantType="outlined"
+                            label="Region"
+                            name="region"
+                            component={Select}
+                            onChange={this.handleRegionSelect}
+                            options={this.props.regionList}
+                        />
+                    </div>
+                    <div className="col-sm-3">
                         <Field
                             disabled={localStorage.getItem('disabled')}
                             name="legalEntityType"
                             label='Types of incorporation'
                             component={Select}
-                            options={this.props.legalEntityList || []}
+                            options={this.state.legalEntityList || this.props.legalEntityList}
                             variantType="outlined"
                         />
                     </div>
@@ -253,12 +284,24 @@ ContactContainer = reduxForm({
 })(ContactContainer)
 
 function mapStateToProps(state) {
-    let legalEntities = [];
-    const tempBUNV = _get(state, 'form.COB_ContactStepForm.values', {});
-    legalEntities = _get(state, 'LegalEntities.lookUpData', []);
+    let regionList = [];
+    let region = '';
+    let alllegalEntitiesList = _get(state, 'LegalEntities.lookUpData');
+    let legalEntityList = [];
+    let BasicInfo = _get(state, 'BasicInfo', null);
+     
+    // Map Issue to be fixed
+     _get(state.LegalEntities, 'lookUpData', []).map(item => (
+        regionList.push({ cc: item.cc, value: item.regionName })
+    ))
+
+
     return {
-        businessUnderNameValue: tempBUNV.businessUnderName,
-        legalEntityList: legalEntities
+        regionList: regionList,
+        alllegalEntitiesList,
+        legalEntityList,
+        BasicInfo
+
     };
 }
 
