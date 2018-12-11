@@ -287,11 +287,11 @@ function mapStateToProps(state) {
         }
         console.log("TableData data - ", data)
         let obj = {
-            name: _get(data,'investor.legalName'),
-            Amount: `${_get(data, 'moneyRange.minAmount')} - ${_get(data, 'moneyRange.maxAmount')}`,
-            Currency: `${_get(data, 'moneyRange.currency')}`,
+            name: _get(data,'investor.legalName','-'),
+            Amount: `${_get(data, 'moneyRange.minAmount','')} - ${_get(data, 'moneyRange.maxAmount','')}`,
+            Currency: `${_get(data, 'moneyRange.currency','-')}`,
             term:time,
-            interestRate: `${_get(data,'interestRate')}%`,
+            interestRate: _get(data,'interestRate')?`${_get(data,'interestRate','')}%`:'-',
             
             
 
