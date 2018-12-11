@@ -65,7 +65,7 @@ function SideBar(WrappedComponent) {
                                     <li className={_get(this.props, 'location.pathname', "") == "/legal" ? `active ${_get(this, 'props.formStatusLegal.status')} ` : `${_get(this, 'props.formStatusLegal.status')} `} onClick={() => this.handleRoute('legal')}>Legal</li>
                                     <li className={_get(this.props, 'location.pathname', "") == "/financials" ? `active ${_get(this, 'props.formStatusAbout.status')} ` : `${_get(this, 'props.formStatusAbout.status')} `} onClick={() => this.handleRoute('financials')}>Financials</li>
                                     <li className={_get(this.props, 'location.pathname', "") == "/beneficiary" ? `active ${_get(this, 'props.formStatusAbout.status')} ` : `${_get(this, 'props.formStatusAbout.status')} `} onClick={() => this.handleRoute('beneficiary')}>Benificiary Shareholders</li>
-                                    <li className={_get(this.props, 'location.pathname', "") == "/onboardingview" ? `active ${_get(this, 'props.formStatusAbout.status')} ` : `${_get(this, 'props.formStatusAbout.status')} `} onClick={() => this.handleRoute('onboardingview')}>OnBoarding View</li>
+                                    <li className={_get(this.props, 'location.pathname', "") == "/onboardingview" ? `active ${_get(this, 'props.formStatusAbout.status')} ` : null} onClick={() => this.handleRoute('onboardingview')}>OnBoarding View</li>
                                 </ul>
                             </div>
                             <div className="col-sm-9" >

@@ -28,8 +28,8 @@ return({
         ? 'filled' :
         get(address, 'city') || get(address, 'country') ||
         get(address, 'line1') || get(address, 'line2') ||
-        get(address, 'region') || get(address,'zipCode') ||get(basicInfoData,'email')
-        ||(basicInfoData,'phoneNumber') ?
+        get(address, 'region') || get(address,'zipCode') ||get(basicInfoData,'email',null)
+        ||(basicInfoData,'phoneNumber',null) ?
             'p-filled' : 'u-filled'
 
 })
