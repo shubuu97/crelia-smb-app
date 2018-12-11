@@ -268,6 +268,25 @@ class LoanRequestsContainer extends React.PureComponent {
         }
         return statusIconColor
     }
+    handleHistory=(data,index)=>
+    {
+        let reqObj = {};
+        console.log(index, "ff");
+        console.log(this.props.loanData)
+        this.props.dispatch(commonActionCreater({
+            fund_transactionIds:  _get(this.props, `loanData[${index}].transactionIds`)
+        }, 'SAVE_fund_transactionIds'));
+        this.props.history.push('/LoanHistory');
+        // console.log(_get(this.props, `loanData[${index}]`));
+        // let $class = _get(this.props, `loanData[${index}].$class`);
+        // let fundType = this.getFundType($class);
+        // if (fundType == 'Equity') {
+        //     this.props.history.push('/LoanRequest/Equitycreate');
+        // }
+        // else {
+        //     this.props.history.push('/LoanRequest/create');
+        // }
+    }
     render() {
         const props = this.props;
         return (
@@ -289,7 +308,12 @@ class LoanRequestsContainer extends React.PureComponent {
                     {
                         Text: 'Close Request',
                         actionEvent: this.handleCloseRequest
-                    }]}
+                    },
+                    {
+                        Text: 'Show History',
+                        actionEvent: this.handleHistory
+                    },
+                ]}
                     editAction={{
                         Text: 'Edit',
                         actionEvent: this.handleEdit
