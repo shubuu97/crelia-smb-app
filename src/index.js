@@ -11,9 +11,7 @@ import rootReducer from './Redux/RootReducer';
 import { Provider } from 'react-redux';
 /* Stylesheet */
 import './Assets/stylesheets/main.less'
-/* Boilerplate Imports*/
-import xForms from './xBoilerplate/Forms.jsx';
-import MDC from './xBoilerplate/MaterialDesignTemplate';
+
 /*Material UI Imports*/
 import { createGenerateClassName } from '@material-ui/core/styles';
 import theme from './Global/MaterialUiSettings/theme';
@@ -29,6 +27,10 @@ import RouteWithLayout from './Global/layout/RouteWithLayout';
 import UiSetting from './Global/uiSettings/uiSettings';
 import SignInLayout from './Global/layout/signInLayout';
 
+/* Boilerplate Imports*/
+import xForms from './xBoilerplate/Forms.jsx';
+import MDC from './xBoilerplate/MaterialDesignTemplate';
+import CardTableTest from './xBoilerplate/CardTableTest';
 
 /* SMB Container Imports*/
 import CompanyOnBoardingContainer from './SMB/CompanyOnBoarding/CompanyOnBoardingContainer';
@@ -106,7 +108,7 @@ ReactDOM.render(
                   <Route exact path="/boilerplate/form" component={xForms} />
                   <Route exact path="/UiSetting" component={UiSetting} />
                   <Route exact path='/boilerplate/mdc' component={MDC} />
-
+                  <RouteWithLayout Layout={MainLayout} exact path="/boilerplate/CardTableTest" Component={CardTableTest} />
 
 
                   {/* Main Routes */}

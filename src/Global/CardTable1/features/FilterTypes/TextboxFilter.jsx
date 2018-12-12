@@ -43,7 +43,6 @@ class TextboxFilter extends Component {
                         placeholder={this.props.data.name}
                         margin="normal"
                         variant="outlined"
-                        onChange={(event) => this.props.filterUpdationHandler(event.target.value, this.props.data.name, "textbox")}
                     />
                 </FormControl>
             </div>

@@ -10,25 +10,24 @@ class Heading extends Component {
     constructor() {
         super();
         this.state = {
-
+            
         }
     }
 
-    componentDidMount() {
-        // Specific Task Modal case
-        if (!this.props.hideHeader)
-            var height = document.getElementById('table-heading').clientHeight;
+    componentDidMount(){
+        if(!this.props.hideHeader)
+        var height = document.getElementById('table-heading').clientHeight;
         else
-            var height = 0;
+        var height = 0;
         this.setState({
-            top: height
+            top : height
         })
     }
 
     populateHeading = () => {
         let data = this.props.headingData
         let dataArr = []
-        for (let i = 0; i < data.length; i++) {
+        for(let i = 0; i<data.length; i++){
             dataArr.push(<div className="data-col"><h3>{data[i]}</h3></div>)
         }
         return (
@@ -40,7 +39,7 @@ class Heading extends Component {
 
     render() {
         return (
-            <div className="table-head sticky" style={{ top: this.state.top }}>
+            <div className="table-head sticky" style={{top : this.state.top}}>
                 {this.populateHeading()}
             </div>
         )
