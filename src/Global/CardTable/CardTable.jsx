@@ -89,10 +89,10 @@ class CardTable extends Component {
                     rows={data}
                     height="69px"
                     getHeight={this.getHeight}
-                    onClick={() => this.toggleExtended(index)}
+                    onClick={() => this.toggleExtended(data, index)}
                     isExtended={this.state.toggleExtendedState[index]}
                     extendedTableProps={this.props.extendedTableProps}
-                    extendedComponent={this.props.extendedComponent}
+                    extendedComponent={_get(this, 'props.extendedComponent.component')}
                     openOfferModal={this.props.openOfferModal}
                     soloActions={this.props.soloActions}
                     menuActions={this.props.menuActions}
@@ -103,7 +103,7 @@ class CardTable extends Component {
     }
 
     /* Toggle Extended rows */
-    toggleExtended = (index) => {
+    toggleExtended = (data, index) => {
         this.setState({
             toggleExtendedState: this.state.toggleExtendedState.map((title, i) => {
                 if (i == index && title == false) {
@@ -112,6 +112,9 @@ class CardTable extends Component {
                 else return false
             })
         })
+        if(_get(this, 'props.extendedComponent.actionEvent')){
+            this.props.extendedComponent.actionEvent(data, index)
+        }
     }
 
     /* Toggle Filter Panel*/
