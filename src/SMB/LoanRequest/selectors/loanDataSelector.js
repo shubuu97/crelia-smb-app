@@ -20,13 +20,16 @@ const tableDataSelector = createSelector(
         let fundType = $classarr[$classarr.length - 1];
         let obj = {
             status: {
-                offerCount: _get(data, 'offerCount', ''),
-                status: data.status
+                dataBadge:  _get(data, 'offerCount', ''),
+                content:  data.status,
+                status:  data.status,
             },
             fundType,
             Amount: `${_get(data, 'moneyRange.minAmount')} - ${_get(data, 'moneyRange.maxAmount')}`,
             Currency: `${_get(data, 'moneyRange.currency')}`,
-            Time: time,
+            Time: {content:time,
+            subData:'jj'
+            },
             purpose: [_get(data, 'fundAllocation[0].purpose', ''), _get(data, 'fundAllocation[1].purpose', ''), _get(data, 'fundAllocation[2].purpose', '')],
         }
        

@@ -68,12 +68,12 @@ class LoanRequestsContainer extends React.PureComponent {
     //helper function end here
 
     //Dialogue actions starts here
-    openOfferModal = (data, index) => {
-
-        this.props.dispatch(commonActionCreater({
-            reqID: _get(this.props, `loanData[${index}].id`)
-        }, 'SAVE_FUND_REQ_ID'));
-        this.setState({ open: true })
+    extendedComponentAction = (data, index) => {
+        this.setState({reqID:_get(this.props, `loanData[${index}].id`)})
+        // this.props.dispatch(commonActionCreater({
+        //     reqID: _get(this.props, `loanData[${index}].id`)
+        // }, 'SAVE_FUND_REQ_ID'));
+       //this.setState({ open: true })
 
     }
 
@@ -215,27 +215,28 @@ class LoanRequestsContainer extends React.PureComponent {
                 <CardTable
                     title="Fund Requests"
 
-                    actionData={[{
-                        Text: 'Send To Approval',
+                    menuActions={[{
+                        Title: 'Send To Approval',
                         actionEvent: this.handleSendToApproval
                     },
                     {
-                        Text: 'Suspend',
+                        Title: 'Suspend',
                         actionEvent: this.handleSuspend
                     },
                     {
-                        Text: 'Close Request',
+                        Title: 'Close Request',
                         actionEvent: this.handleCloseRequest
                     },
                     {
-                        Text: 'Show History',
+                        Title: 'Show History',
                         actionEvent: this.handleHistory
                     },
                     ]}
-                    editAction={{
-                        Text: 'Edit',
+                    soloActions={[{
+                        Title: 'Edit',
+                        className: 'edit-icon flex-row',
                         actionEvent: this.handleEdit
-                    }}
+                    }]}
                     headingData={[
                         'Status',
                         'Fund Type',
@@ -251,8 +252,20 @@ class LoanRequestsContainer extends React.PureComponent {
                     onShowSizeChange={this.onShowSizeChange}
                     onPageChange={this.onPageChange}
                     chooseColor={this.chooseColor}
-                    history={this.props.history}
+                     extendedComponent={
+                        {component : <OffersContainer
+                        fundId={this.state.reqID}
+                        
+                        />, actionEvent: this.extendedComponentAction}
+                    }
+
+                    total = {this.props.totalRows}
                     openOfferModal={this.openOfferModal}
+                    headingButtons={
+                        [
+                            { Title: 'Create Request', className: "mb-10 ", actionEvent: ()=>this.props.history.push('/LoanRequest/SelectLoanType') },
+                        ]
+                    }
 
                 />
                 <Dialog
@@ -281,10 +294,14 @@ class LoanRequestsContainer extends React.PureComponent {
 function mapStateToProps(state) {
 
     let companyId = _get(state, 'BasicInfo.lookUpData.companyDetails.id', null);
-    return { loanData:loanDataSelector(state), TableData: tableDataSelector(state), companyId }
+    let totalRows = _get(state,'LoanRequest.lookUpData.total_rows',0)
+    return { loanData:loanDataSelector(state), TableData: tableDataSelector(state), companyId,
+        totalRows }
 
 }
 
 LoanRequestsContainer = connect(mapStateToProps)(LoanRequestsContainer)
 
 export default LoanRequestsContainer;
+
+
