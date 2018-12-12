@@ -107,26 +107,6 @@ class PopulateRows extends Component {
                 }
             }
 
-            // return (
-
-
-            //     <div key={index} className="data-col">
-            //         {keyname == 'status' ?
-            //             <svg style={{ width: '12px', height: '12px' }} viewBox="0 0 24 24">
-            //                 <path fill={this.chooseColor(data[keyname])} d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z" />
-            //             </svg> : null}
-
-            //         {keyname == 'status' ? <span>&nbsp;</span> : null}
-
-            //         {keyname == 'status' ? null : data[keyname]}
-
-            //         {keyname == 'status' ? <div className="data-badge"><Badge badgeContent={data['offerCount']} color="primary">
-
-            //         </Badge></div>
-            //             : null}
-
-            //     </div>
-            // )
         })
         if (this.props.actions) {
             rows.push(
