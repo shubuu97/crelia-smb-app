@@ -28,7 +28,11 @@ import currencyFun from './commonReducer';
 import LoanFun from './commonReducer';
 import ProfileHistoryFun from './commonReducer';
 import TransactionDetailsFun from './commonReducer'
+import OfferDataFun from './commonReducer';
 import getLoanRequest from './commonReducer';
+
+
+
 
 
 let CobPost=CobPostFun('cobsave');
@@ -44,6 +48,10 @@ let CreateLoan = LoanFun('create_loan');
 let ProfileHistory  = ProfileHistoryFun('ProfileHistory');
 let TransactionDetails = TransactionDetailsFun('TransactionDetails')
 let LoanRequest = getLoanRequest('fetchingLoanRequestData');
+let OfferData = OfferDataFun('OfferData');
+
+
+
 
 let rootRducer = combineReducers({
     form:formReducer,
@@ -69,7 +77,9 @@ let rootRducer = combineReducers({
     ProfileHistory,
     TransactionDetails,
     LoanRequest,
-    staticReducers
+    staticReducers,
+    OfferData
+    
 })
 
 export default rootRducer;

@@ -7,12 +7,11 @@ import basicDataFetcher from '../../Global/dataFetch/basicDataFetcher';
 
 //Lodash imports
 import _get from 'lodash/get';
-
-import Histories from './component/Histories';
+ import Histories from '../TransactionHistory/component/Histories';
 
 import Button from '@material-ui/core/Button';
 
-class ProfileHistory extends Component {
+class LoanHistory extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -21,22 +20,22 @@ class ProfileHistory extends Component {
 
     }
     componentDidMount() {
-        basicDataFetcher(this.props.dispatch).then((data) => {
-            console.log('here', data);
-            let reqObj = { transactionIds: _get(data, 'companyDetails.transactionIds', []) }
-
-            genericPostData({
-                dispatch: this.props.dispatch,
-                reqObj,
-                url: '/api/TransactionHistory',
-                constants: {
-                    init: 'ProfileHistory_init',
-                    success: 'ProfileHistory_success',
-                    error: 'ProfileHistory_error'
-                }
-            })
+        if(this.props.fund_transactionIds)
+        {
+        let reqObj = {transactionIds:this.props.fund_transactionIds}
+        genericPostData({
+            dispatch: this.props.dispatch,
+            reqObj,
+            url: '/api/TransactionHistory',
+            constants: {
+                init: 'ProfileHistory_init',
+                success: 'ProfileHistory_success',
+                error: 'ProfileHistory_error'
+            }
         })
-    } 
+    }
+
+    }
 
     render() {
         return (
@@ -61,7 +60,8 @@ class ProfileHistory extends Component {
 }
 
 function mapStateToProps(state) {
-    return { ProfileHistoryData: _get(state, 'ProfileHistory.lookUpData') }
+    return { fund_transactionIds: _get(state, 'staticReducers.fund.fund_transactionIds'),
+    ProfileHistoryData: _get(state, 'ProfileHistory.lookUpData') }
 }
 
-export default connect(mapStateToProps)(ProfileHistory)
+export default connect(mapStateToProps)(LoanHistory)

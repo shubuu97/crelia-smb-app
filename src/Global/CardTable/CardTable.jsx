@@ -11,10 +11,7 @@ import Filters from './features/Filters'
 import Heading from './features/Heading';
 import Pagination from './features/Pagination'
 
-import './styles/cardTable.less';
-
-
-
+import './styles/cardTable.less'
 
 let dummyFilterData = [
     {
@@ -119,7 +116,7 @@ let dummyRowData = [
     }
 ]
 
-class LongCard extends Component {
+class CardTable extends Component {
 
     constructor() {
         super();
@@ -132,6 +129,7 @@ class LongCard extends Component {
     }
 
     componentDidMount() {
+        this.populateHeading();
         this.toggleExtendedStateUpdate();
     }
 
@@ -147,10 +145,34 @@ class LongCard extends Component {
         })
     }
 
+    /* Isolating Heading Data and saving in State */
+    /* Headings are pulled from first group of DataSet removing extendedData and adding actions if prompted */
+    populateHeading = () => {
+        let allData = _get(this, "props.data[0]", {})
+        console.log("headingData allData - " + allData);
+        let headingData = Object.keys(allData).filter((keyname) => {
+            if (keyname != "extendedRow") {
+                return true
+            }
+            return false
+        })
+        if (this.props.actions) {
+            headingData.push("Actions");
+        }
+        console.log("headingData - " + headingData);
+        headingData.map((data, index) => {
+            headingData[index] = data.replace(/([a-z])([A-Z])/g, '$1 $2');
+        })
+        console.log("headingData - " + headingData);
+        this.setState({
+            headingData: headingData
+        })
+    }
+
     /* Isolating Row data and generating EachRow components */
     populateRows = () => {
         let allData = _get(this, "props.data", []);
-        console.log("allData" , allData)
+        console.log("allData", allData)
         let Rows = allData.map((data, index) => {
             return (
                 <EachRow
@@ -163,6 +185,7 @@ class LongCard extends Component {
                     height="69px"
                     getHeight={this.getHeight}
                     editAction={this.props.editAction}
+                    openOfferModal={this.props.openOfferModal}
                 />
             )
         })
@@ -181,7 +204,7 @@ class LongCard extends Component {
         })
     }
 
-    /* Toggle Filter Panel*/ 
+    /* Toggle Filter Panel*/
     toggleFilterPanel = () => {
         this.setState({
             filterPanelToggle: this.state.filterPanelToggle ? false : true
@@ -190,24 +213,27 @@ class LongCard extends Component {
 
     render() {
         const props = this.props;
-        console.log("CardTable states - ", this.state);
         return (
             <div className="loan-request">
-                 <div className="title-btn sticky " id="table-heading">
-                        <h1>Loan Requests</h1>
-                        <div>
-                        <Button color='primary' variant='outlined' className='mb-10 mr-20 g-filters' onClick={() => this.toggleFilterPanel()}>Filter</Button>
+            {!this.props.hideHeader ?
+                <div className="title-btn sticky " id="table-heading">
+                    <h1>{this.props.title}</h1>
+                    <div>
+                        <Button color='primary' variant='outlined' className='mb-10 mr-20 g-filters' onClick={() => this.toggleFilterPanel()}>
+                            Filter
+                        </Button>
                         <Button
-                    onClick={() => this.props.history.push('LoanRequest/SelectLoanType')}
-                    color='primary'
-                    variant='contained'
-                    className="mb-10 "
-                >Create Request</Button>
-
+                            onClick={() => this.props.history.push('LoanRequest/SelectLoanType')}
+                            color='primary'
+                            variant='contained'
+                            className="mb-10 "
+                        >
+                            Create Request
+                        </Button>
                     </div>
-                    </div>
+                </div>: <div id="table-heading"></div>}
                 <div>
-                {
+                    {
                         this.state.filterPanelToggle ?
                             <Filters
                                 filterData={this.state.filterData}
@@ -215,11 +241,12 @@ class LongCard extends Component {
                             null
                     }
                 </div>
-                <div >
+                <div>
                     <div className="custom-table">
                         {/* Heading */}
                         <Heading
-                            headingData={this.props.headingData}
+                       hideHeader = { this.props.hideHeader}
+                            headingData={_get(this, 'props.headingData', this.state.headingData)}
                         />
                         {this.populateRows()}
                     </div>
@@ -228,7 +255,6 @@ class LongCard extends Component {
                         onShowSizeChange={this.props.onShowSizeChange}
                         onChange={this.props.onPageChange}
                         total={30}
-
                     />
                 </div>
             </div>
@@ -241,6 +267,6 @@ function mapStateToProps(state) {
 
 }
 
-LongCard = connect(mapStateToProps)(LongCard)
+CardTable = connect(mapStateToProps)(CardTable)
 
-export default LongCard;
+export default CardTable;

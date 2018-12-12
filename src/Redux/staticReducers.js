@@ -5,6 +5,11 @@ const staticReducers = (state = { data: {}, }, action) => {
                 type: action.type,
                 fund: action.data
             });
+            case 'SAVE_fund_transactionIds':
+            return Object.assign({}, state, {
+                type: action.type,
+                fund: action.data
+            });
     }
     return state;
 }

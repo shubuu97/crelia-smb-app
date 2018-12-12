@@ -59,7 +59,7 @@ const axiosMiddleware = store => next => (action) => {
   requestObject.url = path;
   if (config.body)
     requestObject.data = config.body;
-  requestObject.headers = { ...headers, correlationid: generateV1uuid(), Authorization: `${authToken}`, 'Content-Type': 'application/json' }
+  requestObject.headers = { ...headers,originURL:window.origin,correlationid: generateV1uuid(), Authorization: `${authToken}`, 'Content-Type': 'application/json' }
   if(uploadConfig)  
   requestObject.onUploadProgress=uploadConfig;
 

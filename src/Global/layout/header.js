@@ -63,18 +63,13 @@ class Header extends React.Component {
                         <div className="logo"><img src={logoimg} /></div>
                         <div className="nevbar">
                             <ul>
-                                <li onClick={() => { this.props.history.push('/about'); }}>
-                                    <a>Company Profile</a>
-                                </li>
-                                <li onClick={() => { this.props.history.push('/ProfileHistory'); }}>
-                                    <a>Profile Updates History</a>
-                                </li>
                                 <li onClick={() => { this.props.history.push('/LoanRequest'); }}>
                                     <a>Requests</a>
                                 </li>
-                                <li>
-                                    <a >Others <i class="material-icons droparrow">keyboard_arrow_down</i></a>
+                                <li onClick={() => { this.props.history.push('/about'); }}>
+                                    <a>Company Profile</a>
                                 </li>
+                               
                             </ul>
                         </div>
 
@@ -92,13 +87,17 @@ class Header extends React.Component {
                         onRequestClose={this.handleRequestClose}
                     >
                         <MenuItem onClick={() => {
+                            this.props.history.push('/account');
+                            this.setState({ open: false })
+                        }}>My Account</MenuItem>
+                         <MenuItem onClick={() => {
                             this.props.history.push('/about');
                             this.setState({ open: false })
                         }}>Company Profile</MenuItem>
                         <MenuItem onClick={() => {
-                            this.props.history.push('/account');
+                            this.props.history.push('/ProfileHistory');
                             this.setState({ open: false })
-                        }}>My account</MenuItem>
+                        }}>Blockchain History</MenuItem>
                         <MenuItem onClick={this.logout}>Logout</MenuItem>
                     </Menu>
 
