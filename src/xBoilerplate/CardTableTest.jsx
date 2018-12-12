@@ -203,6 +203,10 @@ class CardTableTest extends React.Component {
         console.log(data, "searchAction")
     }
 
+    extendedComponentAction = (data, index) => {
+        console.log(data, index, "extendedComponentAction")
+    }
+
     render() {
         return (
             <div className="">
@@ -248,7 +252,7 @@ class CardTableTest extends React.Component {
                     **If you provide an Extended component each row will use that customExtendedComponent, else if you provide extended data in the data itself as a key then those will be used for extended view. */
                     
                     // extendedComponent={
-                    //     <ExtendedComponent />
+                    //     {component : <ExtendedComponent />, actionEvent: this.extendedComponentAction}
                     // }
                     // extendedTableProps={
                     //     {
