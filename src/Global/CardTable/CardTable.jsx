@@ -104,13 +104,9 @@ class CardTable extends Component {
 
     /* Toggle Extended rows */
     toggleExtended = (data, index) => {
+        this.state.toggleExtendedState[index] = !this.state.toggleExtendedState[index]
         this.setState({
-            toggleExtendedState: this.state.toggleExtendedState.map((title, i) => {
-                if (i == index && title == false) {
-                    return true
-                }
-                else return false
-            })
+            toggleExtendedState: this.state.toggleExtendedState
         })
         if(_get(this, 'props.extendedComponent.actionEvent')){
             this.props.extendedComponent.actionEvent(data, index)
