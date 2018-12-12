@@ -21,7 +21,7 @@ import LoaderButton from '../../Global/Components/LoaderButton';
 import genericPostData from '../../Global/dataFetch/genericPostData';
 import GlobalRadio from '../../Global/Components/Radio';
 //side component for preview and submit
-import PreviewForm from './components/PreviewForm';
+import PreviewFormEquity from './components/PreviewFormEquity';
 
 import { commonActionCreater } from '../../Redux/commonAction';
 import { APPLICATION_BFF_URL } from '../../Redux/urlConstants';
@@ -120,6 +120,7 @@ class EquityRequest extends Component {
     //logic to remove value from form
     handleCheck = (name, b) => {
         if (b == false) {
+            debugger;
             this.props.change(name, null);
         }
     }
@@ -189,8 +190,9 @@ class EquityRequest extends Component {
 
     }
 
-    handleNotSure = ()=>
+    handleNotSure = (name,b)=>
     {
+        //this.handleCheck('notSureRange',b);
         this.props.autofill('lowerValue','');
         this.props.autofill('upperValue','')
     }
@@ -479,6 +481,9 @@ class EquityRequest extends Component {
                             </div>
                             <div className="col-sm-4">
                                 <div className="details-block">
+                                <PreviewFormEquity
+                                formValues={this.props.formValues}
+                                />
                                     <LoaderButton
                                         isFetching={this.state.loading}
                                         type="submit"
