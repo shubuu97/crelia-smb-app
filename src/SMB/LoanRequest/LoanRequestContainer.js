@@ -213,7 +213,7 @@ class LoanRequestsContainer extends React.PureComponent {
                 {/* Card Rows */}
 
                 <CardTable
-                    title="Loan Requests"
+                    title="Fund Requests"
 
                     actionData={[{
                         Text: 'Send To Approval',
