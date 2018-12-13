@@ -1116,40 +1116,11 @@ flex: 0 0 25%;
         }
     }
 
-}
-
-    
-    
-       
+} 
     
 
 .smbhistory{
-
-    .longCard {
-        position: relative;
-        margin: auto;
-        width: 100%;
-        background: rgba(255,255,255);
-        box-shadow: 2px 2px 2px -2px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0px 1px 3px 0 rgba(0, 0, 0, 0.12);
-        border-radius: 0;
-        transition: 0.1s ease-in; 
-        margin: 7px 0;
-        overflow: hidden;
-        padding:15px;
-      }
-      
-      .longCard:nth-child(2){
-        margin-top: 0;
-      }
-      
-      .longCard:hover {
-        box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0px 1px 3px 0 rgba(0, 0, 0, 0.12);
-      }
-      .extended-row{
-        padding: 30px 20px 0 20px;
-        background-color: #fbfbfb;
-        margin: 10px;
-      }
+  
 }
 .user-type-details {
     display: flex;  
@@ -1214,26 +1185,7 @@ flex: 0 0 25%;
 .loan-request{
     .cardwrapper{
     padding: 15px;
-    }
-    .g-filters
-    {
-        padding-left: 32px;position: relative;
-    }
-    .g-filters::before
-    {
-        content: "";
-    background-image: url("../images/filter.svg"); 
-    width: 15px;
-    height: 15px;
-    background-repeat: no-repeat;
-    background-size: cover;
-    cursor: pointer;
-    text-indent: -9999px;
-    position: absolute;
-    left:10px;
-
-
-    }
+    }    
 
 h4 {
     fontfamily: 'GTWalsheimMedium', sans-serif !important;
@@ -1305,4 +1257,129 @@ h4 {
             font-weight: bold;
         }
     }
+}
+
+
+
+
+.history-block{
+position: relative;
+min-height: 400px;
+        .history-row{
+            position: relative;
+            padding-bottom: 50px;
+
+            .short-history{
+                display: flex;
+                align-items: center;
+               
+                .block-title{
+                    font-size: .8rem;           
+                    font-family: 'GTWalsheimProRegular', sans-serif;
+                    }
+                    .block-data{
+                    font-size: 1rem;           
+                    font-family: 'GTWalsheimProLight', sans-serif;
+                    }
+                
+                .event-name, .transaction-time, .modified-by{
+                    position: relative;
+                    padding-left: 3rem;
+                    display: flex;
+                    flex-direction: column;            
+                }
+
+                .event-name{
+                    flex:0 0 18%;
+                }
+
+                .transaction-time{
+                    flex:0 0 18%;
+                }
+
+                .modified-by{
+                    flex:0 0 18%;
+                }
+                .event-name:before{
+                    content: "";
+                    background-image: url("../images/event-icon.svg"); 
+                    width: 40px;
+                    height: 40px;
+                    position: absolute;
+                    background-repeat: no-repeat;
+                    background-size: 95%;
+                    left:0;
+                    
+                }      
+
+                .transaction-time:before{
+                    content: "";
+                    background-image: url("../images/transaction-icon.svg"); 
+                    width: 45px;
+                    height: 45px;
+                    position: absolute;
+                    background-repeat: no-repeat;
+                    background-size: 97%;           
+                    left:0;
+                }
+
+                .modified-by:before{
+                    content: "";
+                    background-image: url("../images/modified-icon.svg"); 
+                    width: 40px;
+                    height: 40px;
+                    position: absolute;
+                    background-repeat: no-repeat;
+                    background-size: 95%;
+                    left:0;
+
+                }
+
+                .transaction-date{
+                    content: "";
+                    background-image: url("../images/history.svg"); 
+                    width: 80px;
+                    height: 80px;     
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    position: relative;
+                    margin-right:40px;
+                    align-items: center;
+                    justify-content: center;
+                    text-align: center;
+                    line-height: 16px;
+                    font-size: 14px;
+                    color:#fff; 
+                    font-family: 'GTWalsheimMedium', sans-serif;
+                    display: flex;
+
+                
+                }
+            }
+
+            .detailed-history{
+
+                margin-left:120px;
+            }
+        }
+
+     .history-row:before{
+        width: 2px;
+        content: "";
+        background-color: #5d5d5d;
+        height: 100%;
+        position: absolute;
+        z-index: 0;
+        left: 38px;
+        top:0;
+    }
+    .history-row:last-child:before{
+        width:0;        
+        background-color:transparent;
+        height:0;
+        
+    }
+
+
+
 }

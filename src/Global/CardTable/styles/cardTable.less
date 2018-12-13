@@ -74,6 +74,8 @@ html {
     min-height: 100%;
   }
   
+
+
   .longCard {
     position: relative;
     margin: auto;
@@ -84,8 +86,9 @@ html {
     transition: 0.1s ease-in; 
     margin: 7px 0;
     overflow: hidden;
+    padding:15px;
   }
-  
+    
   .longCard:nth-child(2){
     margin-top: 0;
   }
@@ -182,6 +185,56 @@ html {
 .search-input {
 	outline: none;
 }
+
+
+  .edit-icon
+{
+    background-image: url("../images/edit.svg"); 
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    cursor: pointer;
+    text-indent: -9999px;
+    transition: .3s all;
+}
+.more-icon
+{
+    background-image: url("../images/more.svg"); 
+    width: 29px;
+    height: 14px;
+    background-repeat: no-repeat;
+    background-size: 70%;
+    cursor: pointer;
+    background-position: center;
+    text-indent: -9999px;
+    border: solid 1px #928f8f;
+    border-radius: 3px;
+    margin:3px 0 0 20px;
+    transition: .3s all;
+}
+.edit-icon:hover, .more-icon:hover{
+    opacity: .5;
+}
+
+
+.g-filters
+    {
+        padding-left: 32px;position: relative;
+    }
+    .g-filters::before
+    {
+        content: "";
+    background-image: url("../images/filter.svg"); 
+    width: 15px;
+    height: 15px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    cursor: pointer;
+    text-indent: -9999px;
+    position: absolute;
+    left:10px;
+    }
 .search-input[type=search] {
 	-webkit-appearance: textfield;
 	-webkit-box-sizing: content-box;
