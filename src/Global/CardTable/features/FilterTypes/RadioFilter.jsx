@@ -1,22 +1,23 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import _get from 'lodash/get';
 /* Material Imports*/
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import RadioGroup from '@material-ui/core/RadioGroup';
+
 import Radio from '@material-ui/core/Radio';
 /* Redux Imports */
 
 
-class CheckboxFilter extends Component {
+class RadioBoxFilter extends Component {
 
     constructor() {
         super();
         this.state = {
-            selectedValue: "1"
+            value: ''
         }
     }
 
-    populateCheckbox = () => {
+    populateRadiobox = () => {
         let checboxArr = _get(this, "props.data.values", [])
         let filterCheckbox = []
         filterCheckbox = checboxArr.map((data, index) => {
@@ -24,11 +25,11 @@ class CheckboxFilter extends Component {
                 <FormControlLabel
                     control={
                         <Radio
-                            checked={this.state.selectedValue === `${index}`}
-                            onChange={this.handleChange}
-                            value={`${index}`}
-                            name="radio-button-demo"
-                            aria-label={`${index}`}
+                            checked={this.state[this.props.data.name]}
+                            onChange={this.handleChange()}
+                            value={data}
+                            name={this.props.data.name}
+                        // aria-label={`${index}`}
                         />
                     }
                     label={data}
@@ -39,19 +40,35 @@ class CheckboxFilter extends Component {
         return filterCheckbox
     }
 
-    handleChange = name => event => {
-        this.setState({ [name]: event.target.checked });
-    }
-
+    handleChange = event => {
+        this.setState({ value: event.target.value });
+        this.props.filterUpdationHandler(event.target.value, this.props.data.name, "radio")
+    };
 
     render() {
         console.log("Filter Data Type - ", this.props.data.type, this.props.data)
+        let radioboxArr = _get(this, "props.data.values", [])
         return (
             <div className="mt-10">
-                {this.populateCheckbox()}
+                <RadioGroup
+                    aria-label={this.props.data.name}
+                    name={this.props.data.name}
+                    value={this.state.value}
+                    onChange={this.handleChange}
+                >
+                    {radioboxArr.map((data, index) => (
+                        <FormControlLabel
+                            key={index}
+                            disabled={this.props.disabled}
+                            value={radioboxArr[index]}
+                            control={<Radio />}
+                            label={data} />
+                    ))}
+
+                </RadioGroup>
             </div>
         )
     }
 }
 
-export default CheckboxFilter;
+export default RadioBoxFilter;

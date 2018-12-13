@@ -344,6 +344,7 @@ class CreateRequestContainer extends Component {
                             <div className='col-sm-4'>
                                 <div className="details-block">
                                     <PreviewForm
+                                       isFetching = {this.props.isFetching}
                                         submitLoanDetails={this.props.handleSubmit(this.submitLoanDetails)}
                                         formValues={this.props.formValues} />
                                 </div>
@@ -406,6 +407,7 @@ function mapStateToProps(state) {
         formValues: getFormValues('createLoanRequest')(state),
         currencyList: _get(state, 'currency.lookUpData', []),
         id,
+        isFetching:_get(state,'CreateLoan.isFetching'),
         fundId:_get(state,'staticReducers.fund.reqID'),
         initialValues: {
             workingCapital, refinancing, capitalExpense,

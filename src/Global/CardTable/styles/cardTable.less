@@ -1,10 +1,30 @@
+.width-100-percent {
+    width: 100%;
+}
+.flex-row{
+    display: flex;
+    flex-direction: row;
+}
+.flex-column{
+    display: flex;
+    flex-direction: column;
+}
+.justify-center{
+    justify-content: center;
+}
+.align-center{
+    align-items: center;
+}
+.relative{
+    position: relative;
+}
+
 .filter-test{
     background: #ebecfd; 
-   
     display: flex;
     display: flex;
     flex: 1;
-    margin:0 15px 20px 15px;
+    box-shadow: 2px 2px 2px -2px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0px 1px 3px 0 rgba(0, 0, 0, 0.12);
 
     .filter-sub-block{
         display: flex;
@@ -38,9 +58,10 @@
     z-index: 2;
     background: #fafafa;
     top: 0;
+    padding-top: 5px;
 }
 .table-head{
-    z-index: 1;
+    z-index: 2;
 }
 
 .sticky {
@@ -106,7 +127,7 @@ html {
     background: #ebecfd;
     padding:.5rem 0;
     margin-bottom: .5rem;
-    
+    box-shadow: 2px 2px 2px -2px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0px 1px 3px 0 rgba(0, 0, 0, 0.12);
   }  
   .table-col{
     display: flex;
@@ -117,7 +138,16 @@ html {
     padding: 1rem;
     align-items: center;
     display: flex;
-  }  
+    
+    .MuiBadge-badge {
+        right: auto;
+        margin-left: 5px;
+        z-index: 0;
+    }
+    .MuiButton-label{
+        font-size: 0.85em;
+    }
+  }
   
   .pagination-block{
     align-items: center;
@@ -146,11 +176,14 @@ html {
     }
   }
 
-.data-badge .MuiBadge-badge {
-    left: 5px;
-    height: 18px;
-    width: 18px;
-    z-index: 0;
+.sub-data-text{
+    font-size: 0.7em;
+    opacity: 0.65;
+}   
+
+
+.search-input {
+	outline: none;
 }
 
 
@@ -202,3 +235,75 @@ html {
     position: absolute;
     left:10px;
     }
+.search-input[type=search] {
+	-webkit-appearance: textfield;
+	-webkit-box-sizing: content-box;
+	font-family: inherit;
+	font-size: 100%;
+}
+.search-input::-webkit-search-decoration,
+.search-input::-webkit-search-cancel-button {
+	display: none; 
+}
+
+
+.card-table {
+    .search-input {
+        font-size: 0.8rem !important;
+        padding: 8px 35px;
+        margin-bottom: 1rem;
+        margin-right: 20px;
+    }
+    .search-input[type=search] {
+        background: #fafafa url(https://static.tumblr.com/ftv85bp/MIXmud4tx/search-icon.png) no-repeat 9px center;
+        border: 1px solid rgba(49, 55, 135, 0.5);
+        padding: 9px 10px 9px 32px;
+        width: 55px;
+        
+        -webkit-border-radius: 10em;
+        -moz-border-radius: 10em;
+        border-radius: 10em;
+        
+        -webkit-transition: all .5s;
+        -moz-transition: all .5s;
+        transition: all .5s;
+    }
+    .search-input[type=search]:focus {
+        width: 130px;
+        background-color: #fff;
+        border: 1px solid  rgba(49, 55, 135, 0.5);
+
+        -webkit-box-shadow: 0 0 5px rgba(49, 55, 135, 0.5);
+        -moz-box-shadow: 0 0 5px rgba(49, 55, 135, 0.5);
+        box-shadow: 0 0 5px rgba(49, 55, 135, 0.5);
+    }
+    .search-input:-moz-placeholder {
+        color: #999;
+    }
+    .search-input::-webkit-input-placeholder {
+        color: #999;
+    }
+}
+
+.layover{
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    background: rgba(0, 0, 0, .3);
+    z-index: 1;
+    margin-top: 90px;
+
+    .loader {
+        position: absolute;
+        margin: 0px auto;
+        width: 100px;
+        height: 100px;
+        top:50%;
+        left:50%;
+        margin-left: -25px;
+        margin-top: -100px;
+        z-index: 1;
+      }
+}

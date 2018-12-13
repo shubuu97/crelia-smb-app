@@ -9,18 +9,19 @@ import GlobalTextField from '../../Global/Components/GlobalTextField';
 import formatMoney from '../../Global/Components/normalizingMoneyField';
 import deformatMoney from '../../Global/Components/denormalizingMoney'
 import FormControl from '@material-ui/core/FormControl';
-import Button from '@material-ui/core/Button'
-import Paper from '@material-ui/core/Paper';
+
 
 
 import Select from '../../Global/Components/Select';
 import GlobalCheckBox from '../../Global/Components/GlobalCheckBox';
+import LoaderButton from '../../Global/Components/LoaderButton';
+
 
 //Data fetching imported from common
 import genericPostData from '../../Global/dataFetch/genericPostData';
 import GlobalRadio from '../../Global/Components/Radio';
 //side component for preview and submit
-import PreviewForm from './components/PreviewForm';
+import PreviewFormEquity from './components/PreviewFormEquity';
 
 import { commonActionCreater } from '../../Redux/commonAction';
 import { APPLICATION_BFF_URL } from '../../Redux/urlConstants';
@@ -39,62 +40,65 @@ class EquityRequest extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            workingCapital: false
+            workingCapital: false,
+            loading:false
         }
     }
     componentDidMount() {
         this.getApiCall('reference-service/allowedCurrencies', 'allowedCurrencies');
         if (this.props.fundId) {
             this.getApiCall(`api/Equity/${encodeURIComponent(this.props.fundId)}`, 'fundDataById').then(data => {
-                
-                console.log(data,"data")
-                this.props.autofill('money', data.money);
-                this.props.autofill('isBoardMembership', data.isBoardMembership);
-                this.props.autofill('isNationAgreement', data.isNationAgreement);
-                this.props.autofill('timeFrame', data.timeFrame.split('T')[0]);
-                this.props.autofill('isSafeOffering',data.isSafeOffering)
-                this.props.autofill('timeFrame', data.timeFrame.split('T')[0]);
-                this.props.autofill('notSureRange', data.notSureRange);
-                this.props.autofill('lowerValue', parseInt(data.lowerValue));
-                this.props.autofill('upperValue', parseInt(data.upperValue));
 
-                
+                this.props.autofill('currency', _get(data, 'money.currency', ''));
+                this.props.autofill('amount', formatMoney(_get(data, 'money.amount', '')));
+                this.props.autofill('lowerValue', _get(data, 'lowerValue', ''));
+                this.props.autofill('upperValue', _get(data, 'upperValue', ''));
 
-                
-
-
-                _get(data, 'fundAllocation', []).map((Allocation) => {
+                _get(data, 'fundAllocation', []).map((Allocation, index) => {
                     if (Allocation.purpose == 'Expansion') {
-                        this.props.autofill('capitalExpense', true);
-                        this.props.autofill('capitalExpensePecentage', Allocation.percentage);
+                        this.props.autofill('expansion', true);
+                        this.props.autofill('expansionPecentage', _get(Allocation, 'percentage', ''));
                     }
-                    if (Allocation.purpose == 'Working Capital') {
-                        this.props.autofill('workingCapital', true);
-                        this.props.autofill('workingCapitalPecentage', Allocation.percentage);
-                    }
-                    if (Allocation.purpose == 'Refinancing') {
-                        this.props.autofill('refinancing', true);
-                        this.props.autofill('refinancingPecentage', Allocation.percentage);
+                    if (Allocation.purpose == 'Recapitalization') {
+                        this.props.autofill('recapitalization', true);
+                        this.props.autofill('recapitalizationPecentage', _get(Allocation, 'percentage', ''));
                     }
                     if (Allocation.purpose !== 'Expansion' &&
-                        Allocation.purpose !== 'Working Capital' &&
-                        Allocation.purpose !== 'Refinancing') {
-
-                        this.props.autofill('otherPurpose', Allocation.purpose);
+                        Allocation.purpose !== 'Recapitalization') {
+                        this.props.autofill('otherPurpose', _get(Allocation, 'percentage', ''));
                     }
                 })
+
+                this.props.autofill('safeDiscount', _get(data, 'safeDiscount', ''));
+                this.props.autofill('safeMarketCap', _get(data, 'safeMarketCap', ''));
+                this.props.autofill('comment', _get(data, 'comment', ''));
+
+                if (data.isNationAgreement) {
+                    this.props.autofill('isNationAgreement', 'yes');
+                } else {
+                    this.props.autofill('isNationAgreement', 'no');
+                }
+                if (data.isBoardMembership) {
+                    this.props.autofill('isBoardMembership', 'yes');
+                } else {
+                    this.props.autofill('isBoardMembership', 'no');
+                }
+                if (data.isSafeOffering) {
+                    this.props.autofill('notSureRange', true);
+                    this.props.autofill('isSafeOffering', 'yes');
+                } else {
+                    this.props.autofill('isSafeOffering', 'no');
+                }
+
+                const companyId = _get(data, 'smb', '') ? _get(data, 'smb', '').split('#')[1] : '';
+                this.setState({ smbCompanyId: companyId });
+
+
+                this.props.autofill('timeFrame', data.timeFrame.split('T')[0], '');
+
+
             }).catch(err => {
 
-            });
-            genericGetData({
-                dispatch: this.props.dispatch,
-                url: '/reference-service/allowedCurrencies',
-                constant: {
-                    init: 'currency_init',
-                    success: 'currency_success',
-                    error: 'currency_error'
-                },
-                identifier: 'currency_get'
             });
         }
 
@@ -116,29 +120,44 @@ class EquityRequest extends Component {
     //logic to remove value from form
     handleCheck = (name, b) => {
         if (b == false) {
+            debugger;
             this.props.change(name, null);
         }
     }
 
     submitLoanDetails = (values) => {
-        console.log(values, "values is here");
+        this.setState({ loading: true });
         let reqObj = {};
         reqObj.companyId = this.props.companyId;
-        reqObj.lowerValue = _get(values,'lowerValue');
-        reqObj.upperValue =  _get(values,'upperValue');
-        reqObj.fundAllocation = [];
-        reqObj.comment = values.comment;
-        reqObj.equityType = "COMMON";
-        reqObj.isSafeOffering = values.isSafeOffering;
+        reqObj.id = this.props.fundId ? this.props.fundId : '';
+        reqObj.timeFrame = values.timeFrame;
 
+        reqObj.fundAllocation = [];
+        values.money = {};
+
+        reqObj.equityType = "COMMON";
+        reqObj.lowerValue = _get(values, 'lowerValues', 0);
+        reqObj.upperValue = _get(values, 'upperValue', 0);
+        reqObj.comment = _get(values, 'comment', '');
 
         //logic to denormalize money
-        if (values.money) {
-            values.money.currency = _get(values, 'money.currency');
-            values.money.amount = deformatMoney(_get(values, 'money.amount', 0));
+        if (values.amount) {
+            values.money.amount = deformatMoney(_get(values, 'amount', 0));
         }
-        //end
+        values.money.currency = _get(values, 'currency', '');
         reqObj.money = values.money;
+
+        reqObj.safeDiscount = values.safeDiscount;
+        reqObj.safeMarketCap = values.safeMarketCap;
+        if (values.isSafeOffering === 'yes') {
+            reqObj.isSafeOffering = true;
+        }
+        if (values.isNationAgreement === 'yes') {
+            reqObj.isNationAgreement = true;
+        }
+        if (values.isBoardMembership === 'yes') {
+            reqObj.isBoardMembership = true;
+        }
 
 
         // logic to add fundallocation array
@@ -148,34 +167,53 @@ class EquityRequest extends Component {
         if (values.recapitalizationPecentage) {
             reqObj.fundAllocation.push({ purpose: 'Recapitalization', percentage: parseInt(values.recapitalizationPecentage) })
         }
+        if (values.otherPurpose) {
+            reqObj.fundAllocation.push({ purpose: values.otherPurpose, percentage: 100 })
+        }
         //logic end here
 
         genericPostData({
-            dispatch: this.props.dispatch, url: `/api/SaveEquity`,
-            identifier: 'loan-post', successText: 'Loan Saved Succesfully', reqObj,
+            dispatch: this.props.dispatch,
+            url: `/api/SaveEquity`,
+            identifier: 'equity-post',
+            successText: 'Equity Saved Succesfully',
+            reqObj,
             constants: {
-                init: 'create_loan_init',
-                success: 'create_loan_success',
-                error: 'create_loan_error'
+                init: 'create_equity_init',
+                success: 'create_equity_success',
+                error: 'create_equity_error'
+            },
+            successCb: () => {
+                this.setState({ loading: false });
             }
         })
 
     }
+
+    handleNotSure = (name,b)=>
+    {
+        //this.handleCheck('notSureRange',b);
+        this.props.autofill('lowerValue','');
+        this.props.autofill('upperValue','')
+    }
     render() {
         let { handleSubmit } = this.props;
         return (
-            <div className="loan-request">
+            <div className="user-table-section loan-request">
                 <form onSubmit={handleSubmit(this.submitLoanDetails)}>
-                    <div className="row">
-                        <div className="col-sm-12">
-                            <span>
-                                <h1>Equity Request</h1>
-                                <Button type="submit" color='primary' variant='contained'>Submit</Button>
-                            </span>
-                            <div >
-                                <FormSection name='money'>
+                    <div className="row align-items-center">
+                        <div className="col-sm-6 ">
+                            <h1>Equity Request</h1>
+                        </div>
+                        <div className="col-sm-6 d-flex justify-content-end "></div>
+                    </div>
+                    <div className="cardwrapper">
+                        <div className="row">
+                            <div className="col-sm-8">
+
+
                                 <div className="row">
-                                    <div className='col-sm-4'>
+                                    <div className='col-sm-6'>
                                         <FormControl margin="normal" required fullWidth>
                                             <Field
                                                 label="Currency"
@@ -186,7 +224,7 @@ class EquityRequest extends Component {
                                             />
                                         </FormControl>
                                     </div>
-                                    <div className='col-sm-4'>
+                                    <div className='col-sm-6'>
                                         <FormControl margin="normal" required fullWidth>
                                             <Field
                                                 label='Amount'
@@ -198,55 +236,61 @@ class EquityRequest extends Component {
                                         </FormControl>
                                     </div>
                                 </div>
-                                </FormSection>
-
-                                <br />
                                 {/* Needs css changes here */}
-                                <div className="onboarding-sub-title">
-                                    What percentage range are you offering for this amount?
-                                </div>
-                                <div className="row">
-                                    <div class="col-sm-4">
-                                        <FormControl margin="normal" required fullWidth>
-                                            <Field
-                                                label="Range From"
-                                                name="lowerValue"
-                                                component={GlobalTextField}
-                                                fullWidth={true}
-                                                normalize={formatMoney}
-                                                placeholder='from'
-                                            />
-                                        </FormControl>
+                                <div className="pt-20">
+                                    <div className="onboarding-sub-title">
+                                        What percentage range are you offering for this amount?
                                     </div>
-                                    <div class="col-sm-4">
-                                        <FormControl margin="normal" required fullWidth>
-                                            <Field
-                                                label="Range To"
-                                                name="upperValue"
-                                                component={GlobalTextField}
-                                                fullWidth={true}
-                                                normalize={formatMoney}
-                                            />
-                                        </FormControl>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <FormControl margin="normal" required fullWidth>
-                                            <Field
-                                                label='Not Sure'
-                                                name='notSureRange'
-                                                color='primary'
-                                                component={GlobalCheckBox}
-                                            />
-                                        </FormControl>
-                                    </div>
-                                </div>
-
-                                <div className="row">
-                                    <div className="col-sm-8">
-                                        {_get(this.props, 'formValues.notSureRange', false) ?
+                                    <div className="row align-items-center">
+                                        <div class="col-sm-3">
                                             <FormControl margin="normal" required fullWidth>
                                                 <Field
-                                                    label='Do you want to offer a SAFE (Simple Agreement for Future Equity)?'
+                                                    label="Range From"
+                                                    name="lowerValue"
+                                                    component={GlobalTextField}
+                                                    fullWidth={true}
+                                                    normalize={formatMoney}
+                                                    placeholder='from'
+                                                />
+                                            </FormControl>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <FormControl margin="normal" required fullWidth>
+                                                <Field
+                                                    label="Range To"
+                                                    onChange={()=>this.props.autofill('notSureRange',false)}
+                                                    name="upperValue"
+                                                    component={GlobalTextField}
+                                                    fullWidth={true}
+                                                    normalize={formatMoney}
+                                                />
+                                            </FormControl>
+                                        </div>
+                                        <div class="col-sm-1"><span class="or">or</span></div>
+                                        <div class="col-sm-5">
+                                            <FormControl margin="normal" required fullWidth>
+                                                <Field
+                                                    label='Not Sure'
+                                                    onChange={this.handleNotSure}
+                                                    name='notSureRange'
+                                                    color='primary'
+                                                    component={GlobalCheckBox}
+                                                />
+                                            </FormControl>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div className="row pt-15">
+                                    <div className="col-sm-12">
+                                        {_get(this.props, 'formValues.notSureRange', false) ?
+                                            <FormControl margin="normal" required fullWidth>
+                                                <div className="onboarding-sub-title">
+                                                    Do you want to offer a SAFE (Simple Agreement for Future Equity)?
+                                                </div>
+                                                <Field
+                                                    // label='Do you want to offer a SAFE (Simple Agreement for Future Equity)?'
                                                     name='isSafeOffering'
                                                     color='primary'
                                                     component={GlobalRadio}
@@ -263,10 +307,11 @@ class EquityRequest extends Component {
 
 
                                 {
-                                    _get(this.props, 'formValues.safeOffer', 'no') === 'yes' ?
+                                    _get(this.props, 'formValues.isSafeOffering', 'no') === 'yes' &&
+                                    _get(this.props, 'formValues.notSureRange', false) ?
                                         <div>
                                             <div className="row">
-                                                <div className="col-sm-4">
+                                                <div className="col-sm-6">
                                                     <FormControl margin="normal" required fullWidth>
                                                         <Field
                                                             label="What discount you are willing to offer?"
@@ -277,7 +322,7 @@ class EquityRequest extends Component {
                                                         />
                                                     </FormControl>
                                                 </div>
-                                                <div className="col-sm-4">
+                                                <div className="col-sm-6">
                                                     <FormControl margin="normal" required fullWidth>
                                                         <Field
                                                             label="What market cap you are you willing to commit to?"
@@ -290,10 +335,13 @@ class EquityRequest extends Component {
                                                 </div>
                                             </div>
                                             <div className="row">
-                                                <div className="col-sm-6">
+                                                <div className="col-sm-12">
                                                     <FormControl margin="normal" required fullWidth>
+                                                        <div className="onboarding-sub-title">
+                                                            Are you willing to offer most favored nation agreement?
+                                                         </div>
                                                         <Field
-                                                            label='Are you willing to offer most favored nation agreement?'
+                                                            // label='Are you willing to offer most favored nation agreement?'
                                                             name='isNationAgreement'
                                                             color='primary'
                                                             component={GlobalRadio}
@@ -310,10 +358,13 @@ class EquityRequest extends Component {
 
                                 <div className="row">
                                     <div className="col-sm-8">
-                                        {_get(this.props, 'formValues.upperValueValue', 0) > 10 ?
+                                        {_get(this.props, 'formValues.upperValue', 0) > 10 ?
                                             <FormControl margin="normal" required fullWidth>
+                                                <div className="onboarding-sub-title">
+                                                    Are you willing to offer Board Membership to lead investor?
+                                                </div>
                                                 <Field
-                                                    label='Are you willing to offer Board Membership to lead investor?'
+                                                    // label='Are you willing to offer Board Membership to lead investor?'
                                                     name='isBoardMembership'
                                                     color='primary'
                                                     component={GlobalRadio}
@@ -326,55 +377,62 @@ class EquityRequest extends Component {
                                         }
                                     </div>
                                 </div>
-
-                                <h5>Use Of Funds</h5>
-                                <div className="row">
-                                    <div className="col-sm-2">
-                                        <FormControl margin="normal" required fullWidth>
-                                            <Field
-                                                label='Expansion'
-                                                name='expansion'
-                                                color='primary'
-                                                component={GlobalCheckBox}
-                                                onChange={(e, value) => this.handleCheck('expansionPecentage', value)}
-                                            />
-                                        </FormControl>
-                                    </div>
-                                    <div className="col-sm-4">
-                                        {
-                                            _get(this.props, 'formValues.expansion', false) ?
-                                                <FormControl margin="normal" required fullWidth>
-                                                    <Field
-                                                        label='Part of loan (%)'
-                                                        name='expansionPecentage'
-                                                        component={GlobalTextField}
-                                                        fullWidth={true}
-                                                        normalize={formatMoney}
-                                                        endAdornment="%"
-                                                    />
-                                                </FormControl> : null
-                                        }
+                                <div className="pt-10">
+                                    <div className="onboarding-sub-title">
+                                        Use Of Funds
+                                </div>
+                                    <div className="row">
+                                        <div className="col-sm-3">
+                                            <FormControl margin="normal" required fullWidth>
+                                                <Field
+                                                    id='expansion'
+                                                    label='Expansion'
+                                                    name='expansion'
+                                                    color='primary'
+                                                    component={GlobalCheckBox}
+                                                    onChange={(e, value) => this.handleCheck('expansionPecentage', value)}
+                                                />
+                                            </FormControl>
+                                        </div>
+                                        <div className="col-sm-3">
+                                            {
+                                                _get(this.props, 'formValues.expansion', false) ?
+                                                    <FormControl margin="normal" required fullWidth>
+                                                        <Field
+                                                            label='Part of loan (%)'
+                                                            id='expansionPecentage'
+                                                            name='expansionPecentage'
+                                                            component={GlobalTextField}
+                                                            fullWidth={true}
+                                                            normalize={formatMoney}
+                                                            endAdornment="%"
+                                                        />
+                                                    </FormControl> : null
+                                            }
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="row">
-                                    <div className="col-sm-2">
+                                    <div className="col-sm-3">
                                         <FormControl margin="normal" required fullWidth>
                                             <Field
                                                 label='Recapitalization'
                                                 name='recapitalization'
+                                                id='recapitalization'
                                                 color='primary'
                                                 component={GlobalCheckBox}
                                                 onChange={(e, value) => this.handleCheck('recapitalizationPecentage', value)}
                                             />
                                         </FormControl>
                                     </div>
-                                    <div className="col-sm-4">
+                                    <div className="col-sm-3">
                                         {
                                             _get(this.props, 'formValues.recapitalization', false) ?
                                                 <FormControl margin="normal" required fullWidth>
                                                     <Field
                                                         label='Part of loan (%)'
                                                         name='recapitalizationPecentage'
+                                                        id='recapitalizationPecentage'
                                                         component={GlobalTextField}
                                                         fullWidth={true}
                                                         normalize={formatMoney}
@@ -386,7 +444,30 @@ class EquityRequest extends Component {
                                     </div>
                                 </div>
                                 <div className="row">
-                                    <div className="col-sm-8">
+                                    <div className='col-sm-6'>
+                                        <FormControl margin="normal" required fullWidth>
+                                            <Field
+                                                label='Other purpose..'
+                                                name='otherPurpose'
+                                                component={GlobalTextField}
+                                                fullWidth={true}
+                                            />
+                                        </FormControl>
+                                    </div>
+                                    <div className='col-sm-6'>
+                                        <FormControl margin="normal" required fullWidth>
+                                            <Field
+                                                label='Time Frame'
+                                                name='timeFrame'
+                                                component={GlobalTextField}
+                                                type='date'
+                                                fullWidth={true}
+                                            />
+                                        </FormControl>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="col-sm-12">
                                         <FormControl margin="normal" required fullWidth>
                                             <Field
                                                 label="Please describe your equity offering in your own words."
@@ -397,13 +478,23 @@ class EquityRequest extends Component {
                                         </FormControl>
                                     </div>
                                 </div>
-
-
                             </div>
-                        </div >
-                    </div >
-                </form >
-            </div >
+                            <div className="col-sm-4">
+                                <div className="details-block">
+                                <PreviewFormEquity
+                                formValues={this.props.formValues}
+                                />
+                                    <LoaderButton
+                                        isFetching={this.state.loading}
+                                        type="submit"
+                                        color="primary"
+                                        variant="contained">Submit</LoaderButton>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
         )
     }
 }

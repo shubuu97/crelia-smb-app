@@ -313,7 +313,7 @@ function mapStateToProps(state) {
     return { offerData, 
         TableData, 
         companyId,
-        fundId:_get(state,'staticReducers.fund.reqID')
+        //fundId:_get(state,'staticReducers.fund.reqID')
      }
 
 }

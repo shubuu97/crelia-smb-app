@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import _get from 'lodash/get';
-import Button from '@material-ui/core/Button'
-
+import Button from '@material-ui/core/Button';
+import LoaderButton from '../../../Global/Components/LoaderButton'
 class PreviewForm extends Component {
 
 
@@ -33,7 +33,12 @@ class PreviewForm extends Component {
                 <div><span className="inner-btxt">Active till:</span> {_get(formValues,'timeFrame')}</div>
             </div>        
              
-             <Button onClick={this.props.submitLoanDetails} color='primary' className="full-width-btn btnprimary mt-30" variant='contained'>Submit Details</Button>
+             <LoaderButton
+               isFetching={this.props.isFetching}
+                onClick={this.props.submitLoanDetails}
+                color='primary'
+                className="full-width-btn btnprimary mt-30" 
+                variant='contained'>Submit Details</LoaderButton>
             
              
             </div>

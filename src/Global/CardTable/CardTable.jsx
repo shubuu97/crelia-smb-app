@@ -2,119 +2,14 @@ import React, { Component } from 'react';
 import _get from 'lodash/get';
 /* Material Imports*/
 import Button from '@material-ui/core/Button';
-/* Redux Imports */
-import { connect } from 'react-redux';
-
+import CircularProgress from '@material-ui/core/CircularProgress';
+/* Style Imports*/
+import './styles/cardTable.less'
 /* Components Imports*/
 import EachRow from './features/EachRow'
 import Filters from './features/Filters'
 import Heading from './features/Heading';
 import Pagination from './features/Pagination'
-
-import './styles/cardTable.less'
-
-let dummyFilterData = [
-    {
-        type: "textbox",
-        name: "Company Name",
-        values: []
-
-    },
-    {
-        type: "slider",
-        name: "Amount",
-        values: []
-
-    },
-    {
-        type: "checkbox",
-        name: "Region",
-        values: [
-            "USA",
-            "UK",
-            "India",
-            "Canada"
-        ]
-    },
-    {
-        type: "checkbox",
-        name: "Currency",
-        values: [
-            "USD",
-            "EUR",
-            "INR",
-        ]
-    },
-    {
-        type: "checkbox",
-        name: "Sectors",
-        values: [
-            "Manufacturing",
-            "Production",
-            "Development"
-        ]
-    },
-    {
-        type: "checkbox",
-        name: "Time",
-        values: [
-            "3yrs",
-            "4yrs",
-            "5yrs",
-            "6yrs"
-        ]
-    },
-    {
-        type: "radio",
-        name: "Already Offers",
-        values: [
-            "Yes",
-            "No"
-        ]
-    }
-]
-
-let dummyRowData = [
-    {
-        CompanyName: "Electronic Arts",
-        Amount: "50,000,000 - 100,000,000",
-        Currency: "USD",
-        Time: "5yrs",
-        Region: "United States",
-        Sector: "Manufacturing",
-        extendedRow: {
-            DateOfIncorporation: "02 June 1995",
-            IncorporationType: "Limited Liability Company (LLC)",
-            NoOfEmployees: "500"
-        }
-    },
-    {
-        CompanyName: "Activision Blizzard",
-        Amount: "70,000,000 - 100,000,000",
-        Currency: "USD",
-        Time: "3yrs",
-        Region: "United Kingdom",
-        Sector: "Manufacturing",
-        extendedRow: {
-            DateOfIncorporation: "02 June 1995",
-            IncorporationType: "Limited Liability Company (LLC)",
-            NoOfEmployees: "500"
-        }
-    },
-    {
-        CompanyName: "Square Enix",
-        Amount: "10,000,000 - 80,000,000",
-        Currency: "INR",
-        Time: "8yrs",
-        Region: "India",
-        Sector: "Manufacturing",
-        extendedRow: {
-            DateOfIncorporation: "02 June 1995",
-            IncorporationType: "Limited Liability Company (LLC)",
-            NoOfEmployees: "500"
-        }
-    }
-]
 
 class CardTable extends Component {
 
@@ -122,7 +17,7 @@ class CardTable extends Component {
         super();
         this.state = {
             headingData: [],
-            filterData: dummyFilterData,
+            filterData: [],
             filterPanelToggle: false,
             toggleExtendedState: [],
         }
@@ -131,11 +26,26 @@ class CardTable extends Component {
     componentDidMount() {
         this.populateHeading();
         this.toggleExtendedStateUpdate();
+        this.setState(
+            { filterData: this.props.filterData }
+        )
     }
+
+    /* Heading Button click event*/
+    handleClick = (actionEvent, data, index) => {
+        return (event) => {
+            actionEvent(data, this.props.rowId);
+        }
+    }
+    /* Handle Search data */
+    handleSearch = (actionEvent, data) => {
+        actionEvent(data)
+    }
+
 
     /* Update State of toggleExtended from no. of rows*/
     toggleExtendedStateUpdate = () => {
-        let allData = this.props.data;
+        let allData = _get(this, "props.data", []);
         let toggleState = []
         allData.map((data, index) => {
             toggleState = [...toggleState, false]
@@ -149,14 +59,13 @@ class CardTable extends Component {
     /* Headings are pulled from first group of DataSet removing extendedData and adding actions if prompted */
     populateHeading = () => {
         let allData = _get(this, "props.data[0]", {})
-        console.log("headingData allData - " + allData);
         let headingData = Object.keys(allData).filter((keyname) => {
-            if (keyname != "extendedRow") {
+            if (keyname != "extendedRow" && keyname != "extendedTable") {
                 return true
             }
             return false
         })
-        if (this.props.actions) {
+        if (this.props.soloActions || this.props.menuActions) {
             headingData.push("Actions");
         }
         console.log("headingData - " + headingData);
@@ -177,15 +86,16 @@ class CardTable extends Component {
             return (
                 <EachRow
                     rowId={index}
-                    actionData={this.props.actionData}
                     rows={data}
-                    actions={this.props.actions}
-                    isExtended={this.state.toggleExtendedState[index]}
-                    onClick={() => this.toggleExtended(index)}
                     height="69px"
                     getHeight={this.getHeight}
-                    editAction={this.props.editAction}
+                    onClick={() => this.toggleExtended(data, index)}
+                    isExtended={this.state.toggleExtendedState[index]}
+                    extendedTableProps={this.props.extendedTableProps}
+                    extendedComponent={_get(this, 'props.extendedComponent.component')}
                     openOfferModal={this.props.openOfferModal}
+                    soloActions={this.props.soloActions}
+                    menuActions={this.props.menuActions}
                 />
             )
         })
@@ -193,15 +103,14 @@ class CardTable extends Component {
     }
 
     /* Toggle Extended rows */
-    toggleExtended = (index) => {
+    toggleExtended = (data, index) => {
+        this.state.toggleExtendedState[index] = !this.state.toggleExtendedState[index]
         this.setState({
-            toggleExtendedState: this.state.toggleExtendedState.map((title, i) => {
-                if (i == index && title == false) {
-                    return true
-                }
-                else return false
-            })
+            toggleExtendedState: this.state.toggleExtendedState
         })
+        if(_get(this, 'props.extendedComponent.actionEvent')){
+            this.props.extendedComponent.actionEvent(data, index)
+        }
     }
 
     /* Toggle Filter Panel*/
@@ -212,43 +121,84 @@ class CardTable extends Component {
     }
 
     render() {
-        const props = this.props;
         return (
-            <div className="loan-request">
-            {!this.props.hideHeader ?
-                <div className="title-btn sticky " id="table-heading">
-                    <h1>{this.props.title}</h1>
-                    <div>
-                        <Button color='primary' variant='outlined' className='mb-10 mr-20 g-filters' onClick={() => this.toggleFilterPanel()}>
-                            Filter
-                        </Button>
-                        <Button
-                            onClick={() => this.props.history.push('LoanRequest/SelectLoanType')}
-                            color='primary'
-                            variant='contained'
-                            className="mb-10 "
-                        >
-                            Create Request
-                        </Button>
-                    </div>
-                </div>: <div id="table-heading"></div>}
+            <div className="card-table">
+                {_get(this, 'props.title') ?
+                    <div className="title-btn sticky " id="table-heading">
+                        <h1>{_get(this, 'props.title')}</h1>
+                        <div className="flex-row">
+
+                            {
+                                this.props.searchOption ?
+                                    <input class="search-input" id="CardTableSearchBox" type="search" placeholder="Search" onChange={(event) => this.handleSearch(_get(this, 'props.searchOption.actionEvent'), event.target.value)}></input> :
+                                    null
+                            }
+
+
+                            {
+                                this.props.filterData ?
+                                    <Button color='primary' variant='outlined' className='mb-10 mr-20 g-filters' onClick={() => this.toggleFilterPanel()}>Filter</Button> :
+                                    null
+                            }
+
+                            {
+                                this.props.headingButtons ?
+                                    this.props.headingButtons.map((actionData, index) => {
+                                        return (
+                                            <Button
+                                                title={_get(actionData, 'Title', "")}
+                                                onClick={this.handleClick(_get(actionData, 'actionEvent'), this.props.data)}
+                                                color='primary'
+                                                variant='contained'
+                                                className={_get(actionData, 'className')}
+                                            >{_get(actionData, 'Title', "")}</Button>
+                                        )
+                                    }) : null
+                            }
+                        </div>
+                    </div> : null
+                }
+
                 <div>
                     {
                         this.state.filterPanelToggle ?
                             <Filters
                                 filterData={this.state.filterData}
+                                filterAction={this.props.filterAction}
                             /> :
                             null
                     }
                 </div>
                 <div>
-                    <div className="custom-table">
+                    <div className="custom-table relative">
                         {/* Heading */}
                         <Heading
-                       hideHeader = { this.props.hideHeader}
+                            hideHeader={this.props.hideHeader}
                             headingData={_get(this, 'props.headingData', this.state.headingData)}
                         />
-                        {this.populateRows()}
+
+                        {
+                            this.props.loader ?
+                                <div className="layover">
+                                    <div className="loader">
+                                        <CircularProgress size={50} />
+                                    </div>
+                                </div> :
+                                null
+                        }
+
+
+                        {
+                            _get(this, "props.data", []).length > 0 ?
+
+                                this.populateRows() :
+
+                                <div className="width-100-percent flex-row justify-center">
+                                    <div className="pad-20">No Data</div>
+                                </div>
+
+                        }
+
                     </div>
 
                     <Pagination
@@ -261,12 +211,5 @@ class CardTable extends Component {
         )
     }
 }
-
-
-function mapStateToProps(state) {
-
-}
-
-CardTable = connect(mapStateToProps)(CardTable)
 
 export default CardTable;

@@ -36,9 +36,9 @@ class CheckboxFilter extends Component {
                     control={
                         <Checkbox
                             key={index}
-                            checked={this.state[data]}
-                            onChange={this.handleChange(data)}
-                            value={data}
+                            checked={this.state[`check${index}`]}
+                            onChange={this.handleChange(`check${index}`)}
+                            value={`check${index}`}
                         />
                     }
                     label={data}
@@ -48,22 +48,9 @@ class CheckboxFilter extends Component {
 
         return filterCheckbox
     }
-    filterCheckboxStates=(checkBoxState)=>
-    {
-        let filterdCheckBoxes = []
-       Object.keys(checkBoxState).map((keyname,index)=>
-       {
-        if(checkBoxState[keyname])
-        filterdCheckBoxes.push(keyname);
-       })
-       return filterdCheckBoxes
-    }
 
     handleChange = name => event => {
-        this.state[name] = event.target.checked; 
-        this.setState({ [name]: this.state[name] });
-       let filterdCheckBoxes =  this.filterCheckboxStates(this.state);
-        this.props.filterUpdationHandler(filterdCheckBoxes, this.props.data.name, "checkbox")
+        this.setState({ [name]: event.target.checked });
     }
 
 
