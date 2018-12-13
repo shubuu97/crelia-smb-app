@@ -45,7 +45,7 @@ class EquityRequest extends Component {
         }
     }
     componentDidMount() {
-        this.getApiCall('reference-service/allowedCurrencies', 'allowedCurrencies');
+        this.getApiCall('reference-service/allowedCurrencies', 'currency');
         if (this.props.fundId) {
             this.getApiCall(`api/Equity/${encodeURIComponent(this.props.fundId)}`, 'fundDataById').then(data => {
 
@@ -120,7 +120,6 @@ class EquityRequest extends Component {
     //logic to remove value from form
     handleCheck = (name, b) => {
         if (b == false) {
-            debugger;
             this.props.change(name, null);
         }
     }
@@ -192,7 +191,7 @@ class EquityRequest extends Component {
 
     handleNotSure = (name,b)=>
     {
-        //this.handleCheck('notSureRange',b);
+        this.handleCheck('notSureRange',b);
         this.props.autofill('lowerValue','');
         this.props.autofill('upperValue','')
     }
