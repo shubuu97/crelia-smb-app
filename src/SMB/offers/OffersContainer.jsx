@@ -14,7 +14,8 @@ import { commonActionCreater } from '../../Redux/commonAction'
 /* Components */
 import CardTable from '../../Global/CardTable/CardTable';
 import Button from '@material-ui/core/Button';
-import PostData from '../../Global/dataFetch/genericPostData'
+import PostData from '../../Global/dataFetch/genericPostData';
+import { loanDataSelector } from '../LoanRequest/selectors/loanDataSelector'
 
 
 var jwtDecode = require('jwt-decode');
@@ -67,9 +68,9 @@ class OfferContainer extends React.PureComponent {
     constructor() {
         super();
         this.state = {
-            tableData: [],
-            first:1,
-            limit:10
+            TableData: [],
+            first: 1,
+            limit: 10
         }
     }
 
@@ -78,13 +79,48 @@ class OfferContainer extends React.PureComponent {
     }
 
     basicDataFetcher = () => {
+        debugger;
+        let fundId = _get(this.props, `loanData[${this.props.rowId}].id`)
+
         this.props.dispatch(
-            getData(`${APPLICATION_BFF_URL}/api/offersByFund/${this.props.fundId}`, 'fetchingLoanRequestData', {
+            getData(`${APPLICATION_BFF_URL}/api/offersByFund/${fundId}`, 'fetchingLoanRequestData', {
                 init: 'OfferData_init',
                 success: 'OfferData_success',
                 error: 'OfferData_error'
             })
-        )
+            
+        ).then((data)=>
+        {
+            let TableData = []
+            debugger;
+            data.rows.map((data, index) => {
+                let time = _get(data, 'term', '-')
+                if (time != '-') {
+                    time = time + " year"
+        
+                }
+                console.log("TableData data - ", data)
+                let obj = {
+                    name: _get(data, 'investor.legalName', '-'),
+                    Amount: `${_get(data, 'moneyRange.minAmount', '')} - ${_get(data, 'moneyRange.maxAmount', '')}`,
+                    Currency: `${_get(data, 'moneyRange.currency', '-')}`,
+                    term: time,
+                    interestRate: _get(data, 'interestRate') ? `${_get(data, 'interestRate', '')}%` : '-',
+                }
+        
+                console.log("TableData obj - ", obj);
+                let $class = _get(data, '$class');
+                let $classarr = $class.split('.');
+                let fundType = $classarr[$classarr.length - 1];
+                if (fundType == 'Equity') {
+                    obj.Amount = _get(data, 'money.amount');
+                    obj.Currency = _get(data, 'money.currency')
+                }
+                TableData.push(obj);
+            })
+            this.setState({TableData})
+
+        })
     }
     handleSendToApproval = (data, index) => {
         console.log(_get(this.props, `loanData[${index}]`), "data is here");
@@ -99,15 +135,13 @@ class OfferContainer extends React.PureComponent {
         reqObj.timeFrame = _get(this.props, `loanData[${index}].timeFrame`);
         reqObj.fundAllocation = _get(this.props, `loanData[${index}].fundAllocation`);
 
-     let fundType =  this.getFundType(_get(this.props, `loanData[${index}].$class`));
-     if(fundType=='Equity')
-     {
-        url = '/api/SendEquityRequest'
-     }
-     else
-     {
-         url = '/api/SendLoanRequest'
-     }
+        let fundType = this.getFundType(_get(this.props, `loanData[${index}].$class`));
+        if (fundType == 'Equity') {
+            url = '/api/SendEquityRequest'
+        }
+        else {
+            url = '/api/SendLoanRequest'
+        }
 
 
         PostData({
@@ -121,7 +155,7 @@ class OfferContainer extends React.PureComponent {
                 error: 'CreateLoan_error',
                 identifier: 'CreateLoan_init'
             },
-            successCb:this.basicDataFetcher
+            successCb: this.basicDataFetcher
         })
 
     }
@@ -133,8 +167,7 @@ class OfferContainer extends React.PureComponent {
         this.props.history.push('/LoanRequest/create');
     }
 
-    handleCloseRequest=(data,index)=>
-    {
+    handleCloseRequest = (data, index) => {
         let reqObj = {};
         reqObj.id = _get(this.props, `loanData[${index}].id`);
         let $class = _get(this.props, `loanData[${index}].$class`);
@@ -152,7 +185,7 @@ class OfferContainer extends React.PureComponent {
                 error: 'suspendloan_error',
                 identifier: 'suspendloan_init'
             },
-            successCb:this.basicDataFetcher
+            successCb: this.basicDataFetcher
         })
     }
     handleSuspend = (data, index) => {
@@ -173,25 +206,24 @@ class OfferContainer extends React.PureComponent {
                 error: 'suspendloan_error',
                 identifier: 'suspendloan_init'
             },
-            successCb:this.basicDataFetcher
+            successCb: this.basicDataFetcher
         })
     }
     onShowSizeChange = (current, pageSize) => {
-        this.state.first = ((current-1)*(pageSize))+1;
-        this.state.limit=pageSize;
+        this.state.first = ((current - 1) * (pageSize)) + 1;
+        this.state.limit = pageSize;
         this.basicDataFetcher();
-        this.setState({first:this.state.first,limit:this.state.limit})
+        this.setState({ first: this.state.first, limit: this.state.limit })
 
     }
     onPageChange = (current, pageSize) => {
-        this.state.first =  ((current-1)*(pageSize))+1;
-        this.state.limit=pageSize;
+        this.state.first = ((current - 1) * (pageSize)) + 1;
+        this.state.limit = pageSize;
         this.basicDataFetcher();
-        this.setState({first:this.state.first,limit:this.state.limit})
+        this.setState({ first: this.state.first, limit: this.state.limit })
     }
 
-    getFundType=($class)=>
-    {
+    getFundType = ($class) => {
         let $classarr = $class.split('.');
         let fundType = $classarr[$classarr.length - 1];
         return fundType
@@ -216,19 +248,17 @@ class OfferContainer extends React.PureComponent {
                 break;
             }
             case 'default': {
-    
+
             }
         }
-       return  statusIconColor
+        return statusIconColor
     }
-    handleRequestNegotion=()=>
-    {
-        this.setState({open:false})
+    handleRequestNegotion = () => {
+        this.setState({ open: false })
     }
 
-    handleDecline=()=>
-    {
-        
+    handleDecline = () => {
+
     }
     render() {
         const props = this.props;
@@ -236,7 +266,7 @@ class OfferContainer extends React.PureComponent {
             <div>
 
                 {/* Card Rows */}
-                
+
                 <CardTable
                     actionData={[{
                         Text: 'Request Negotiation',
@@ -246,7 +276,7 @@ class OfferContainer extends React.PureComponent {
                         Text: 'Decline',
                         actionEvent: this.handleDecline
                     }]}
-                  
+
                     headingData={[
                         'Investor',
                         'Amount',
@@ -254,7 +284,7 @@ class OfferContainer extends React.PureComponent {
                         'Term',
                         'Interest Rate',
                         'Action']}
-                    data={this.props.TableData}
+                    data={this.state.TableData}
                     actions={true}
                     isExtended={true}
                     filter={false}
@@ -272,49 +302,17 @@ class OfferContainer extends React.PureComponent {
 }
 
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
 
-    let offerData = _get(state, "OfferData.lookUpData.rows", []);
     let TableData = [];
     let companyId = _get(state, 'BasicInfo.lookUpData.companyDetails.id', null);
-    
+    console.log("TableData - ", TableData);
 
-    offerData.map((data, index) => {
-        let time = _get(data, 'term', '-')
-        if(time != '-'){
-            time = time + " year"
-            
-        }
-        console.log("TableData data - ", data)
-        let obj = {
-            name: _get(data,'investor.legalName','-'),
-            Amount: `${_get(data, 'moneyRange.minAmount','')} - ${_get(data, 'moneyRange.maxAmount','')}`,
-            Currency: `${_get(data, 'moneyRange.currency','-')}`,
-            term:time,
-            interestRate: _get(data,'interestRate')?`${_get(data,'interestRate','')}%`:'-',
-            
-            
-
-        }
-        console.log("TableData obj - ", obj);
-        let $class = _get(data,'$class');
-        let $classarr = $class.split('.');
-        let fundType = $classarr[$classarr.length - 1];
-        if(fundType=='Equity')
-        {
-            obj.Amount = _get(data, 'money.amount');
-            obj.Currency = _get(data,'money.currency')
-        }
-        TableData.push(obj)
-    })
-
-    console.log("TableData - ", TableData)
-
-    return { offerData, 
-        TableData, 
+    return {
+        loanData: loanDataSelector(state),
         companyId,
         //fundId:_get(state,'staticReducers.fund.reqID')
-     }
+    }
 
 }
 

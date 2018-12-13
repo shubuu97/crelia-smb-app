@@ -25,6 +25,9 @@ import OffersContainer from '../offers/OffersContainer';
 //selector imports
 import { tableDataSelector, loanDataSelector } from './selectors/loanDataSelector'
 
+
+
+
 class LoanRequestsContainer extends React.PureComponent {
 
     constructor() {
@@ -253,10 +256,8 @@ class LoanRequestsContainer extends React.PureComponent {
                     onPageChange={this.onPageChange}
                     chooseColor={this.chooseColor}
                      extendedComponent={
-                        {component : <OffersContainer
-                        fundId={this.state.reqID}
-                        
-                        />, actionEvent: this.extendedComponentAction}
+                        {component : OffersContainer
+                        , actionEvent: this.extendedComponentAction}
                     }
 
                     total = {this.props.totalRows}

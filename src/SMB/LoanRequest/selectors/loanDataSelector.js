@@ -1,5 +1,8 @@
 import {createSelector} from 'reselect';
 import _get from 'lodash/get';
+import moment from 'moment';
+
+
 
 
 let loanDataSelector = createSelector(
@@ -25,10 +28,13 @@ const tableDataSelector = createSelector(
                 status:  data.status,
             },
             fundType,
-            Amount: `${_get(data, 'moneyRange.minAmount')} - ${_get(data, 'moneyRange.maxAmount')}`,
+            Amount:{ content:`${_get(data, 'moneyRange.minAmount')} - ${_get(data, 'moneyRange.maxAmount')}`,
+            subData:fundType=='Equity'?`${_get(data,'lowerValue','')}-${_get(data,'upperValue','')}`:`${_get(data,'interestRate','')}% per annum`
+            },
             Currency: `${_get(data, 'moneyRange.currency')}`,
             Time: {content:time,
-            subData:'jj'
+            //Todo ask sohan about this (per annum per month)
+            subData:_get(data,'timeFrame')?`active till-${moment(_get(data,'timeFrame')).format('DD-MM-YYYY')}`:''
             },
             purpose: [_get(data, 'fundAllocation[0].purpose', ''), _get(data, 'fundAllocation[1].purpose', ''), _get(data, 'fundAllocation[2].purpose', '')],
         }
