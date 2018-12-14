@@ -7,7 +7,7 @@ import basicDataFetcher from '../../Global/dataFetch/basicDataFetcher';
 
 //Lodash imports
 import _get from 'lodash/get';
- import Histories from '../TransactionHistory/component/Histories';
+ import Histories from '../ProfileHistory/component/Histories';
 
 import Button from '@material-ui/core/Button';
 

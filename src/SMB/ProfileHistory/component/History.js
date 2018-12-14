@@ -2,12 +2,6 @@ import React, { Component } from 'react';
 import _get from 'lodash/get';
 import genericGetData from '../../../Global/dataFetch/genericGetData';
 
-//Dialogue import 
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-
 import Button from '@material-ui/core/Button';
 
 //Moment to format date and timee
@@ -28,6 +22,7 @@ export default class History extends Component {
         }
 
     }
+    
     handleFetchTransaction = () => {
         genericGetData({
             dispatch: this.props.dispatch,
@@ -50,11 +45,7 @@ export default class History extends Component {
 
         return (
             <div>
-
-
-
-                <div className='longCard'
-                    onClick={() => this.handleFetchTransaction()}>
+                <div className='longCard' onClick={() => this.handleFetchTransaction()}>
                     <div className='event-wrapper'>
                         <div className="wrap-block">
                             <span>Event Name</span>
@@ -72,31 +63,8 @@ export default class History extends Component {
                     {this.state.openModal ? <ReviewCOBInfoContainer
                     fetchFromProp={true}
                     companyDetailsProp={this.state.companyDetails} /> : null}
-                </div>
-                {/* <Dialog
-                    open={this.state.openModal}
-                    aria-labelledby="alert-dialog-title"
-                    aria-describedby="alert-dialog-description"
-                >
-                    <DialogTitle id="alert-dialog-title">{"Preview Your Data and Confirm"}</DialogTitle>
-                    <DialogContent>
-                        Content will come here
-                    </DialogContent>
-                    <DialogActions>
-                        <Button
-                            onClick={() => this.setState({ openModal: false })}
-                            color='primary'
-                            variant='outlined'
-                        >Close</Button>
-
-                    </DialogActions>
-                </Dialog> */}
-
-                
-
+                </div>              
             </div>
-
         )
     }
-
 }

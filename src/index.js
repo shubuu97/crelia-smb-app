@@ -41,7 +41,7 @@ import OnBoardingAcknowlege from './SMB/Acknowledge/OnBoradingAckowledge'
 import AccountSMB from './SMB/MyAccount/MyAccountContainer';
 import LoanRequestContainer from './SMB/LoanRequest/LoanRequestContainer';
 import CreateRequestContainer from './SMB/CreateRequest/CreateRequestContainer';
-import ProfileHistory from './SMB/TransactionHistory/ProfileHistory';
+import ProfileHistoryContainer from './SMB/ProfileHistory/ProfileHistoryContainer';
 import EquityRequestContainer from './SMB/CreateRequest/EquityRequestContainer';
 import SelectLoanType from './SMB/CreateRequest/components/SelectLoanType';
 import LoanHistoryContainer from './SMB/LoanHistory/LoanHistoryContainer';
@@ -128,7 +128,7 @@ ReactDOM.render(
                   <RouteWithLayout Layout={MainLayout} exact path="/OnBoardingAcknowlege" Component={OnBoardingAcknowlege} />
                   <RouteWithLayout Layout={MainLayout} exact path="/account" Component={AccountSMB} />
                   <RouteWithLayout Layout={MainLayout} exact path='/LoanRequest' Component={LoanRequestContainer}/>
-                  <RouteWithLayout Layout={MainLayout} exact path='/ProfileHistory' Component={ProfileHistory}/>
+                  <RouteWithLayout Layout={MainLayout} exact path='/ProfileHistory' Component={ProfileHistoryContainer}/>
                   <RouteWithLayout Layout={MainLayout} exact path='/LoanRequest/create' Component={CreateRequestContainer}/>
                   <RouteWithLayout Layout={MainLayout} exact path='/LoanRequest/Equitycreate' Component={EquityRequestContainer}/>
                   <RouteWithLayout Layout={MainLayout} exact path='/LoanRequest/SelectLoanType' Component={SelectLoanType}/>

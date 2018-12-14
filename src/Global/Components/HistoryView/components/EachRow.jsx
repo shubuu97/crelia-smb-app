@@ -1,6 +1,8 @@
 import React from 'react';
 /* Lodash Imports */
 import _get from 'lodash/get';
+/* Material Imports */
+import Button from '@material-ui/core/Button';
 /* Component Imports */
 import Extended from './Extended'
 
@@ -13,7 +15,6 @@ class EachRow extends React.Component {
 
         }
     }
-
     
 // * Populating Row Heading with Dynamic classNames for Custom Icons
 // Todo: Ask Vishnu to make a default icon, If no Icon is provided.
@@ -37,11 +38,18 @@ class EachRow extends React.Component {
 
     render() {
         return (
-            <div className="history-row" onClick={this.props.onClick}>
-                <div className="short-history">
+            <div className="history-row "  >
+                <div className="short-history cursor-pointer" onClick={this.props.onClick}>
                     <div className="transaction-date">{_get(this, 'props.data.date.date')},<br />{_get(this, 'props.data.date.year')}</div>
                     {this.populateHeading()}
-                    <div className="expend-bth">View Button</div>
+                    <div className="expend-bth">
+                        <Button
+                            isFetching={this.props.isFetchingPostUpdateToMarketPlace}
+                            onClick={this.postMarketPlace}
+                            color="primary"
+                            variant="contained">View More
+                        </Button>
+                    </div>
                 </div>
                 <div className="detailed-history">
                     {
