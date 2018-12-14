@@ -1,20 +1,18 @@
 import React from 'react';
 /* Lodash Imports */
 import _get from 'lodash/get';
-/* Material components import */
-
-/* Redux Imports */
-
+/* Component Imports */
 import HistoryView from '../Global/Components/HistoryView/HistoryView'
 import NewComponent from './NewComponent'
-
 
 /* 
 
 //Todo : Array of HistoryView and pass individual rowData and extendedData.
 //Todo : Dummy data for Rows and Extended.
 //Todo : extendedComponent, must send CustomComponent and actionEvent.
-Todo: Dynamic classes for heading icon.
+//Todo: Dynamic classes for heading icon.
+Todo: Ask Vishnu to make a default icon, If no Icon is provided.
+Todo: Make a default ExtendedView if CustomComponent is not provided.
 
 */
 
@@ -56,9 +54,6 @@ let dummyRows = [
         ],
     },
 ]
-
-
-
 
 class HistoryViewTest extends React.Component {
 

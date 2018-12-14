@@ -1,8 +1,6 @@
 import React from 'react';
 /* Lodash Imports */
 import _get from 'lodash/get';
-/* Material components import */
-
 /* Component Imports */
 import Extended from './Extended'
 
@@ -16,13 +14,15 @@ class EachRow extends React.Component {
         }
     }
 
+    
+// * Populating Row Heading with Dynamic classNames for Custom Icons
+// Todo: Ask Vishnu to make a default icon, If no Icon is provided.
     populateHeading = () => {
-
         let headingData = _get(this, 'props.data.heading', [])
         let row = []
         row.push(headingData.map((data, index) => {
             return (
-                <div className={`${_get(data, 'className', 'event-name')} wrapper-block`}>
+                <div className={`${_get(data, 'className', 'event-name')} wrapper-block`}> //Todo: On this line
                     <span className="block-title">{_get(data, 'title')}</span>
                     <span className="block-data">{_get(data, 'content')}</span>
                 </div>
