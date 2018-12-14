@@ -43,7 +43,7 @@ class PopulateRows extends Component {
         }
         else {
             return (
-                <div className="flex-column">
+                <div className="flex-column" >
                     <div className="flex-row justify-center align-center" >
                         {
                             _get(key, 'status', false) ?
@@ -63,11 +63,9 @@ class PopulateRows extends Component {
                     </div>
                     {
                         _get(key, 'subData', false) ?
-                        <span className="sub-data-text">&nbsp;{_get(key, 'subData')}</span> :
-                        null
+                            <span className="sub-data-text">&nbsp;{_get(key, 'subData')}</span> :
+                            null
                     }
-                    
-                    
                 </div>
 
             )
@@ -125,7 +123,7 @@ class PopulateRows extends Component {
     render() {
         let data = _get(this.props, "rows", {});
         let rows = Object.keys(data).map((keyname, index) => {
-            if (keyname != "extendedRow" && keyname != "extendedTable") {
+            if (keyname != "extendedRow" && keyname != "extendedTable" && keyname != "rowStyle") {
                 if (typeof data[keyname] != 'object') {
                     return <div key={index} className="data-col">{data[keyname]}</div>
                 }
@@ -136,7 +134,7 @@ class PopulateRows extends Component {
                     }
                     else {
                         return (
-                            <div key={index} className="data-col" style={{ color: _get(data[keyname], 'color'), background: _get(data[keyname], 'background') }}>
+                            <div key={index} className="data-col" style={_get(data[keyname], 'cellStyle')}>
                                 {this.formatedCell(data, data[keyname])}
                             </div>
                         );
@@ -207,8 +205,6 @@ class PopulateRows extends Component {
                                 </Menu>
                             </ClickAwayListener>
                     }
-
-
                 </div>
             )
         }
@@ -223,7 +219,7 @@ class PopulateRows extends Component {
 let PopulateExtendedRows = (props) => {
     if (props.extendedComponent) {
         let ExtendedComponent = props.extendedComponent
-        return <ExtendedComponent {...props}/>
+        return <ExtendedComponent {...props} />
     }
     else {
         let data = _get(props, "rows.extendedRow", {});
@@ -276,17 +272,12 @@ class EachRow extends Component {
     extendedData = (props) => {
 
     }
-    handleOnMouseOver = () => {
-        this.setState({ hoverEvent: true })
-    }
-    handleOnMouseOut = () => {
-        this.setState({ hoverEvent: false })
-    }
+    
 
     render() {
         const props = this.props;
         return (
-            <div className="longCard" >
+            <div className="longCard" style={_get(this, 'props.rows.rowStyle')}>
                 <div className="table-col" onClick={this.props.onClick}>
                     {/* Card Rows */}
                     <PopulateRows
@@ -297,8 +288,8 @@ class EachRow extends Component {
                 {
                     props.isExtended && !this.state.hoverEvent ?
                         <PopulateExtendedRows
-                            handleOnMouseOver={this.handleOnMouseOver}
-                            handleOnMouseOut={this.handleOnMouseOut}
+                            handleOnMouseOver={this.props.handleOnMouseOver}
+                            handleOnMouseOut={this.props.handleOnMouseOut}
                             {...this.props}
                         />
                         :

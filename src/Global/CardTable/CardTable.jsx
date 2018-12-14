@@ -20,6 +20,7 @@ class CardTable extends Component {
             filterData: [],
             filterPanelToggle: false,
             toggleExtendedState: [],
+            hoverEvent: false,
         }
     }
 
@@ -55,12 +56,19 @@ class CardTable extends Component {
         })
     }
 
+    handleOnMouseOver = () => {
+        this.setState({ hoverEvent: true })
+    }
+    handleOnMouseOut = () => {
+        this.setState({ hoverEvent: false })
+    }
+
     /* Isolating Heading Data and saving in State */
     /* Headings are pulled from first group of DataSet removing extendedData and adding actions if prompted */
     populateHeading = () => {
         let allData = _get(this, "props.data[0]", {})
         let headingData = Object.keys(allData).filter((keyname) => {
-            if (keyname != "extendedRow" && keyname != "extendedTable") {
+            if (keyname != "extendedRow" && keyname != "extendedTable" && keyname != "rowStyle") {
                 return true
             }
             return false
@@ -96,6 +104,9 @@ class CardTable extends Component {
                     openOfferModal={this.props.openOfferModal}
                     soloActions={this.props.soloActions}
                     menuActions={this.props.menuActions}
+
+                    handleOnMouseOver={this.handleOnMouseOver}
+                    handleOnMouseOut={this.handleOnMouseOut}
                 />
             )
         })
@@ -104,12 +115,14 @@ class CardTable extends Component {
 
     /* Toggle Extended rows */
     toggleExtended = (data, index) => {
-        this.state.toggleExtendedState[index] = !this.state.toggleExtendedState[index]
-        this.setState({
-            toggleExtendedState: this.state.toggleExtendedState
-        })
-        if(_get(this, 'props.extendedComponent.actionEvent')){
-            this.props.extendedComponent.actionEvent(data, index)
+        if(!this.state.hoverEvent){
+            this.state.toggleExtendedState[index] = !this.state.toggleExtendedState[index]
+            this.setState({
+                toggleExtendedState: this.state.toggleExtendedState
+            })
+            if(_get(this, 'props.extendedComponent.actionEvent')){
+                this.props.extendedComponent.actionEvent(data, index)
+            }
         }
     }
 

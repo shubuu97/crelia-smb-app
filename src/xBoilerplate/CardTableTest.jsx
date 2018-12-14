@@ -103,10 +103,14 @@ let dummyRowData = [
         CustomCell: {
             content: 'Active',
             status: 'ACTIVE',
-            color: '#fff',
-            background: '#ab003c',
             component: <div>Hello World</div>,
+            cellStyle:{
+                background: '#decfcf'
+            }
         },
+        rowStyle: {
+            background: '#ddffff96',
+        }
     },
     {
         CompanyName: "Activision Blizzard",
@@ -125,10 +129,14 @@ let dummyRowData = [
             dataBadge: '4',
             content: 'Active',
             status: 'ACTIVE',
-            color: '#fff',
-            background: '#2E7D32',
             component: <div>Hello World</div>,
+            cellStyle:{
+                
+            }
         },
+        rowStyle: {
+            
+        }
     },
     {
         CompanyName: "Square Enix",
@@ -151,11 +159,12 @@ let dummyRowData = [
             dataBadge: '4',
             content: 'Active',
             status: 'ACTIVE',
-            color: '#fff',
-            background: '#795548',
-            subData: "hello world?"
+            subData: "hello world?",
+            cellStyle:{
+                background: '#ab003c',
+                color: '#fff'
+            }
         },
-
     }
 ]
 
