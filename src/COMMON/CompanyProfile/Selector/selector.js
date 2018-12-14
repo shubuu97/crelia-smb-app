@@ -55,7 +55,10 @@ const showStatusLegal = (data)=>
     )
 }
 
-
+const checklengthOfList = (list)=>
+{
+return {status: list.length>0?'filled':'u-filled'}
+}
 
 const formStatusAbout = createSelector(
     basicInfoData,
@@ -76,13 +79,30 @@ const formStatusLegal = createSelector(
     showStatusLegal
 )
 
+const formStatusTeam = createSelector(
+state=>get(state,'EmployeeList.lookUpData'),
+checklengthOfList
+
+)
+
+//todo this need to be done completley
+const formStatusFinancials = createSelector(
+state=>get(state,'BasicInfo.lookUpData')
+)
+const formStatusBenificiary = createSelector(
+state=>get(state,'shareHolders.lookUpData'),
+checklengthOfList
+)
 
 
 export {
     formStatusAbout,
     formStatusContact,
     formStatusMarketingMaterial,
-    formStatusLegal
+    formStatusLegal,
+    formStatusTeam,
+    formStatusFinancials,
+    formStatusBenificiary
 }
 
 

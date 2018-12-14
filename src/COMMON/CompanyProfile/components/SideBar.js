@@ -6,7 +6,7 @@ import genericPostData from '../../../Global/dataFetch/genericPostData';
 /* Redux Imports */
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { formStatusAbout,formStatusContact,formStatusMarketingMaterial,formStatusLegal } from '../Selector/selector';
+import { formStatusAbout,formStatusContact,formStatusMarketingMaterial,formStatusLegal,formStatusTeam,formStatusBenificiary,formStatusFinancials} from '../Selector/selector';
 function SideBar(WrappedComponent) {
     return class SideBar extends Component {
 
@@ -60,11 +60,11 @@ function SideBar(WrappedComponent) {
                                 <ul className="about-tab">
                                     <li className={_get(this.props, 'location.pathname', "") == "/about" ? `active ${_get(this, 'props.formStatusAbout.status')} ` : `${_get(this, 'props.formStatusAbout.status')} `} onClick={() => this.handleRoute('about')}>About </li>
                                     <li className={_get(this.props, 'location.pathname', "") == "/contacts" ? `active ${_get(this, 'props.formStatusContact.status')}` : `${_get(this, 'props.formStatusContact.status')}`} onClick={() => this.handleRoute('contacts')}>Contacts</li>
-                                    <li className={_get(this.props, 'location.pathname', "") == "/team" ? `active ${_get(this, 'props.formStatusAbout.status')} ` : `${_get(this, 'props.formStatusAbout.status')} `} onClick={() => this.handleRoute('team')}>Team</li>
+                                    <li className={_get(this.props, 'location.pathname', "") == "/team" ? `active ${_get(this, 'props.formStatusTeam.status')} ` : `${_get(this, 'props.formStatusTeam.status')} `} onClick={() => this.handleRoute('team')}>Team</li>
                                     <li className={_get(this.props, 'location.pathname', "") == "/marketingMaterials" ? `active ${_get(this, 'props.formStatusMarketingMaterial.status')} ` : `${_get(this, 'props.formStatusMarketingMaterial.status')} `} onClick={() => this.handleRoute('marketingMaterials')}>Marketing Materials</li>
                                     <li className={_get(this.props, 'location.pathname', "") == "/legal" ? `active ${_get(this, 'props.formStatusLegal.status')} ` : `${_get(this, 'props.formStatusLegal.status')} `} onClick={() => this.handleRoute('legal')}>Legal</li>
                                     <li className={_get(this.props, 'location.pathname', "") == "/financials" ? `active ${_get(this, 'props.formStatusAbout.status')} ` : `${_get(this, 'props.formStatusAbout.status')} `} onClick={() => this.handleRoute('financials')}>Financials</li>
-                                    <li className={_get(this.props, 'location.pathname', "") == "/beneficiary" ? `active ${_get(this, 'props.formStatusAbout.status')} ` : `${_get(this, 'props.formStatusAbout.status')} `} onClick={() => this.handleRoute('beneficiary')}>Benificiary Shareholders</li>
+                                    <li className={_get(this.props, 'location.pathname', "") == "/beneficiary" ? `active ${_get(this, 'props.formStatusBenificiary.status')} ` : `${_get(this, 'props.formStatusBenificiary.status')} `} onClick={() => this.handleRoute('beneficiary')}>Benificiary Shareholders</li>
                                     <li className={_get(this.props, 'location.pathname', "") == "/onboardingview" ? `active ${_get(this, 'props.formStatusAbout.status')} ` : null} onClick={() => this.handleRoute('onboardingview')}>OnBoarding View</li>
                                 </ul>
                             </div>
@@ -87,7 +87,10 @@ function mapStateToProps(state) {
          formStatusAbout: formStatusAbout(state),
          formStatusContact:formStatusContact(state),
          formStatusMarketingMaterial:formStatusMarketingMaterial(state),
-         formStatusLegal:formStatusLegal(state)
+         formStatusLegal:formStatusLegal(state),
+         formStatusTeam:formStatusTeam(state),
+         formStatusBenificiary:formStatusBenificiary(state),
+         formStatusFinancials:formStatusFinancials(state)
         };
 }
 export default compose(
