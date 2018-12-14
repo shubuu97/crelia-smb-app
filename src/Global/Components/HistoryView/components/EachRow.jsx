@@ -22,17 +22,17 @@ class EachRow extends React.Component {
                 <div className="short-history">
                     <div className="transaction-date">{_get(this, 'props.data.date')},<br />{_get(this, 'props.data.year')}</div>
 
-                    <div className="event-name">
+                    <div className="event-name wrapper-block">
                         <span className="block-title">Event Name</span>
                         <span className="block-data">{_get(this, 'props.data.eventName')}</span>
                     </div>
 
-                    <div className="transaction-time">
+                    <div className="transaction-time wrapper-block">
                         <span className="block-title">Transaction Time</span>
                         <span className="block-data">{_get(this, 'props.data.time')}</span>
                     </div>
 
-                    <div className="modified-by">
+                    <div className="modified-by wrapper-block">
                         <span className="block-title">Modified By</span>
                         <span className="block-data">{_get(this, 'props.data.modifiedBy')}</span>
                     </div>

@@ -1,10 +1,8 @@
 import React from 'react';
 /* Lodash Imports */
 import _get from 'lodash/get';
-/* Material components import */
-
-/* Redux Imports */
-
+/* Style Import */
+import './styles/historyView.less'
 /* Component Imports */
 import EachRow from './components/EachRow';
 

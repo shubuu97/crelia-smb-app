@@ -1,0 +1,66 @@
+.history-block{
+    position: relative;
+    min-height: 400px;
+            .history-row{
+                position: relative;
+                padding-bottom: 50px;
+    
+                .short-history{
+                    display: flex;
+                    align-items: center;
+                        .block-title{
+                        font-size: .8rem;           
+                        font-family: 'GTWalsheimProRegular', sans-serif;
+                        }
+                        .block-data{
+                        font-size: 1rem;           
+                        font-family: 'GTWalsheimProLight', sans-serif;
+                        }
+                        .wrapper-block{
+                        position: relative;
+                        padding-left: 3rem;
+                        display: flex;
+                        flex-direction: column; 
+                        flex:0 0 18%; 
+                        }
+                    .transaction-date{
+                        content: "";
+                        background-image: url("../images/history.svg"); 
+                        width: 80px;
+                        height: 80px;     
+                        background-repeat: no-repeat;
+                        background-size: cover;
+                        position: relative;
+                        margin-right:40px;
+                        align-items: center;
+                        justify-content: center;
+                        text-align: center;
+                        line-height: 16px;
+                        font-size: 14px;
+                        color:#fff; 
+                        font-family: 'GTWalsheimMedium', sans-serif;
+                        display: flex;
+                    }
+                }
+    
+                .detailed-history{
+                    margin-left:120px;
+                }
+            }
+         .history-row:before{
+            width: 2px;
+            content: "";
+            background-color: #5d5d5d;
+            height: 100%;
+            position: absolute;
+            z-index: 0;
+            left: 38px;
+            top:0;
+        }
+        .history-row:last-child:before{
+            width:0;        
+            background-color:transparent;
+            height:0;
+            
+        }
+    }
