@@ -22,9 +22,9 @@ class EachRow extends React.Component {
         let row = []
         row.push(headingData.map((data, index) => {
             return (
-                <div className={`${data.className} wrapper-block`}>
-                    <span className="block-title">{data.title}</span>
-                    <span className="block-data">{data.content}</span>
+                <div className={`${_get(data, 'className', 'event-name')} wrapper-block`}>
+                    <span className="block-title">{_get(data, 'title')}</span>
+                    <span className="block-data">{_get(data, 'content')}</span>
                 </div>
             )
         }))
