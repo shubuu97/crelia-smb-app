@@ -15,7 +15,9 @@ import { commonActionCreater } from '../../Redux/commonAction'
 import CardTable from '../../Global/CardTable/CardTable';
 import Button from '@material-ui/core/Button';
 import PostData from '../../Global/dataFetch/genericPostData';
-import { loanDataSelector } from '../LoanRequest/selectors/loanDataSelector'
+import { loanDataSelector } from '../LoanRequest/selectors/loanDataSelector';
+
+import withLoader from '../../Global/Components/withLoader'
 
 
 var jwtDecode = require('jwt-decode');
@@ -70,7 +72,8 @@ class OfferContainer extends React.PureComponent {
         this.state = {
             TableData: [],
             first: 1,
-            limit: 10
+            limit: 10,
+            isLoading:false
         }
     }
 
@@ -81,7 +84,7 @@ class OfferContainer extends React.PureComponent {
     basicDataFetcher = () => {
         debugger;
         let fundId = _get(this.props, `loanData[${this.props.rowId}].id`)
-
+        this.setState({isLoading:true})
         this.props.dispatch(
             getData(`${APPLICATION_BFF_URL}/api/offersByFund/${fundId}`, 'fetchingLoanRequestData', {
                 init: 'OfferData_init',
@@ -91,6 +94,7 @@ class OfferContainer extends React.PureComponent {
             
         ).then((data)=>
         {
+            this.setState({isLoading:false})
             let TableData = []
             debugger;
             data.rows.map((data, index) => {
@@ -268,12 +272,12 @@ class OfferContainer extends React.PureComponent {
                 {/* Card Rows */}
 
                 <CardTable
-                    actionData={[{
-                        Text: 'Request Negotiation',
+                    menuActions={[{
+                        Title: 'Request Negotiation',
                         actionEvent: this.handleRequestNegotion
                     },
                     {
-                        Text: 'Decline',
+                        Title: 'Decline',
                         actionEvent: this.handleDecline
                     }]}
 
@@ -285,6 +289,7 @@ class OfferContainer extends React.PureComponent {
                         'Interest Rate',
                         'Action']}
                     data={this.state.TableData}
+                    loader={this.state.isLoading}
                     actions={true}
                     isExtended={true}
                     filter={false}
@@ -317,6 +322,6 @@ function mapStateToProps(state, ownProps) {
 
 }
 
-OfferContainer = connect(mapStateToProps)(OfferContainer)
+OfferContainer = connect(mapStateToProps)(withLoader(OfferContainer))
 
 export default OfferContainer;
