@@ -7,6 +7,7 @@ import _get from 'lodash/get';
 /* Redux Imports */
 import { connect } from 'react-redux';
 import { postData } from '../../Redux/postAction';
+import genericGetData from '../../Global/dataFetch/genericGetData'
 import { APPLICATION_BFF_URL } from '../../Redux/urlConstants'
 import { commonActionCreater } from '../../Redux/commonAction'
 /* Components */
@@ -23,7 +24,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import OffersContainer from '../offers/OffersContainer';
 
 //selector imports
-import { tableDataSelector, loanDataSelector } from './selectors/loanDataSelector'
+import { tableDataSelector, loanDataSelector,filterDataSelector } from './selectors/loanDataSelector'
 
 
 
@@ -47,6 +48,11 @@ class LoanRequestsContainer extends React.PureComponent {
     //helper function start here
     loanDataFetcher = (first, limit) => {
 
+        genericGetData({dispatch:this.props.dispatch,url:'/api/filterMetaData',constant:{
+            init:'filterMetaData_init',
+            success:'filterMetaData_success',
+            error:'filterMetaData_error'
+        }})
         this.props.dispatch(
             postData(
                 `${APPLICATION_BFF_URL}/api/fundList`,
@@ -119,7 +125,7 @@ class LoanRequestsContainer extends React.PureComponent {
             this.props.history.push('/LoanRequest/create');
         }
     }
-    //Not working for Equity
+    //Todo Not working for Equity
     handleSendToApproval = (data, index) => {
         console.log(_get(this.props, `loanData[${index}]`), "data is here");
         let reqObj = {};
@@ -206,7 +212,10 @@ class LoanRequestsContainer extends React.PureComponent {
         this.props.history.push('/LoanHistory');
     }
 //table actions start here
-
+fetchingFilterQueryData=(query)=>
+{
+console.log(query,"query")
+}
     render() {
         console.log('render run')
         const props = this.props;
@@ -217,6 +226,8 @@ class LoanRequestsContainer extends React.PureComponent {
 
                 <CardTable
                     title="Fund Requests"
+                     filterData={this.props.filterData}
+                     filterAction={this.fetchingFilterQueryData}
 
                     menuActions={[{
                         Title: 'Send To Approval',
@@ -295,9 +306,9 @@ class LoanRequestsContainer extends React.PureComponent {
 function mapStateToProps(state) {
 
     let companyId = _get(state, 'BasicInfo.lookUpData.companyDetails.id', null);
-    let totalRows = _get(state,'LoanRequest.lookUpData.total_rows',0)
+    let totalRows = _get(state,'LoanRequest.lookUpData.total_rows',0);
     return { loanData:loanDataSelector(state), TableData: tableDataSelector(state), companyId,
-        totalRows }
+        totalRows,filterData:filterDataSelector(state) }
 
 }
 

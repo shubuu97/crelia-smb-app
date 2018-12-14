@@ -30,7 +30,7 @@ import ProfileHistoryFun from './commonReducer';
 import TransactionDetailsFun from './commonReducer'
 import OfferDataFun from './commonReducer';
 import getLoanRequest from './commonReducer';
-
+import filterMetaDataFun from './commonReducer';
 
 
 
@@ -49,6 +49,7 @@ let ProfileHistory  = ProfileHistoryFun('ProfileHistory');
 let TransactionDetails = TransactionDetailsFun('TransactionDetails')
 let LoanRequest = getLoanRequest('fetchingLoanRequestData');
 let OfferData = OfferDataFun('OfferData');
+let filterMetaData = filterMetaDataFun('filterMetaData');
 
 
 
@@ -78,7 +79,8 @@ let rootRducer = combineReducers({
     TransactionDetails,
     LoanRequest,
     staticReducers,
-    OfferData
+    OfferData,
+    filterMetaData
     
 })
 
