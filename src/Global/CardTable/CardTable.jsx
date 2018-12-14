@@ -201,11 +201,11 @@ class CardTable extends Component {
 
                     </div>
 
-                    <Pagination
+                   {this.props.hidePagination?null: <Pagination
                         onShowSizeChange={this.props.onShowSizeChange}
                         onChange={this.props.onPageChange}
-                        total={30}
-                    />
+                        total={this.props.total}
+                    />}
                 </div>
             </div>
         )

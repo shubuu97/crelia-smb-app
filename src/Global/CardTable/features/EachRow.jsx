@@ -221,7 +221,6 @@ class PopulateRows extends Component {
 }
 
 let PopulateExtendedRows = (props) => {
-    debugger;
     if (props.extendedComponent) {
         let ExtendedComponent = props.extendedComponent
         return <ExtendedComponent {...props}/>
