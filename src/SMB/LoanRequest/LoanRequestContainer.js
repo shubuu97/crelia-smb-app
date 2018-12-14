@@ -255,7 +255,7 @@ class LoanRequestsContainer extends React.PureComponent {
                     onShowSizeChange={this.onShowSizeChange}
                     onPageChange={this.onPageChange}
                     chooseColor={this.chooseColor}
-                     extendedComponent={
+                    extendedComponent={
                         {component : OffersContainer
                         , actionEvent: this.extendedComponentAction}
                     }

@@ -31,6 +31,8 @@ import SignInLayout from './Global/layout/signInLayout';
 import xForms from './xBoilerplate/Forms.jsx';
 import MDC from './xBoilerplate/MaterialDesignTemplate';
 import CardTableTest from './xBoilerplate/CardTableTest';
+import HistoryViewTest from './xBoilerplate/HistoryViewTest'
+
 
 /* SMB Container Imports*/
 import CompanyOnBoardingContainer from './SMB/CompanyOnBoarding/CompanyOnBoardingContainer';
@@ -109,7 +111,7 @@ ReactDOM.render(
                   <Route exact path="/UiSetting" component={UiSetting} />
                   <Route exact path='/boilerplate/mdc' component={MDC} />
                   <RouteWithLayout Layout={MainLayout} exact path="/boilerplate/CardTableTest" Component={CardTableTest} />
-
+                  <RouteWithLayout Layout={MainLayout} exact path="/boilerplate/HistoryViewTest" Component={HistoryViewTest} />
 
                   {/* Main Routes */}
                   <RouteWithLayout Layout={SignInLayout} exact path="/" Component={SignIn} />
