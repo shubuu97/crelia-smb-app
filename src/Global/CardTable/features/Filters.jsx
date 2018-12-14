@@ -15,16 +15,16 @@ class Filters extends Component {
         }
     }
 
-    filterUpdationHandler = (data, name, type) => {
+    filterUpdationHandler = (data, name,keyname, type) => {
         if (type == "checkbox" || type == "textbox") {
             if (data.length == 0) {
-                delete this.state.Filter[name]
-                console.log(data, name, type, this.state.Filter, "jj")
+                delete this.state.Filter[keyname]
+                console.log(data, keyname, type, this.state.Filter, "jj")
                 this.props.filterAction(this.state.Filter)
                 return 
             }
         }
-        this.state.Filter[name] = data
+        this.state.Filter[keyname] = data
         this.props.filterAction(this.state.Filter)
     }
 

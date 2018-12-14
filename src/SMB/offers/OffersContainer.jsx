@@ -293,6 +293,7 @@ class OfferContainer extends React.PureComponent {
                     chooseColor={this.chooseColor}
                     history={this.props.history}
                     hideHeader={true}
+                    hidePagination={true}
 
                 />
 

@@ -28,7 +28,9 @@ class CheckboxFilter extends Component {
     }
 
     populateCheckbox = () => {
+        debugger;
         let checboxArr = _get(this, "props.data.values", [])
+        console.log(checboxArr,'checboxArr')
         let filterCheckbox = [];
         filterCheckbox = checboxArr.map((data, index) => {
             return (
@@ -63,7 +65,7 @@ class CheckboxFilter extends Component {
         this.state[name] = event.target.checked; 
         this.setState({ [name]: this.state[name] });
        let filterdCheckBoxes =  this.filterCheckboxStates(this.state);
-        this.props.filterUpdationHandler(filterdCheckBoxes, this.props.data.name, "checkbox")
+        this.props.filterUpdationHandler(filterdCheckBoxes, this.props.data.name,this.props.data.keyname, "checkbox")
     }
 
 

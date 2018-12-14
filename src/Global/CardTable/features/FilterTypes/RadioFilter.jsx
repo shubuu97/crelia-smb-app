@@ -42,7 +42,7 @@ class RadioBoxFilter extends Component {
 
     handleChange = event => {
         this.setState({ value: event.target.value });
-        this.props.filterUpdationHandler(event.target.value, this.props.data.name, "radio")
+        this.props.filterUpdationHandler(event.target.value, this.props.data.name,this.props.data.keyname, "radio")
     };
 
     render() {
