@@ -16,37 +16,41 @@ class EachRow extends React.Component {
         }
     }
 
+    populateHeading = () => {
+
+        let headingData = _get(this, 'props.data.heading', [])
+        let row = []
+        row.push(headingData.map((data, index) => {
+            return (
+                <div className={`${data.className} wrapper-block`}>
+                    <span className="block-title">{data.title}</span>
+                    <span className="block-data">{data.content}</span>
+                </div>
+            )
+        }))
+        return (
+            <React.Fragment>
+                {row}
+            </React.Fragment>
+        )
+    }
+
     render() {
         return (
             <div className="history-row" onClick={this.props.onClick}>
                 <div className="short-history">
-                    <div className="transaction-date">{_get(this, 'props.data.date')},<br />{_get(this, 'props.data.year')}</div>
-
-                    <div className="event-name wrapper-block">
-                        <span className="block-title">Event Name</span>
-                        <span className="block-data">{_get(this, 'props.data.eventName')}</span>
-                    </div>
-
-                    <div className="transaction-time wrapper-block">
-                        <span className="block-title">Transaction Time</span>
-                        <span className="block-data">{_get(this, 'props.data.time')}</span>
-                    </div>
-
-                    <div className="modified-by wrapper-block">
-                        <span className="block-title">Modified By</span>
-                        <span className="block-data">{_get(this, 'props.data.modifiedBy')}</span>
-                    </div>
-
+                    <div className="transaction-date">{_get(this, 'props.data.date.date')},<br />{_get(this, 'props.data.date.year')}</div>
+                    {this.populateHeading()}
                     <div className="expend-bth">View Button</div>
                 </div>
                 <div className="detailed-history">
-                        {
-                            this.props.isExtended ?
+                    {
+                        this.props.isExtended ?
                             <Extended
                                 {...this.props}
                             />
                             : null
-                        }
+                    }
                 </div>
             </div>
         );

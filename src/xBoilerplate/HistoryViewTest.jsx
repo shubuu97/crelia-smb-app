@@ -11,53 +11,54 @@ import NewComponent from './NewComponent'
 
 /* 
 
-Todo : Array of HistoryView and pass individual rowData and extendedData.
-Todo : Dummy data for Rows and Extended.
-Todo : 
+//Todo : Array of HistoryView and pass individual rowData and extendedData.
+//Todo : Dummy data for Rows and Extended.
+//Todo : extendedComponent, must send CustomComponent and actionEvent.
+Todo: Dynamic classes for heading icon.
 
 */
 
 let dummyRows = [
     {
         key: '0',
-        date: 'Dec 12',
-        time: '2:30pm',
-        year: '2018',
-        eventName: 'SMB Updated',
-        modifiedBy: "Yogi"
+        date: {
+            date: 'Dec 12',
+            year: '2018',
+        },
+        heading : [
+            {title: 'Event Name', content: 'SMB Updated', className: 'event-name'},
+            {title: 'Transaction Time', content: '2:30pm', className: 'transaction-time'},
+            {title: 'Modified By', content: 'Yogi', className: 'modified-by'},
+        ],
     },
     {
         key: '1',
-        date: 'Nov 30',
-        time: '2:30pm',
-        year: '2018',
-        eventName: 'SMB Updated',
-        modifiedBy: "Mak"
+        date: {
+            date: 'Dec 12',
+            year: '2018',
+        },
+        heading : [
+            {title: 'Event Name', content: 'SMB Updated', className: 'event-name'},
+            {title: 'Transaction Time', content: '2:30pm', className: 'transaction-time'},
+            {title: 'Modified By', content: 'Mak', className: 'modified-by'},
+        ],
     },
     {
         key: '2',
-        date: 'Nov 2',
-        time: '2:30pm',
-        year: '2018',
-        eventName: 'SMB Updated',
-        modifiedBy: "Kapil"
-    }
+        date: {
+            date: 'Dec 12',
+            year: '2018',
+        },
+        heading : [
+            {title: 'Event Name', content: 'SMB Updated', className: 'event-name'},
+            {title: 'Transaction Time', content: '2:30pm', className: 'transaction-time'},
+            {title: 'Modified By', content: 'Kapil', className: 'modified-by'},
+        ],
+    },
 ]
 
-let dummyExtended1 = {
-    name: 'row1 data',
-    data: 'something',
-}
 
-let dummyExtended2 = {
-    name: 'row2 data',
-    data: 'something',
-}
 
-let dummyExtended3 = {
-    name: 'row3 data',
-    data: 'something',
-}
 
 class HistoryViewTest extends React.Component {
 
@@ -77,13 +78,10 @@ class HistoryViewTest extends React.Component {
             <div>
                 <HistoryView
                     data={dummyRows}
-                    extendedData={this.state.extendedData}
-                    fetchExtendedData={this.fetchExtendedData}
                     extendedComponent={
                         {
                             component: NewComponent,
-                            actionEvent: this.extendedComponentAction,
-                            extendedData : this.state.extendedData
+                            actionEvent: this.extendedComponentAction
                         }
                     }
                 />
