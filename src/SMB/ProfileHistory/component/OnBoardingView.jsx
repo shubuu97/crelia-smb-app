@@ -1,9 +1,11 @@
 import React from 'react';
 /* Lodash Imports */
 import _get from 'lodash/get';
-/* Material components import */
+/* Component Imports */
+import ReviewCOBInfoContainer from '../../CompanyOnBoarding/components/ReviewCOBInfo/ReviewCOBInfoContainer'
 
-/* Redux Imports */
+
+import genericGetData from '../../../Global/dataFetch/genericGetData';
 
 
 class NewComponent extends React.Component {
@@ -15,13 +17,34 @@ class NewComponent extends React.Component {
         }
     }
 
+    componentDidMount(){
+        this.handleFetchTransaction()
+    }
+
+    handleFetchTransaction = () => {
+        genericGetData({
+            dispatch: this.props.dispatch,
+            url: `/api/TransactionHistory/${_get(this, 'props.data.key')}`,
+            constant: {
+                init: 'TransactionDetails_init',
+                success: 'TransactionDetails_success',
+                error: 'TransactionDetails_error'
+            },
+            identifier: 'TransactionDetails'
+
+        }).then((data) => {
+            console.log(data, "data")
+            this.setState({ companyDetails: _get(data, 'eventsEmitted[0].company') })
+        })
+    }
+
     render() {
-        let keyValue = _get(this, 'props.data.key')
-        let data = _get(this, 'props.data')
-        console.log(data, "New Component Data")
         return (
             <div>
-                The key is {keyValue}
+                <ReviewCOBInfoContainer
+                    fetchFromProp={true}
+                    companyDetailsProp={this.state.companyDetails} 
+                /> 
             </div>
         );
     }

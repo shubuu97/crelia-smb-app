@@ -16,7 +16,7 @@ class HistoryView extends React.Component {
         }
     }
 
-    componentDidMount(){
+    /* componentDidMount(){
         this.toggleExtendedStateUpdate()
     }
 
@@ -30,7 +30,7 @@ class HistoryView extends React.Component {
         this.setState({
             toggleExtendedState: toggleState
         })
-    }
+    } */
 
 // * Toggle Extended Rows 
     toggleExtended = (data, index) => {
@@ -54,13 +54,13 @@ class HistoryView extends React.Component {
                     onClick={() => this.toggleExtended(data, index)}
                     isExtended={this.state.toggleExtendedState[index]}
                     extendedComponent={_get(this, 'props.extendedComponent.component')}
+                    dispatch={_get(this, 'props.dispatch')}
                 />
             )
         })
-
         return (
             <div className="history-block">
-                {rows}
+                {rows.reverse()}
             </div>
         )
     }

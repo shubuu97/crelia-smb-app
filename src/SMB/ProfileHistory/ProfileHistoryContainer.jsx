@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 /* Lodash Imports */
 import _get from 'lodash/get';
-/* Material Imports */
-import Button from '@material-ui/core/Button';
 /* Data Fetcher Imports */
 import genericPostData from '../../Global/dataFetch/genericPostData';
 import basicDataFetcher from '../../Global/dataFetch/basicDataFetcher';
@@ -11,47 +9,8 @@ import basicDataFetcher from '../../Global/dataFetch/basicDataFetcher';
 import moment from 'moment';
 import HistoryView from '../../Global/Components/HistoryView/HistoryView';
 /* Components Imports */
-import Histories from './component/Histories';
 import OnBoardingView from './component/OnBoardingView';
 
-let dummyRows = [
-    {
-        key: '0',
-        date: {
-            date: 'Dec 12',
-            year: '2018',
-        },
-        heading : [
-            {title: 'Event Name', content: 'SMB Updated', className: 'event-name'},
-            {title: 'Transaction Time', content: '2:30pm', className: 'transaction-time'},
-            {title: 'Modified By', content: 'Yogi', className: 'modified-by'},
-        ],
-    },
-    {
-        key: '1',
-        date: {
-            date: 'Dec 12',
-            year: '2018',
-        },
-        heading : [
-            {title: 'Event Name', content: 'SMB Updated', className: 'event-name'},
-            {title: 'Transaction Time', content: '2:30pm', className: 'transaction-time'},
-            {title: 'Modified By', content: 'Mak', className: 'modified-by'},
-        ],
-    },
-    {
-        key: '2',
-        date: {
-            date: 'Dec 12',
-            year: '2018',
-        },
-        heading : [
-            {title: 'Event Name', content: 'SMB Updated', className: 'event-name'},
-            {title: 'Transaction Time', content: '2:30pm', className: 'transaction-time'},
-            {title: 'Modified By', content: 'Kapil', className: 'modified-by'},
-        ],
-    },
-]
 
 class ProfileHistory extends Component {
     constructor(props) {
@@ -88,12 +47,6 @@ class ProfileHistory extends Component {
             <div className='smbhistory'>
                 <div className="title-btn ">
                     <h1>Updates History </h1>
-                    <Button
-                        isFetching={this.props.isFetchingPostUpdateToMarketPlace}
-                        onClick={this.postMarketPlace}
-                        color="primary"
-                        className="mb-10"
-                        variant="contained">Filter</Button>
                 </div>
 
                 <HistoryView 
@@ -104,11 +57,7 @@ class ProfileHistory extends Component {
                             actionEvent: this.extendedComponentAction
                         }
                     }
-                />
-
-                <Histories
-                    dispatch={this.props.dispatch}
-                    ProfileHistoryData={this.props.ProfileHistoryData} 
+                    dispatch= {this.props.dispatch}
                 />
             </div>
 
@@ -119,7 +68,6 @@ class ProfileHistory extends Component {
 
 function mapStateToProps(state) {
     let ProfileHistoryData = _get(state, 'ProfileHistory.lookUpData')
-    debugger
     let ProfileObj = [ ]
     ProfileHistoryData.map((data, index)=> {
         let heading = {}
