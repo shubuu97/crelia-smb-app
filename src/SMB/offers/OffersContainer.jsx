@@ -17,7 +17,9 @@ import Button from '@material-ui/core/Button';
 import PostData from '../../Global/dataFetch/genericPostData';
 import { loanDataSelector } from '../LoanRequest/selectors/loanDataSelector';
 
-import withLoader from '../../Global/Components/withLoader'
+import withLoader from '../../Global/Components/withLoader';
+
+import genericPostData from '../../Global/dataFetch/genericPostData'
 
 
 
@@ -32,65 +34,92 @@ class OfferContainer extends React.PureComponent {
             TableData: [],
             first: 1,
             limit: 10,
-            isLoading:false
+            isLoading: false,
+            headingData: [],
+            offerData: null
+        }
+    }
+    getFundType = ($class) => {
+        let $classarr = $class.split('.');
+        let fundType = $classarr[$classarr.length - 1];
+        return fundType
+    }
+    componentDidMount() {
+        this.basicDataFetcher();
+        this.setState({ isLoading: false });
+        let fundType = this.getFundType(_get(this.props, `loanData[${this.props.rowId}].$class`));
+
+
+        if (fundType == "Loan") {
+            this.setState({
+                headingData: ['Investor',
+                    'Amount',
+                    'Currency',
+                    'Term',
+                    'Interest Rate',
+                    'Action']
+            })
+        }
+        else {
+            this.setState({
+                headingData: ['Investor',
+                    'Amount',
+                    'Currency',
+                    'Board Membership',
+                    'Range',
+                    'Action']
+            })
         }
     }
 
-    componentDidMount() {
-        this.basicDataFetcher();
-    }
-
     basicDataFetcher = () => {
-        debugger;
+
         let fundId = _get(this.props, `loanData[${this.props.rowId}].id`)
-        this.setState({isLoading:true})
+        this.setState({ isLoading: true })
         this.props.dispatch(
             getData(`${APPLICATION_BFF_URL}/api/offersByFund/${fundId}`, 'fetchingLoanRequestData', {
                 init: 'OfferData_init',
                 success: 'OfferData_success',
                 error: 'OfferData_error'
             })
-            
-        ).then((data)=>
-        {
-            this.setState({isLoading:false})
+
+        ).then((data) => {
+
+            this.setState({ offerData: data })
             let TableData = []
-            debugger;
+
             data.rows.map((data, index) => {
                 let time = _get(data, 'term', '-')
                 if (time != '-') {
                     time = time + " year"
-        
+
                 }
-                console.log("TableData data - ", data)
-                let obj = {
-                    name: _get(data, 'investor.legalName', '-'),
-                    Amount: `${_get(data, 'moneyRange.minAmount', '')} - ${_get(data, 'moneyRange.maxAmount', '')}`,
-                    Currency: `${_get(data, 'moneyRange.currency', '-')}`,
-                    term: time,
-                    interestRate: _get(data, 'interestRate') ? `${_get(data, 'interestRate', '')}%` : '-',
+                let fundType = this.getFundType(_get(data, '$class'))
+                let obj = {};
+                if (fundType == 'LoanOffer') {
+
+                    obj = {
+                        name: _get(data, 'investor.legalName', '-'),
+                        Amount: `${_get(data, 'moneyRange.minAmount', '')} - ${_get(data, 'moneyRange.maxAmount', '')}`,
+                        Currency: `${_get(data, 'moneyRange.currency', '-')}`,
+                        term: time,
+                        interestRate: _get(data, 'interestRate') ? `${_get(data, 'interestRate', '')}%` : '-',
+                    }
                 }
-        
-                console.log("TableData obj - ", obj);
-                let $class = _get(data, '$class');
-                let $classarr = $class.split('.');
-                let fundType = $classarr[$classarr.length - 1];
-                if (fundType == 'Equity') {
+                //todo which field need to be shown in the table
+                else if (fundType == 'EquityOffer') {
+                    obj.name = _get(data, 'investor.legalName', '-');
                     obj.Amount = _get(data, 'money.amount');
-                    obj.Currency = _get(data, 'money.currency')
+                    obj.Currency = _get(data, 'money.currency');
+                    obj.isBoardMembership = data.isBoardMembership ? 'Yes' : 'No';
+                    obj.Range = `${_get(data, 'lowerValue')}-${_get(data, 'upperValue')}`
                 }
                 TableData.push(obj);
             })
-            this.setState({TableData})
+            this.setState({ TableData })
 
         })
     }
-    
-
-    
-
-
-   
     onShowSizeChange = (current, pageSize) => {
         this.state.first = ((current - 1) * (pageSize)) + 1;
         this.state.limit = pageSize;
@@ -110,13 +139,32 @@ class OfferContainer extends React.PureComponent {
         let fundType = $classarr[$classarr.length - 1];
         return fundType
     }
-    
+
+    //todo handle negotiation to be discussed
     handleRequestNegotion = () => {
-        this.setState({ open: false })
+        this.setState({ open: false });
     }
 
-    handleDecline = () => {
-
+    handleDecline = (data, index) => {
+        console.log(data, index, this.state, "here");
+        let id = _get(this.state, `offerData.rows[${index}].id`);
+        let offerType = this.getFundType(_get(this.state, `offerData.rows[${index}].$class`));
+        let comment = "some dummy comment";
+        let reqObj = { id, offerType, comment };
+        this.setState({isLoading:true})
+        genericPostData({
+            dispatch: this.props.dispatch,
+            url: '/api/DeclineOffer',
+            reqObj,
+            constants: {
+                init: 'DeclineOffer_init',
+                success: 'DeclineOffer_success',
+                error: 'DeclineOffer_error'
+            },
+            successText: 'Offer Declined successFully',
+            successCb: () => this.setState({ isLoading: false }),
+            errorCb: () => this.setState({ isLoading: false })
+        })
     }
     render() {
         const props = this.props;
@@ -135,13 +183,7 @@ class OfferContainer extends React.PureComponent {
                         actionEvent: this.handleDecline
                     }]}
 
-                    headingData={[
-                        'Investor',
-                        'Amount',
-                        'Currency',
-                        'Term',
-                        'Interest Rate',
-                        'Action']}
+                    headingData={this.state.headingData}
                     data={this.state.TableData}
                     loader={this.state.isLoading}
                     actions={true}

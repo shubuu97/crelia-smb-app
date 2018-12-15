@@ -7,7 +7,8 @@ import MenuItem from '@material-ui/core/MenuItem'
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Badge from '@material-ui/core/Badge'
 /* Components Imports */
-import ExtendedTable from './ExtendedTable'
+import ExtendedTable from './ExtendedTable';
+
 
 class PopulateRows extends Component {
 
@@ -56,9 +57,14 @@ class PopulateRows extends Component {
 
                         {
                             _get(key, 'dataBadge', false) ?
-                                <div className="data-badge">
-                                    <Badge badgeContent={key.dataBadge} color="primary"> </Badge>
-                                </div> : null
+                                
+                                    <Badge
+                                        badgeContent={key.dataBadge}
+                                        color="primary">
+                                        <i 
+                                        class="material-icons">
+                                            local_offer</i>
+                                    </Badge> : null
                         }
                     </div>
                     {

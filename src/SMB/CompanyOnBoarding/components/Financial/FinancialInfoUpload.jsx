@@ -48,7 +48,6 @@ class FinancialInfoUpload extends React.Component {
         reqObj.financialInfo = {}
 
         if (_get(this.props, 'state.cashFlowlink')) {
-            debugger;
 
             _setWith(reqObj.financialInfo,'cashFlow',[_get(this.props, 'state.cashFlowlink')]);
 
@@ -59,7 +58,6 @@ class FinancialInfoUpload extends React.Component {
 
         }
         if (_get(this.props, 'state.balanceSheetlink')) {
-            debugger;
 
             _setWith(reqObj.financialInfo,'balanceSheet',[_get(this.props, 'state.balanceSheetlink')]);
 

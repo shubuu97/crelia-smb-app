@@ -60,7 +60,7 @@ class LoanRequestsContainer extends React.PureComponent {
                     getAll: false,
                     skip: this.state.first,
                     limit: this.state.limit,
-                    ...this.state.query
+                    ...query
                 },
                 'fetchingOfferData',
                 {
@@ -170,7 +170,7 @@ class LoanRequestsContainer extends React.PureComponent {
                 this.setState({savingData:false});
             },
             errorCb:(data)=>
-            {   debugger;
+            {   
                 this.setState({savingData:false})
         }
         })
@@ -201,7 +201,7 @@ class LoanRequestsContainer extends React.PureComponent {
                 this.setState({savingData:false});
             },
             errorCb:(data)=>
-            {   debugger;
+            {   
                 this.setState({savingData:false})
         }
         })
@@ -231,7 +231,7 @@ class LoanRequestsContainer extends React.PureComponent {
                 this.setState({savingData:false});
             },
             errorCb:(data)=>
-            {   debugger;
+            {   
                 this.setState({savingData:false})
         }
         })
@@ -250,8 +250,18 @@ class LoanRequestsContainer extends React.PureComponent {
 //query selector
 fetchingFilterQueryData=(query)=>
 {
+let queryVar = {...query}
+if(queryVar.$class)
+{
+  if(queryVar.$class.length==1)
+  queryVar.$class = `com.aob.crelia.fund.${queryVar.$class[0]}`;
+  else
+{queryVar.$class = []
+}
+}
+
 this.state.query = query;
-this.loanDataFetcher();
+this.loanDataFetcher(null,null,queryVar);
 
 }
     render() {
