@@ -193,7 +193,7 @@ class CardTableTest extends React.Component {
     constructor() {
         super();
         this.state = {
-
+            query:null
         }
     }
 
@@ -206,7 +206,7 @@ class CardTableTest extends React.Component {
     }
 
     fetchingFilterQueryData = (FilterQuery) => {
-        console.log(FilterQuery, "FilterQuery")
+        this.setState({query:FilterQuery})
     } 
 
     searchAction = (data) => {
@@ -223,6 +223,7 @@ class CardTableTest extends React.Component {
                 <CardTable
                     /* Table Title */
                     title="Test"
+                  
 
                     /* Row Data
                     Take reference from the dummy data above */
@@ -278,6 +279,7 @@ class CardTableTest extends React.Component {
 
                     filterData={dummyFilterData}
                     filterAction={this.fetchingFilterQueryData}
+                    filterState={this.state.query}
 
                     /* Pagination Stuff */
                     onShowSizeChange={this.onShowSizeChange}

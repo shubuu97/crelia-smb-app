@@ -16,11 +16,14 @@ import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 
 class CheckboxFilter extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             
-        }
+        };
+        _get(props,'filterState',[]).map((data)=>{
+            this.state[data]=true
+        })
     }
 
     componentDidMount() {
@@ -28,7 +31,6 @@ class CheckboxFilter extends Component {
     }
 
     populateCheckbox = () => {
-        debugger;
         let checboxArr = _get(this, "props.data.values", [])
         console.log(checboxArr,'checboxArr')
         let filterCheckbox = [];

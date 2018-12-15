@@ -176,6 +176,7 @@ class CardTable extends Component {
                     {
                         this.state.filterPanelToggle ?
                             <Filters
+                                filterState={this.props.filterState}
                                 filterData={this.state.filterData}
                                 filterAction={this.props.filterAction}
                             /> :

@@ -37,29 +37,30 @@ class LoanRequestsContainer extends React.PureComponent {
             tableData: [],
             first: 0,
             limit: 10,
-            open: false
+            query:null,
+            data:null,
+            index:null,
+            open: false,
+            savingData:false,
+            query:null
         }
     }
 
     componentDidMount() {
         this.loanDataFetcher();
+        this.filterDataFetcher();
     }
 
     //helper function start here
-    loanDataFetcher = (first, limit) => {
-
-        genericGetData({dispatch:this.props.dispatch,url:'/api/filterMetaData',constant:{
-            init:'filterMetaData_init',
-            success:'filterMetaData_success',
-            error:'filterMetaData_error'
-        }})
+    loanDataFetcher = (first, limit,query) => {
         this.props.dispatch(
             postData(
                 `${APPLICATION_BFF_URL}/api/fundList`,
                 {
                     getAll: false,
                     skip: this.state.first,
-                    limit: this.state.limit
+                    limit: this.state.limit,
+                    ...this.state.query
                 },
                 'fetchingOfferData',
                 {
@@ -74,6 +75,13 @@ class LoanRequestsContainer extends React.PureComponent {
         let fundType = $classarr[$classarr.length - 1];
         return fundType
     }
+   filterDataFetcher = ()=>
+   { genericGetData({dispatch:this.props.dispatch,url:'/api/filterMetaData',constant:{
+        init:'filterMetaData_init',
+        success:'filterMetaData_success',
+        error:'filterMetaData_error'
+    }})
+}
     //helper function end here
 
     //Dialogue actions starts here
@@ -87,7 +95,7 @@ class LoanRequestsContainer extends React.PureComponent {
     }
 
     handleClose = () => {
-        this.setState({ open: false })
+        this.setState({ open: false,data:null,index:null })
     }
     //Dialogue actions ends here
 
@@ -125,7 +133,6 @@ class LoanRequestsContainer extends React.PureComponent {
             this.props.history.push('/LoanRequest/create');
         }
     }
-    //Todo Not working for Equity
     handleSendToApproval = (data, index) => {
         console.log(_get(this.props, `loanData[${index}]`), "data is here");
         let reqObj = {};
@@ -133,6 +140,7 @@ class LoanRequestsContainer extends React.PureComponent {
         let fundType = this.getFundType(_get(this.props, `loanData[${index}].$class`));
         reqObj.companyId = this.props.companyId;
         reqObj.id = _get(this.props, `loanData[${index}].id`);
+        //todo ask about this part
         reqObj.moneyRange = _get(this.props, `loanData[${index}].moneyRange`);
         reqObj.interestRateType = _get(this.props, `loanData[${index}].interestRateType`);
         reqObj.interestRate = _get(this.props, `loanData[${index}].interestRate`);
@@ -145,6 +153,7 @@ class LoanRequestsContainer extends React.PureComponent {
         else {
             url = '/api/SendLoanRequest'
         }
+        this.setState({savingData:true})
         PostData({
             dispatch: this.props.dispatch,
             reqObj,
@@ -156,16 +165,26 @@ class LoanRequestsContainer extends React.PureComponent {
                 error: 'TableActions_error',
                 identifier: 'TableActions_init'
             },
-            successCb: this.loanDataFetcher
+            successCb:(data)=>{
+                this.loanDataFetcher();
+                this.setState({savingData:false});
+            },
+            errorCb:(data)=>
+            {   debugger;
+                this.setState({savingData:false})
+        }
         })
     }
+    //todo check wheather comment is required
     handleSuspend = (data, index) => {
+        this.setState({open:false})
         let reqObj = {};
         reqObj.id = _get(this.props, `loanData[${index}].id`);
         let $class = _get(this.props, `loanData[${index}].$class`);
         let $classarr = $class.split('.');
         reqObj.fundType = $classarr[$classarr.length - 1];
         reqObj.comment = 'some dummy comment';
+        this.setState({savingData:true})
         PostData({
             dispatch: this.props.dispatch,
             reqObj,
@@ -177,7 +196,14 @@ class LoanRequestsContainer extends React.PureComponent {
                 error: 'suspendloan_error',
                 identifier: 'suspendloan_init'
             },
-            successCb: this.loanDataFetcher
+            successCb: (data)=>{
+                this.loanDataFetcher();
+                this.setState({savingData:false});
+            },
+            errorCb:(data)=>
+            {   debugger;
+                this.setState({savingData:false})
+        }
         })
     }
 
@@ -188,6 +214,7 @@ class LoanRequestsContainer extends React.PureComponent {
         let $classarr = $class.split('.');
         reqObj.fundType = $classarr[$classarr.length - 1];
         reqObj.comment = 'some dummy comment';
+        this.setState({savingData:true})
         PostData({
             dispatch: this.props.dispatch,
             reqObj,
@@ -199,7 +226,14 @@ class LoanRequestsContainer extends React.PureComponent {
                 error: 'suspendloan_error',
                 identifier: 'suspendloan_init'
             },
-            successCb: this.loanDataFetcher
+            successCb:(data)=>{
+                this.loanDataFetcher();
+                this.setState({savingData:false});
+            },
+            errorCb:(data)=>
+            {   debugger;
+                this.setState({savingData:false})
+        }
         })
     }
     handleHistory = (data, index) => {
@@ -212,9 +246,13 @@ class LoanRequestsContainer extends React.PureComponent {
         this.props.history.push('/LoanHistory');
     }
 //table actions start here
+
+//query selector
 fetchingFilterQueryData=(query)=>
 {
-console.log(query,"query")
+this.state.query = query;
+this.loanDataFetcher();
+
 }
     render() {
         console.log('render run')
@@ -228,14 +266,15 @@ console.log(query,"query")
                     title="Fund Requests"
                      filterData={this.props.filterData}
                      filterAction={this.fetchingFilterQueryData}
-
+                     filterState={this.state.query}
+                     loader={this.state.savingData}
                     menuActions={[{
                         Title: 'Send To Approval',
                         actionEvent: this.handleSendToApproval
                     },
                     {
                         Title: 'Suspend',
-                        actionEvent: this.handleSuspend
+                        actionEvent: (data,index)=>this.setState({open:true,data,index})
                     },
                     {
                         Title: 'Close Request',
@@ -283,17 +322,20 @@ console.log(query,"query")
                 <Dialog
                     open={this.state.open}
                     onClose={this.handleClose}
-                    maxWidth='md'
+                    maxWidth='sm'
                     fullWidth={true}
                     aria-labelledby="responsive-dialog-title"
                 >
-                    <DialogTitle id="responsive-dialog-title">{"Available Offers"}</DialogTitle>
+                    <DialogTitle id="responsive-dialog-title">Change Request</DialogTitle>
                     <DialogContent>
-                        <OffersContainer />
+                       Do you want to suspend{_get(this.props,`TableData[${this.state.index}].purpose`,[]).map((data)=><span> &nbsp;{data},</span>)} request
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={this.handleClose} color="primary">
-                            Close
+                        <Button onClick={this.handleClose} color="primary" variant='outlined' >
+                            Cancel
+                        </Button>
+                        <Button onClick={()=>this.handleSuspend(this.state.data,this.state.index)} color="primary" variant='raised' >
+                            Suspend
                         </Button>
                     </DialogActions>
                 </Dialog>
@@ -307,8 +349,9 @@ function mapStateToProps(state) {
 
     let companyId = _get(state, 'BasicInfo.lookUpData.companyDetails.id', null);
     let totalRows = _get(state,'LoanRequest.lookUpData.total_rows',0);
+    let isFetching = _get(state,'LoanRequest.isFetching',false);
     return { loanData:loanDataSelector(state), TableData: tableDataSelector(state), companyId,
-        totalRows,filterData:filterDataSelector(state) }
+        totalRows,filterData:filterDataSelector(state),isFetching }
 
 }
 
