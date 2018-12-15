@@ -32,8 +32,9 @@ class OfferContainer extends React.PureComponent {
             TableData: [],
             first: 1,
             limit: 10,
-            isLoading:false,
-            headingData:[]
+            isLoading: false,
+            headingData: [],
+            offerData: null
         }
     }
     getFundType = ($class) => {
@@ -43,87 +44,80 @@ class OfferContainer extends React.PureComponent {
     }
     componentDidMount() {
         this.basicDataFetcher();
-        this.setState({isLoading:false});
+        this.setState({ isLoading: false });
         let fundType = this.getFundType(_get(this.props, `loanData[${this.props.rowId}].$class`));
 
-       
-        if(fundType=="Loan")
-        {
-            this.setState({headingData:[ 'Investor',
-            'Amount',
-            'Currency',
-            'Term',
-            'Interest Rate',
-            'Action']})
+
+        if (fundType == "Loan") {
+            this.setState({
+                headingData: ['Investor',
+                    'Amount',
+                    'Currency',
+                    'Term',
+                    'Interest Rate',
+                    'Action']
+            })
         }
-        else{
-            this.setState({headingData:[ 'Investor',
-            'Amount',
-            'Currency',
-            'Board Membership',
-            'Range',
-            'Action']})
+        else {
+            this.setState({
+                headingData: ['Investor',
+                    'Amount',
+                    'Currency',
+                    'Board Membership',
+                    'Range',
+                    'Action']
+            })
         }
     }
 
     basicDataFetcher = () => {
-        
+
         let fundId = _get(this.props, `loanData[${this.props.rowId}].id`)
-        this.setState({isLoading:true})
+        this.setState({ isLoading: true })
         this.props.dispatch(
             getData(`${APPLICATION_BFF_URL}/api/offersByFund/${fundId}`, 'fetchingLoanRequestData', {
                 init: 'OfferData_init',
                 success: 'OfferData_success',
                 error: 'OfferData_error'
             })
-            
-        ).then((data)=>
-        {
-           
-           
+
+        ).then((data) => {
+
+            this.setState({ offerData: data })
             let TableData = []
-    
+
             data.rows.map((data, index) => {
                 let time = _get(data, 'term', '-')
                 if (time != '-') {
                     time = time + " year"
-        
-                }
-                let $class = _get(data, '$class');
-                let $classarr = $class.split('.');
-                let fundType = $classarr[$classarr.length - 1];
-                let obj = {};
-                if(fundType=='LoanOffer')
-                {
 
-                 obj = {
-                    name: _get(data, 'investor.legalName', '-'),
-                    Amount: `${_get(data, 'moneyRange.minAmount', '')} - ${_get(data, 'moneyRange.maxAmount', '')}`,
-                    Currency: `${_get(data, 'moneyRange.currency', '-')}`,
-                    term: time,
-                    interestRate: _get(data, 'interestRate') ? `${_get(data, 'interestRate', '')}%` : '-',
-                }  
-            }             
+                }
+                let fundType = this.getFundType( _get(data, '$class'))
+                let obj = {};
+                if (fundType == 'LoanOffer') {
+
+                    obj = {
+                        name: _get(data, 'investor.legalName', '-'),
+                        Amount: `${_get(data, 'moneyRange.minAmount', '')} - ${_get(data, 'moneyRange.maxAmount', '')}`,
+                        Currency: `${_get(data, 'moneyRange.currency', '-')}`,
+                        term: time,
+                        interestRate: _get(data, 'interestRate') ? `${_get(data, 'interestRate', '')}%` : '-',
+                    }
+                }
                 //todo which field need to be shown in the table
-                   else if (fundType == 'EquityOffer') {
+                else if (fundType == 'EquityOffer') {
                     obj.name = _get(data, 'investor.legalName', '-');
                     obj.Amount = _get(data, 'money.amount');
                     obj.Currency = _get(data, 'money.currency');
-                    obj.isBoardMembership=data.isBoardMembership?'Yes':'No';
-                    obj.Range = `${_get(data,'lowerValue')}-${_get(data,'upperValue')}`
+                    obj.isBoardMembership = data.isBoardMembership ? 'Yes' : 'No';
+                    obj.Range = `${_get(data, 'lowerValue')}-${_get(data, 'upperValue')}`
                 }
                 TableData.push(obj);
             })
-            this.setState({TableData})
+            this.setState({ TableData })
 
         })
     }
-    
-
-    
-
-
-   
     onShowSizeChange = (current, pageSize) => {
         this.state.first = ((current - 1) * (pageSize)) + 1;
         this.state.limit = pageSize;
@@ -143,13 +137,17 @@ class OfferContainer extends React.PureComponent {
         let fundType = $classarr[$classarr.length - 1];
         return fundType
     }
-    
+
     handleRequestNegotion = () => {
         this.setState({ open: false })
     }
 
-    handleDecline = () => {
-
+    handleDecline = (data, index) => {
+    console.log(data,index,this.state,"here");
+   let id =  _get(this.state,`offerData.rows[${index}].id`);
+   let offerType = this.getFundType(_get(this.state,`offerData.rows[${index}].$class`));
+   let comment = "some dummy comment";
+    debugger;
     }
     render() {
         const props = this.props;
