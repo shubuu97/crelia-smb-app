@@ -37,10 +37,12 @@ class LoanRequestsContainer extends React.PureComponent {
             tableData: [],
             first: 0,
             limit: 10,
+            query:null,
             data:null,
             index:null,
             open: false,
-            savingData:false
+            savingData:false,
+            query:null
         }
     }
 
@@ -50,14 +52,15 @@ class LoanRequestsContainer extends React.PureComponent {
     }
 
     //helper function start here
-    loanDataFetcher = (first, limit) => {
+    loanDataFetcher = (first, limit,query) => {
         this.props.dispatch(
             postData(
                 `${APPLICATION_BFF_URL}/api/fundList`,
                 {
                     getAll: false,
                     skip: this.state.first,
-                    limit: this.state.limit
+                    limit: this.state.limit,
+                    ...this.state.query
                 },
                 'fetchingOfferData',
                 {
@@ -243,9 +246,12 @@ class LoanRequestsContainer extends React.PureComponent {
         this.props.history.push('/LoanHistory');
     }
 //table actions start here
+
+//query selector
 fetchingFilterQueryData=(query)=>
 {
-console.log(query,"query");
+this.state.query = query;
+this.loanDataFetcher();
 
 }
     render() {
@@ -260,6 +266,7 @@ console.log(query,"query");
                     title="Fund Requests"
                      filterData={this.props.filterData}
                      filterAction={this.fetchingFilterQueryData}
+                     filterState={this.state.query}
                      loader={this.state.savingData}
                     menuActions={[{
                         Title: 'Send To Approval',
