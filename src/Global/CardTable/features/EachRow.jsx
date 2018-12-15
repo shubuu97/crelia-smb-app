@@ -61,7 +61,8 @@ class PopulateRows extends Component {
                                     <Badge
                                         badgeContent={key.dataBadge}
                                         color="primary">
-                                        <i class="material-icons">
+                                        <i 
+                                        class="material-icons">
                                             local_offer</i>
                                     </Badge> : null
                         }

@@ -250,6 +250,15 @@ class LoanRequestsContainer extends React.PureComponent {
 //query selector
 fetchingFilterQueryData=(query)=>
 {
+if(query.$class)
+{
+  if(query.$class.length==1)
+  query.$class = `com.aob.crelia.fund.${query.$class[0]}`;
+  else
+{query.$class = []
+}
+}
+
 this.state.query = query;
 this.loanDataFetcher();
 
