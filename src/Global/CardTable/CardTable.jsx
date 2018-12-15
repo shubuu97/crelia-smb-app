@@ -104,7 +104,6 @@ class CardTable extends Component {
                     openOfferModal={this.props.openOfferModal}
                     soloActions={this.props.soloActions}
                     menuActions={this.props.menuActions}
-
                     handleOnMouseOver={this.handleOnMouseOver}
                     handleOnMouseOut={this.handleOnMouseOut}
                 />
@@ -115,6 +114,7 @@ class CardTable extends Component {
 
     /* Toggle Extended rows */
     toggleExtended = (data, index) => {
+        debugger
         if(!this.state.hoverEvent){
             this.state.toggleExtendedState[index] = !this.state.toggleExtendedState[index]
             this.setState({

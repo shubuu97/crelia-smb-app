@@ -55,13 +55,13 @@
 }
 
 #table-heading{
-    z-index: 2;
+    z-index: 3;
     background: #fafafa;
     top: 0;
     padding-top: 5px;
 }
 .table-head{
-    z-index: 2;
+    z-index: 3;
 }
 
 .sticky {
@@ -292,7 +292,7 @@ html {
     bottom: 0;
     top: 0;
     background: rgba(0, 0, 0, .3);
-    z-index: 1;
+    z-index: 2;
     margin-top: 90px;
 
     .loader {
@@ -300,10 +300,30 @@ html {
         margin: 0px auto;
         width: 100px;
         height: 100px;
-        top:50%;
+        top:70%;
         left:50%;
         margin-left: -25px;
         margin-top: -100px;
         z-index: 1;
       }
+}
+
+.extendedPart{
+    padding: 20px;
+
+    .table-head {
+        background: #f9f9f9;
+        border: 1px solid rgba(0,0,0,0.1);
+        box-shadow: none;
+        margin: 0;
+    }
+    .longCard{
+        box-shadow: none;
+    }
+    .table-col {
+        margin: 0;
+        border-bottom: 1px solid rgba(0,0,0,0.2);
+        border-left: 1px solid rgba(0,0,0,0.2);
+        border-right: 1px solid rgba(0,0,0,0.2);
+    }
 }

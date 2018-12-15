@@ -125,16 +125,16 @@ class PopulateRows extends Component {
         let rows = Object.keys(data).map((keyname, index) => {
             if (keyname != "extendedRow" && keyname != "extendedTable" && keyname != "rowStyle") {
                 if (typeof data[keyname] != 'object') {
-                    return <div key={index} className="data-col">{data[keyname]}</div>
+                    return <div key={index} className="data-col" onClick={this.props.onClick}>{data[keyname]}</div>
                 }
                 else {
                     if (Array.isArray(data[keyname])) {
-                        return (<div className="data-col">
+                        return (<div className="data-col" onClick={this.props.onClick}>
                             {data[keyname].map((dt, index) => <React.Fragment>{dt}{index + 1 != data[keyname].length ? <br /> : null}</React.Fragment>)}</div>)
                     }
                     else {
                         return (
-                            <div key={index} className="data-col" style={_get(data[keyname], 'cellStyle')}>
+                            <div key={index} className="data-col" style={_get(data[keyname], 'cellStyle')} onClick={this.props.onClick}>
                                 {this.formatedCell(data, data[keyname])}
                             </div>
                         );
@@ -272,13 +272,13 @@ class EachRow extends Component {
     extendedData = (props) => {
 
     }
-    
+
 
     render() {
         const props = this.props;
         return (
             <div className="longCard" style={_get(this, 'props.rows.rowStyle')}>
-                <div className="table-col" onClick={this.props.onClick}>
+                <div className="table-col">
                     {/* Card Rows */}
                     <PopulateRows
                         {...this.props}
@@ -287,11 +287,13 @@ class EachRow extends Component {
                 {/* When Extended card view */}
                 {
                     props.isExtended && !this.state.hoverEvent ?
-                        <PopulateExtendedRows
-                            handleOnMouseOver={this.props.handleOnMouseOver}
-                            handleOnMouseOut={this.props.handleOnMouseOut}
-                            {...this.props}
-                        />
+                        <div className="extendedPart">
+                            <PopulateExtendedRows
+                                handleOnMouseOver={this.props.handleOnMouseOver}
+                                handleOnMouseOut={this.props.handleOnMouseOut}
+                                {...this.props}
+                            />
+                        </div>
                         :
                         null
                 }
