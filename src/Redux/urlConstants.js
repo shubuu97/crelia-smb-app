@@ -1,7 +1,7 @@
 let APPLICATION_BFF_URL
 console.log("ENV ++", process.env);
 if (process.env.NODE_ENV !== 'production') {
-    APPLICATION_BFF_URL = "https://creliasmb.allonblock.com";
+    APPLICATION_BFF_URL = "https://devcreliasmb.allonblock.com";
 
 }
 else {

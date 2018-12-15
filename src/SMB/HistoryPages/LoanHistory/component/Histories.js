@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import History from './History'
-
-
 import _get from 'lodash/get';
 
  export default class Histories extends Component {

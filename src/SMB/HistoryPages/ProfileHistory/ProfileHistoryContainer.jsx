@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 /* Lodash Imports */
 import _get from 'lodash/get';
 /* Data Fetcher Imports */
-import genericPostData from '../../Global/dataFetch/genericPostData';
-import basicDataFetcher from '../../Global/dataFetch/basicDataFetcher';
+import genericPostData from '../../../Global/dataFetch/genericPostData';
+import basicDataFetcher from '../../../Global/dataFetch/basicDataFetcher';
 /* Global Imports */
 import moment from 'moment';
-import HistoryView from '../../Global/Components/HistoryView/HistoryView';
+import HistoryView from '../../../Global/Components/HistoryView/HistoryView';
 /* Components Imports */
 import OnBoardingView from './component/OnBoardingView';
 

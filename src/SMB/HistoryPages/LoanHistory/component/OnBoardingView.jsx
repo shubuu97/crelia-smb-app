@@ -1,11 +1,10 @@
 import React from 'react';
 /* Lodash Imports */
 import _get from 'lodash/get';
+/* Data Fetcher Imports */
+import genericGetData from '../../../../Global/dataFetch/genericGetData';
 /* Component Imports */
-import ReviewCOBInfoContainer from '../../CompanyOnBoarding/components/ReviewCOBInfo/ReviewCOBInfoContainer'
-
-
-import genericGetData from '../../../Global/dataFetch/genericGetData';
+import ReviewCOBInfoContainer from '../../../CompanyOnBoarding/components/ReviewCOBInfo/ReviewCOBInfoContainer'
 
 
 class NewComponent extends React.Component {
