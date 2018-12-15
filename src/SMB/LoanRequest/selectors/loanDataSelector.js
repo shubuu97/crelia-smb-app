@@ -23,11 +23,13 @@ const tableDataSelector = createSelector(
         let fundType = $classarr[$classarr.length - 1];
         let obj = {
             status: {
-                dataBadge: _get(data, 'offerCount', ''),
                 content: data.status,
                 status: data.status,
             },
-            fundType,
+            fundType:{
+                dataBadge: _get(data, 'offerCount', ''),
+                content:fundType
+            },
             Amount: {
                 content: `${_get(data, 'moneyRange.minAmount')} - ${_get(data, 'moneyRange.maxAmount')}`,
                 subData: fundType == 'Equity' ? `${_get(data, 'lowerValue', '')}-${_get(data, 'upperValue', '')}` : `${_get(data, 'interestRate', '')}% per annum`
