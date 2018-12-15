@@ -178,7 +178,6 @@ class ExtendedComponent extends React.Component {
     }
 
     render() {
-        debugger
         return (
             <div>
                 Hello World

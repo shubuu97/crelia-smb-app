@@ -84,7 +84,6 @@ class About extends Component {
 
     }
     handleRegionSelect = (a, b, c) => {
-        debugger;
         console.log(this.props.alllegalEntitiesList, "here")
         let legalEnitryForRegion = _find(this.props.alllegalEntitiesList, { regionName: b });
         let legalEntities = _get(legalEnitryForRegion, 'legalEntities', []);

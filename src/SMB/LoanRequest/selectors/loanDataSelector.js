@@ -54,7 +54,7 @@ const tableDataSelector = createSelector(
 const filterDataSelector = createSelector(
     state => _get(state, 'filterMetaData.lookUpData'),
     (filterMetaData) => {
-        debugger;
+        
         let filterData = [];
         filterData.push(
             {

@@ -44,7 +44,6 @@ class FinancialInformationForm extends React.Component {
                 forcastYear[key] = parseInt(values.manualFinancial[totalKeys[i]])
             }
         }
-        debugger;
         data.push(oldestYear, lastYear, current, forcastYear);
         let reqObj = {};
         delete values.manualFinancial

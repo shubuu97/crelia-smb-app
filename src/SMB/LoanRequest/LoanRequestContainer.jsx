@@ -170,7 +170,7 @@ class LoanRequestsContainer extends React.PureComponent {
                 this.setState({savingData:false});
             },
             errorCb:(data)=>
-            {   debugger;
+            {   
                 this.setState({savingData:false})
         }
         })
@@ -201,7 +201,7 @@ class LoanRequestsContainer extends React.PureComponent {
                 this.setState({savingData:false});
             },
             errorCb:(data)=>
-            {   debugger;
+            {   
                 this.setState({savingData:false})
         }
         })
@@ -231,7 +231,7 @@ class LoanRequestsContainer extends React.PureComponent {
                 this.setState({savingData:false});
             },
             errorCb:(data)=>
-            {   debugger;
+            {   
                 this.setState({savingData:false})
         }
         })

@@ -40,7 +40,6 @@ class CreateRequestContainer extends Component {
     componentDidMount() {
 
         if (this.props.fundId) {
-            debugger;
             genericGetData({
                 dispatch: this.props.dispatch,  
                 url: `/api/Loan/${encodeURIComponent(this.props.fundId)}`,
