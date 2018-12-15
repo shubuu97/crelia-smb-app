@@ -17,7 +17,9 @@ import Button from '@material-ui/core/Button';
 import PostData from '../../Global/dataFetch/genericPostData';
 import { loanDataSelector } from '../LoanRequest/selectors/loanDataSelector';
 
-import withLoader from '../../Global/Components/withLoader'
+import withLoader from '../../Global/Components/withLoader';
+
+import genericPostData from '../../Global/dataFetch/genericPostData'
 
 
 
@@ -92,7 +94,7 @@ class OfferContainer extends React.PureComponent {
                     time = time + " year"
 
                 }
-                let fundType = this.getFundType( _get(data, '$class'))
+                let fundType = this.getFundType(_get(data, '$class'))
                 let obj = {};
                 if (fundType == 'LoanOffer') {
 
@@ -138,16 +140,31 @@ class OfferContainer extends React.PureComponent {
         return fundType
     }
 
+    //todo handle negotiation to be discussed
     handleRequestNegotion = () => {
-        this.setState({ open: false })
+        this.setState({ open: false });
     }
 
     handleDecline = (data, index) => {
-    console.log(data,index,this.state,"here");
-   let id =  _get(this.state,`offerData.rows[${index}].id`);
-   let offerType = this.getFundType(_get(this.state,`offerData.rows[${index}].$class`));
-   let comment = "some dummy comment";
-    debugger;
+        console.log(data, index, this.state, "here");
+        let id = _get(this.state, `offerData.rows[${index}].id`);
+        let offerType = this.getFundType(_get(this.state, `offerData.rows[${index}].$class`));
+        let comment = "some dummy comment";
+        let reqObj = { id, offerType, comment };
+        this.setState({isLoading:true})
+        genericPostData({
+            dispatch: this.props.dispatch,
+            url: '/api/DeclineOffer',
+            reqObj,
+            constants: {
+                init: 'DeclineOffer_init',
+                success: 'DeclineOffer_success',
+                error: 'DeclineOffer_error'
+            },
+            successText: 'Offer Declined successFully',
+            successCb: () => this.setState({ isLoading: false }),
+            errorCb: () => this.setState({ isLoading: false })
+        })
     }
     render() {
         const props = this.props;
