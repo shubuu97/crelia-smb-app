@@ -27,8 +27,12 @@ const styles = theme => ({
 
 class TextboxFilter extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
+        this.state = {
+            value:''
+        }
+        this.state.value = props.filterState
     }
 
     render() {
@@ -41,6 +45,7 @@ class TextboxFilter extends Component {
                         id="outlined-bare"
                         className={classNames(classes.textField, classes.dense)}
                         placeholder={this.props.data.name}
+                        value={this.state.value}
                         margin="normal"
                         variant="outlined"
                         onChange={(event) => this.props.filterUpdationHandler(event.target.value, this.props.data.name,this.props.data.keyname, "textbox")}

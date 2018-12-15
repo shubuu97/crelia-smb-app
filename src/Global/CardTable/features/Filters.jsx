@@ -40,6 +40,7 @@ class Filters extends Component {
                         <div className="filter-sub-block">
                             <h3>{title}</h3>
                             <CheckboxFilter
+                                filterState={_get(this.props,`filterState.${data.keyname}`)}
                                 data={data}
                                 filterUpdationHandler={this.filterUpdationHandler} />
                         </div>
@@ -51,6 +52,7 @@ class Filters extends Component {
                         <div className="filter-sub-block">
                             <h3>{title}</h3>
                             <RadioFilter data={data}
+                                 filterState={_get(this.props,`filterState.${data.keyname}`)}
                                 filterUpdationHandler={this.filterUpdationHandler} />
                         </div>
                     )
@@ -59,7 +61,10 @@ class Filters extends Component {
                     filters.push(
                         <div className="filter-sub-block">
                             <h3>{title}</h3>
-                            <TextboxFilter data={data} filterUpdationHandler={this.filterUpdationHandler} />
+                            <TextboxFilter
+                             data={data} 
+                             filterState={_get(this.props,`filterState.${data.keyname}`)}
+                             filterUpdationHandler={this.filterUpdationHandler} />
                         </div>
                     )
                     break;
@@ -67,7 +72,9 @@ class Filters extends Component {
                     filters.push(
                         <div className="filter-sub-block">
                             <h3>{title}</h3>
-                            <SliderFilter data={data} />
+                            <SliderFilter 
+                             filterState={_get(this.props,`filterState.${data.keyname}`)}
+                            data={data} />
                         </div>
                     )
                     break;
