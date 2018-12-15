@@ -32,16 +32,42 @@ class OfferContainer extends React.PureComponent {
             TableData: [],
             first: 1,
             limit: 10,
-            isLoading:false
+            isLoading:false,
+            headingData:[]
+        }
+    }
+    getFundType = ($class) => {
+        let $classarr = $class.split('.');
+        let fundType = $classarr[$classarr.length - 1];
+        return fundType
+    }
+    componentDidMount() {
+        this.basicDataFetcher();
+        this.setState({isLoading:false});
+        let fundType = this.getFundType(_get(this.props, `loanData[${this.props.rowId}].$class`));
+
+       
+        if(fundType=="Loan")
+        {
+            this.setState({headingData:[ 'Investor',
+            'Amount',
+            'Currency',
+            'Term',
+            'Interest Rate',
+            'Action']})
+        }
+        else{
+            this.setState({headingData:[ 'Investor',
+            'Amount',
+            'Currency',
+            'Board Membership',
+            'Range',
+            'Action']})
         }
     }
 
-    componentDidMount() {
-        this.basicDataFetcher();
-    }
-
     basicDataFetcher = () => {
-        debugger;
+        
         let fundId = _get(this.props, `loanData[${this.props.rowId}].id`)
         this.setState({isLoading:true})
         this.props.dispatch(
@@ -53,31 +79,38 @@ class OfferContainer extends React.PureComponent {
             
         ).then((data)=>
         {
-            this.setState({isLoading:false})
+           
+           
             let TableData = []
-            debugger;
+    
             data.rows.map((data, index) => {
                 let time = _get(data, 'term', '-')
                 if (time != '-') {
                     time = time + " year"
         
                 }
-                console.log("TableData data - ", data)
-                let obj = {
+                let $class = _get(data, '$class');
+                let $classarr = $class.split('.');
+                let fundType = $classarr[$classarr.length - 1];
+                let obj = {};
+                if(fundType=='LoanOffer')
+                {
+
+                 obj = {
                     name: _get(data, 'investor.legalName', '-'),
                     Amount: `${_get(data, 'moneyRange.minAmount', '')} - ${_get(data, 'moneyRange.maxAmount', '')}`,
                     Currency: `${_get(data, 'moneyRange.currency', '-')}`,
                     term: time,
                     interestRate: _get(data, 'interestRate') ? `${_get(data, 'interestRate', '')}%` : '-',
-                }
-        
-                console.log("TableData obj - ", obj);
-                let $class = _get(data, '$class');
-                let $classarr = $class.split('.');
-                let fundType = $classarr[$classarr.length - 1];
-                if (fundType == 'Equity') {
+                }  
+            }             
+                //todo which field need to be shown in the table
+                   else if (fundType == 'EquityOffer') {
+                    obj.name = _get(data, 'investor.legalName', '-');
                     obj.Amount = _get(data, 'money.amount');
-                    obj.Currency = _get(data, 'money.currency')
+                    obj.Currency = _get(data, 'money.currency');
+                    obj.isBoardMembership=data.isBoardMembership?'Yes':'No';
+                    obj.Range = `${_get(data,'lowerValue')}-${_get(data,'upperValue')}`
                 }
                 TableData.push(obj);
             })
@@ -135,13 +168,7 @@ class OfferContainer extends React.PureComponent {
                         actionEvent: this.handleDecline
                     }]}
 
-                    headingData={[
-                        'Investor',
-                        'Amount',
-                        'Currency',
-                        'Term',
-                        'Interest Rate',
-                        'Action']}
+                    headingData={this.state.headingData}
                     data={this.state.TableData}
                     loader={this.state.isLoading}
                     actions={true}
