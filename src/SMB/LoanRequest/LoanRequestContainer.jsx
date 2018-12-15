@@ -60,7 +60,7 @@ class LoanRequestsContainer extends React.PureComponent {
                     getAll: false,
                     skip: this.state.first,
                     limit: this.state.limit,
-                    ...this.state.query
+                    ...query
                 },
                 'fetchingOfferData',
                 {
@@ -250,17 +250,18 @@ class LoanRequestsContainer extends React.PureComponent {
 //query selector
 fetchingFilterQueryData=(query)=>
 {
-if(query.$class)
+let queryVar = {...query}
+if(queryVar.$class)
 {
-  if(query.$class.length==1)
-  query.$class = `com.aob.crelia.fund.${query.$class[0]}`;
+  if(queryVar.$class.length==1)
+  queryVar.$class = `com.aob.crelia.fund.${queryVar.$class[0]}`;
   else
-{query.$class = []
+{queryVar.$class = []
 }
 }
 
 this.state.query = query;
-this.loanDataFetcher();
+this.loanDataFetcher(null,null,queryVar);
 
 }
     render() {
