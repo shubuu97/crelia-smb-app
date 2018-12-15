@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import _get from 'lodash/get';
-import genericGetData from '../../../Global/dataFetch/genericGetData';
-
-import Button from '@material-ui/core/Button';
+import genericGetData from '../../../../Global/dataFetch/genericGetData';
 
 //Moment to format date and timee
 import moment from 'moment';
 
-import ReviewCOBInfoContainer from '../../CompanyOnBoarding/components/ReviewCOBInfo/ReviewCOBInfoContainer'
+import ReviewCOBInfoContainer from '../../../CompanyOnBoarding/components/ReviewCOBInfo/ReviewCOBInfoContainer'
 
 
 

@@ -33,24 +33,6 @@ import MDC from './xBoilerplate/MaterialDesignTemplate';
 import CardTableTest from './xBoilerplate/CardTableTest';
 import HistoryViewTest from './xBoilerplate/HistoryViewTest'
 
-
-/* SMB Container Imports*/
-import CompanyOnBoardingContainer from './SMB/CompanyOnBoarding/CompanyOnBoardingContainer';
-import ReviewCOBInfoContainer from './SMB/CompanyOnBoarding/components/ReviewCOBInfo/ReviewCOBInfoContainer.jsx'
-import OnBoardingAcknowlege from './SMB/Acknowledge/OnBoradingAckowledge'
-import AccountSMB from './SMB/MyAccount/MyAccountContainer';
-import LoanRequestContainer from './SMB/LoanRequest/LoanRequestContainer';
-import CreateRequestContainer from './SMB/CreateRequest/CreateRequestContainer';
-import ProfileHistoryContainer from './SMB/ProfileHistory/ProfileHistoryContainer';
-import EquityRequestContainer from './SMB/CreateRequest/EquityRequestContainer';
-import SelectLoanType from './SMB/CreateRequest/components/SelectLoanType';
-import LoanHistoryContainer from './SMB/LoanHistory/LoanHistoryContainer';
-
-
-
-
-
-
 /* Common Container Imports*/
 import SignIn from './COMMON/Authorization/AuthorizationContainer'
 import Reset from './COMMON/Authorization/components/ResetPassword/resetPassword';
@@ -61,7 +43,21 @@ import Registration from './COMMON/Authorization/components/Registration/Registe
 import SetPassword from './COMMON/Authorization/components/SetPassword/setPassword';
 import signInRejected from './COMMON/Authorization/components/signInRejected' // to be removed
 import RoutesConfig from './COMMON/CompanyProfile/components/RoutesConfig';
-import { isMoment } from 'moment';
+
+/* SMB Container Imports*/
+import CompanyOnBoardingContainer from './SMB/CompanyOnBoarding/CompanyOnBoardingContainer';
+import ReviewCOBInfoContainer from './SMB/CompanyOnBoarding/components/ReviewCOBInfo/ReviewCOBInfoContainer.jsx'
+import OnBoardingAcknowlege from './SMB/Acknowledge/OnBoradingAckowledge'
+import AccountSMB from './SMB/MyAccount/MyAccountContainer';
+import LoanRequestContainer from './SMB/LoanRequest/LoanRequestContainer';
+import CreateRequestContainer from './SMB/CreateRequest/CreateRequestContainer';
+import EquityRequestContainer from './SMB/CreateRequest/EquityRequestContainer';
+import SelectLoanType from './SMB/CreateRequest/components/SelectLoanType';
+import LoanHistoryContainer from './SMB/HistoryPages/LoanHistory/LoanHistoryContainer';
+import ProfileHistoryContainer from './SMB/HistoryPages/ProfileHistory/ProfileHistoryContainer';
+
+
+import { isMoment } from 'moment'; // ! Yogi - Unwanted import please check.
 
 
 const generateClassName = createGenerateClassName({
