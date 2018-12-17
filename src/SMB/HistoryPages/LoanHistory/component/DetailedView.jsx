@@ -68,7 +68,17 @@ class DetailedView extends React.Component {
                         }}
                     >
                         <span className="extendedKey">{title} </span>
-                        <span className="extendedValue"> {parseData[key]}</span>
+                            <div className="compare-view">
+                                <div className="previous-data">
+                                    <div className="title"><span>Previous</span> </div>
+                                    <div className="data">{parseData[key]}</div>
+                                </div>
+                                <div className="current-data">
+                                    <div className="title"><span>Current</span></div>
+                                    <div className="data">{parseData[key]}</div>
+                                </div>
+                            </div>
+                       
                     </div>
                 )
             }
@@ -93,7 +103,18 @@ class DetailedView extends React.Component {
                         }}
                     >
                         <span className="extendedKey">Fund Allocation</span>
-                        {FundValues}
+
+                        <div className="compare-view">
+                                <div className="previous-data">
+                                    <div className="title"><span>Previous</span> </div>
+                                    <div className="data"> {FundValues}</div>
+                                </div>
+                                <div className="current-data">
+                                    <div className="title"><span>Current</span></div>
+                                    <div className="data"> {FundValues}</div>
+                                </div>
+                            </div>
+                       
                     </div>
                 )
             }
