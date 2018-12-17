@@ -5,6 +5,8 @@ import _get from 'lodash/get';
 import './styles/historyView.less'
 /* Component Imports */
 import EachRow from './components/EachRow';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 
 class HistoryView extends React.Component {
@@ -42,12 +44,17 @@ class HistoryView extends React.Component {
             this.props.extendedComponent.actionEvent(data, index)
         }
     }
-
+    handleChange = (datakey) => (event)=>
+    {
+        console.log(datakey,"hjhj")
+        this.props.checkCb(datakey);
+    }
 // * Function to populate EachRow Components
     populateHistoryRows = () => {
         let allData = _get(this, 'props.data')
         let rows = allData.map((data, index) => {
             return (
+                <React.Fragment>
                 <EachRow
                     key = {index}
                     data = {data}
@@ -56,6 +63,18 @@ class HistoryView extends React.Component {
                     extendedComponent={_get(this, 'props.extendedComponent.component')}
                     dispatch={_get(this, 'props.dispatch')}
                 />
+                <FormControlLabel
+                control={
+                    <Checkbox
+                        onChange={this.handleChange(_get(data,'key'))}
+                        color='primary'
+                        checked={this.state.checked}
+                        value={'compare'}
+                    />
+                }
+                label={'Compare History'}
+            />
+            </React.Fragment>
             )
         })
         return (

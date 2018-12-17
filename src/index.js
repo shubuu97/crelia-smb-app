@@ -55,6 +55,7 @@ import EquityRequestContainer from './SMB/CreateRequest/EquityRequestContainer';
 import SelectLoanType from './SMB/CreateRequest/components/SelectLoanType';
 import LoanHistoryContainer from './SMB/HistoryPages/LoanHistory/LoanHistoryContainer';
 import ProfileHistoryContainer from './SMB/HistoryPages/ProfileHistory/ProfileHistoryContainer';
+import CompareHistoryContainer from './SMB/HistoryPages/CompareHistory/CompareHistoryContainer'
 
 
 import { isMoment } from 'moment'; // ! Yogi - Unwanted import please check.
@@ -129,6 +130,7 @@ ReactDOM.render(
                   <RouteWithLayout Layout={MainLayout} exact path='/LoanRequest/Equitycreate' Component={EquityRequestContainer}/>
                   <RouteWithLayout Layout={MainLayout} exact path='/LoanRequest/SelectLoanType' Component={SelectLoanType}/>
                   <RouteWithLayout Layout={MainLayout} exact path='/LoanHistory' Component={LoanHistoryContainer}/>
+                  <RouteWithLayout Layout={MainLayout} exact path='/CompareHistory/:id1/:id2' Component={CompareHistoryContainer}/>
 
 
                   {RoutesConfig.map(rconfig => <RouteWithLayout Layout={MainLayout} exact path={rconfig.path} Component={rconfig.Component} />)}

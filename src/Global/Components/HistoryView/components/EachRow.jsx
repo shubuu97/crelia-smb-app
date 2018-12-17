@@ -4,7 +4,7 @@ import _get from 'lodash/get';
 /* Material Imports */
 import Button from '@material-ui/core/Button';
 /* Component Imports */
-import Extended from './Extended'
+import Extended from './Extended';
 
 
 class EachRow extends React.Component {
@@ -12,18 +12,18 @@ class EachRow extends React.Component {
     constructor() {
         super();
         this.state = {
-
+            checked: false
         }
     }
-    
-// * Populating Row Heading with Dynamic classNames for Custom Icons
-// Todo: Ask Vishnu to make a default icon, If no Icon is provided.
+
+    // * Populating Row Heading with Dynamic classNames for Custom Icons
+    // Todo: Ask Vishnu to make a default icon, If no Icon is provided.
     populateHeading = () => {
         let headingData = _get(this, 'props.data.heading', [])
         let row = []
         row.push(headingData.map((data, index) => {
             return (
-                <div className={`${_get(data, 'className', 'event-name')} wrapper-block`}> 
+                <div className={`${_get(data, 'className', 'event-name')} wrapper-block`}>
                     <span className="block-title">{_get(data, 'title')}</span>
                     <span className="block-data">{_get(data, 'content')}</span>
                 </div>
@@ -49,18 +49,19 @@ class EachRow extends React.Component {
                             color="primary"
                             variant="contained">View More
                         </Button>
-                    </div>
-                </div>
-                <div className="detailed-history">
-                    {
-                        this.props.isExtended ?
-                            <Extended
-                                {...this.props}
-                            />
-                            : null
-                    }
                 </div>
             </div>
+            <div className="detailed-history">
+                {
+                    this.props.isExtended ?
+                        <Extended
+                            {...this.props}
+                        />
+                        : null
+                }
+            </div>
+            </div>
+
         );
     }
 }

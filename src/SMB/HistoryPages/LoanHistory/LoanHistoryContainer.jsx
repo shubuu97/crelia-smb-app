@@ -21,7 +21,7 @@ class LoanHistory extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            compareIds: []
         }
 
     }
@@ -40,7 +40,20 @@ class LoanHistory extends Component {
             })
         }
     }
-
+    //callback when compare history checkbox are clicked
+    checkCb = (historyId) => {
+        //logic to find for finding the ids in state
+        if (this.state.compareIds.length > 2) {
+            //some error msg
+        }
+        else {
+            this.state.compareIds.push(historyId);
+            if (this.state.compareIds.length == 2) {
+                debugger;
+                this.props.history.push(`/CompareHistory/${this.state.compareIds[0]}/${this.state.compareIds[1]}`)
+            }
+        }
+    }
     render() {
         return (
             <div className='smbhistory'>
@@ -49,6 +62,7 @@ class LoanHistory extends Component {
                 </div>
 
                 <HistoryView
+                    checkCb={this.checkCb}
                     data={this.props.LoanHistoryObj}
                     extendedComponent={
                         {
