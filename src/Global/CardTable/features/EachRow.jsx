@@ -45,7 +45,7 @@ class PopulateRows extends Component {
         else {
             return (
                 <div className="flex-column" >
-                    <div className="flex-row justify-center align-center" >
+                    <div className="flex-row align-center" >
                         {
                             _get(key, 'status', false) ?
                                 <svg style={{ width: '12px', height: '12px' }} viewBox="0 0 24 24">
@@ -170,7 +170,6 @@ class PopulateRows extends Component {
 
                     {
                         this.props.menuActions.length == 1 ?
-
                             <Button
                                 onClick={this.handleMenuClick(this.props.menuActions[0].actionEvent, data, 0)}
                                 color='primary'
