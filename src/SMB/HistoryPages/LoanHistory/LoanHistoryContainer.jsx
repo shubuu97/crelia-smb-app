@@ -34,9 +34,9 @@ class LoanHistory extends Component {
                 reqObj,
                 url: '/api/TransactionHistory',
                 constants: {
-                    init: 'LoanHistory_init',
-                    success: 'LoanHistory_success',
-                    error: 'LoanHistory_error'
+                    init: 'ProfileHistory_init',
+                    success: 'ProfileHistory_success',
+                    error: 'ProfileHistory_error'
                 }
             })
         }
@@ -59,11 +59,6 @@ class LoanHistory extends Component {
                     }
                     dispatch={this.props.dispatch}
                 />
-
-
-                <Histories
-                    dispatch={this.props.dispatch}
-                    ProfileHistoryData={this.props.ProfileHistoryData} />  
             </div>
 
         )
