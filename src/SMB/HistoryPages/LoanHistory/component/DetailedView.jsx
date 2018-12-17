@@ -53,7 +53,7 @@ class DetailedView extends React.Component {
             FundAllocation: _get(allData, 'fundAllocation', ''),
             InterestRateType: `${_get(allData, 'interestRateType')}`,
             DesiredRate: `${_get(allData, 'interestRate')} %`,
-            
+
 
         }
         let data = []
@@ -64,6 +64,7 @@ class DetailedView extends React.Component {
                     <div className="flex-column"
                         style={{
                             width: '25%',
+                            padding: '10px',
                         }}
                     >
                         <span className="extendedKey">{title} </span>
@@ -88,6 +89,7 @@ class DetailedView extends React.Component {
                     <div className="flex-column"
                         style={{
                             width: '25%',
+                            padding: '10px',
                         }}
                     >
                         <span className="extendedKey">Fund Allocation</span>
