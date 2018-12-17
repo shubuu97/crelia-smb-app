@@ -27,8 +27,6 @@ import OffersContainer from '../offers/OffersContainer';
 import { tableDataSelector, loanDataSelector,filterDataSelector } from './selectors/loanDataSelector'
 
 
-
-
 class LoanRequestsContainer extends React.PureComponent {
 
     constructor() {
@@ -118,12 +116,9 @@ class LoanRequestsContainer extends React.PureComponent {
 
     //table actions start here
     handleEdit = (data, index) => {
-        console.log(index, "ff");
-        console.log(this.props.loanData)
         this.props.dispatch(commonActionCreater({
             reqID: _get(this.props, `loanData[${index}].id`)
         }, 'SAVE_FUND_REQ_ID'));
-        console.log(_get(this.props, `loanData[${index}]`));
         let $class = _get(this.props, `loanData[${index}].$class`);
         let fundType = this.getFundType($class);
         if (fundType == 'Equity') {
@@ -134,7 +129,6 @@ class LoanRequestsContainer extends React.PureComponent {
         }
     }
     handleSendToApproval = (data, index) => {
-        console.log(_get(this.props, `loanData[${index}]`), "data is here");
         let reqObj = {};
         let url;
         let fundType = this.getFundType(_get(this.props, `loanData[${index}].$class`));
@@ -238,8 +232,6 @@ class LoanRequestsContainer extends React.PureComponent {
     }
     handleHistory = (data, index) => {
         let reqObj = {};
-        console.log(index, "ff");
-        console.log(this.props.loanData)
         this.props.dispatch(commonActionCreater({
             fund_transactionIds: _get(this.props, `loanData[${index}].transactionIds`)
         }, 'SAVE_fund_transactionIds'));
@@ -265,7 +257,6 @@ this.loanDataFetcher(null,null,queryVar);
 
 }
     render() {
-        console.log('render run')
         const props = this.props;
         return (
             <div>

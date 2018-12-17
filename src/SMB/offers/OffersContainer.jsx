@@ -208,7 +208,6 @@ function mapStateToProps(state, ownProps) {
 
     let TableData = [];
     let companyId = _get(state, 'BasicInfo.lookUpData.companyDetails.id', null);
-    console.log("TableData - ", TableData);
 
     return {
         loanData: loanDataSelector(state),

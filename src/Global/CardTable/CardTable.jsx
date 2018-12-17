@@ -76,11 +76,9 @@ class CardTable extends Component {
         if (this.props.soloActions || this.props.menuActions) {
             headingData.push("Actions");
         }
-        console.log("headingData - " + headingData);
         headingData.map((data, index) => {
             headingData[index] = data.replace(/([a-z])([A-Z])/g, '$1 $2');
         })
-        console.log("headingData - " + headingData);
         this.setState({
             headingData: headingData
         })
@@ -114,7 +112,6 @@ class CardTable extends Component {
 
     /* Toggle Extended rows */
     toggleExtended = (data, index) => {
-        debugger
         if(!this.state.hoverEvent){
             this.state.toggleExtendedState[index] = !this.state.toggleExtendedState[index]
             this.setState({
