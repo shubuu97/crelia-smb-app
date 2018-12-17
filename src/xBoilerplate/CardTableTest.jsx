@@ -106,7 +106,8 @@ let dummyRowData = [
             component: <div>Hello World</div>,
             cellStyle:{
                 background: '#decfcf'
-            }
+            },
+            type: 'hidden'
         },
         rowStyle: {
             background: '#ddffff96',
