@@ -1,29 +1,15 @@
 import React, { Component } from 'react';
 import _get from 'lodash/get';
-/* Style Imports*/
-
-/* Material Imports*/
-
+/* Global Imports */
+import withLoader from '../../../Global/Components/withLoader';
+import genericPostData from '../../../Global/dataFetch/genericPostData'
+import CardTable from '../../../Global/CardTable/CardTable';
 /* Redux Imports */
 import { connect } from 'react-redux';
-import { postData } from '../../Redux/postAction';
-import showMessage from '../../Redux/toastAction';
-import { getData } from '../../Redux/getAction';
-import { APPLICATION_BFF_URL } from '../../Redux/urlConstants'
-import { commonActionCreater } from '../../Redux/commonAction'
+import { getData } from '../../../Redux/getAction';
+import { APPLICATION_BFF_URL } from '../../../Redux/urlConstants'
 /* Components */
-import CardTable from '../../Global/CardTable/CardTable';
-import Button from '@material-ui/core/Button';
-import PostData from '../../Global/dataFetch/genericPostData';
-import { loanDataSelector } from '../LoanRequest/selectors/loanDataSelector';
-
-import withLoader from '../../Global/Components/withLoader';
-
-import genericPostData from '../../Global/dataFetch/genericPostData'
-
-
-
-
+import { loanDataSelector } from '../selectors/loanDataSelector';
 
 
 class OfferContainer extends React.PureComponent {
@@ -151,7 +137,7 @@ class OfferContainer extends React.PureComponent {
         let offerType = this.getFundType(_get(this.state, `offerData.rows[${index}].$class`));
         let comment = "some dummy comment";
         let reqObj = { id, offerType, comment };
-        this.setState({isLoading:true})
+        this.setState({ isLoading: true })
         genericPostData({
             dispatch: this.props.dispatch,
             url: '/api/DeclineOffer',
@@ -166,6 +152,11 @@ class OfferContainer extends React.PureComponent {
             errorCb: () => this.setState({ isLoading: false })
         })
     }
+
+    redirectToHistory = () => {
+
+    }
+    
     render() {
         const props = this.props;
         return (
@@ -174,14 +165,13 @@ class OfferContainer extends React.PureComponent {
                 {/* Card Rows */}
 
                 <CardTable
-                    menuActions={[{
-                        Title: 'Request Negotiation',
-                        actionEvent: this.handleRequestNegotion
-                    },
-                    {
-                        Title: 'Decline',
-                        actionEvent: this.handleDecline
-                    }]}
+                    menuActions={
+                        [
+                            { Title: 'Request Negotiation', actionEvent: this.handleRequestNegotion },
+                            { Title: 'Decline', actionEvent: this.handleDecline },
+                            { Title: 'Show History', actionEvent: this.redirectToHistory },
+                        ]
+                    }
 
                     headingData={this.state.headingData}
                     data={this.state.TableData}
@@ -206,7 +196,6 @@ class OfferContainer extends React.PureComponent {
 
 function mapStateToProps(state, ownProps) {
 
-    let TableData = [];
     let companyId = _get(state, 'BasicInfo.lookUpData.companyDetails.id', null);
 
     return {
