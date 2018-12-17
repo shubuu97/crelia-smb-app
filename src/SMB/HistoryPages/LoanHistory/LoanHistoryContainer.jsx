@@ -12,10 +12,10 @@ import _get from 'lodash/get';
 import moment from 'moment';
 import HistoryView from '../../../Global/Components/HistoryView/HistoryView';
 
+/* Style Import */
+import '../styles/History.less'
 /* Component Imports */
 import DetailedView from './component/DetailedView'
-
-import Histories from './component/Histories'; // ! Temp Import - to be removed
 
 
 class LoanHistory extends Component {
@@ -24,8 +24,8 @@ class LoanHistory extends Component {
         this.state = {
 
         }
-
     }
+
     componentDidMount() {
         if (this.props.fund_transactionIds) {
             let reqObj = { transactionIds: this.props.fund_transactionIds }
@@ -60,10 +60,8 @@ class LoanHistory extends Component {
                     dispatch={this.props.dispatch}
                 />
             </div>
-
         )
     }
-
 }
 
 
