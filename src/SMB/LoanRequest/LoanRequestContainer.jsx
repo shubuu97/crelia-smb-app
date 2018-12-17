@@ -21,7 +21,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import OffersContainer from '../offers/OffersContainer';
+import OffersContainer from './components/OffersContainer';
 
 //selector imports
 import { tableDataSelector, loanDataSelector,filterDataSelector } from './selectors/loanDataSelector'
