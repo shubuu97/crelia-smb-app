@@ -13,8 +13,9 @@ import moment from 'moment';
 import HistoryView from '../../../Global/Components/HistoryView/HistoryView';
 
 /* Component Imports */
-import Histories from './component/Histories';
-import NewComponent from '../../../xBoilerplate/NewComponent' // ! Temp Import - to be removed
+import DetailedView from './component/DetailedView'
+
+import Histories from './component/Histories'; // ! Temp Import - to be removed
 
 
 class LoanHistory extends Component {
@@ -52,7 +53,7 @@ class LoanHistory extends Component {
                     data={this.props.LoanHistoryObj}
                     extendedComponent={
                         {
-                            component: NewComponent,
+                            component: DetailedView,
                             actionEvent: this.extendedComponentAction
                         }
                     }
@@ -60,11 +61,9 @@ class LoanHistory extends Component {
                 />
 
 
-
-
                 <Histories
                     dispatch={this.props.dispatch}
-                    ProfileHistoryData={this.props.ProfileHistoryData} />
+                    ProfileHistoryData={this.props.ProfileHistoryData} />  
             </div>
 
         )
