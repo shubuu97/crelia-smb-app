@@ -23,6 +23,7 @@ import GlobalTextField from '../../../../Global/Components/GlobalTextField'
 import SelectField from '../../../../Global/Components/Select'
 import DropzoneArea from '../../../../Global/dropzone/dropzoneArea';
 import dropzoneHandler from '../../../../Global/dropzone/onDropDecorater';
+import AddTeam from './AddTeam';
 
 const styles = theme => ({
     root: {
@@ -162,7 +163,7 @@ class AddTeamForm extends React.Component {
                                 container
                                 spacing={24}
                             >
-                                <Grid item xs={12}>
+                            {this.props.location.pathname=='/team'&&<Grid item xs={12}>
                                     <Field
                                         label="Select Position"
                                         placeholder=""
@@ -172,7 +173,7 @@ class AddTeamForm extends React.Component {
                                         options={this.props.empTypeList}
                                         fullWidth='fullWidth'
                                     />
-                                </Grid>
+                                </Grid>}
                                 <Grid item xs={6}>
                                     <Field
                                         label="First Name"
