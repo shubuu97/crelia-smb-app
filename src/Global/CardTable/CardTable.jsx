@@ -112,7 +112,6 @@ class CardTable extends Component {
 
     /* Toggle Extended rows */
     toggleExtended = (data, index) => {
-        debugger
         if(!this.state.hoverEvent){
             this.state.toggleExtendedState[index] = !this.state.toggleExtendedState[index]
             this.setState({

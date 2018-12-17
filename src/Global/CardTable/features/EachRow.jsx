@@ -57,14 +57,14 @@ class PopulateRows extends Component {
 
                         {
                             _get(key, 'dataBadge', false) ?
-                                
-                                    <Badge
-                                        badgeContent={key.dataBadge}
-                                        color="primary">
-                                        <i 
+
+                                <Badge
+                                    badgeContent={key.dataBadge}
+                                    color="primary">
+                                    <i
                                         class="material-icons">
-                                            local_offer</i>
-                                    </Badge> : null
+                                        local_offer</i>
+                                </Badge> : null
                         }
                     </div>
                     {
@@ -225,7 +225,7 @@ class PopulateRows extends Component {
 let PopulateExtendedRows = (props) => {
     if (props.extendedComponent) {
         let ExtendedComponent = props.extendedComponent
-        return <ExtendedComponent {...props} />
+        return <div className="extendedPart"><ExtendedComponent {...props} /></div>
     }
     else {
         let data = _get(props, "rows.extendedRow", {});
@@ -242,20 +242,24 @@ let PopulateExtendedRows = (props) => {
 
         if (rows.length != 0 && !_get(props, "rows.extendedTable", false)) {
             return (
-                <div className="extended-row">
-                    <div className="col-sm-6 flex-column">
-                        {rows}
+                <div className="extendedPart">
+                    <div className="extended-row">
+                        <div className="col-sm-6 flex-column">
+                            {rows}
+                        </div>
                     </div>
                 </div>
             )
         }
         else if (_get(props, "rows.extendedTable", false)) {
             return (
-                <div className="extended-row">
-                    <ExtendedTable
-                        data={_get(props, "rows.extendedTable", {})}
-                        extendedTableProps={props.extendedTableProps}
-                    />
+                <div className="extendedPart">
+                    <div className="extended-row">
+                        <ExtendedTable
+                            data={_get(props, "rows.extendedTable", {})}
+                            extendedTableProps={props.extendedTableProps}
+                        />
+                    </div>
                 </div>
             )
         }
@@ -293,13 +297,11 @@ class EachRow extends Component {
                 {/* When Extended card view */}
                 {
                     props.isExtended && !this.state.hoverEvent ?
-                        <div className="extendedPart">
-                            <PopulateExtendedRows
-                                handleOnMouseOver={this.props.handleOnMouseOver}
-                                handleOnMouseOut={this.props.handleOnMouseOut}
-                                {...this.props}
-                            />
-                        </div>
+                        <PopulateExtendedRows
+                            handleOnMouseOver={this.props.handleOnMouseOver}
+                            handleOnMouseOut={this.props.handleOnMouseOut}
+                            {...this.props}
+                        />
                         :
                         null
                 }
