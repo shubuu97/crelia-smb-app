@@ -15,14 +15,16 @@ import HistoryView from '../../../Global/Components/HistoryView/HistoryView';
 /* Style Import */
 import '../styles/History.less'
 /* Component Imports */
-import DetailedView from './component/DetailedView'
+import DetailedView from './component/DetailedView';
+import ComparisonView from './component/ComparisonView'
 
 
 class LoanHistory extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            compareIds: []
+            compareIds: [],
+            showComparision:false
         }
     }
 
@@ -50,8 +52,8 @@ class LoanHistory extends Component {
         else {
             this.state.compareIds.push(historyId);
             if (this.state.compareIds.length == 2) {
-                debugger;
-                this.props.history.push(`/CompareHistory/${this.state.compareIds[0]}/${this.state.compareIds[1]}`)
+                this.setState({showComparision:true,compareIds:this.state.compareIds})
+                
             }
         }
     }
@@ -61,7 +63,11 @@ class LoanHistory extends Component {
                 <div className="title-btn ">
                     <h1>Loan Update History </h1>
                 </div>
-
+                {this.state.showComparision?<ComparisonView
+                dispatch={this.props.dispatch}
+                compareIds={this.state.compareIds}
+                
+                />:null}
                 <HistoryView
                     checkCb={this.checkCb}
                     data={this.props.LoanHistoryObj}
