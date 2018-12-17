@@ -8,6 +8,7 @@ import CardTable from '../../../Global/CardTable/CardTable';
 import { connect } from 'react-redux';
 import { getData } from '../../../Redux/getAction';
 import { APPLICATION_BFF_URL } from '../../../Redux/urlConstants'
+import { commonActionCreater } from '../../../Redux/commonAction'
 /* Components */
 import { loanDataSelector } from '../selectors/loanDataSelector';
 
@@ -90,6 +91,10 @@ class OfferContainer extends React.PureComponent {
                         Currency: `${_get(data, 'moneyRange.currency', '-')}`,
                         term: time,
                         interestRate: _get(data, 'interestRate') ? `${_get(data, 'interestRate', '')}%` : '-',
+                        transactionId: {
+                            type: 'hidden',
+                            data: _get(data, 'transactionIds')
+                        }
                     }
                 }
                 //todo which field need to be shown in the table
@@ -153,10 +158,14 @@ class OfferContainer extends React.PureComponent {
         })
     }
 
-    redirectToHistory = () => {
-
+    redirectToHistory = (data, index) => {
+        debugger
+        this.props.dispatch(commonActionCreater({
+            fund_transactionIds: _get(data, `transactionId.data`)
+        }, 'SAVE_fund_transactionIds'));
+        window.location = "/#/LoanOfferHistory" // ! Ask Yogi to check the redirect
     }
-    
+
     render() {
         const props = this.props;
         return (

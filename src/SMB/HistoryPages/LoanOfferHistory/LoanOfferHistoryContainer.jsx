@@ -18,7 +18,7 @@ import '../styles/History.less'
 import DetailedView from './component/DetailedView'
 
 
-class LoanHistory extends Component {
+class LoanOfferHistoryContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -102,4 +102,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps)(LoanHistory)
+export default connect(mapStateToProps)(LoanOfferHistoryContainer)

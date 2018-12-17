@@ -68,7 +68,11 @@ class CardTable extends Component {
     populateHeading = () => {
         let allData = _get(this, "props.data[0]", {})
         let headingData = Object.keys(allData).filter((keyname) => {
-            if (keyname != "extendedRow" && keyname != "extendedTable" && keyname != "rowStyle") {
+            let hiddenHeading = false
+            if(_get(allData[keyname], 'type') == 'hidden') {
+                hiddenHeading = true
+            }
+            if (keyname != "extendedRow" && keyname != "extendedTable" && keyname != "rowStyle" && !hiddenHeading) {
                 return true
             }
             return false

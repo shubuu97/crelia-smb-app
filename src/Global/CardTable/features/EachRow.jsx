@@ -39,6 +39,7 @@ class PopulateRows extends Component {
     /* Formated Cells - Object type cell data */
     formatedCell = (data, key) => {
         /* If Component Prop is passed in cell obj */
+
         if (_get(key, 'component')) {
             return _get(key, 'component')
         }
@@ -138,9 +139,9 @@ class PopulateRows extends Component {
                         return (<div className="data-col" onClick={this.props.onClick}>
                             {data[keyname].map((dt, index) => <React.Fragment>{dt}{index + 1 != data[keyname].length ? <br /> : null}</React.Fragment>)}</div>)
                     }
-                    else {
+                    else if(_get(data[keyname], 'type') != 'hidden') {
                         return (
-                            <div key={index} className="data-col" style={_get(data[keyname], 'cellStyle')} onClick={this.props.onClick}>
+                            <div key={index} className="data-col" style={_get(data[keyname], 'cellStyle')} onClick={this.props.onClick} >
                                 {this.formatedCell(data, data[keyname])}
                             </div>
                         );
