@@ -178,10 +178,13 @@ class ComparisonView extends React.Component {
 
     render() {
         return (
-            <div className="history-extended-card p-10 ">
+            <div className="p-10 ">
                 {this.state.current ?
                     this.populateComparisionCells() :
-                    null
+                    <div className="width-100-percent flex-row justify-center">
+                        <CircularProgress />
+                    </div>
+                    
                 }
             </div>
 

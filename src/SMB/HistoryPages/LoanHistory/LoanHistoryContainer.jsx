@@ -109,6 +109,7 @@ class LoanHistory extends Component {
                         }
                     }
                     dispatch={this.props.dispatch}
+                    showCompare={true}
                 />
                 <Dialog
                     open={this.state.showComparision}

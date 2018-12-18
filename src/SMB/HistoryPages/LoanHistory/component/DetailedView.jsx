@@ -43,8 +43,6 @@ class DetailedView extends React.Component {
 
     populateData = () => {
         let allData = _get(this, 'state.companyDetails.fund', [])
-
-        let fundAllocation = []
         let parseData = {
             MoneyRange: `${_get(allData, 'moneyRange.minAmount')} - ${_get(allData, 'moneyRange.maxAmount')}`,
             Currency: `${_get(allData, 'moneyRange.currency')}`,
@@ -53,8 +51,6 @@ class DetailedView extends React.Component {
             FundAllocation: _get(allData, 'fundAllocation', ''),
             InterestRateType: `${_get(allData, 'interestRateType')}`,
             DesiredRate: `${_get(allData, 'interestRate')} %`,
-
-
         }
         let data = []
         Object.keys(parseData).map((key) => {
@@ -68,17 +64,7 @@ class DetailedView extends React.Component {
                         }}
                     >
                         <span className="extendedKey">{title} </span>
-                            <div className="compare-view">
-                                <div className="previous-data">
-                                    <div className="title"><span>Previous</span> </div>
-                                    <div className="data">{parseData[key]}</div>
-                                </div>
-                                <div className="current-data">
-                                    <div className="title"><span>Current</span></div>
-                                    <div className="data">{parseData[key]}</div>
-                                </div>
-                            </div>
-                       
+                        <span className="extendedValue">{parseData[key]}</span>
                     </div>
                 )
             }
@@ -101,18 +87,7 @@ class DetailedView extends React.Component {
                         }}
                     >
                         <span className="extendedKey">Fund Allocation</span>
-
-                        <div className="compare-view">
-                                <div className="previous-data">
-                                    <div className="title"><span>Previous</span> </div>
-                                    <div className="data"> {FundValues}</div>
-                                </div>
-                                <div className="current-data">
-                                    <div className="title"><span>Current</span></div>
-                                    <div className="data"> {FundValues}</div>
-                                </div>
-                            </div>
-                       
+                        <span className="extendedValue"> {FundValues}</span>
                     </div>
                 )
             }
@@ -129,8 +104,6 @@ class DetailedView extends React.Component {
     }
 
     render() {
-        let keyValue = _get(this, 'props.data.key')
-        console.log(this.state.companyDetails, 'HistoryView - companyDetails')
         return (
             <div>
                 {

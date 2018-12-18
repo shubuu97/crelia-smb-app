@@ -37,18 +37,15 @@ class EachRow extends React.Component {
             </React.Fragment>
         )
     }
-    componentWillReceiveProps(nextProps)
-    {
-        if(nextProps.uncheckall)
-        {
-            this.setState({checked:false})
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.uncheckall) {
+            this.setState({ checked: false })
         }
     }
-    handleChange = (datakey) => (event)=>
-    {
-        console.log(datakey,"hjhj")
+    handleChange = (datakey) => (event) => {
+        console.log(datakey, "hjhj")
         this.props.checkCb(datakey);
-        this.setState({checked:true})
+        this.setState({ checked: true })
     }
     render() {
         return (
@@ -67,28 +64,32 @@ class EachRow extends React.Component {
 
                         </div>
                     </div>
-                    <FormControlLabel
-                        control={
-                            <Checkbox
-                                onChange={this.handleChange(_get(this.props, 'data.key'))}
-                                color='primary'
-                                checked={this.state.checked}
-                                value={'compare'}
-                            />
-                        }
-                        label={'Compare'}
-                    />
+                    {
+                        _get(this, 'props.showCompare') ?
+                            < FormControlLabel
+                                control={
+                                    <Checkbox
+                                        onChange={this.handleChange(_get(this.props, 'data.key'))}
+                                        color='primary'
+                                        checked={this.state.checked}
+                                        value={'compare'}
+                                    />
+                                }
+                                label={'Compare'}
+                            /> : null
+                    }
+
                 </div>
-                    <div className="detailed-history">
-                        {
-                            this.props.isExtended ?
-                                <Extended
-                                    {...this.props}
-                                />
-                                : null
-                        }
-                    </div>
-                    
+                <div className="detailed-history">
+                    {
+                        this.props.isExtended ?
+                            <Extended
+                                {...this.props}
+                            />
+                            : null
+                    }
+                </div>
+
             </div>
 
         );

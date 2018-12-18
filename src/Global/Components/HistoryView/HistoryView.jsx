@@ -32,33 +32,34 @@ class HistoryView extends React.Component {
         })
     } */
 
-// * Toggle Extended Rows 
+    // * Toggle Extended Rows 
     toggleExtended = (data, index) => {
         this.state.toggleExtendedState[index] = !this.state.toggleExtendedState[index]
         this.setState({
             toggleExtendedState: this.state.toggleExtendedState
         })
-        if(_get(this, 'props.extendedComponent.actionEvent')){
+        if (_get(this, 'props.extendedComponent.actionEvent')) {
             this.props.extendedComponent.actionEvent(data, index)
         }
     }
-// * Function to populate EachRow Components
+    // * Function to populate EachRow Components
     populateHistoryRows = () => {
         let allData = _get(this, 'props.data')
         let rows = allData.map((data, index) => {
             return (
                 <React.Fragment>
-                <EachRow
-                    key = {index}
-                    uncheckall={this.props.uncheckall}
-                    checkCb={this.props.checkCb}
-                    data = {data}
-                    onClick={() => this.toggleExtended(data, index)}
-                    isExtended={this.state.toggleExtendedState[index]}
-                    extendedComponent={_get(this, 'props.extendedComponent.component')}
-                    dispatch={_get(this, 'props.dispatch')}
-                />
-            </React.Fragment>
+                    <EachRow
+                        key={index}
+                        uncheckall={this.props.uncheckall}
+                        checkCb={this.props.checkCb}
+                        data={data}
+                        onClick={() => this.toggleExtended(data, index)}
+                        isExtended={this.state.toggleExtendedState[index]}
+                        extendedComponent={_get(this, 'props.extendedComponent.component')}
+                        dispatch={_get(this, 'props.dispatch')}
+                        showCompare={this.props.showCompare}
+                    />
+                </React.Fragment>
             )
         })
         return (
