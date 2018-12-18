@@ -24,7 +24,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import OffersContainer from './components/OffersContainer';
 
 //selector imports
-import { tableDataSelector, loanDataSelector,filterDataSelector } from './selectors/loanDataSelector'
+import { tableDataSelector, loanDataSelector, filterDataSelector } from './selectors/loanDataSelector'
 
 
 class LoanRequestsContainer extends React.PureComponent {
@@ -35,12 +35,12 @@ class LoanRequestsContainer extends React.PureComponent {
             tableData: [],
             first: 0,
             limit: 10,
-            query:null,
-            data:null,
-            index:null,
+            query: null,
+            data: null,
+            index: null,
             open: false,
-            savingData:false,
-            query:null
+            savingData: false,
+            query: null
         }
     }
 
@@ -50,7 +50,7 @@ class LoanRequestsContainer extends React.PureComponent {
     }
 
     //helper function start here
-    loanDataFetcher = (first, limit,query) => {
+    loanDataFetcher = (first, limit, query) => {
         this.props.dispatch(
             postData(
                 `${APPLICATION_BFF_URL}/api/fundList`,
@@ -73,27 +73,29 @@ class LoanRequestsContainer extends React.PureComponent {
         let fundType = $classarr[$classarr.length - 1];
         return fundType
     }
-   filterDataFetcher = ()=>
-   { genericGetData({dispatch:this.props.dispatch,url:'/api/filterMetaData',constant:{
-        init:'filterMetaData_init',
-        success:'filterMetaData_success',
-        error:'filterMetaData_error'
-    }})
-}
+    filterDataFetcher = () => {
+        genericGetData({
+            dispatch: this.props.dispatch, url: '/api/filterMetaData', constant: {
+                init: 'filterMetaData_init',
+                success: 'filterMetaData_success',
+                error: 'filterMetaData_error'
+            }
+        })
+    }
     //helper function end here
 
     //Dialogue actions starts here
     extendedComponentAction = (data, index) => {
-        this.setState({reqID:_get(this.props, `loanData[${index}].id`)})
+        this.setState({ reqID: _get(this.props, `loanData[${index}].id`) })
         // this.props.dispatch(commonActionCreater({
         //     reqID: _get(this.props, `loanData[${index}].id`)
         // }, 'SAVE_FUND_REQ_ID'));
-       //this.setState({ open: true })
+        //this.setState({ open: true })
 
     }
 
     handleClose = () => {
-        this.setState({ open: false,data:null,index:null })
+        this.setState({ open: false, data: null, index: null })
     }
     //Dialogue actions ends here
 
@@ -147,7 +149,7 @@ class LoanRequestsContainer extends React.PureComponent {
         else {
             url = '/api/SendLoanRequest'
         }
-        this.setState({savingData:true})
+        this.setState({ savingData: true })
         PostData({
             dispatch: this.props.dispatch,
             reqObj,
@@ -159,26 +161,25 @@ class LoanRequestsContainer extends React.PureComponent {
                 error: 'TableActions_error',
                 identifier: 'TableActions_init'
             },
-            successCb:(data)=>{
+            successCb: (data) => {
                 this.loanDataFetcher();
-                this.setState({savingData:false});
+                this.setState({ savingData: false });
             },
-            errorCb:(data)=>
-            {   
-                this.setState({savingData:false})
-        }
+            errorCb: (data) => {
+                this.setState({ savingData: false })
+            }
         })
     }
     //todo check wheather comment is required
     handleSuspend = (data, index) => {
-        this.setState({open:false})
+        this.setState({ open: false })
         let reqObj = {};
         reqObj.id = _get(this.props, `loanData[${index}].id`);
         let $class = _get(this.props, `loanData[${index}].$class`);
         let $classarr = $class.split('.');
         reqObj.fundType = $classarr[$classarr.length - 1];
         reqObj.comment = 'some dummy comment';
-        this.setState({savingData:true})
+        this.setState({ savingData: true })
         PostData({
             dispatch: this.props.dispatch,
             reqObj,
@@ -190,14 +191,13 @@ class LoanRequestsContainer extends React.PureComponent {
                 error: 'suspendloan_error',
                 identifier: 'suspendloan_init'
             },
-            successCb: (data)=>{
+            successCb: (data) => {
                 this.loanDataFetcher();
-                this.setState({savingData:false});
+                this.setState({ savingData: false });
             },
-            errorCb:(data)=>
-            {   
-                this.setState({savingData:false})
-        }
+            errorCb: (data) => {
+                this.setState({ savingData: false })
+            }
         })
     }
 
@@ -208,7 +208,7 @@ class LoanRequestsContainer extends React.PureComponent {
         let $classarr = $class.split('.');
         reqObj.fundType = $classarr[$classarr.length - 1];
         reqObj.comment = 'some dummy comment';
-        this.setState({savingData:true})
+        this.setState({ savingData: true })
         PostData({
             dispatch: this.props.dispatch,
             reqObj,
@@ -220,14 +220,13 @@ class LoanRequestsContainer extends React.PureComponent {
                 error: 'suspendloan_error',
                 identifier: 'suspendloan_init'
             },
-            successCb:(data)=>{
+            successCb: (data) => {
                 this.loanDataFetcher();
-                this.setState({savingData:false});
+                this.setState({ savingData: false });
             },
-            errorCb:(data)=>
-            {   
-                this.setState({savingData:false})
-        }
+            errorCb: (data) => {
+                this.setState({ savingData: false })
+            }
         })
     }
     handleHistory = (data, index) => {
@@ -237,25 +236,23 @@ class LoanRequestsContainer extends React.PureComponent {
         }, 'SAVE_fund_transactionIds'));
         this.props.history.push('/LoanHistory');
     }
-//table actions start here
+    //table actions start here
 
-//query selector
-fetchingFilterQueryData=(query)=>
-{
-let queryVar = {...query}
-if(queryVar.$class)
-{
-  if(queryVar.$class.length==1)
-  queryVar.$class = `com.aob.crelia.fund.${queryVar.$class[0]}`;
-  else
-{queryVar.$class = []
-}
-}
+    //query selector
+    fetchingFilterQueryData = (query) => {
+        let queryVar = { ...query }
+        if (queryVar.$class) {
+            if (queryVar.$class.length == 1)
+                queryVar.$class = `com.aob.crelia.fund.${queryVar.$class[0]}`;
+            else {
+            queryVar.$class = []
+            }
+        }
 
-this.state.query = query;
-this.loanDataFetcher(null,null,queryVar);
+        this.state.query = query;
+        this.loanDataFetcher(null, null, queryVar);
 
-}
+    }
     render() {
         const props = this.props;
         return (
@@ -265,31 +262,36 @@ this.loanDataFetcher(null,null,queryVar);
 
                 <CardTable
                     title="Fund Requests"
-                     filterData={this.props.filterData}
-                     filterAction={this.fetchingFilterQueryData}
-                     filterState={this.state.query}
-                     loader={this.state.savingData}
+                    filterData={this.props.filterData}
+                    filterAction={this.fetchingFilterQueryData}
+                    filterState={this.state.query}
+                    loader={this.state.savingData}
                     menuActions={[{
                         Title: 'Send To Approval',
-                        actionEvent: this.handleSendToApproval
+                        actionEvent: this.handleSendToApproval,
+                        name: 'PENDING',
                     },
                     {
                         Title: 'Suspend',
-                        actionEvent: (data,index)=>this.setState({open:true,data,index})
+                        actionEvent: (data, index) => this.setState({ open: true, data, index }),
+                        name: 'SUSPENDED',
                     },
                     {
                         Title: 'Close Request',
-                        actionEvent: this.handleCloseRequest
+                        actionEvent: this.handleCloseRequest,
+                        name: 'CLOSED',
                     },
                     {
                         Title: 'Show History',
-                        actionEvent: this.handleHistory
+                        actionEvent: this.handleHistory,
+                        name: 'SHOW_HISTORY',
                     },
                     ]}
                     soloActions={[{
                         Title: 'Edit',
                         className: 'edit-icon flex-row',
-                        actionEvent: this.handleEdit
+                        actionEvent: this.handleEdit,
+                        name: 'EDIT'
                     }]}
                     headingData={[
                         'Status',
@@ -307,15 +309,17 @@ this.loanDataFetcher(null,null,queryVar);
                     onPageChange={this.onPageChange}
                     chooseColor={this.chooseColor}
                     extendedComponent={
-                        {component : OffersContainer
-                        , actionEvent: this.extendedComponentAction}
+                        {
+                            component: OffersContainer
+                            , actionEvent: this.extendedComponentAction
+                        }
                     }
 
-                    total = {this.props.totalRows}
+                    total={this.props.totalRows}
                     openOfferModal={this.openOfferModal}
                     headingButtons={
                         [
-                            { Title: 'Create Request', className: "mb-10 ", actionEvent: ()=>this.props.history.push('/LoanRequest/SelectLoanType') },
+                            { Title: 'Create Request', className: "mb-10 ", actionEvent: () => this.props.history.push('/LoanRequest/SelectLoanType') },
                         ]
                     }
 
@@ -329,13 +333,13 @@ this.loanDataFetcher(null,null,queryVar);
                 >
                     <DialogTitle id="responsive-dialog-title">Change Request</DialogTitle>
                     <DialogContent>
-                       Do you want to suspend{_get(this.props,`TableData[${this.state.index}].purpose`,[]).map((data)=><span> &nbsp;{data},</span>)} request
+                        Do you want to suspend{_get(this.props, `TableData[${this.state.index}].purpose`, []).map((data) => <span> &nbsp;{data},</span>)} request
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={this.handleClose} color="primary" variant='outlined' >
                             Cancel
                         </Button>
-                        <Button onClick={()=>this.handleSuspend(this.state.data,this.state.index)} color="primary" variant='raised' >
+                        <Button onClick={() => this.handleSuspend(this.state.data, this.state.index)} color="primary" variant='raised' >
                             Suspend
                         </Button>
                     </DialogActions>
@@ -349,10 +353,12 @@ this.loanDataFetcher(null,null,queryVar);
 function mapStateToProps(state) {
 
     let companyId = _get(state, 'BasicInfo.lookUpData.companyDetails.id', null);
-    let totalRows = _get(state,'LoanRequest.lookUpData.total_rows',0);
-    let isFetching = _get(state,'LoanRequest.isFetching',false);
-    return { loanData:loanDataSelector(state), TableData: tableDataSelector(state), companyId,
-        totalRows,filterData:filterDataSelector(state),isFetching }
+    let totalRows = _get(state, 'LoanRequest.lookUpData.total_rows', 0);
+    let isFetching = _get(state, 'LoanRequest.isFetching', false);
+    return {
+        loanData: loanDataSelector(state), TableData: tableDataSelector(state), companyId,
+        totalRows, filterData: filterDataSelector(state), isFetching
+    }
 
 }
 
