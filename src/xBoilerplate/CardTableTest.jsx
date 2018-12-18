@@ -107,6 +107,8 @@ let dummyRowData = [
             cellStyle:{
                 background: '#decfcf'
             },
+        },
+        hiddenCell: {
             type: 'hidden'
         },
         rowStyle: {
@@ -138,7 +140,8 @@ let dummyRowData = [
         },
         rowStyle: {
             
-        }
+        },
+        allowedActions: ['action1','action5', 'action2']
     },
     {
         CompanyName: "Square Enix",
