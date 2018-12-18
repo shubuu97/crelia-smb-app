@@ -7,6 +7,8 @@ import basicDataFetcher from '../../../Global/dataFetch/basicDataFetcher';
 
 /* Lodash Imports */
 import _get from 'lodash/get';
+import _find from 'lodash/find'
+
 
 /* Global Imports */
 import moment from 'moment';
@@ -18,13 +20,23 @@ import '../styles/History.less'
 import DetailedView from './component/DetailedView';
 import ComparisonView from './component/ComparisonView'
 
+//Dialogue import 
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+
+//Material ui import
+import Button from '@material-ui/core/Button'
+
 
 class LoanHistory extends Component {
     constructor(props) {
         super(props);
         this.state = {
             compareIds: [],
-            showComparision:false
+            showComparision: false,
+            uncheckall: false
         }
     }
 
@@ -45,17 +57,40 @@ class LoanHistory extends Component {
     }
     //callback when compare history checkbox are clicked
     checkCb = (historyId) => {
-        //logic to find for finding the ids in state
-        if (this.state.compareIds.length > 2) {
-            //some error msg
+        //logic to find for finding the ids in state 
+        if (this.state.compareIds.length == 0) {
+            this.setState({ uncheckall: false })
         }
-        else {
+        if (this.state.compareIds.length < 2) {
+            debugger;
             this.state.compareIds.push(historyId);
+            //logic to open dialog
             if (this.state.compareIds.length == 2) {
-                this.setState({showComparision:true,compareIds:this.state.compareIds})
-                
+                //logic to sort according to time
+                let ts1 = _find(this.props.LoanHistoryData, { transactionId: this.state.compareIds[0] }).transactionTimestamp;
+                let ts2 = _find(this.props.LoanHistoryData, { transactionId: this.state.compareIds[1] }).transactionTimestamp;
+                ts1 = moment(ts1)
+                ts2 = moment(ts2);
+                let compareIdarr = []
+
+                if (ts1 > ts2) {
+                 compareIdarr.push(this.state.compareIds[1]);
+                 compareIdarr.push(this.state.compareIds[0]);
+                } else {
+                    compareIdarr.push(this.state.compareIds[0]);
+                    compareIdarr.push(this.state.compareIds[1]);
+                }
+                this.setState({ showComparision: true, compareIds:compareIdarr })
+
             }
         }
+    }
+
+    //function to close the Dialog
+    dialogClose = () => {
+        //logic to uncheck the checkboxes'
+
+        this.setState({ showComparision: false, uncheckall: true, compareIds: [] });
     }
     render() {
         return (
@@ -63,13 +98,9 @@ class LoanHistory extends Component {
                 <div className="title-btn ">
                     <h1>Loan Update History </h1>
                 </div>
-                {this.state.showComparision?<ComparisonView
-                dispatch={this.props.dispatch}
-                compareIds={this.state.compareIds}
-                
-                />:null}
                 <HistoryView
                     checkCb={this.checkCb}
+                    uncheckall={this.state.uncheckall}
                     data={this.props.LoanHistoryObj}
                     extendedComponent={
                         {
@@ -79,6 +110,26 @@ class LoanHistory extends Component {
                     }
                     dispatch={this.props.dispatch}
                 />
+                <Dialog
+                    open={this.state.showComparision}
+                    maxWidth='xl'
+                    fullWidth={true}
+                    onClose={() => this.setState({ showComparision: false })}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                    <DialogTitle id="alert-dialog-title">Comparision View</DialogTitle>
+                    <DialogContent>
+                        <ComparisonView
+                            dispatch={this.props.dispatch}
+                            compareIds={this.state.compareIds}
+
+                        />
+                    </DialogContent>
+                    <DialogActions>
+                        <Button color='primary' variant='outlined' onClick={this.dialogClose}>Close</Button>
+                    </DialogActions>
+                </Dialog>
             </div>
         )
     }
