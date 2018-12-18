@@ -57,53 +57,59 @@ class ComparisonView extends React.Component {
             DesiredRate: `${_get(allData, 'interestRate')} %`,
         }
         Object.keys(parseData).map((key, index) => {
-           display.push(<div>fjdjfk</div>)
-            // if (_get(this, 'state.changedKeys').includes(key)) {
-            //     display.push(
-            //         <div className="flex-column"
-            //             style={{
-            //                 width: '25%',
-            //                 padding: '10px',
-            //             }}
-            //         >
-            //             <span className="extendedKey">title </span>
-            //             <div className="compare-view">
-            //                 <div className="previous-data">
-            //                     <div className="title"><span>Previous</span> </div>
-            //                     <div className="data">Hello</div>
-            //                 </div>
-            //                 <div className="current-data">
-            //                     <div className="title"><span>Current</span></div>
-            //                     <div className="data">Hello</div>
-            //                 </div>
-            //             </div>
-            //         </div>
-            //     )
-            // }
-            // else {
-            //     display.push(
-            //         <div className="flex-column"
-            //             style={{
-            //                 width: '25%',
-            //                 padding: '10px',
-            //             }}
-            //         >
-            //             <span className="extendedKey">{key}</span>
-            //             <span className="extendedValue">{parseData[key]}</span>
-            //         </div>
-            //     )
-            // }
+            if (_get(this, 'state.changedKeys').includes(key)) {
+                display.push(
+                    <div className="flex-column"
+                        style={{
+                            width: '25%',
+                            padding: '10px',
+                        }}
+                    >
+                        <span className="extendedKey">title </span>
+                        <div className="compare-view">
+                            <div className="previous-data">
+                                <div className="title"><span>Previous</span> </div>
+                                <div className="data">Hello</div>
+                            </div>
+                            <div className="current-data">
+                                <div className="title"><span>Current</span></div>
+                                <div className="data">Hello</div>
+                            </div>
+                        </div>
+                    </div>
+                )
+            }
+            else {
+                display.push(
+                    <div className="flex-column"
+                        style={{
+                            width: '25%',
+                            padding: '10px',
+                        }}
+                    >
+                        <span className="extendedKey">hello</span>
+                        <span className="extendedValue">world</span>
+                        NO
+                    </div>
+                )
+            }
         })
         debugger
         return (
-            <div>{display}</div>
+            <div className="flex-row"
+                style={{
+                    flexWrap: 'wrap',
+                }}
+            >
+                {display}
+            </div>
         )
     }
 
     render() {
         return (
-            <div className="history-extended-card p-10 flex-row">
-                {   this.state.current ?
+            <div className="history-extended-card p-10 ">
+                {this.state.current ?
                     this.populateComparisionCells() :
                     null
                 }
