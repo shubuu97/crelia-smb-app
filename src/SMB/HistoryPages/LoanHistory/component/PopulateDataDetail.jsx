@@ -1,5 +1,5 @@
-import React  from 'react';
-import _get  from 'lodash/get';
+import React from 'react';
+import _get from 'lodash/get';
 import moment from 'moment';
 const PopulateDataDetails = (props) => {
     let allData = _get(props, 'allData.fund', [])

@@ -1,7 +1,7 @@
-
-import React  from 'react';
-import _get  from 'lodash/get';
+import React from 'react';
+import _get from 'lodash/get';
 import moment from 'moment';
+
 const PopulateComparisionCells = (props) => {
     let current = _get(props, 'current', {});
     let diffrence = _get(props, 'diffrence', {});
@@ -17,7 +17,7 @@ const PopulateComparisionCells = (props) => {
                 current: _get(current, 'status', '-')
             } : _get(current, 'status', '-'),
         MoneyRange:
-            _get(diffrence, 'moneyRange.minAmount', false)|| _get(diffrence, 'moneyRange.maxAmount', false)
+            _get(diffrence, 'moneyRange.minAmount', false) || _get(diffrence, 'moneyRange.maxAmount', false)
                 ?
                 {
                     changed: true,
@@ -40,7 +40,7 @@ const PopulateComparisionCells = (props) => {
                 ?
                 {
                     changed: true,
-                    previous:`${_get(previous, 'term')} yrs`,
+                    previous: `${_get(previous, 'term')} yrs`,
                     current: `${_get(current, 'term')} yrs`
                 }
                 : `${_get(current, 'term')} yrs`,
@@ -48,11 +48,11 @@ const PopulateComparisionCells = (props) => {
             ?
             {
                 changed: true,
-                previous:  `${moment(_get(previous, 'timeFrame')).format('DD-MM-YYYY HH:mm')}`,
-                current:  `${moment(_get(current, 'timeFrame')).format('DD-MM-YYYY HH:mm')}`
+                previous: `${moment(_get(previous, 'timeFrame')).format('DD-MM-YYYY HH:mm')}`,
+                current: `${moment(_get(current, 'timeFrame')).format('DD-MM-YYYY HH:mm')}`
             }
             : `${moment(_get(current, 'timeFrame')).format('DD-MM-YYYY')}`,
-   //todo array mapping need to be done 
+        //todo array mapping need to be done 
         FundAllocation: _get(diffrence, 'fundAllocation', false)
             ?
             {
@@ -78,13 +78,12 @@ const PopulateComparisionCells = (props) => {
             }
             : `${_get(current, 'interestRate')} %`,
     }
-    
+
     Object.keys(parseData).map((key, index) => {
-        if (_get(parseData[key], `changed`))
-        {
+        if (_get(parseData[key], `changed`)) {
             display.push(
                 <div className="flex-column"
-                key={index}
+                    key={index}
                     style={{
                         width: '25%',
                         padding: '10px',
@@ -94,11 +93,11 @@ const PopulateComparisionCells = (props) => {
                     <div className="compare-view">
                         <div className="previous-data">
                             <div className="title"><span>Previous</span> </div>
-                            <div className="data">{_get(parseData[key],'previous','')}</div>
+                            <div className="data">{_get(parseData[key], 'previous', '')}</div>
                         </div>
                         <div className="current-data">
                             <div className="title"><span>Current</span></div>
-                            <div className="data">{_get(parseData[key],'current','')}</div>
+                            <div className="data">{_get(parseData[key], 'current', '')}</div>
                         </div>
                     </div>
                 </div>
@@ -107,7 +106,7 @@ const PopulateComparisionCells = (props) => {
         else {
             display.push(
                 <div className="flex-column"
-                key={index}
+                    key={index}
                     style={{
                         width: '25%',
                         padding: '10px',
@@ -115,7 +114,7 @@ const PopulateComparisionCells = (props) => {
                 >
                     <span className="extendedKey">{key}</span>
                     <span className="extendedValue">{parseData[key]}</span>
-    
+
                 </div>
             )
         }
