@@ -83,9 +83,7 @@ class DetailedView extends React.Component {
                 )
             }
             else if (key == 'FundAllocation') {
-
                 let FundValues = []
-
                 parseData[key].map((fundData, index) => {
 
                     FundValues.push(

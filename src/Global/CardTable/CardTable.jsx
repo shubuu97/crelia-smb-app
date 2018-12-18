@@ -72,7 +72,7 @@ class CardTable extends Component {
             if(_get(allData[keyname], 'type') == 'hidden') {
                 hiddenHeading = true
             }
-            if (keyname != "extendedRow" && keyname != "extendedTable" && keyname != "rowStyle" && !hiddenHeading) {
+            if (keyname != "extendedRow" && keyname != "extendedTable" && keyname != "rowStyle" && !hiddenHeading && keyname != "allowedActions") {
                 return true
             }
             return false

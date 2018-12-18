@@ -111,7 +111,8 @@ let dummyRowData = [
         },
         rowStyle: {
             background: '#ddffff96',
-        }
+        },
+        allowedActions: ['action1','action5']
     },
     {
         CompanyName: "Activision Blizzard",
@@ -246,15 +247,15 @@ class CardTableTest extends React.Component {
                     /* Action Props */
                     menuActions={
                         [
-                            { Title: 'Make an Offer', actionEvent: this.redirectToMakeOffer },
-                            { Title: 'Make an Offer', actionEvent: this.redirectToMakeOffer },
-                            { Title: 'Make an Offer', actionEvent: this.redirectToMakeOffer },
+                            { Title: 'Send For Approval', actionEvent: this.redirectToMakeOffer, name: 'action1' },
+                            { Title: 'Suspend', actionEvent: this.redirectToMakeOffer, name: 'action2' },
+                            { Title: 'Close Request', actionEvent: this.redirectToMakeOffer, name: 'action3' },
                         ]
                     }
                     soloActions={
                         [
-                            { Title: 'Edit', className: 'edit-icon flex-row', actionEvent: this.redirectToEditOffer },
-                            { Title: 'Edit', className: 'edit-icon flex-row', actionEvent: this.redirectToEditOffer }
+                            { Title: 'Edit', className: 'edit-icon flex-row', actionEvent: this.redirectToEditOffer, name: 'action4' },
+                            { Title: 'Edit', className: 'edit-icon flex-row', actionEvent: this.redirectToEditOffer, name: 'action5' }
                         ]
                     }
 

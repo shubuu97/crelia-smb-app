@@ -130,7 +130,7 @@ class PopulateRows extends Component {
     render() {
         let data = _get(this.props, "rows", {});
         let rows = Object.keys(data).map((keyname, index) => {
-            if (keyname != "extendedRow" && keyname != "extendedTable" && keyname != "rowStyle") {
+            if (keyname != "extendedRow" && keyname != "extendedTable" && keyname != "rowStyle" && keyname != "allowedActions" ) {
                 if (typeof data[keyname] != 'object') {
                     return <div key={index} className="data-col" onClick={this.props.onClick}>{data[keyname]}</div>
                 }
@@ -150,11 +150,14 @@ class PopulateRows extends Component {
             }
         })
         if (this.props.menuActions || this.props.soloActions) {
+            let allowedActions = _get(this, 'props.rows.allowedActions', [])
+            debugger
             rows.push(
                 <div className="data-col">
                     {
                         this.props.soloActions ?
                             this.props.soloActions.map((actionData, index) => {
+                                if(!allowedActions.length || allowedActions.includes(actionData.name))
                                 return (
                                     <span
                                         title={_get(actionData, 'Title', "")}
@@ -170,7 +173,7 @@ class PopulateRows extends Component {
                     }
 
                     {
-                        this.props.menuActions.length == 1 ?
+                        (!allowedActions.length || allowedActions.includes(_get(this, 'props.menuActions.name'))) && _get(this, 'props.menuActions').length == 1 ?
                             <Button
                                 onClick={this.handleMenuClick(this.props.menuActions[0].actionEvent, data, 0)}
                                 color='primary'
@@ -178,7 +181,9 @@ class PopulateRows extends Component {
                                 className="mb-10 "
                             >
                                 {this.props.menuActions[0].Title}
-                            </Button> :
+                            </Button> 
+                            
+                            :
 
                             <ClickAwayListener onClickAway={this.handleRequestClose}>
                                 <span
@@ -201,6 +206,7 @@ class PopulateRows extends Component {
                                 >
                                     {
                                         this.props.menuActions.map((actionData, index) => {
+                                            if(!allowedActions.length || allowedActions.includes(actionData.name))
                                             return (
                                                 <MenuItem key={index} onClick={this.handleMenuClick(actionData.actionEvent, data, index)}>
                                                     {actionData.Title}
