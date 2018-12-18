@@ -56,7 +56,6 @@ import SelectLoanType from './SMB/CreateRequest/components/SelectLoanType';
 import LoanHistoryContainer from './SMB/HistoryPages/LoanHistory/LoanHistoryContainer';
 import LoanOfferHistoryContainer from './SMB/HistoryPages/LoanOfferHistory/LoanOfferHistoryContainer';
 import ProfileHistoryContainer from './SMB/HistoryPages/ProfileHistory/ProfileHistoryContainer';
-import CompareHistoryContainer from './SMB/HistoryPages/CompareHistory/CompareHistoryContainer'
 
 const generateClassName = createGenerateClassName({
   dangerouslyUseGlobalCSS: true,
@@ -127,7 +126,6 @@ ReactDOM.render(
                   <RouteWithLayout Layout={MainLayout} exact path='/LoanRequest/Equitycreate' Component={EquityRequestContainer}/>
                   <RouteWithLayout Layout={MainLayout} exact path='/LoanRequest/SelectLoanType' Component={SelectLoanType}/>
                   <RouteWithLayout Layout={MainLayout} exact path='/LoanHistory' Component={LoanHistoryContainer}/>
-                  <RouteWithLayout Layout={MainLayout} exact path='/CompareHistory/:id1/:id2' Component={CompareHistoryContainer}/>
                   <RouteWithLayout Layout={MainLayout} exact path='/LoanOfferHistory' Component={LoanOfferHistoryContainer}/>
 
 
