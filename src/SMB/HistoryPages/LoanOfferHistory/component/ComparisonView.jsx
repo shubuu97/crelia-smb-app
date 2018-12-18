@@ -46,13 +46,14 @@ class ComparisonView extends React.Component {
     }
 
     populateComparisionCells = () => {
+        debugger
         let current = _get(this, 'state.current', {});
         let diffrence = _get(this, 'state.diffrence', {});
         let previous = _get(this, 'state.previous', {});
         let display = []
 
         let parseData = {
-            status: _get(diffrence, 'status', false)  //if key found in diffrence then push object
+            status: _get(diffrence, 'status', false)
                 ?
                 {
                     changed: true,

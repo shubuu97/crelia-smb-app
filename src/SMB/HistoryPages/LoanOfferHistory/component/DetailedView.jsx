@@ -40,11 +40,8 @@ class DetailedView extends React.Component {
             this.setState({ companyDetails: _get(data, 'eventsEmitted[0]') })
         })
     }
-
     populateData = () => {
         let allData = _get(this, 'state.companyDetails.fund', [])
-
-        let fundAllocation = []
         let parseData = {
             MoneyRange: `${_get(allData, 'moneyRange.minAmount')} - ${_get(allData, 'moneyRange.maxAmount')}`,
             Currency: `${_get(allData, 'moneyRange.currency')}`,
@@ -53,8 +50,6 @@ class DetailedView extends React.Component {
             FundAllocation: _get(allData, 'fundAllocation', ''),
             InterestRateType: `${_get(allData, 'interestRateType')}`,
             DesiredRate: `${_get(allData, 'interestRate')} %`,
-            
-
         }
         let data = []
         Object.keys(parseData).map((key) => {
@@ -64,17 +59,16 @@ class DetailedView extends React.Component {
                     <div className="flex-column"
                         style={{
                             width: '25%',
+                            padding: '10px',
                         }}
                     >
                         <span className="extendedKey">{title} </span>
-                        <span className="extendedValue"> {parseData[key]}</span>
+                        <span className="extendedValue">{parseData[key]}</span>
                     </div>
                 )
             }
             else if (key == 'FundAllocation') {
-
                 let FundValues = []
-
                 parseData[key].map((fundData, index) => {
 
                     FundValues.push(
@@ -88,10 +82,11 @@ class DetailedView extends React.Component {
                     <div className="flex-column"
                         style={{
                             width: '25%',
+                            padding: '10px',
                         }}
                     >
                         <span className="extendedKey">Fund Allocation</span>
-                        {FundValues}
+                        <span className="extendedValue"> {FundValues}</span>
                     </div>
                 )
             }
@@ -106,10 +101,9 @@ class DetailedView extends React.Component {
             </div>
         )
     }
+   
 
     render() {
-        let keyValue = _get(this, 'props.data.key')
-        console.log(this.state.companyDetails, 'HistoryView - companyDetails')
         return (
             <div>
                 {
