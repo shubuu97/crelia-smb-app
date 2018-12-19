@@ -267,7 +267,7 @@ class LoanRequestsContainer extends React.PureComponent {
                     filterState={this.state.query}
                     loader={this.state.savingData}
                     menuActions={[{
-                        Title: 'Send To Approval',
+                        Title: 'Send For Approval',
                         actionEvent: this.handleSendToApproval,
                         name: 'PENDING',
                     },

@@ -61,6 +61,10 @@ class About extends Component {
     }
     aboutSubmit = (values) => {
         let reqObj = { ...values, id: this.props.id };
+        reqObj.address = {};
+
+        
+        reqObj.address.region = reqObj.region;
         delete reqObj.region;
         this.props.dispatch(
             postData(`${APPLICATION_BFF_URL}/api/SaveSMB`, reqObj, 'UpdateSMB-data', {

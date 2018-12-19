@@ -119,6 +119,7 @@ class Contacts extends Component {
                             <FormControl margin="normal" required fullWidth>
                                 <Field
                                     name="region"
+                                    disabled={true}
                                     component={GlobalTextField}
                                     label="Region"
                                     variant={localStorage.getItem('TextFilledVaraint') || 'standard'}
