@@ -75,7 +75,7 @@ class AddTeam extends React.Component {
             let constants = {}
             if(this.props.location.pathname == '/team')
             {
-                deciderKey = 'EmployeesWithCompanyId';
+                deciderKey = 'ActiveTempEmployeesWithTempCompanyId';
                 constants = {
                     init: 'getEmployeeList_init',
                     success: 'getEmployeeList_success',
@@ -83,8 +83,7 @@ class AddTeam extends React.Component {
                 }
             }
             else{
-
-                deciderKey = 'ShareHoldersWithCompanyId';
+                deciderKey = 'ActiveTempShareHoldersWithTempCompanyId';
                 constants = {
                     init: 'getshareHolderList_init',
                     success: 'getshareHolderList_success',
