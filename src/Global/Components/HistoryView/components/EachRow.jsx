@@ -60,8 +60,7 @@ class EachRow extends React.Component {
                                 onClick={this.postMarketPlace}
                                 color="primary"
                                 variant="contained">View More
-                        </Button>
-
+                            </Button>
                         </div>
                     </div>
                     {
@@ -78,7 +77,6 @@ class EachRow extends React.Component {
                                 label={'Compare'}
                             /> : null
                     }
-
                 </div>
                 <div className="detailed-history">
                     {
@@ -89,9 +87,7 @@ class EachRow extends React.Component {
                             : null
                     }
                 </div>
-
             </div>
-
         );
     }
 }
