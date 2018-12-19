@@ -75,7 +75,7 @@ class HistoryView extends React.Component {
         return (
             <React.Fragment>
                 {
-                    _get(this, 'props.data') ?
+                    _get(this, 'props.data', []).length ?
                         <div>
                             {this.populateHistoryRows()}
                         </div> :
