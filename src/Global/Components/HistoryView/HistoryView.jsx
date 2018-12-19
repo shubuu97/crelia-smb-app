@@ -3,6 +3,8 @@ import React from 'react';
 import _get from 'lodash/get';
 /* Style Import */
 import './styles/historyView.less'
+/* Material Imports */
+import CircularProgress from '@material-ui/core/CircularProgress';
 /* Component Imports */
 import EachRow from './components/EachRow';
 
@@ -71,10 +73,17 @@ class HistoryView extends React.Component {
 
     render() {
         return (
-            <div >
-                {this.populateHistoryRows()}
-            </div>
-
+            <React.Fragment>
+                {
+                    _get(this, 'props.data') ?
+                        <div>
+                            {this.populateHistoryRows()}
+                        </div> :
+                        <div>
+                            No Data
+                        </div>
+                }
+            </React.Fragment>
         );
     }
 }
