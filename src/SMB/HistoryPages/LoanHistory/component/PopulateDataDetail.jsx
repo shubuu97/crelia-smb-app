@@ -23,7 +23,7 @@ const PopulateDataDetails = (props) => {
       }
       else
       {
-       parseData = {
+       parseData = { 
         MoneyRange: `${_get(allData, 'moneyRange.minAmount')} - ${_get(allData, 'moneyRange.maxAmount')}`,
         Currency: `${_get(allData, 'moneyRange.currency')}`,
         Term: `${_get(allData, 'term')} yrs`,

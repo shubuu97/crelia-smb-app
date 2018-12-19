@@ -95,11 +95,11 @@ class AddTeamForm extends React.Component {
         
         if(this.props.location.pathname=='/beneficiary')
         {
-            urlToHit = '/api/CreateShareHolder';
+            urlToHit = '/api/SaveShareHolder';
             designation='Benificiary ShareHolder';
         }
         else{
-            urlToHit = '/api/CreateEmployee';
+            urlToHit = '/api/SaveEmployee';
             designation=values.designation
 
         }
