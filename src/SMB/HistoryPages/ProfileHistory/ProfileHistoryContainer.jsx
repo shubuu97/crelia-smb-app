@@ -16,7 +16,7 @@ class ProfileHistory extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            isFetching: true
         }
 
     }
@@ -33,7 +33,11 @@ class ProfileHistory extends Component {
                     init: 'ProfileHistory_init',
                     success: 'ProfileHistory_success',
                     error: 'ProfileHistory_error'
-                }
+                },
+                successCb:()=>this.setState({isFetching: false}),
+                errorCb:()=>this.setState({isFetching: false}),
+                successText: '',
+                dontShowMessage: true,
             })
         })
     }
@@ -58,6 +62,7 @@ class ProfileHistory extends Component {
                         }
                     }
                     dispatch= {this.props.dispatch}
+                    isFetching={this.state.isFetching}
                 />
             </div>
 
