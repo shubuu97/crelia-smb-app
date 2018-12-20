@@ -85,7 +85,7 @@ class HistoryView extends React.Component {
                                 {this.populateHistoryRows()}
                             </div>
                             :
-                            <div className='no-data-icon'>
+                            <div className='no-data-icon-history'>
                             </div>
                 }
             </React.Fragment>
