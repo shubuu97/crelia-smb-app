@@ -11,6 +11,7 @@ import { APPLICATION_BFF_URL } from '../../../Redux/urlConstants'
 import { commonActionCreater } from '../../../Redux/commonAction'
 /* Components */
 import { loanDataSelector } from '../selectors/loanDataSelector';
+import formatMoney from '../../../Global/Components/normalizingMoneyField';
 
 
 class OfferContainer extends React.PureComponent {
@@ -87,7 +88,7 @@ class OfferContainer extends React.PureComponent {
 
                     obj = {
                         name: _get(data, 'investor.legalName', '-'),
-                        Amount: `${_get(data, 'moneyRange.minAmount', '')} - ${_get(data, 'moneyRange.maxAmount', '')}`,
+                        Amount: `${formatMoney(_get(data, 'moneyRange.minAmount', ''))} - ${formatMoney(_get(data, 'moneyRange.maxAmount', ''))}`,
                         Currency: `${_get(data, 'moneyRange.currency', '-')}`,
                         term: time,
                         interestRate: _get(data, 'interestRate') ? `${_get(data, 'interestRate', '')}%` : '-',
@@ -100,7 +101,7 @@ class OfferContainer extends React.PureComponent {
                 //todo which field need to be shown in the table
                 else if (fundType == 'EquityOffer') {
                     obj.name = _get(data, 'investor.legalName', '-');
-                    obj.Amount = _get(data, 'money.amount');
+                    obj.Amount = formatMoney(_get(data, `money.amount`));
                     obj.Currency = _get(data, 'money.currency');
                     obj.isBoardMembership = data.isBoardMembership ? 'Yes' : 'No';
                     obj.Range = `${_get(data, 'lowerValue')}-${_get(data, 'upperValue')}`

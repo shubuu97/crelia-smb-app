@@ -1,6 +1,8 @@
 import { createSelector } from 'reselect';
 import _get from 'lodash/get';
 import moment from 'moment';
+import formatMoney from '../../../Global/Components/normalizingMoneyField';
+
 
 
 let allowedStatus = (status) => {
@@ -68,7 +70,7 @@ const tableDataSelector = createSelector(
                 content:fundType
             },
             Amount: {
-                content: `${_get(data, 'moneyRange.minAmount')} - ${_get(data, 'moneyRange.maxAmount')}`,
+                content: `${formatMoney(_get(data, 'moneyRange.minAmount'))} - ${formatMoney(_get(data, 'moneyRange.maxAmount'))}`,
                 subData: fundType == 'Equity' ? `${_get(data, 'lowerValue', '')}-${_get(data, 'upperValue', '')}` : `${_get(data, 'interestRate', '')}% per annum`
             },
             Currency: `${_get(data, 'moneyRange.currency')}`,
