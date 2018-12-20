@@ -75,13 +75,18 @@ class HistoryView extends React.Component {
         return (
             <React.Fragment>
                 {
-                    _get(this, 'props.data', []).length ?
-                        <div>
-                            {this.populateHistoryRows()}
-                        </div> :
-                        <div>
-                            No Data
+                    _get(this, 'props.isFetching', false) ?
+                        <div className="width-100-percent flex-row justify-center pt-60">
+                            <CircularProgress />
                         </div>
+
+                        : _get(this, 'props.data', []).length ?
+                            <div>
+                                {this.populateHistoryRows()}
+                            </div>
+                            :
+                            <div className='no-data-icon-history'>
+                            </div>
                 }
             </React.Fragment>
         );

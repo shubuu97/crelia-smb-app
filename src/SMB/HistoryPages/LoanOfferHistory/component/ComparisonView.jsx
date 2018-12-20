@@ -46,7 +46,6 @@ class ComparisonView extends React.Component {
     }
 
     populateComparisionCells = () => {
-        debugger
         let current = _get(this, 'state.current', {});
         let diffrence = _get(this, 'state.diffrence', {});
         let previous = _get(this, 'state.previous', {});
@@ -164,7 +163,6 @@ class ComparisonView extends React.Component {
                 )
             }
         })
-        debugger
         return (
             <div className="flex-row"
                 style={{

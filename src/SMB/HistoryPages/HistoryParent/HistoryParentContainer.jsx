@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 /* Data Fetcher Imports */
 import genericPostData from '../../../Global/dataFetch/genericPostData';
 import basicDataFetcher from '../../../Global/dataFetch/basicDataFetcher';
+import { commonActionCreater } from '../../../Redux/commonAction';
 
 /* Lodash Imports */
 import _get from 'lodash/get';
@@ -35,7 +36,8 @@ class LoanHistory extends Component {
         this.state = {
             compareIds: [],
             showComparision: false,
-            uncheckall: false
+            uncheckall: false,
+            isFetching: true
         }
     }
 
@@ -50,10 +52,20 @@ class LoanHistory extends Component {
                     init: 'ProfileHistory_init',
                     success: 'ProfileHistory_success',
                     error: 'ProfileHistory_error'
-                }
+                },
+                successCb:()=>this.setState({isFetching: false}),
+                errorCb:()=>this.setState({isFetching: false}),
+                successText: '',
+                dontShowMessage: true,
             })
+            
         }
     }
+
+    componentWillUnmount() {
+        this.props.dispatch(commonActionCreater([], 'ProfileHistory_success'));
+    }
+
     //callback when compare history checkbox are clicked
     checkCb = (historyId) => {
         //logic to find for finding the ids in state 
@@ -61,7 +73,6 @@ class LoanHistory extends Component {
             this.setState({ uncheckall: false })
         }
         if (this.state.compareIds.length < 2) {
-            debugger;
             this.state.compareIds.push(historyId);
             //logic to open dialog
             if (this.state.compareIds.length == 2) {
@@ -109,6 +120,7 @@ class LoanHistory extends Component {
                     }
                     dispatch={this.props.dispatch}
                     showCompare={true}
+                    isFetching={this.state.isFetching}
                 />
                 <Dialog
                     open={this.state.showComparision}

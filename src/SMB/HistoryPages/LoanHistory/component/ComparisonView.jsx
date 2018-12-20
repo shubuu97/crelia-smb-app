@@ -163,7 +163,6 @@ class ComparisonView extends React.Component {
                 )
             }
         })
-        debugger
         return (
             <div className="flex-row"
                 style={{
