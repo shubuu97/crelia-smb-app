@@ -3,11 +3,12 @@ import { postData } from '../../Redux/postAction'
 import _get from 'lodash/get';
 import showMessage from '../../Redux/toastAction';
 
-function genericPostData({dispatch,reqObj,url,constants,identifier,successText,successCb,successTimeOutCb,errorCb,errorTimeOutCb})
+function genericPostData({dispatch,reqObj,url,constants,identifier,successText,successCb,successTimeOutCb,errorCb,errorTimeOutCb,dontShowMessage})
 {
     dispatch(
         postData(`${APPLICATION_BFF_URL}${url}`, reqObj,identifier ,constants)
     ).then((data) => {
+        if(!dontShowMessage)
         dispatch(showMessage({ text: successText||'Updated SuccessFully', isSuccess: true }));
         if(successCb)
         successCb();

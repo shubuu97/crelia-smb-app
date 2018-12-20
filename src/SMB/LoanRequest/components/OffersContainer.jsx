@@ -159,7 +159,6 @@ class OfferContainer extends React.PureComponent {
     }
 
     redirectToHistory = (data, index) => {
-        debugger
         this.props.dispatch(commonActionCreater({
             fund_transactionIds: _get(data, `transactionId.data`)
         }, 'SAVE_fund_transactionIds'));

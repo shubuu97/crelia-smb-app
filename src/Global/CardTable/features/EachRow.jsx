@@ -151,7 +151,6 @@ class PopulateRows extends Component {
         })
         if (this.props.menuActions || this.props.soloActions) {
             let allowedActions = _get(this, 'props.rows.allowedActions', [])
-            debugger
             rows.push(
                 <div className="data-col">
                     {

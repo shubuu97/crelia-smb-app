@@ -60,7 +60,8 @@ class HistoryViewTest extends React.Component {
     constructor() {
         super();
         this.state = {
-            extendedData: []
+            extendedData: [],
+            isFetching: true
         }
     }
 
@@ -79,6 +80,7 @@ class HistoryViewTest extends React.Component {
                             actionEvent: this.extendedComponentAction
                         }
                     }
+                    isFetching={this.state.isFetching}
                 />
             </div>
         );
