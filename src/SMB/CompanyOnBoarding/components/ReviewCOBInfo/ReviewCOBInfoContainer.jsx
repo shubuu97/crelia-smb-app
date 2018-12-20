@@ -109,7 +109,11 @@ class ReviewCOBInfoContainer extends Component {
 
                         <div className="row  pad-20">
                             <FinancialLinks
-                                financialLinks={_get(companyDetails, 'financialInfo.financialLinks', [])}
+                                balanceSheet={_get(companyDetails, 'financialInfo.balanceSheet', [])}
+                                businessPlan = {_get(companyDetails, 'financialInfo.businessPlan', [])}
+                                cashFlow = {_get(companyDetails, 'financialInfo.cashFlow', [])}
+
+
                             />
                         </div>
                        {!this.props.fetchFromProp ?<div className="common-action-block pb-15">
