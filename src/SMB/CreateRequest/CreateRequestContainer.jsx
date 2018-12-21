@@ -113,6 +113,7 @@ class CreateRequestContainer extends Component {
         console.log(values, "values is here");
         let reqObj = {};
         reqObj.companyId = this.props.id;
+        reqObj.id = this.props.fundId;
         reqObj.timeFrame = values.timeFrame;
         reqObj.term = values.term;
         reqObj.fundAllocation = [];
