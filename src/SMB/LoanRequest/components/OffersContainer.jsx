@@ -12,7 +12,7 @@ import { commonActionCreater } from '../../../Redux/commonAction'
 /* Components */
 import { loanDataSelector } from '../selectors/loanDataSelector';
 import formatMoney from '../../../Global/Components/normalizingMoneyField';
-
+import { withRouter } from 'react-router-dom';
 
 class OfferContainer extends React.PureComponent {
 
@@ -133,8 +133,27 @@ class OfferContainer extends React.PureComponent {
     }
 
     //todo handle negotiation to be discussed
-    handleRequestNegotion = () => {
+    handleRequestNegotion = (data, index) => {
         this.setState({ open: false });
+        debugger;
+        let id = _get(this.state,`offerData.rows[${index}].id`)
+        this.props.dispatch(commonActionCreater({
+            reqId: id,
+            index: index
+        }, 'SAVE_FUND_REQ_ID'));
+
+        let $class = _get(this.state, `offerData.rows[${index}].$class`);
+        let fundType = this.getFundType($class);
+        //push when fund request is for equity
+        if (fundType == 'LoanOffer') {
+            return  this.props.history.push('/loans/offer');
+          
+
+        }
+        //pushing when fund requestt is for loan
+        else {
+            return  this.props.history.push('/equity/offer')
+        }
     }
 
     handleDecline = (data, index) => {
@@ -217,4 +236,4 @@ function mapStateToProps(state, ownProps) {
 
 OfferContainer = connect(mapStateToProps)(withLoader(OfferContainer))
 
-export default OfferContainer;
+export default withRouter(OfferContainer);
