@@ -549,11 +549,7 @@ function mapStateToProps(state) {
         offer: _get(state, 'staticReducers.offer'),
         investorId: _get(state, 'BasicInfo.lookUpData.company.id', ''),
         smeId: smbId,
-        initialValues: {
-            workingCapital, refinancing, capitalExpense,
-            capitalExpensePecentage, refinancingPecentage,
-            workingCapitalPecentage, otherPurpose
-        }
+        
     }
 
 }

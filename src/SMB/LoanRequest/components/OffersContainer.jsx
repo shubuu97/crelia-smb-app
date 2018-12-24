@@ -40,7 +40,9 @@ class OfferContainer extends React.PureComponent {
 
         if (fundType == "Loan") {
             this.setState({
-                headingData: ['Investor',
+                headingData: [
+                    'Status',
+                    'Investor',
                     'Amount',
                     'Currency',
                     'Term',
@@ -50,7 +52,9 @@ class OfferContainer extends React.PureComponent {
         }
         else {
             this.setState({
-                headingData: ['Investor',
+                headingData: [
+                    'Status',
+                    'Investor',
                     'Amount',
                     'Currency',
                     'Board Membership',
@@ -59,6 +63,8 @@ class OfferContainer extends React.PureComponent {
             })
         }
     }
+
+
 
     basicDataFetcher = () => {
 
@@ -87,6 +93,10 @@ class OfferContainer extends React.PureComponent {
                 if (fundType == 'LoanOffer') {
 
                     obj = {
+                        status: {
+                            content: data.status,
+                            status: data.status,
+                        },
                         name: _get(data, 'investor.legalName', '-'),
                         Amount: `${formatMoney(_get(data, 'moneyRange.minAmount', ''))} - ${formatMoney(_get(data, 'moneyRange.maxAmount', ''))}`,
                         Currency: `${_get(data, 'moneyRange.currency', '-')}`,
@@ -95,22 +105,62 @@ class OfferContainer extends React.PureComponent {
                         transactionId: {
                             type: 'hidden',
                             data: _get(data, 'transactionIds')
-                        }
+                        },
+                        allowedActions:this.allowedStatus(data.status)
                     }
                 }
                 //todo which field need to be shown in the table
                 else if (fundType == 'EquityOffer') {
+                    obj.status =  {
+                        content: data.status,
+                        status: data.status,
+                    };
                     obj.name = _get(data, 'investor.legalName', '-');
                     obj.Amount = formatMoney(_get(data, `money.amount`));
                     obj.Currency = _get(data, 'money.currency');
                     obj.isBoardMembership = data.isBoardMembership ? 'Yes' : 'No';
-                    obj.Range = `${_get(data, 'lowerValue')}-${_get(data, 'upperValue')}`
+                    obj.Range = `${_get(data, 'lowerValue')}-${_get(data, 'upperValue')}`;
+                    obj.allowedActions =  this.allowedStatus(data.status);
+                    obj.transactionId =  {
+                        type: 'hidden',
+                        data: _get(data, 'transactionIds')
+                    };
+                    console.log('data allowedActions',obj)
                 }
                 TableData.push(obj);
             })
             this.setState({ TableData })
 
         })
+    }
+     allowedStatus = (status) => {
+        let arr = []
+        switch(status) {
+            case 'DRAFT' :
+            arr =  ['ACTIVE']
+            break;
+            case 'ACTIVE':
+            arr =  ['IN_NEGOTIATION', 'DECLINED', 'ACCEPTED', 'REVOKED']
+            break;
+            case 'ACCEPTED' :
+            arr =  ['REVOKED']
+            break;
+            case 'DECLINED':
+            arr = ['DRAFT']
+            break;
+            case 'IN_NEGOTIATION' :
+            arr =  ['DRAFT', 'ACTIVE', 'REVOKED']
+            break;
+            case 'REVOKED':
+            arr = ['x']
+            break;
+    
+            default :
+            arr = ['x']
+            break;
+        }
+        arr.push('SHOW_HISTORY')
+        return arr
     }
     onShowSizeChange = (current, pageSize) => {
         this.state.first = ((current - 1) * (pageSize)) + 1;
@@ -173,7 +223,10 @@ class OfferContainer extends React.PureComponent {
                 error: 'DeclineOffer_error'
             },
             successText: 'Offer Declined successFully',
-            successCb: () => this.setState({ isLoading: false }),
+            successCb: () => {this.setState({ isLoading: false });
+            this.basicDataFetcher();
+        
+        },
             errorCb: () => this.setState({ isLoading: false })
         })
     }
@@ -195,9 +248,18 @@ class OfferContainer extends React.PureComponent {
                 <CardTable
                     menuActions={
                         [
-                            { Title: 'Request Negotiation', actionEvent: this.handleRequestNegotion },
-                            { Title: 'Decline', actionEvent: this.handleDecline },
-                            { Title: 'Show History', actionEvent: this.redirectToHistory },
+                            { Title: 'Request Negotiation',
+                             actionEvent: this.handleRequestNegotion,
+                             name: 'IN_NEGOTIATION',
+                            },
+                            { Title: 'Decline', 
+                            actionEvent: this.handleDecline,
+                            name: 'DECLINED',
+                        },
+                            { Title: 'Show History',
+                             actionEvent: this.redirectToHistory,
+                             name: 'SHOW_HISTORY'
+                            },
                         ]
                     }
 
@@ -205,7 +267,6 @@ class OfferContainer extends React.PureComponent {
                     data={this.state.TableData}
                     loader={this.state.isLoading}
                     actions={true}
-                    isExtended={true}
                     filter={false}
                     onShowSizeChange={this.onShowSizeChange}
                     onPageChange={this.onPageChange}
