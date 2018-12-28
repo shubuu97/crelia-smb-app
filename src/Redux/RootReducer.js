@@ -31,7 +31,7 @@ import TransactionDetailsFun from './commonReducer'
 import OfferDataFun from './commonReducer';
 import getLoanRequest from './commonReducer';
 import filterMetaDataFun from './commonReducer';
-
+import TaskListFun from './commonReducer';
 
 
 
@@ -50,7 +50,7 @@ let TransactionDetails = TransactionDetailsFun('TransactionDetails')
 let LoanRequest = getLoanRequest('fetchingLoanRequestData');
 let OfferData = OfferDataFun('OfferData');
 let filterMetaData = filterMetaDataFun('filterMetaData');
-
+let TaskList = TaskListFun('TaskList');
 
 
 
@@ -80,7 +80,8 @@ let rootRducer = combineReducers({
     LoanRequest,
     staticReducers,
     OfferData,
-    filterMetaData
+    filterMetaData,
+    TaskList
     
 })
 

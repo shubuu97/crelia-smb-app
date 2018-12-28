@@ -56,8 +56,10 @@ import SelectLoanType from './SMB/CreateRequest/components/SelectLoanType';
 import LoanHistoryContainer from './SMB/HistoryPages/LoanHistory/LoanHistoryContainer';
 import LoanOfferHistoryContainer from './SMB/HistoryPages/LoanOfferHistory/LoanOfferHistoryContainer';
 import ProfileHistoryContainer from './SMB/HistoryPages/ProfileHistory/ProfileHistoryContainer';
-import LoanOfferContainer from './SMB/NegotiationOffer/Loan.jsx'
-import EquityOfferContainer from './SMB/NegotiationOffer/Equity.jsx'
+import LoanOfferContainer from './SMB/NegotiationOffer/Loan.jsx';
+import EquityOfferContainer from './SMB/NegotiationOffer/Equity.jsx';
+import TaskContainer from './SMB/Task/TaskContainer';
+
 const generateClassName = createGenerateClassName({
   dangerouslyUseGlobalCSS: true,
   productionPrefix: 'c',
@@ -128,8 +130,9 @@ ReactDOM.render(
                   <RouteWithLayout Layout={MainLayout} exact path='/LoanRequest/SelectLoanType' Component={SelectLoanType}/>
                   <RouteWithLayout Layout={MainLayout} exact path='/LoanHistory' Component={LoanHistoryContainer}/>
                   <RouteWithLayout Layout={MainLayout} exact path='/LoanOfferHistory' Component={LoanOfferHistoryContainer}/>
-                  <RouteWithLayout Layout={MainLayout} exact path="/loans/offer" Component={LoanOfferContainer}/>
-                  <RouteWithLayout Layout={MainLayout} exact path="/equity/offer" Component={EquityOfferContainer}/>
+                  <RouteWithLayout Layout={MainLayout} exact path="/loans/offer/:loanId" Component={LoanOfferContainer}/>
+                  <RouteWithLayout Layout={MainLayout} exact path="/equity/offer/:equityId" Component={EquityOfferContainer}/>
+                  <RouteWithLayout Layout={MainLayout} exact path="/tasks" Component={TaskContainer}/>
 
                   {RoutesConfig.map(rconfig => <RouteWithLayout Layout={MainLayout} exact path={rconfig.path} Component={rconfig.Component} />)}
 
