@@ -103,7 +103,13 @@ class Header extends React.Component {
 
                     <div className="nevbar-right">
                         <ul className="myaccount">
-                            <li><a href="#"><i class="material-icons notification">notifications_none</i></a></li>
+                        {/* <li><a href="#"><i class="material-icons notification">notifications_none</i></a></li> */}
+
+                            <li title='Tasks' onClick={()=>this.props.history.push('/tasks')}>
+                            <a>
+                            <i style={{fontSize: '2.2rem', width:'35px'}} class="material-icons notification">assignment_none</i>
+                            </a>
+                            </li>
                             <li onMouseOver={this.handleMouseOver}><a >
                                 <i className="material-icons useraccount" >person_outline</i>
                                 <i class="material-icons droparrow">keyboard_arrow_down</i></a>
