@@ -2,6 +2,7 @@ import  React  from 'react';
 import CardTable from '../../../Global/CardTable/CardTable';
 import genericPostData from '../../../Global/dataFetch/genericPostData';
 import _get from 'lodash/get';
+import TaskDetails from './TaskDetails/TaskDetailsContainer'
 
 class TaskList extends React.Component
 {
@@ -60,6 +61,9 @@ editTask = (data,index)=>
 {
 
 }
+extendedComponentAction = (data, index) => {
+    this.setState({ reqID: _get(this.props, `loanData[${index}].id`) })
+}
 
 render()
 {
@@ -99,12 +103,12 @@ render()
                     // onShowSizeChange={this.onShowSizeChange}
                     // onPageChange={this.onPageChange}
                     // chooseColor={this.chooseColor}
-                    // extendedComponent={
-                    //     {
-                    //         component: OffersContainer
-                    //         , actionEvent: this.extendedComponentAction
-                    //     }
-                    // }
+                    extendedComponent={
+                        {
+                            component: TaskDetails
+                            , actionEvent: this.extendedComponentAction
+                        }
+                    }
 
                     // total={this.this.props.totalRows}
                     // openOfferModal={this.openOfferModal}
