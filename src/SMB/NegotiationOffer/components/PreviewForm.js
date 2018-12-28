@@ -6,7 +6,8 @@ class PreviewForm extends Component {
 
 
     render() {
-        let formValues = this.props.formValues        return (
+        let formValues = this.props.formValues
+        return (
             <div>
                 <h4>Summary</h4>
                 <div className="block-sub-title pt-10">Amount</div>
