@@ -136,8 +136,8 @@ class Loan extends Component {
                 timeUnit: values.interestRepaymentTimeUnit,
             }
         }
-        reqObj.loanId = this.props.fundId ? this.props.fundId : '';
-        reqObj.id =  _get(this, 'props.offer.offerId', '');
+        reqObj.id =  this.props.fundId ? this.props.fundId : '';
+        reqObj.loanId = this.props.match.params.loanId
         //reqObj.id = this.props.investorId
         //reqObj.companyId = this.props.investorId
         reqObj.timeFrame = values.timeFrame;
@@ -171,54 +171,31 @@ class Loan extends Component {
         return reqObj
     }
 
-    saveLoanDetails = (values) => {
+    submitLoanDetails = (values) => {
        
         //logic end here
-        this.setState({SaveOfferLoading:true});
-
-        let reqObj = this.makeReqObj(values)
+        debugger;
+    let reqObj = this.makeReqObj(values);
+    this.setState({NegotiateOfferLoading:true});
 
         genericPostData({
-            dispatch: this.props.dispatch, url: '/api/SaveLoanOffer',
+            dispatch: this.props.dispatch, url: '/api/NegotiateLoanOffer',
             identifier: 'create_offer',
-            successText: 'Offer Saved Sucessfully',
+            successText: 'Offer Send For Negotiation Succesfully',
             reqObj,
             constants: {
                 init: 'save_offer_init',
                 success: 'save_offer_success',
                 error: 'save_offer_error'
             },
-            successCb: this.returnedData,
-            errorCb:()=>this.setState({SaveOfferLoading:false})
+            successCb: this.setState({NegotiateOfferLoading:false}),
+            errorCb:()=>this.setState({NegotiateOfferLoading:false})
         })
     }
-
-    returnedData = (data) => {
-        this.setState({SaveOfferLoading:false})
-        this.props.dispatch(commonActionCreater({
-            offerId: data.id
-        }, 'SAVE_OFFER_ID'));
-    }
-
-    submitLoanDetails = (values) => {
-        let reqObj = this.makeReqObj(values);
-        this.setState({MakeOfferLoading:true})
-        genericPostData({
-            dispatch: this.props.dispatch, url: '/api/SendLoanOffer',
-            identifier: 'send_offer',
-            successText: 'Offer Sent Sucessfully',
-            reqObj,
-            constants: {
-                init: 'send_offer_init',
-                success: 'send_offer_success',
-                error: 'send_offer_error'
-            },
-            successCb: ()=> this.setState({MakeOfferLoading:false}),
-            errorCb:()=>this.setState({MakeOfferLoading:false})
-        })
-    }
+    
 
     render() {
+        debugger;
         return (
             <div className="loan-request">
                 <div className="col-sm-12 ">
@@ -475,12 +452,8 @@ class Loan extends Component {
                             <div className='col-sm-4'>
                                 <div className="details-block">
                                     <PreviewForm
-                                        SaveOfferLoading = {this.state.SaveOfferLoading}
-                                        MakeOfferLoading = {this.state.MakeOfferLoading}
+                                        NegotiateOfferLoading = {this.state.NegotiateOfferLoading}
                                         offerId={_get(this, 'props.offer.offerId')}
-                                        saveLoanDetails={
-                                            this.props.handleSubmit(this.saveLoanDetails)
-                                        }
                                         submitLoanDetails={
                                             this.props.handleSubmit(this.submitLoanDetails)
                                         }

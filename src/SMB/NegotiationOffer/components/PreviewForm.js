@@ -6,9 +6,7 @@ class PreviewForm extends Component {
 
 
     render() {
-        let formValues = this.props.formValues
-
-        return (
+        let formValues = this.props.formValues        return (
             <div>
                 <h4>Summary</h4>
                 <div className="block-sub-title pt-10">Amount</div>
@@ -28,13 +26,11 @@ class PreviewForm extends Component {
                     <div>{_get(formValues, 'term')} Years</div>
                     <div><span className="inner-btxt">Active till:</span> {_get(formValues, 'timeFrame')}</div>
                 </div>
-                <LoaderButton onClick={this.props.saveLoanDetails} 
-                isFetching = {this.props.SaveOfferLoading}
-                color='primary'className="full-width-btn btnprimary mt-30" variant='contained'>Save Offer</LoaderButton>
                 <LoaderButton
-                 isFetching = {this.props.MakeOfferLoading}
-                disabled={!this.props.offerId}
-                 onClick={this.props.submitLoanDetails} color='primary' className="full-width-btn btnprimary mt-30" variant='contained'>Make Offer</LoaderButton>
+                onClick={this.props.submitLoanDetails} 
+                isFetching = {this.props.NegotiateOfferLoading}
+                color='primary'className="full-width-btn btnprimary mt-30" 
+                variant='contained'>Submit</LoaderButton>
             </div>
         )
     }

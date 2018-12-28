@@ -190,7 +190,7 @@ class Equity extends Component {
 
         genericPostData({
             dispatch: this.props.dispatch,
-            url: `/api/SaveEquityOffer`,
+            url: `/api/NegotiateEquityOffer`,
             identifier: 'equity-post',
             successText: 'Equity Saved Succesfully',
             reqObj,
@@ -203,12 +203,6 @@ class Equity extends Component {
             errorCb: (err) => this.setState({ loadingSave: false })
         })
 
-    }
-    returnedData = (data) => {
-        this.setState({ loadingSave: false })
-        this.props.dispatch(commonActionCreater({
-            offerId: data.id
-        }, 'SAVE_OFFER_ID'));
     }
 
 
@@ -533,13 +527,6 @@ class Equity extends Component {
                                         className="full-width-btn btnprimary mt-30"
                                         variant='contained'>Save Offer
                                         </LoaderButton>
-                                    <LoaderButton
-                                        disabled={!_get(this, 'props.offer.offerId', false)}
-                                        onClick={handleSubmit(this.submitOfferDetails)}
-                                        isFetching={this.state.loadingOfferSave}
-                                        color='primary'
-                                        className="full-width-btn btnprimary mt-30"
-                                        variant='contained'>Make Offer</LoaderButton>
                                 </div>
                             </div>
                         </div>

@@ -196,13 +196,12 @@ class OfferContainer extends React.PureComponent {
         let fundType = this.getFundType($class);
         //push when fund request is for equity
         if (fundType == 'LoanOffer') {
-            return  this.props.history.push('/loans/offer');
-          
+            return  this.props.history.push(`/loans/offer/${_get(this.props, `loanData[${this.props.rowId}].id`)}`)          
 
         }
         //pushing when fund requestt is for loan
         else {
-            return  this.props.history.push('/equity/offer')
+            return  this.props.history.push(`/equity/offer/${_get(this.props, `loanData[${this.props.rowId}].id`)}`)
         }
     }
 
