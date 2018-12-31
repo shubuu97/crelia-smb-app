@@ -91,6 +91,10 @@ class Header extends React.Component {
                             this.setState({ open: false })
                         }}>My Account</MenuItem>
                          <MenuItem onClick={() => {
+                            this.props.history.push('/defaulttaks');
+                            this.setState({ open: false })
+                        }}>Default Task</MenuItem>
+                         <MenuItem onClick={() => {
                             this.props.history.push('/about');
                             this.setState({ open: false })
                         }}>Company Profile</MenuItem>

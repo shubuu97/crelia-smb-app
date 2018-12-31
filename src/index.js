@@ -59,6 +59,7 @@ import ProfileHistoryContainer from './SMB/HistoryPages/ProfileHistory/ProfileHi
 import LoanOfferContainer from './SMB/NegotiationOffer/Loan.jsx';
 import EquityOfferContainer from './SMB/NegotiationOffer/Equity.jsx';
 import TaskContainer from './SMB/Task/TaskContainer';
+import DefaultTaskDetailsContainer from './SMB/Task/component/TaskDetails/DefaultTaskDetailsContainer';
 
 const generateClassName = createGenerateClassName({
   dangerouslyUseGlobalCSS: true,
@@ -133,7 +134,8 @@ ReactDOM.render(
                   <RouteWithLayout Layout={MainLayout} exact path="/loans/offer/:loanId" Component={LoanOfferContainer}/>
                   <RouteWithLayout Layout={MainLayout} exact path="/equity/offer/:equityId" Component={EquityOfferContainer}/>
                   <RouteWithLayout Layout={MainLayout} exact path="/tasks" Component={TaskContainer}/>
-
+                  <RouteWithLayout Layout={MainLayout} exact path="/defaulttaks" Component={DefaultTaskDetailsContainer}/>
+                  
                   {RoutesConfig.map(rconfig => <RouteWithLayout Layout={MainLayout} exact path={rconfig.path} Component={rconfig.Component} />)}
 
 

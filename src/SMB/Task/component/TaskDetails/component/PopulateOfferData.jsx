@@ -5,7 +5,8 @@ import FinancialData from './FinancialDataTable';
 import LoanProvider from './loanProviderView';
 import GeneralView from './GeneralView';
 import FinancialLinks from './FinancialLinks';
-import { isNullOrUndefined } from 'util';
+import parseDefaultData from '../DataUtility/parseDefaultData';
+import parseApiData from '../DataUtility/parseApiData';
 
 const PopulateDataDetails = (props) => {
 
@@ -16,53 +17,14 @@ const PopulateDataDetails = (props) => {
         let obj = {};
         allData[key] = key;
     });
+    let parseData
 
-
-
-    let parseData = {
-        companyDetails: {
-            CompanyName: _get(allData, 'LEGALNAME'),
-            IndustryType: _get(allData, 'INDUSTRYTYPE'),
-            LegalEntityType: _get(allData, 'LEGALENTITYTYPE'),
-            IncorporationDate: _get(allData, 'INCORPORATIONDATE'),
-            taxId: _get(allData, 'TAXID'),
-            RegistrationNumber: _get(allData, 'REGISTRATIONNUMBER'),
-            licenseNumber: _get(allData, 'LICENSENUMBER'),
-            numberOfEmployees: _get(allData, 'NUMBEROFEMPLOYEES'),
-        },
-        address: {
-            'Street-1': _get(allData, 'ADDRESS_LINE1'),
-            'Street-2': _get(allData, 'ADDRESS_LINE2'),
-            City: _get(allData, 'ADDRESS_CITY'),
-            ZipCode: _get(allData, 'ADDRESS_ZIPCODE'),
-            Country: _get(allData, 'ADDRESS_COUNTRY'),
-            Region: _get(allData, 'ADDRESS_REGION'),
-            PhoneNumber: _get(allData, 'PHONENUMBER'),
-            Email: _get(allData, 'EMAIL'),
-        },
-        loanProvider: _get(allData, 'financialInfo.loanProvider', []),
-        legal: {
-            'RegistrationCertificateLink': _get(allData, 'REGISTRATIONCERTIFICATELINK'),
-            'OrganizationalChartLink': _get(allData, 'ORGANIZATIONALCHARTLINK'),
-            'TaxCertificateLink': _get(allData, 'TAXCERTIFICATELINK'),
-        },
-        financials: {
-            BalanceSheet: _get(allData, 'FINANCIALINFO_BALANCESHEET'),
-            IncomeStatement:_get(allData,'FINANCIALINFO_INCOMESTATEMENT'),
-            Forecast:_get(allData,'FINANCIALINFO_FORECAST'),
-            BusinessPlan: _get(allData, 'FINANCIALINFO_BUSINESSPLAN'),
-            CashFlow: _get(allData, 'FINANCIALINFO_CASHFLOW'),
-        },
-        financialData: _get(allData, 'financialInfo.financialData', []),
-        team: {},
-        benificiaryShareholders: {},
-        marketingMaterials: {
-            PresentationLink: _get(allData, 'PRESENTATIONLINK'),
-            OrganizationLink: _get(allData, 'URL'),
-            VideoLink: _get(allData, 'VIDEOLINK'),
-        },
+    if (props.defaultTask) {
+        parseData = parseDefaultData;
     }
-
+    else {
+        parseData = parseApiData(allData);
+    }
     let data = {
         companyDetails: [],
         address: [],
@@ -115,7 +77,7 @@ const PopulateDataDetails = (props) => {
                     delete data.loanProvider
                 }
 
-                !everyUndfined&&data[header].push(
+                !everyUndfined && data[header].push(
                     <LoanProvider
                         fields={props.fields}
                         FieldAccessReqTask={props.FieldAccessReqTask}
@@ -131,7 +93,7 @@ const PopulateDataDetails = (props) => {
                     delete data.financialData
                 }
 
-                !everyUndfined&&data[header].push(
+                !everyUndfined && data[header].push(
                     <FinancialData
                         fields={props.fields}
                         FieldAccessReqTask={props.FieldAccessReqTask}
@@ -146,7 +108,7 @@ const PopulateDataDetails = (props) => {
                 if (everyUndfined) {
                     delete data.financials
                 }
-                !everyUndfined&&data[header].push(
+                !everyUndfined && data[header].push(
                     <FinancialLinks
                         fields={props.fields}
                         FieldAccessReqTask={props.FieldAccessReqTask}
@@ -162,7 +124,7 @@ const PopulateDataDetails = (props) => {
                 if (everyUndfined) {
                     delete data.legal
                 }
-                !everyUndfined&&data[header].push(
+                !everyUndfined && data[header].push(
                     <FinancialLinks
                         fields={props.fields}
                         FieldAccessReqTask={props.FieldAccessReqTask}
@@ -178,7 +140,7 @@ const PopulateDataDetails = (props) => {
                 if (everyUndfined) {
                     delete data.marketingMaterials
                 }
-                !everyUndfined&&data[header].push(
+                !everyUndfined && data[header].push(
 
                     <FinancialLinks
                         fields={props.fields}
