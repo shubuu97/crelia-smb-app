@@ -50,6 +50,7 @@ class DefaultTaskDetailsContainer extends Component {
     render() {
         return (
             <React.Fragment>
+                <span className="Setting-header">Choose Details Investor Can See Of Yours</span>
                 <PopulateOfferData
                     FieldAccessReqTask={this.FieldAccessReqTask}
                     fields={this.state.fieldAccessRequest}

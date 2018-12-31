@@ -86,14 +86,6 @@ class Header extends React.Component {
                         }}
                         onRequestClose={this.handleRequestClose}
                     >
-                        <MenuItem onClick={() => {
-                            this.props.history.push('/account');
-                            this.setState({ open: false })
-                        }}>My Account</MenuItem>
-                         <MenuItem onClick={() => {
-                            this.props.history.push('/defaulttaks');
-                            this.setState({ open: false })
-                        }}>Default Task</MenuItem>
                          <MenuItem onClick={() => {
                             this.props.history.push('/about');
                             this.setState({ open: false })
@@ -102,6 +94,10 @@ class Header extends React.Component {
                             this.props.history.push('/ProfileHistory');
                             this.setState({ open: false })
                         }}>Blockchain History</MenuItem>
+                         <MenuItem onClick={() => {
+                            this.props.history.push('/defaulttaks');
+                            this.setState({ open: false })
+                        }}>Settings</MenuItem>
                         <MenuItem onClick={this.logout}>Logout</MenuItem>
                     </Menu>
 
@@ -111,7 +107,7 @@ class Header extends React.Component {
 
                             <li title='Tasks' onClick={()=>this.props.history.push('/tasks')}>
                             <a>
-                            <i style={{fontSize: '2.2rem', width:'35px'}} class="material-icons notification">assignment_none</i>
+                            <i style={{fontSize: '2.2rem', width:'35px'}} class="material-icons notification">assignment</i>
                             </a>
                             </li>
                             <li onMouseOver={this.handleMouseOver}><a >

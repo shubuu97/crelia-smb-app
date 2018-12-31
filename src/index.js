@@ -60,7 +60,7 @@ import LoanOfferContainer from './SMB/NegotiationOffer/Loan.jsx';
 import EquityOfferContainer from './SMB/NegotiationOffer/Equity.jsx';
 import TaskContainer from './SMB/Task/TaskContainer';
 import DefaultTaskDetailsContainer from './SMB/Task/component/TaskDetails/DefaultTaskDetailsContainer';
-
+import sidebarLayout from './Global/layout/sideBarLayout'
 const generateClassName = createGenerateClassName({
   dangerouslyUseGlobalCSS: true,
   productionPrefix: 'c',
@@ -123,7 +123,7 @@ ReactDOM.render(
                   <RouteWithLayout Layout={MainLayout} exact path="/onboard" Component={CompanyOnBoardingContainer} />
                   <RouteWithLayout Layout={MainLayout} exact path="/onboard/review" Component={ReviewCOBInfoContainer} />
                   <RouteWithLayout Layout={MainLayout} exact path="/OnBoardingAcknowlege" Component={OnBoardingAcknowlege} />
-                  <RouteWithLayout Layout={MainLayout} exact path="/account" Component={AccountSMB} />
+                  <RouteWithLayout Layout={MainLayout} exact path="/account" Component={sidebarLayout(AccountSMB)} />
                   <RouteWithLayout Layout={MainLayout} exact path='/LoanRequest' Component={LoanRequestContainer}/>
                   <RouteWithLayout Layout={MainLayout} exact path='/ProfileHistory' Component={ProfileHistoryContainer}/>
                   <RouteWithLayout Layout={MainLayout} exact path='/LoanRequest/create' Component={CreateRequestContainer}/>
@@ -134,7 +134,7 @@ ReactDOM.render(
                   <RouteWithLayout Layout={MainLayout} exact path="/loans/offer/:loanId" Component={LoanOfferContainer}/>
                   <RouteWithLayout Layout={MainLayout} exact path="/equity/offer/:equityId" Component={EquityOfferContainer}/>
                   <RouteWithLayout Layout={MainLayout} exact path="/tasks" Component={TaskContainer}/>
-                  <RouteWithLayout Layout={MainLayout} exact path="/defaulttaks" Component={DefaultTaskDetailsContainer}/>
+                  <RouteWithLayout Layout={MainLayout} exact path="/defaulttaks" Component={sidebarLayout(DefaultTaskDetailsContainer)}/>
                   
                   {RoutesConfig.map(rconfig => <RouteWithLayout Layout={MainLayout} exact path={rconfig.path} Component={rconfig.Component} />)}
 
