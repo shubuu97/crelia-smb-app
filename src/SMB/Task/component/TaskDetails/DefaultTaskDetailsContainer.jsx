@@ -5,7 +5,7 @@ import PopulateOfferData from './component/PopulateOfferData';
 import genericGetDataFetcher from '../../../../Global/dataFetch/genericGetData';
 import genericPostData from '../../../../Global/dataFetch/genericPostData';
 import LoaderButton from '../../../../Global/Components/LoaderButton';
-
+import parseDataBeforeSubmit from '../../component/TaskDetails/DataUtility/parseDataBeforeSubmit'
 
 class DefaultTaskDetailsContainer extends Component {
     constructor(props) {
@@ -26,7 +26,7 @@ class DefaultTaskDetailsContainer extends Component {
         console.log(this.state.fieldAccessRequest, Object.keys(this.state.fieldAccessRequest))
         let fields = Object.keys(this.state.fieldAccessRequest)
             .filter((key, index) => this.state.fieldAccessRequest[key])
-            .map(data => data.toUpperCase());
+            .map(data => parseDataBeforeSubmit(data).toUpperCase())
         let reqObj = {};
         reqObj.smbId = _get(this.props,`smbId`);
         reqObj.fields = fields;
@@ -50,7 +50,7 @@ class DefaultTaskDetailsContainer extends Component {
     render() {
         return (
             <React.Fragment>
-                <span className="Setting-header">Choose Details Investor Can See Of Yours</span>
+                <span className="Setting-header"> Choose the details which investors can see</span>
                 <PopulateOfferData
                     FieldAccessReqTask={this.FieldAccessReqTask}
                     fields={this.state.fieldAccessRequest}
@@ -60,7 +60,7 @@ class DefaultTaskDetailsContainer extends Component {
                  <LoaderButton
                     onClick={this.submitRequest}
                     isFetching = {this.state.loading}
-                    color='primary' variant='contained'>Submit</LoaderButton>
+                    color='primary' variant='contained'>Apply Changes</LoaderButton>
             </React.Fragment>
 
         )

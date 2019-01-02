@@ -83,12 +83,12 @@ class FinancialDataTable extends Component {
                     <FormControlLabel
                         control={
                             <Checkbox
+                                color="primary"
                                 checked={this.props.key}
                                 onChange={this.props.handleChange('FINANCIALINFO_FINANCIALDATA')}
                                 value={'FINANCIALINFO_FINANCIALDATA'}
                             />
                         }
-                        label="Give Access"
                     />
 
                     {/* <Table className={classes.table}>

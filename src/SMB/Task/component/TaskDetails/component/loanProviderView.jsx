@@ -24,12 +24,12 @@ const  LoanProvider = (props)=>
                 <FormControlLabel
                 control={
                     <Checkbox
+                        color="primary"
                         checked={props.key}
                         onChange={props.handleChange('FINANCIALINFO_LOANPROVIDER_PROVIDERNAME')}
                         value={'FINANCIALINFO_LOANPROVIDER_PROVIDERNAME'}
                     />
                 }
-                label="Give Access"
             />
             </div>
            

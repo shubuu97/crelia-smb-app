@@ -28,8 +28,8 @@ function SideBar(WrappedComponent) {
                         <div className="row">
                             <div className="col-sm-3" >
                                 <ul className="about-tab">
-                                    <li className={_get(this.props, 'location.pathname', "") == "/defaulttaks" ? `active` : ``} onClick={() => this.handleRoute('defaulttaks')}>Privacy Setting</li>
-                                    <li className={_get(this.props, 'location.pathname', "") == "/account" ? `active` : ``} onClick={() => this.handleRoute('account')}>Account Setting</li>
+                                    <li className={_get(this.props, 'location.pathname', "") == "/defaulttaks" ? `active` : ``} onClick={() => this.handleRoute('defaulttaks')}>Privacy</li>
+                                    <li className={_get(this.props, 'location.pathname', "") == "/account" ? `active` : ``} onClick={() => this.handleRoute('account')}>Account</li>
                                 </ul>
                             </div>
                             <div className="col-sm-9" >
