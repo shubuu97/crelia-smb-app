@@ -84,7 +84,7 @@ const tableDataSelector = createSelector(
         }
 
         if (fundType == 'Equity') {
-            obj.Amount = _get(data, 'money.amount');
+            obj.Amount = formatMoney(_get(data, 'money.amount'));
             obj.Currency = _get(data, 'money.currency');
 
         }
