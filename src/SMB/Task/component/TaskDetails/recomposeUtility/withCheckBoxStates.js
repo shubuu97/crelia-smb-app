@@ -83,13 +83,13 @@ const withSwitchState = props => (name, value) => {
     //Logic to change the names according to sending to ui
     if (name == 'Company Details') {
         allFields['LEGALNAME'] = props.companyDetails.CompanyName?value:null
-        allFields['IncorporationDate'] = props.companyDetails.IncorporationDate?value:null
-        allFields['IndustryType'] = props.companyDetails.IndustryType?value:null
-        allFields['LegalEntityType'] = props.companyDetails.LegalEntityType?value:null
-        allFields['RegistrationNumber'] = props.companyDetails.RegistrationNumber?value:null
-        allFields['taxId'] = props.companyDetails.taxId?value:null
-        allFields['licenseNumber'] = props.companyDetails.licenseNumber?value:null
-        allFields['numberOfEmployees'] = props.companyDetails.numberOfEmployees?value:null;
+        allFields['INCORPORATIONDATE'] = props.companyDetails.IncorporationDate?value:null
+        allFields['INDUSTRYTYPE'] = props.companyDetails.IndustryType?value:null
+        allFields['LEGALENTITYTYPE'] = props.companyDetails.LegalEntityType?value:null
+        allFields['REGISTRATIONNUMBER'] = props.companyDetails.RegistrationNumber?value:null
+        allFields['TAXID'] = props.companyDetails.taxId?value:null
+        allFields['LICENSENUMBER'] = props.companyDetails.licenseNumber?value:null
+        allFields['NUMBEROFEMPLOYEES'] = props.companyDetails.numberOfEmployees?value:null;
     }
     else if (name == 'Address Details') {
         debugger;

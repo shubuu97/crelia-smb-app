@@ -24,6 +24,7 @@ export default class PaginationComp extends Component
           showSizeChanger
           defaultPageSize={10}
           defaultCurrent={1}
+          current={this.props.current}
           onShowSizeChange={this.props.onShowSizeChange}
           onChange={this.props.onChange}
           total={this.props.total}

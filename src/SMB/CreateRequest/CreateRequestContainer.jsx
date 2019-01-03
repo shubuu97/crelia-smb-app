@@ -365,41 +365,11 @@ CreateRequestContainer = reduxForm({
 
 function mapStateToProps(state) {
 
-    let workingCapital = false;
-    let capitalExpense = false;
-    let refinancing = false;
-    let otherPurpose = '';
-    let workingCapitalPecentage;
-    let capitalExpensePecentage;
-    let refinancingPecentage;
+
     let id = _get(state, 'BasicInfo.lookUpData.companyDetails.id', '');
 
 
-    //Login to show the Fund allocation prefilled
-    let fundAllocation = _get(state, 'BasicInfo.lookUpData.companyDetails.onboardingInfo.fundAllocation', []);
-    fundAllocation.map((Allocation) => {
-        if (Allocation.purpose == 'Expansion') {
-            capitalExpense = true;
-            capitalExpensePecentage = Allocation.percentage
-        }
-        if (Allocation.purpose == 'Working Capital') {
-            workingCapital = true;
-            workingCapitalPecentage = Allocation.percentage
-
-
-        }
-        if (Allocation.purpose == 'Refinancing') {
-            refinancing = true;
-            refinancingPecentage = Allocation.percentage
-
-        }
-    })
-    //Bug in onboard info
-    if (fundAllocation.length == 1 && !_find(fundAllocation, { purpose: 'Expansion' }) && !_find(fundAllocation, { purpose: 'Working Capital' }) && !_find(fundAllocation, { purpose: 'Re Financing' })) {
-        otherPurpose = fundAllocation[0].purpose;
-    }
-
-    //Login ends here
+  
 
 
 
@@ -409,11 +379,6 @@ function mapStateToProps(state) {
         id,
         isFetching:_get(state,'CreateLoan.isFetching'),
         fundId:_get(state,'staticReducers.fund.reqID'),
-        initialValues: {
-            workingCapital, refinancing, capitalExpense,
-            capitalExpensePecentage, refinancingPecentage,
-            workingCapitalPecentage, otherPurpose
-        }
     }
 
 }

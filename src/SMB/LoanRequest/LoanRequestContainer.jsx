@@ -35,12 +35,12 @@ class LoanRequestsContainer extends React.PureComponent {
             tableData: [],
             first: 0,
             limit: 10,
-            query: null,
             data: null,
             index: null,
             open: false,
             savingData: false,
-            query: null
+            query: null,
+            current:1
         }
     }
 
@@ -57,6 +57,38 @@ class LoanRequestsContainer extends React.PureComponent {
                 {
                     getAll: false,
                     skip: this.state.first,
+                    limit: this.state.limit,
+                    ...this.state.queryVar
+                },
+                'fetchingOfferData',
+                {
+                    init: 'fetchingLoanRequestData_init',
+                    success: 'fetchingLoanRequestData_success',
+                    error: 'fetchingLoanRequestData_error'
+                }
+            ));
+    }
+    getFundType = ($class) => {
+        let $classarr = $class.split('.');
+        let fundType = $classarr[$classarr.length - 1];
+        return fundType
+    }
+    filterDataFetcher = () => {
+        genericGetData({
+            dispatch: this.props.dispatch, url: '/api/filterMetaData', constant: {
+                init: 'filterMetaData_init',
+                success: 'filterMetaData_success',
+                error: 'filterMetaData_error'
+            }
+        })
+    }
+    queryDataFetcher = (query) => {
+        this.props.dispatch(
+            postData(
+                `${APPLICATION_BFF_URL}/api/fundList`,
+                {
+                    getAll: false,
+                    skip: 0,
                     limit: this.state.limit,
                     ...query
                 },
@@ -105,14 +137,14 @@ class LoanRequestsContainer extends React.PureComponent {
         this.state.first = (((current - 1) * (pageSize)) + 1) - 1;
         this.state.limit = pageSize;
         this.loanDataFetcher();
-        this.setState({ first: this.state.first, limit: this.state.limit })
+        this.setState({ first: this.state.first, limit: this.state.limit,current:current })
 
     }
     onPageChange = (current, pageSize) => {
         this.state.first = (((current - 1) * (pageSize)) + 1) - 1;
         this.state.limit = pageSize;
         this.loanDataFetcher();
-        this.setState({ first: this.state.first, limit: this.state.limit })
+        this.setState({ first: this.state.first, limit: this.state.limit,current:current })
     }
     //pagination action end here
 
@@ -240,6 +272,7 @@ class LoanRequestsContainer extends React.PureComponent {
 
     //query selector
     fetchingFilterQueryData = (query) => {
+        debugger;
         let queryVar = { ...query }
         if (queryVar.$class) {
             if (queryVar.$class.length == 1)
@@ -248,9 +281,8 @@ class LoanRequestsContainer extends React.PureComponent {
             queryVar.$class = []
             }
         }
-
-        this.state.query = query;
-        this.loanDataFetcher(null, null, queryVar);
+        this.setState({current:1,query,queryVar});
+        this.queryDataFetcher(queryVar);
 
     }
     render() {
@@ -305,6 +337,7 @@ class LoanRequestsContainer extends React.PureComponent {
                     actions={true}
                     isExtended={true}
                     filter={false}
+                    current={this.state.current}
                     onShowSizeChange={this.onShowSizeChange}
                     onPageChange={this.onPageChange}
                     chooseColor={this.chooseColor}
