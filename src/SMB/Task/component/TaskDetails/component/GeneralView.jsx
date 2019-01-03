@@ -8,19 +8,23 @@ import Switch from '../../../../../Global/Components/switchControl';
 import modifyName from '../DataUtility/parseDataBeforeSubmit';
 
 const GeneralView = (props) => {
-    debugger;
-    console.log(props.fields, "i am here");
     let companyDetails = props.companyDetails;
     return (
-        <div className="data-list">
-            <div className="inner-wrap">
-                <span className="onboarding-sub-title pb-15">
-                    {/* <img src={fundIcon} height="" width="50" />  */}
-                    {props.header}</span>
-                <Switch
-                    name={props.header}
-                    onChange={props.withSwitchState}
-                />
+        <div className="task-detail-general">
+            <div className="">
+                <span className="task-heading">
+                    {props.header}
+                </span>
+                <div className="flex-row task-switch">
+                    <span>Requested Fields</span>
+                    <div className="flex-row align-center">
+                        <Switch
+                            name={props.header}
+                            onChange={props.withSwitchState}
+                        />Select All
+                    </div>
+                </div>
+
                 {
                     Object.keys(companyDetails).
                         filter(key => companyDetails[key])
@@ -29,7 +33,6 @@ const GeneralView = (props) => {
                             return (
                                 <div className="data-list">
                                     <div className="task-content">
-                                        <div className="col-block left-block">{title}</div>
                                         <div className="col-block right-block">
                                             {/* {props.companyDetails[key]} */}
 
@@ -37,13 +40,14 @@ const GeneralView = (props) => {
                                                 control={
                                                     <Checkbox
                                                         color="primary"
-                                                        checked={JSON.parse(props.fields[modifyName(key).toUpperCase()]||false)}
+                                                        checked={JSON.parse(props.fields[modifyName(key).toUpperCase()] || false)}
                                                         onChange={props.handleChange(modifyName(key).toUpperCase())}
                                                         value={modifyName(key).toUpperCase()}
                                                     />
                                                 }
                                             />
                                         </div>
+                                        <div className="col-block left-block">{title}</div>
                                     </div>
 
                                 </div>

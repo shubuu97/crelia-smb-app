@@ -1406,16 +1406,35 @@ h4 {
 
 // Task View - General View
 
+.task-detail-general{
+    .task-heading{
+        font-size: 1.2em;
+        font-family: 'GTWalsheimMedium', sans-serif;
+    }
+    .task-switch{
+        padding: 10px 0;
+        color: #313787;
+        font-weight: bold; 
+        font-size: 0.9em;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 2px solid #313787;
+        border-bottom: 2px solid #313787;
+        margin: 10px 0;
+    }
+    .MuiSwitch-switchBase{
+        height: unset;
+    }
+}
+
 .task-content{
     display: flex;
-    justify-content: space-between;
     font-size: .9rem;
     padding-bottom: 5px;
     position: relative;
 
     .col-block{
         font-family: 'GTWalsheimProRegular';
-        background-color: #f6f6f6;
         position: relative;
         z-index: 1;
     }
