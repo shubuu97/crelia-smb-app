@@ -47,7 +47,6 @@ const GeneralView = (props) => {
                                         </div>
                                         <div className="col-block left-block">{title}</div>
                                     </div>
-
                                 </div>
                             )
                         })
