@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 /* Redux Imports */
 
 /* Components Import */
-import CardTable from '../Global/CardTable/CardTable'
+import CardTable from '../Global/Components/CardTable/CardTable'
 
 let dummyFilterData = [
     {

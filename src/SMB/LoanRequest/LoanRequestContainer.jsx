@@ -11,7 +11,7 @@ import genericGetData from '../../Global/dataFetch/genericGetData'
 import { APPLICATION_BFF_URL } from '../../Redux/urlConstants'
 import { commonActionCreater } from '../../Redux/commonAction'
 /* Components */
-import CardTable from '../../Global/CardTable/CardTable';
+import CardTable from '../../Global/Components/CardTable/CardTable';
 import Button from '@material-ui/core/Button';
 import PostData from '../../Global/dataFetch/genericPostData';
 

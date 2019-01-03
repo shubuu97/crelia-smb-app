@@ -1,5 +1,5 @@
 import React from 'react';
-import CardTable from '../../../Global/CardTable/CardTable';
+import CardTable from '../../../Global/Components/CardTable/CardTable';
 import genericPostData from '../../../Global/dataFetch/genericPostData';
 import _get from 'lodash/get';
 import TaskDetails from './TaskDetails/TaskDetailsContainer'

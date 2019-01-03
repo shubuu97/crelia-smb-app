@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _get from 'lodash/get';
 import PopulateOfferData from './component/PopulateOfferData';
+import TaskViewContainer from '../../../../Global/Components/TaskView/TaskViewContainer'
 import genericGetDataFetcher from '../../../../Global/dataFetch/genericGetData';
 import genericPostData from '../../../../Global/dataFetch/genericPostData';
 import LoaderButton from '../../../../Global/Components/LoaderButton';
@@ -51,7 +52,7 @@ class DefaultTaskDetailsContainer extends Component {
         return (
             <React.Fragment>
                 <span className="Setting-header"> Choose the details which investors can see</span>
-                <PopulateOfferData
+                <TaskViewContainer
                     FieldAccessReqTask={this.FieldAccessReqTask}
                     fields={this.state.fieldAccessRequest}
                     dataObject={this.state.requestedFields}

@@ -3,7 +3,7 @@ import _get from 'lodash/get';
 /* Global Imports */
 import withLoader from '../../../Global/Components/withLoader';
 import genericPostData from '../../../Global/dataFetch/genericPostData'
-import CardTable from '../../../Global/CardTable/CardTable';
+import CardTable from '../../../Global/Components/CardTable/CardTable';
 /* Redux Imports */
 import { connect } from 'react-redux';
 import { getData } from '../../../Redux/getAction';
