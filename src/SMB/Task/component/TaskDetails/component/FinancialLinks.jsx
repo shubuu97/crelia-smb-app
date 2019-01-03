@@ -4,6 +4,9 @@ import React from 'react';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import withLogic from '../recomposeUtility/withLogic';
+import Switch from '../../../../../Global/Components/switchControl'
+import modifyName from '../DataUtility/parseDataBeforeSubmit';
+
 
 
 const FinancialLinks = (props) => {
@@ -15,6 +18,10 @@ const FinancialLinks = (props) => {
                     <span className="onboarding-sub-title pb-15">
                         {/* <img src={fundIcon} height="" width="50" />  */}
                         {props.header}</span>
+                        <Switch
+                        name={props.header}
+                        onChange={props.withSwitchState}
+                        />
                     {
                         Object.keys(props.companyDetails)
                         .filter(key=>props.companyDetails[key])
@@ -29,12 +36,13 @@ const FinancialLinks = (props) => {
                                         <FormControlLabel
                                                 control={
                                                     <Checkbox
-                                                        checked={props.key}
-                                                        onChange={props.handleChange(key)}
-                                                        value={key}
+                                                        color="primary"
+                                                        checked={JSON.parse(props.fields[modifyName(key).toUpperCase()]||false)}
+                                                        onChange={props.handleChange(modifyName(key).toUpperCase())}
+                                                        value={modifyName(key).toUpperCase()}
                                                     />
                                                 }
-                                                label="Give Access"
+                                              
                                             />
                                         </div>
                                     </div>

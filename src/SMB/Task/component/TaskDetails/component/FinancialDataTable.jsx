@@ -73,23 +73,25 @@ class FinancialDataTable extends Component {
     render() {
         const { classes } = this.props;
         return (
-            <div className="col-sm-12">
-                <div className="onboarding-sub-title" >
-                    {/* <img src={financialdata} height="" width="35" /> */}
-                    Financial Data
-                </div>
-                <Paper className={classes.root} >
-                <FormControlLabel
-                control={
-                    <Checkbox
-                        checked={this.props.key}
-                        onChange={this.props.handleChange('FINANCIALINFO_LOANPROVIDER_PROVIDERNAME')}
-                        value={'FINANCIALINFO_LOANPROVIDER_PROVIDERNAME'}
+            <div className="data-list">
+                <div className="inner-wrap" >
+                    <span className="onboarding-sub-title pb-15">
+                        {/* <img src={financialdata} height="" width="35" /> */}
+                        Financial Data
+                    </span>
+                {/* <div className="col-block left-block">Financial Data</div> */}
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                color="primary"
+                                checked={this.props.key}
+                                onChange={this.props.handleChange('FINANCIALINFO_FINANCIALDATA')}
+                                value={'FINANCIALINFO_FINANCIALDATA'}
+                            />
+                        }
                     />
-                }
-                label="Give Access"
-            />
-                    <Table className={classes.table}>
+
+                    {/* <Table className={classes.table}>
                         <TableHead>
                             {this.populateHeaders()}
                         </TableHead>
@@ -101,14 +103,15 @@ class FinancialDataTable extends Component {
                             {this.populateRows("Total Final Debt", 'totalFinalDebt')}
                             {this.populateRows("Total Shareholder Equity", 'totalShareholderEquity')}
                         </TableBody>
-                    </Table>
-                   
-                </Paper>
-                
-            </div >
-        )
-    }
+                    </Table> */}
+                </div>
+              
 
-}
 
+                </div >
+                )
+            }
+        
+        }
+        
 export default withStyles(styles)(withLogic(FinancialDataTable));
