@@ -7,6 +7,8 @@ import genericPostData from '../../../Global/dataFetch/genericPostData';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { formStatusAbout, formStatusContact, formStatusMarketingMaterial, formStatusLegal, formStatusTeam, formStatusBenificiary, formStatusFinancials } from '../Selector/selector';
+/* Assets */
+import historyIcon from '../../../Assets/images/history-icon.png';
 function SideBar(WrappedComponent) {
     return class SideBar extends Component {
 
@@ -46,17 +48,21 @@ function SideBar(WrappedComponent) {
             return (
                 <div className="about-section">
                     <div className="title-btn ">
-                        <div>
-                            <h1>Company Profile</h1>
-                            <a onClick={() => this.props.history.push('/ProfileHistory')}>history</a>
+                        <h1>Company Profile</h1>
+                        <div className="flex-row align-center mb-10"> 
+                            <a className="mr-20" onClick={() => this.props.history.push('/ProfileHistory')}>
+                                <img title="Show history" src={historyIcon} style={{width: '25px'}}/>
+                            </a>
+                            <LoaderButton
+                                isFetching={this.props.isFetchingPostUpdateToMarketPlace}
+                                onClick={this.postMarketPlace}
+                                color="primary"
+                                className=""
+                                variant="contained">
+                                Post to market place
+                            </LoaderButton>
                         </div>
-                    <LoaderButton
-                        isFetching={this.props.isFetchingPostUpdateToMarketPlace}
-                        onClick={this.postMarketPlace}
-                        color="primary"
-                        className="mb-10"
-                        variant="contained">Post to market place</LoaderButton>
-                </div>
+                    </div>
                 <div className="col-sm-12 card" >
                     <div className="row">
                         <div className="col-sm-3" >
