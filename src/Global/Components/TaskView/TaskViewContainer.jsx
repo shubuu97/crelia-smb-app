@@ -32,18 +32,17 @@ const PopulateDataDetails = (props) => {
         legal: [],
         financials: [],
         marketingMaterials: [],
-        financialData: [],
-        team: [],
-        benificiaryShareholders: [],
+        financialData: []
     };
     console.log(parseData, "parseData")
     Object.keys(parseData).map((header, index) => {
 
         switch (header) {
             case 'companyDetails': {
+                debugger
                 let everyUndfined = Object.keys(parseData['companyDetails']).every((key) => parseData['companyDetails'][key] == undefined);
                 if (everyUndfined) {
-                    delete data.address
+                    delete data.companyDetails
                 }
                 !everyUndfined && data[header].push(
                     <GeneralView
