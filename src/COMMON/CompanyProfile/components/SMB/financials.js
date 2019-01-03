@@ -80,28 +80,62 @@ class financial extends React.Component {
                     <div className="col-sm-12">
                         <div className="row align-items-center">
                             <div className="col-sm-6">
-                                <h4>Income statements for last two years and YTD</h4>
+                                <h4>Cash Flow</h4>
                                 <DropzoneArea
-                                    fieldName='preview1'
+                                    fieldName='cashFlow'
                                     onDrop={this.props.onDrop}
-                                    progress={_get(this.props, 'state.preview1uploadProgress')}
-                                    dropzone={_get(this.props, 'state.preview1.name', '') || _get(this.props, 'state.preview1link', '') || _get(this.props, 'initialValues.financialLinks[0]')}
+                                    afterParseFunction={this.cashFlowParseAction}
+                                    parseData={true}
+                                    progress={_get(this.props, 'state.cashFlowuploadProgress')}
+                                    dropzone={_get(this.props, 'state.cashFlow.name', '') || _get(this.props, 'state.cashFlowlink', '') || _get(this.props, 'initialValues.cashFlow')}
                                 />
                             </div>
                             <div className="col-sm-4 downlaod-external">
                                 <div className="msgicon"><img src={imgquestion} /></div>
                                 <p>You need to use predefined templates:</p>
-                                <a href="#" > <i class="material-icons">save_alt </i> <span>Download income statement XLSX-template</span></a>
+                                <a href="#" > <i class="material-icons">save_alt </i> <span>Download Cash Flow XLSX-template</span></a>
                             </div>
                         </div>
                         <div className="row align-items-center pt-30">
                             <div className="col-sm-6">
+                                <h4>Balance Sheet</h4>
+                                <DropzoneArea
+
+                                    fieldName='balanceSheet'
+                                    onDrop={this.props.onDrop}
+                                    afterParseFunction={this.cashFlowParseAction}
+                                    parseData={true}
+                                    progress={_get(this.props, 'state.balanceSheetProgress')}
+                                    dropzone={_get(this.props, 'state.balanceSheet.name', '') || _get(this.props, 'state.balanceSheetlink', '') || _get(this.props, 'initialValues.balanceSheet')}
+                                />
+                            </div>
+                            <div className="col-sm-4 downlaod-external">
+                                <a href="#"> <i class="material-icons">save_alt </i> <span>Download balance sheet common size statement XLSX-template</span></a>
+                            </div>
+                        </div>
+                        <div className="row align-items-center pt-30">
+                            <div className="col-sm-6">
+                                <h4>Income Statement</h4>
+                                <DropzoneArea
+                                    fieldName='incomeStatement'
+                                    onDrop={this.props.onDrop}
+                                    afterParseFunction={this.cashFlowParseAction}
+                                    parseData={true}
+                                    progress={_get(this.props, 'state.incomeStatementProgress')}
+                                    dropzone={_get(this.props, 'state.incomeStatement.name', '') || _get(this.props, 'state.incomeStatementlink', '') || _get(this.props, 'initialValues.incomeStatement')}
+                                />
+                            </div>
+                            <div className="col-sm-4 downlaod-external">
+                                <a href="#"> <i class="material-icons">save_alt </i> <span>Download income common size statement XLSX-template</span></a>
+                            </div>
+                        </div> <div className="row align-items-center pt-30">
+                            <div className="col-sm-6">
                                 <h4>2019 Forecast (optional)</h4>
                                 <DropzoneArea
-                                    fieldName='preview2'
-                                    progress={_get(this.props, 'state.preview2uploadProgress')}
+                                    progress={_get(this.props, 'state.forecastuploadProgress')}
+                                    fieldName='forecast'
                                     onDrop={this.props.onDrop}
-                                    dropzone={_get(this.props, 'state.preview2.name', '') || _get(this.props, 'state.preview2link', '') || _get(this.props, 'initialValues.financialLinks[1]')}
+                                    dropzone={_get(this.props, 'state.forecast.name', '') || _get(this.props, 'state.forecastlink', '') || _get(this.props, 'initialValues.forecast')}
                                 />
                             </div>
                             <div className="col-sm-4 downlaod-external">
@@ -112,23 +146,10 @@ class financial extends React.Component {
                             <div className="col-sm-6">
                                 <h4>Business Plan</h4>
                                 <DropzoneArea
-                                    fieldName='preview3'
-                                    progress={_get(this.props, 'state.preview2uploadProgress')}
+                                    fieldName='businessPlan'
+                                    progress={_get(this.props, 'state.businessPlanuploadProgress')}
                                     onDrop={this.props.onDrop}
-                                    dropzone={_get(this.props, 'state.preview3.name', '') || _get(this.props, 'state.preview3link', '') || _get(this.props, 'initialValues.financialLinks[2]')}
-                                />
-                            </div>
-                            <div className="col-sm-4 downlaod-external">
-                                <a href="#"> <i class="material-icons">save_alt </i> <span>Download balance sheet  common size statement XLSX-template</span></a>
-                            </div>
-                        </div> <div className="row align-items-center pt-30">
-                            <div className="col-sm-6">
-                                <h4>Balance sheet common size statement</h4>
-                                <DropzoneArea
-                                    fieldName='preview4'
-                                    progress={_get(this.props, 'state.preview4uploadProgress')}
-                                    onDrop={this.props.onDrop}
-                                    dropzone={_get(this.props, 'state.preview4.name', '') || _get(this.props, 'state.preview4link', '') || _get(this.props, 'initialValues.financialLinks[3]')}
+                                    dropzone={_get(this.props, 'state.businessPlan.name', '') || _get(this.props, 'state.businessPlanlink', '') || _get(this.props, 'initialValues.businessPlan')}
                                 />
                             </div>
                             <div className="col-sm-4 downlaod-external">

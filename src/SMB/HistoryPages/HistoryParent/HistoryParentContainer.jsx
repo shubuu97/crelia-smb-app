@@ -106,7 +106,7 @@ class LoanHistory extends Component {
         return (
             <div className='smbhistory'>
                 <div className="title-btn ">
-                    <h1>Loan Update History </h1>
+                    <h1>Update History </h1>
                 </div>
                 <HistoryView
                     checkCb={this.checkCb}
@@ -126,7 +126,7 @@ class LoanHistory extends Component {
                     open={this.state.showComparision}
                     maxWidth='xl'
                     fullWidth={true}
-                    onClose={() => this.setState({ showComparision: false })}
+                    onClose={this.dialogClose}
                     aria-labelledby="alert-dialog-title"
                     aria-describedby="alert-dialog-description"
                 >

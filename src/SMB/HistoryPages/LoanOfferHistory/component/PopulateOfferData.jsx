@@ -4,21 +4,40 @@ import moment from 'moment';
 
 const PopulateDataDetails = (props) => {
     let allData = _get(props, 'allData.offer', [])
+    let parseData = {};
 
+    // For Equity Request
+    if (_get(allData, '$class') === 'com.aob.crelia.fund.EquityOffer')
+        parseData = {
+            Money: `${_get(allData, 'money.amount', '-')}`,
+            Currency: `${_get(allData, 'money.currency', '-')}`,
+            //Term: `${_get(allData, 'term', '-')} yrs`,
+            TimeFrame: `${moment(_get(allData, 'timeFrame', '-')).format('DD-MM-YYYY')}`,
+            FundAllocation: _get(allData, 'fundAllocation', '-'),
+            Range: `${_get(allData, 'lowerValue', '0')} - ${_get(allData, 'upperValue', '0')}${' '}(%)`,
+            SAFE: `${_get(allData, 'isSafeOffering', '-')}`,
+            SafeDiscount: `${_get(allData, 'safeDiscount', '-')}`,
+            SafeMarketCap: `${_get(allData, 'safeMarketCap', '-')}`,
+            NationAgreement: `${_get(allData, 'isNationAgreement', '-')}`,
+            BoardMembership: `${_get(allData, 'isBoardMembership', '-')}`,
+            Comments: _get(allData, 'comment', '-'),
+        }
 
-    let parseData = {
-        MoneyRange: `${_get(allData, 'moneyRange.minAmount', '-')} - ${_get(allData, 'moneyRange.maxAmount', '-')}`,
-        Currency: `${_get(allData, 'moneyRange.currency', '-')}`,
-        Term: `${_get(allData, 'term', '-')} yrs`,
-        TimeFrame: `${moment(_get(allData, 'timeFrame','-')).format('DD-MM-YYYY')}`,
-        FundAllocation: _get(allData, 'fundAllocation', '-'),
-        InterestRateType: `${_get(allData, 'interestRateType','-')}`,
-        DesiredRate: `${_get(allData, 'interestRate','-')} %`,
-        PrincipalRepaymentFrequency: `${_get(allData, 'repaymentTerms.principalRepaymentFrequency','-')}`,
-        PrincipalGracePeriod : `${_get(allData, 'repaymentTerms.principalGracePeriod.timeValue','-')} ${_get(allData, 'repaymentTerms.principalGracePeriod.timeUnit','-')}`,
-        InterestRepaymentFrequency : `${_get(allData, 'repaymentTerms.interestRepaymentFrequency','-')}`,
-        InterestGracePeriod : `${_get(allData, 'repaymentTerms.interestGracePeriod.timeValue', '-')} ${_get(allData, 'repaymentTerms.interestGracePeriod.timeUnit', '-')}`,
-    }
+    // For Loan Request
+    if (_get(allData, '$class') === 'com.aob.crelia.fund.LoanOffer')
+        parseData = {
+            MoneyRange: `${_get(allData, 'moneyRange.minAmount', '-')} - ${_get(allData, 'moneyRange.maxAmount', '-')}`,
+            Currency: `${_get(allData, 'moneyRange.currency', '-')}`,
+            Term: `${_get(allData, 'term', '-')} yrs`,
+            TimeFrame: `${moment(_get(allData, 'timeFrame', '-')).format('DD-MM-YYYY')}`,
+            FundAllocation: _get(allData, 'fundAllocation', '-'),
+            InterestRateType: `${_get(allData, 'interestRateType', '-')}`,
+            DesiredRate: `${_get(allData, 'interestRate', '-')} %`,
+            PrincipalRepaymentFrequency: `${_get(allData, 'repaymentTerms.principalRepaymentFrequency', '-')}`,
+            PrincipalGracePeriod: `${_get(allData, 'repaymentTerms.principalGracePeriod.timeValue', '-')} ${_get(allData, 'repaymentTerms.principalGracePeriod.timeUnit', '-')}`,
+            InterestRepaymentFrequency: `${_get(allData, 'repaymentTerms.interestRepaymentFrequency', '-')}`,
+            InterestGracePeriod: `${_get(allData, 'repaymentTerms.interestGracePeriod.timeValue', '-')} ${_get(allData, 'repaymentTerms.interestGracePeriod.timeUnit', '-')}`,
+        }
     let data = []
     Object.keys(parseData).map((key) => {
         let title = key.replace(/([A-Z])/g, ' $1')
@@ -37,14 +56,19 @@ const PopulateDataDetails = (props) => {
         }
         else if (key == 'FundAllocation') {
             let FundValues = []
-            parseData[key].map((fundData, index) => {
-                FundValues.push(
-                    <span className="extendedValue-secondary">
-                        {parseData.FundAllocation[index].purpose} - {parseData.FundAllocation[index].percentage} %
-                    </span>
-
-                )
-            })
+            if (parseData[key])
+                _get(parseData, 'FundAllocation', []).map((fundData, index) => {
+                    FundValues.push(
+                        <div>
+                            <div className="extendedValue-secondary">
+                                {parseData.FundAllocation[index].purpose} - {parseData.FundAllocation[index].percentage} %
+                            </div>
+                            <div className="extendedValue-secondary">
+                                {parseData.FundAllocation[index].otherPurpose}
+                            </div>
+                        </div>
+                    )
+                })
             data.push(
                 <div className="flex-column"
                     style={{

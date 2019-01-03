@@ -6,7 +6,7 @@ const PopulateDataDetails = (props) => {
     let allData = _get(props, 'allData.fund', []);
     let parseData = {}
       // For Equity Request
-      if(_get(allData, '$class') === 'com.aob.crelia.fund.Equity')
+      if(_get(allData, '$class') === 'com.aob.crelia.fund.Equity')          
       parseData = {
           Money: `${_get(allData, 'money.amount', '-')}`,
           Currency: `${_get(allData, 'money.currency', '-')}`,

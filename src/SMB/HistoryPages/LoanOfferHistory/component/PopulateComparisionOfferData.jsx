@@ -8,107 +8,290 @@ const PopulateComparisionCells = (props) => {
     let diffrence = _get(props, 'diffrence', {});
     let previous = _get(props, 'previous', {});
     let display = []
+    let parseData = {};
 
-    let parseData = {
-        status: _get(diffrence, 'status', false)  //if key found in diffrence then push object
-            ?
-            {
-                changed: true,
-                previous: _get(previous, 'status', '-'),
-                current: _get(current, 'status', '-')
-            } : _get(current, 'status', '-'),
-        MoneyRange:
-            _get(diffrence, 'moneyRange.minAmount', false) || _get(diffrence, 'moneyRange.maxAmount', false)
+    if (_get(current, '$class') === 'com.aob.crelia.fund.LoanOffer' && _get(previous, '$class') === 'com.aob.crelia.fund.LoanOffer')
+        parseData = {
+            status: _get(diffrence, 'status', false)  //if key found in diffrence then push object
                 ?
                 {
                     changed: true,
-                    previous: `${_get(previous, 'moneyRange.minAmount')} - ${_get(previous, 'moneyRange.maxAmount')}`,
-                    current: `${_get(current, 'moneyRange.minAmount')} - ${_get(current, 'moneyRange.maxAmount')}`
-                }
-                : `${_get(current, 'moneyRange.minAmount')} - ${_get(current, 'moneyRange.maxAmount')}`,
-        Currency:
+                    previous: _get(previous, 'status', '-'),
+                    current: _get(current, 'status', '-')
+                } : _get(current, 'status', '-'),
+            MoneyRange:
+                _get(diffrence, 'moneyRange.minAmount', false) || _get(diffrence, 'moneyRange.maxAmount', false)
+                    ?
+                    {
+                        changed: true,
+                        previous: `${_get(previous, 'moneyRange.minAmount')} - ${_get(previous, 'moneyRange.maxAmount')}`,
+                        current: `${_get(current, 'moneyRange.minAmount')} - ${_get(current, 'moneyRange.maxAmount')}`
+                    }
+                    : `${_get(current, 'moneyRange.minAmount')} - ${_get(current, 'moneyRange.maxAmount')}`,
+            Currency:
 
-            _get(diffrence, 'moneyRange.currency', false)
+                _get(diffrence, 'moneyRange.currency', false)
+                    ?
+                    {
+                        changed: true,
+                        previous: _get(previous, 'moneyRange.currency', '-'),
+                        current: _get(current, 'moneyRange.currency', '-')
+                    }
+                    : `${_get(current, 'moneyRange.currency')}`,
+            Term:
+                _get(diffrence, 'term', false)
+                    ?
+                    {
+                        changed: true,
+                        previous: `${_get(previous, 'term')} yrs`,
+                        current: `${_get(current, 'term')} yrs`
+                    }
+                    : `${_get(current, 'term')} yrs`,
+            TimeFrame: _get(diffrence, 'timeFrame', false)
                 ?
                 {
                     changed: true,
-                    previous: _get(previous, 'moneyRange.currency', '-'),
-                    current: _get(current, 'moneyRange.currency', '-')
+                    previous: `${moment(_get(previous, 'timeFrame')).format('DD-MM-YYYY HH:mm')}`,
+                    current: `${moment(_get(current, 'timeFrame')).format('DD-MM-YYYY HH:mm')}`
                 }
-                : `${_get(current, 'moneyRange.currency')}`,
-        Term:
-            _get(diffrence, 'term', false)
+                : `${moment(_get(current, 'timeFrame')).format('DD-MM-YYYY')}`,
+            FundAllocation: _get(diffrence, 'fundAllocation', false)
                 ?
                 {
                     changed: true,
-                    previous: `${_get(previous, 'term')} yrs`,
-                    current: `${_get(current, 'term')} yrs`
+                    previous:
+                        _get(previous, 'fundAllocation', []).map((fundData, index) => {
+                            return (
+                                <div>
+                                    <div className="extendedValue-secondary">
+                                        {previous.fundAllocation[index].purpose} - {previous.fundAllocation[index].percentage} %
+                                    </div>
+                                    <div className="extendedValue-secondary">
+                                        {previous.fundAllocation[index].otherPurpose}
+                                    </div>
+                                </div>
+                            )
+                        }),
+                    current: _get(current, 'fundAllocation', []).map((fundData, index) => {
+                        return (
+                            <div>
+                                <div className="extendedValue-secondary">
+                                    {current.fundAllocation[index].purpose} - {current.fundAllocation[index].percentage} %
+                                </div>
+                                <div className="extendedValue-secondary">
+                                    {current.fundAllocation[index].otherPurpose}
+                                </div>
+                            </div>
+                        )
+                    }),
                 }
-                : `${_get(current, 'term')} yrs`,
-        TimeFrame: _get(diffrence, 'timeFrame', false)
-            ?
-            {
-                changed: true,
-                previous: `${moment(_get(previous, 'timeFrame')).format('DD-MM-YYYY HH:mm')}`,
-                current: `${moment(_get(current, 'timeFrame')).format('DD-MM-YYYY HH:mm')}`
-            }
-            : `${moment(_get(current, 'timeFrame')).format('DD-MM-YYYY')}`,
-        //todo array mapping need to be done 
-        FundAllocation: _get(diffrence, 'fundAllocation', false)
-            ?
-            {
-                changed: true,
-                previous: 'Previous array',
-                current: 'Current array'
-            }
-            : 'fund allocation array',
-        InterestRateType: _get(diffrence, 'interestRateType', false)
-            ?
-            {
-                changed: true,
-                previous: _get(previous, 'interestRateType', '-'),
-                current: _get(current, 'interestRateType', '-')
-            }
-            : `${_get(current, 'interestRateType')}`,
-        DesiredRate: _get(diffrence, 'interestRate', false)
-            ?
-            {
-                changed: true,
-                previous: `${_get(previous, 'interestRate')} %`,
-                current: `${_get(current, 'interestRate')} %`
-            }
-            : `${_get(current, 'interestRate')} %`,
-            PrincipalRepaymentFrequency:  _get(diffrence, 'repaymentTerms.principalRepaymentFrequency', false)
-            ?
-            {
-                changed: true,
-                previous: `${_get(previous, 'repaymentTerms.principalRepaymentFrequency')}`,
-                current: `${_get(current, 'repaymentTerms.principalRepaymentFrequency')} `
-            } : `${_get(current, 'repaymentTerms.principalRepaymentFrequency')}`,
-            PrincipalGracePeriod : _get(diffrence, 'repaymentTerms.principalGracePeriod', false)
-            ?
-            {
-                changed: true,
-                previous: `${_get(previous, 'repaymentTerms.principalGracePeriod.timeValue','-')} ${_get(previous, 'repaymentTerms.principalGracePeriod.timeUnit','-')}`,
-                current: `${_get(current, 'repaymentTerms.principalGracePeriod.timeValue','-')} ${_get(current, 'repaymentTerms.principalGracePeriod.timeUnit','-')}`,
-            } : `${_get(current, 'repaymentTerms.principalGracePeriod.timeValue','-')} ${_get(current, 'repaymentTerms.principalGracePeriod.timeUnit','-')}`,
-            InterestRepaymentFrequency : _get(diffrence, 'repaymentTerms.interestRepaymentFrequency', false)
-            ?
-            {
-                changed: true,
-                previous: `${_get(previous, 'repaymentTerms.interestRepaymentFrequency')}`,
-                current: `${_get(current, 'repaymentTerms.interestRepaymentFrequency')} `
-            } : `${_get(current, 'repaymentTerms.interestRepaymentFrequency')}`,
+                : _get(current, 'fundAllocation', []).map((fundData, index) => {
+                    return (
+                        <div>
+                            <div className="extendedValue-secondary">
+                                {current.fundAllocation[index].purpose} - {current.fundAllocation[index].percentage} %
+                            </div>
+                            <div className="extendedValue-secondary">
+                                {current.fundAllocation[index].otherPurpose}
+                            </div>
+                        </div>
+                    )
+                }),
+            InterestRateType: _get(diffrence, 'interestRateType', false)
+                ?
+                {
+                    changed: true,
+                    previous: _get(previous, 'interestRateType', '-'),
+                    current: _get(current, 'interestRateType', '-')
+                }
+                : `${_get(current, 'interestRateType')}`,
+            DesiredRate: _get(diffrence, 'interestRate', false)
+                ?
+                {
+                    changed: true,
+                    previous: `${_get(previous, 'interestRate')} %`,
+                    current: `${_get(current, 'interestRate')} %`
+                }
+                : `${_get(current, 'interestRate')} %`,
+            PrincipalRepaymentFrequency: _get(diffrence, 'repaymentTerms.principalRepaymentFrequency', false)
+                ?
+                {
+                    changed: true,
+                    previous: `${_get(previous, 'repaymentTerms.principalRepaymentFrequency')}`,
+                    current: `${_get(current, 'repaymentTerms.principalRepaymentFrequency')} `
+                } : `${_get(current, 'repaymentTerms.principalRepaymentFrequency')}`,
+            PrincipalGracePeriod: _get(diffrence, 'repaymentTerms.principalGracePeriod', false)
+                ?
+                {
+                    changed: true,
+                    previous: `${_get(previous, 'repaymentTerms.principalGracePeriod.timeValue', '-')} ${_get(previous, 'repaymentTerms.principalGracePeriod.timeUnit', '-')}`,
+                    current: `${_get(current, 'repaymentTerms.principalGracePeriod.timeValue', '-')} ${_get(current, 'repaymentTerms.principalGracePeriod.timeUnit', '-')}`,
+                } : `${_get(current, 'repaymentTerms.principalGracePeriod.timeValue', '-')} ${_get(current, 'repaymentTerms.principalGracePeriod.timeUnit', '-')}`,
+            InterestRepaymentFrequency: _get(diffrence, 'repaymentTerms.interestRepaymentFrequency', false)
+                ?
+                {
+                    changed: true,
+                    previous: `${_get(previous, 'repaymentTerms.interestRepaymentFrequency')}`,
+                    current: `${_get(current, 'repaymentTerms.interestRepaymentFrequency')} `
+                } : `${_get(current, 'repaymentTerms.interestRepaymentFrequency')}`,
 
 
-            InterestGracePeriod : _get(diffrence, 'repaymentTerms.interestGracePeriod', false)
-            ?
-            {
-                changed: true,
-                previous: `${_get(previous, 'repaymentTerms.interestGracePeriod.timeValue','-')} ${_get(previous, 'repaymentTerms.interestGracePeriod.timeUnit','-')}`,
-                current: `${_get(current, 'repaymentTerms.interestGracePeriod.timeValue','-')} ${_get(current, 'repaymentTerms.interestGracePeriod.timeUnit','-')}`,
-            } : `${_get(current, 'repaymentTerms.interestGracePeriod.timeValue','-')} ${_get(current, 'repaymentTerms.interestGracePeriod.timeUnit','-')}`,
-    }
+            InterestGracePeriod: _get(diffrence, 'repaymentTerms.interestGracePeriod', false)
+                ?
+                {
+                    changed: true,
+                    previous: `${_get(previous, 'repaymentTerms.interestGracePeriod.timeValue', '-')} ${_get(previous, 'repaymentTerms.interestGracePeriod.timeUnit', '-')}`,
+                    current: `${_get(current, 'repaymentTerms.interestGracePeriod.timeValue', '-')} ${_get(current, 'repaymentTerms.interestGracePeriod.timeUnit', '-')}`,
+                } : `${_get(current, 'repaymentTerms.interestGracePeriod.timeValue', '-')} ${_get(current, 'repaymentTerms.interestGracePeriod.timeUnit', '-')}`,
+        }
+
+    if (_get(current, '$class') === 'com.aob.crelia.fund.EquityOffer' && _get(previous, '$class') === 'com.aob.crelia.fund.EquityOffer')
+        parseData = {
+            status: _get(diffrence, 'status', false)  //if key found in diffrence then push object
+                ?
+                {
+                    changed: true,
+                    previous: _get(previous, 'status', '-'),
+                    current: _get(current, 'status', '-')
+                } : _get(current, 'status', '-'),
+            Money:
+                _get(diffrence, 'money.amount', false)
+                    ?
+                    {
+                        changed: true,
+                        previous: `${_get(previous, 'money.amount')}`,
+                        current: `${_get(current, 'money.amount')}`
+                    }
+                    : `${_get(current, 'money.amount')}`,
+            Currency:
+                _get(diffrence, 'money.currency', false)
+                    ?
+                    {
+                        changed: true,
+                        previous: _get(previous, 'money.currency', '-'),
+                        current: _get(current, 'money.currency', '-')
+                    }
+                    : `${_get(current, 'money.currency')}`,
+            // Term:
+            //     _get(diffrence, 'term', false)
+            //         ?
+            //         {
+            //             changed: true,
+            //             previous: `${_get(previous, 'term')} yrs`,
+            //             current: `${_get(current, 'term')} yrs`
+            //         }
+            //         : `${_get(current, 'term')} yrs`,
+            TimeFrame: _get(diffrence, 'timeFrame', false)
+                ?
+                {
+                    changed: true,
+                    previous: `${moment(_get(previous, 'timeFrame')).format('DD-MM-YYYY HH:mm')}`,
+                    current: `${moment(_get(current, 'timeFrame')).format('DD-MM-YYYY HH:mm')}`
+                }
+                : `${moment(_get(current, 'timeFrame')).format('DD-MM-YYYY')}`,
+
+            FundAllocation: _get(diffrence, 'fundAllocation', false)
+                ?
+                {
+                    changed: true,
+                    previous:
+                        _get(previous, 'fundAllocation', []).map((fundData, index) => {
+                            return (
+                                <div>
+                                    <div className="extendedValue-secondary">
+                                        {previous.fundAllocation[index].purpose} - {previous.fundAllocation[index].percentage} %
+                                    </div>
+                                    <div className="extendedValue-secondary">
+                                        {previous.fundAllocation[index].otherPurpose}
+                                    </div>
+                                </div>
+                            )
+                        }),
+                    current: _get(current, 'fundAllocation', []).map((fundData, index) => {
+                        return (
+                            <div>
+                                <div className="extendedValue-secondary">
+                                    {current.fundAllocation[index].purpose} - {current.fundAllocation[index].percentage} %
+                                </div>
+                                <div className="extendedValue-secondary">
+                                    {current.fundAllocation[index].otherPurpose}
+                                </div>
+                            </div>
+                        )
+                    }),
+                }
+                : _get(current, 'fundAllocation', []).map((fundData, index) => {
+                    return (
+                        <div>
+                            <div className="extendedValue-secondary">
+                                {current.fundAllocation[index].purpose} - {current.fundAllocation[index].percentage} %
+                            </div>
+                            <div className="extendedValue-secondary">
+                                {current.fundAllocation[index].otherPurpose}
+                            </div>
+                        </div>
+                    )
+                }),
+
+            Range: _get(diffrence, 'lowerValue', false) || _get(diffrence, 'upperValue', false)
+                ?
+                {
+                    changed: true,
+                    previous: `${_get(previous, 'lowerValue', '-')} - ${_get(previous, 'upperValue', '-')}${' '}(%)`,
+                    current: `${_get(current, 'lowerValue', '-')} - ${_get(current, 'upperValue', '-')}${' '}(%)`
+                }
+                : `${_get(current, 'lowerValue')}`,
+
+            SAFE: _get(diffrence, 'isSafeOffering', false)
+                ?
+                {
+                    changed: true,
+                    previous: `${_get(previous, 'isSafeOffering')}`,
+                    current: `${_get(current, 'isSafeOffering')}`
+                }
+                : `${_get(current, 'isSafeOffering')}`,
+
+            SafeDiscount: _get(diffrence, 'safeDiscount', false)
+                ?
+                {
+                    changed: true,
+                    previous: `${_get(previous, 'safeDiscount')}`,
+                    current: `${_get(current, 'safeDiscount')} `
+                } : `${_get(current, 'safeDiscount')}`,
+
+            SafeMarketCap: _get(diffrence, 'safeMarketCap', false)
+                ?
+                {
+                    changed: true,
+                    previous: _get(previous, 'safeMarketCap', '-'),
+                    current: _get(current, 'safeMarketCap', '-'),
+                } : _get(current, 'safeMarketCap', '-'),
+
+            NationAgreement: _get(diffrence, 'isNationAgreement', false)
+                ?
+                {
+                    changed: true,
+                    previous: `${_get(previous, 'isNationAgreement')}`,
+                    current: `${_get(current, 'isNationAgreement')} `
+                } : `${_get(current, 'isNationAgreement')}`,
+
+
+            BoardMembership: _get(diffrence, 'isBoardMembership', false)
+                ?
+                {
+                    changed: true,
+                    previous: `${_get(previous, 'isBoardMembership')}`,
+                    current: `${_get(current, 'isBoardMembership')} `
+                } : `${_get(current, 'isBoardMembership')}`,
+
+            Comments: _get(diffrence, 'comment', false)
+                ?
+                {
+                    changed: true,
+                    previous: `${_get(previous, 'comment')}`,
+                    current: `${_get(current, 'comment')} `
+                } : `${_get(current, 'comment')}`,
+        }
 
     Object.keys(parseData).map((key, index) => {
         if (_get(parseData[key], `changed`)) {

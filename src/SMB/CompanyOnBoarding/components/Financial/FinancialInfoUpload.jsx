@@ -148,7 +148,7 @@ class FinancialInfoUpload extends React.Component {
                         />
                     </div>
                     <div className="col-sm-6">
-                    <div className="col-sm-12"><span className="onboarding-sub-title">2019 Forecast (optional)</span></div>
+                    <div className="col-sm-12"><span className="onboarding-sub-title">Business Plan</span></div>
                         <DropzoneArea
                             fieldName='businessPlan'
                             progress={_get(this.props, 'state.businessPlanuploadProgress')}
@@ -157,7 +157,7 @@ class FinancialInfoUpload extends React.Component {
                         />
                     </div>
                     <div className="col-sm-6">
-                    <div className="col-sm-12"><span className="onboarding-sub-title">Business Plan</span></div>
+                    <div className="col-sm-12"><span className="onboarding-sub-title">2019 Forecast (optional)</span></div>
 
                         <DropzoneArea
                             progress={_get(this.props, 'state.forecastuploadProgress')}

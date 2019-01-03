@@ -56,9 +56,50 @@ class About extends Component {
                 success: 'legalEntities_success',
                 error: 'legalEntities_error'
             })
-        )
+        );
+        this.employeeDataFetcher();
 
     }
+
+    employeeDataFetcher = () => {
+        let decodeData = jwtDecode(localStorage.getItem('authToken'));
+        this.props.dispatch(
+            getData(`${APPLICATION_BFF_URL}/api/${localStorage.getItem('role')}/${encodeURIComponent(decodeData.id)}`, 'fetchingbasicdata', {
+                init: 'basicdata_init',
+                success: 'basicdata_success',
+                error: 'basicdata_error'
+            })
+        ).then((data) => {
+            let resource = encodeURIComponent('resource:' + data.companyDetails.$class + '#' + data.companyDetails.id)
+            let deciderKey='';
+            let constants = {}
+           
+                let deciderKeyteam = 'ActiveTempEmployeesWithTempCompanyId';
+               let  constantsteam = {
+                    init: 'getEmployeeList_init',
+                    success: 'getEmployeeList_success',
+                    error: 'getEmployeeList_error'
+                }
+            
+            
+               let  deciderKeybenificiary = 'ActiveTempShareHoldersWithTempCompanyId';
+               let  constantsbenificiary = {
+                    init: 'getshareHolderList_init',
+                    success: 'getshareHolderList_success',
+                    error: 'getshareHolderList_error'
+                }
+            
+            
+            this.props.dispatch(
+                getData(`${APPLICATION_BFF_URL}/api/queries/${deciderKeyteam}?resourceId=${resource}`, 'getEmployeeList-data', constantsteam)
+            );
+            this.props.dispatch(
+                getData(`${APPLICATION_BFF_URL}/api/queries/${deciderKeybenificiary}?resourceId=${resource}`, 'getEmployeeList-data', constantsbenificiary)
+            )
+        })
+    }
+
+
     aboutSubmit = (values) => {
         let reqObj = { ...values, id: this.props.id };
         reqObj.address = {};
