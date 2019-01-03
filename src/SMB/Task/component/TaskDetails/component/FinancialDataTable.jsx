@@ -13,7 +13,7 @@ const FinancialDataTable = (props) => {
                 </span>
                 <div className="flex-row task-switch">
                     <span>Requested Fields</span>
-                    <div className="flex-row align-center">
+                    <div className="flex-row align-center switch-text">
                         <Switch
                             name={props.header}
                             onChange={props.withSwitchState}
