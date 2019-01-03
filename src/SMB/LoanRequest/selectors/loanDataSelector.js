@@ -132,7 +132,7 @@ const filterDataSelector = createSelector(
             {
                 type:'textbox',
                 keyname:'purpose',
-                name: 'Purpose Of Loan',
+                name: 'Purpose of Loan',
                 values:[]
             }
 

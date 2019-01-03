@@ -22,7 +22,7 @@ render()
         <div>
         <Select 
         value={this.state.TextFilledVaraint}
-         placeholder="Variant Of Text Box"
+         placeholder="Variant of Text Box"
           onChange={this.handleChange('TextFilledVaraint')}>
         {['standard','outlined','filled'].
         map((option,index)=> <option value={option}>{option}</option>)

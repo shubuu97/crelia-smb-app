@@ -378,7 +378,7 @@ class EquityRequest extends Component {
                                 </div>
                                 <div className="pt-10">
                                     <div className="onboarding-sub-title">
-                                        Use Of Funds
+                                        Use of Funds
                                 </div>
                                     <div className="row">
                                         <div className="col-sm-3">

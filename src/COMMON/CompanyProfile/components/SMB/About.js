@@ -187,7 +187,7 @@ class About extends Component {
                             <FormControl margin="normal" required fullWidth>
                                 <Field
                                     type="date"
-                                    label="Date Of Incorporation"
+                                    label="Date of Incorporation"
                                     defaultValue='2017-05-24'
                                     name="incorporationDate"
                                     InputLabelProps={{

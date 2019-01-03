@@ -58,7 +58,7 @@ class OfferContainer extends React.PureComponent {
                     'Amount',
                     'Currency',
                     'Board Membership',
-                    'Range',
+                    'Equity %',
                     'Action']
             })
         }

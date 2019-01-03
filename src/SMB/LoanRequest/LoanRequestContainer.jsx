@@ -331,7 +331,7 @@ class LoanRequestsContainer extends React.PureComponent {
                         'Amount',
                         'Currency',
                         'Term and Time Frame',
-                        'Purpose Of Loan',
+                        'Purpose of Loan',
                         'Action']}
                     data={this.props.TableData}
                     actions={true}

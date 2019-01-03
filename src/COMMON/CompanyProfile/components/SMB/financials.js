@@ -93,7 +93,7 @@ class financial extends React.Component {
                             <div className="col-sm-4 downlaod-external">
                                 <div className="msgicon"><img src={imgquestion} /></div>
                                 <p>You need to use predefined templates:</p>
-                                <a href="#" > <i class="material-icons">save_alt </i> <span>Download Cash Flow XLSX-template</span></a>
+                                <a href="#" > <i class="material-icons">save_alt </i> <span>Download cash low XLSX-template</span></a>
                             </div>
                         </div>
                         <div className="row align-items-center pt-30">
@@ -138,9 +138,9 @@ class financial extends React.Component {
                                     dropzone={_get(this.props, 'state.forecast.name', '') || _get(this.props, 'state.forecastlink', '') || _get(this.props, 'initialValues.forecast')}
                                 />
                             </div>
-                            <div className="col-sm-4 downlaod-external">
+                            {/* <div className="col-sm-4 downlaod-external">
                                 <a href="#"> <i class="material-icons">save_alt </i> <span>Download balance sheet  common size statement XLSX-template</span></a>
-                            </div>
+                            </div> */}
                         </div>
                         <div className="row align-items-center pt-30">
                             <div className="col-sm-6">
@@ -152,9 +152,9 @@ class financial extends React.Component {
                                     dropzone={_get(this.props, 'state.businessPlan.name', '') || _get(this.props, 'state.businessPlanlink', '') || _get(this.props, 'initialValues.businessPlan')}
                                 />
                             </div>
-                            <div className="col-sm-4 downlaod-external">
+                            {/* <div className="col-sm-4 downlaod-external">
                                 <a href="#"> <i class="material-icons">save_alt </i> <span>Download balance sheet  common size statement XLSX-template</span></a>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>
