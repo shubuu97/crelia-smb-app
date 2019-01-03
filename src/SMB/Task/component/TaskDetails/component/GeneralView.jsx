@@ -50,7 +50,7 @@ const GeneralView=(props)=>
                                                 control={
                                                     <Checkbox
                                                         color="primary"
-                                                        checked={JSON.parse(props.fields[modifyName(key)]||false)}
+                                                        checked={JSON.parse(props.fields[modifyName(key).toUpperCase()]||false)}
                                                         onChange={props.handleChange(modifyName(key).toUpperCase())}
                                                         value={modifyName(key).toUpperCase()}
                                                     />
