@@ -7,50 +7,37 @@ import withLogic from '../recomposeUtility/withLogic';
 import Switch from '../../../../../Global/Components/switchControl';
 import modifyName from '../DataUtility/parseDataBeforeSubmit';
 
-const GeneralView=(props)=>
-{
+const GeneralView = (props) => {
     debugger;
-    console.log(props.fields,"i am here");
+    console.log(props.fields, "i am here");
     let companyDetails = props.companyDetails;
-        return (
-            <div className="data-list">
-                <div className="inner-wrap">
-                    <span className="onboarding-sub-title pb-15">
-                        {/* <img src={fundIcon} height="" width="50" />  */}
-                        {props.header}</span>
-                        <Switch
-                        name={props.header}
-                        onChange={props.withSwitchState}
-                        />
-
-                    {/* <div>
-                        <FormControlLabel
-                            control={
-                                <Checkbox
-                                    checked={true} 
-                                />
-                            }
-                            label="All Access"
-                        />
-
-                    </div> */}
-                    {
-                        Object.keys(companyDetails).
-                        filter(key=>companyDetails[key])
-                          .map((key, index) => {
+    return (
+        <div className="data-list">
+            <div className="inner-wrap">
+                <span className="onboarding-sub-title pb-15">
+                    {/* <img src={fundIcon} height="" width="50" />  */}
+                    {props.header}</span>
+                <Switch
+                    name={props.header}
+                    onChange={props.withSwitchState}
+                />
+                {
+                    Object.keys(companyDetails).
+                        filter(key => companyDetails[key])
+                        .map((key, index) => {
                             let title = key.replace(/([A-Z])/g, ' $1');
                             return (
                                 <div className="data-list">
-                                    <div className="list-content">
+                                    <div className="task-content">
                                         <div className="col-block left-block">{title}</div>
                                         <div className="col-block right-block">
                                             {/* {props.companyDetails[key]} */}
-                                          
+
                                             <FormControlLabel
                                                 control={
                                                     <Checkbox
                                                         color="primary"
-                                                        checked={JSON.parse(props.fields[modifyName(key)]||false)}
+                                                        checked={JSON.parse(props.fields[modifyName(key)] || false)}
                                                         onChange={props.handleChange(modifyName(key).toUpperCase())}
                                                         value={modifyName(key).toUpperCase()}
                                                     />
@@ -62,11 +49,11 @@ const GeneralView=(props)=>
                                 </div>
                             )
                         })
-                    }
-                </div>
-
+                }
             </div>
-        )
-    }
+
+        </div>
+    )
+}
 
 export default withLogic(GeneralView)
