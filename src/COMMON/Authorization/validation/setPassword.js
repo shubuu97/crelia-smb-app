@@ -2,7 +2,9 @@ import passwordValidator from 'password-validator';
 import  * as yup from 'yup';
 import _get from 'lodash/get';
 var schema = yup.object().shape({
-    
+    firstName:yup.string().required('required'),
+    lastName:yup.string().required('required'),
+    phoneNumber :yup.string().required('required'),  
     password: yup.string().required(),
     confirmNewPassword: yup.mixed().test('match', 'Passwords do not match', function (password) {
         return password === this.parent.password
@@ -69,6 +71,7 @@ const asyncValidate = values => {
                         reduxFormErrors[error.path] = finalResult;
                         })
                 })
+                console.log(reduxFormErrors,"reduxFormErrors");
                 //redux form will now understand the errors that yup has thrown
                 reject(reduxFormErrors);
 

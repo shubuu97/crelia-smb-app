@@ -9,7 +9,7 @@ const LoaderButton = (props)=>
         <Button
         type={props.type}
         fullWidth={props.fullWidth}
-        disabled={props.isFetching}
+        disabled={props.isFetching||props.disabled}
         onClick={props.onClick}
         variant={props.variant}
         color={props.color}

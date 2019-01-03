@@ -20,6 +20,7 @@ import asyncValidate from '../../validation/setPassword'
 import PhoneInput from '../../../../Global/Components/PhoneNumInput';
 /* reCaptcha */
 import ReCAPTCHA from "react-google-recaptcha";
+import LoaderButton from '../../../../Global/Components/LoaderButton';
 
 var jwtDecode = require('jwt-decode');
 const recaptchaRef = React.createRef();
@@ -70,6 +71,7 @@ class ResetPassword extends Component {
     let reqObj = { ...localValue, ...obj, reCaptchaResponse };
     console.log(reqObj, "Request Object");
     if (reCaptchaResponse) {
+      this.setState({isFetching:true});
       this.props.dispatch(
         postData(`${APPLICATION_BFF_URL}/api/${'CreateSMBUser'}`, reqObj, 'password-data', {
           init: 'set_init',
@@ -77,6 +79,7 @@ class ResetPassword extends Component {
           error: 'set_error'
         })
       ).then((data) => {
+        this.setState({isFetching:false});
         this.props.dispatch(showMessage({ text: 'Update Succesfully', isSuccess: true }));
         setTimeout(() => {
           this.props.dispatch(showMessage({}));
@@ -84,6 +87,7 @@ class ResetPassword extends Component {
         }, 1000);
       })
         .catch((err) => {
+          this.setState({isFetching:false});
           this.props.dispatch(showMessage({ text: err.msg, isSuccess: false }));
           b.setSubmitFailed();
           setTimeout(() => {
@@ -150,7 +154,6 @@ class ResetPassword extends Component {
                     variant="standard"
                     id="emailAddress"
                     fullWidth='fullWidth'
-                    required='required'
                   />
                 </FormControl></div>
               <div className="col-sm-4"><FormControl margin="normal" required fullWidth>
@@ -174,7 +177,6 @@ class ResetPassword extends Component {
                   variant="standard"
                   id="emailAddress"
                   fullWidth='fullWidth'
-                  required='required'
 
                 />
               </FormControl></div>
@@ -189,7 +191,6 @@ class ResetPassword extends Component {
                   variant="standard"
                   id="phoneNumber"
                   fullWidth='fullWidth'
-                  required='required'
                 />
               </FormControl>
             </div>
@@ -203,7 +204,6 @@ class ResetPassword extends Component {
                 variant="standard"
                 id="password"
                 fullWidth='fullWidth'
-                required='required'
               />
             </FormControl>
             <FormControl margin="normal" required fullWidth>
@@ -216,7 +216,6 @@ class ResetPassword extends Component {
                 variant="standard"
                 id="emailAddress"
                 fullWidth='fullWidth'
-                required='required'
               />
             </FormControl>
             <FormControl margin="normal" required fullWidth>
@@ -232,16 +231,16 @@ class ResetPassword extends Component {
               </div>
             </FormControl>
             <div class="action-block">
-              <Button
+              <LoaderButton
                 type="submit"
                 fullWidth
-                disabled={this.props.isFetching}
+                disabled={this.props.invalid||!this.state.value||this.props.pristine}
+                isFetching={this.state.isFetching}
                 variant="contained"
                 color="primary"
                 className="btnprimary"
-              >
-                {this.props.isFetching ? <CircularProgress size={24} /> : 'Submit'}
-              </Button>
+              >Submit
+              </LoaderButton>
             </div>
           </form>
         </div>
