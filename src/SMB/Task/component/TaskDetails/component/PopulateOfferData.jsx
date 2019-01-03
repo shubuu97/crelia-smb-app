@@ -109,7 +109,7 @@ const PopulateDataDetails = (props) => {
                     delete data.financials
                 }
                 !everyUndfined && data[header].push(
-                    <FinancialLinks
+                    <GeneralView
                         fields={props.fields}
                         FieldAccessReqTask={props.FieldAccessReqTask}
                         companyDetails={parseData[header]}
@@ -125,7 +125,7 @@ const PopulateDataDetails = (props) => {
                     delete data.legal
                 }
                 !everyUndfined && data[header].push(
-                    <FinancialLinks
+                    <GeneralView
                         fields={props.fields}
                         FieldAccessReqTask={props.FieldAccessReqTask}
                         companyDetails={parseData[header]}
@@ -142,7 +142,7 @@ const PopulateDataDetails = (props) => {
                 }
                 !everyUndfined && data[header].push(
 
-                    <FinancialLinks
+                    <GeneralView
                         fields={props.fields}
                         FieldAccessReqTask={props.FieldAccessReqTask}
                         companyDetails={parseData[header]}
@@ -166,24 +166,15 @@ const PopulateDataDetails = (props) => {
                         let title = key.replace(/([A-Z])/g, '$1');
                         return (
                             <div className="col-sm-4">
-                                {
-                                    key !== 'financialData' &&
-                                    <div >
-                                        <div className="inner-wrap">
-                                            <div>{data[key]}</div>
-                                        </div>
+                                <div>
+                                    <div className="inner-wrap">
+                                        <div>{data[key]}</div>
                                     </div>
-                                }
-
+                                </div>
                             </div>
                         )
                     })
                 }
-            </div>
-            <div className="col-sm-12">
-                <div className="inner-wrap">
-                    <div>{data.financialData}</div>
-                </div>
             </div>
 
         </div>

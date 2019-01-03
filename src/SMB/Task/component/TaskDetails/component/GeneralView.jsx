@@ -34,8 +34,6 @@ const GeneralView = (props) => {
                                 <div className="data-list">
                                     <div className="task-content">
                                         <div className="col-block right-block">
-                                            {/* {props.companyDetails[key]} */}
-
                                             <FormControlLabel
                                                 control={
                                                     <Checkbox
