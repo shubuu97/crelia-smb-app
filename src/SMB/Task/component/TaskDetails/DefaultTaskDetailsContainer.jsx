@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+/* Lodash */
 import _get from 'lodash/get';
-import PopulateOfferData from './component/PopulateOfferData';
+/* Global Imports */
 import TaskViewContainer from '../../../../Global/Components/TaskView/TaskViewContainer'
-import genericGetDataFetcher from '../../../../Global/dataFetch/genericGetData';
 import genericPostData from '../../../../Global/dataFetch/genericPostData';
 import LoaderButton from '../../../../Global/Components/LoaderButton';
-import parseDataBeforeSubmit from '../../component/TaskDetails/DataUtility/parseDataBeforeSubmit'
+import parseDataBeforeSubmit from '../../../../Global/Components/TaskView/dataUtility/parseDataBeforeSubmit'
 
 class DefaultTaskDetailsContainer extends Component {
     constructor(props) {
@@ -17,12 +17,13 @@ class DefaultTaskDetailsContainer extends Component {
     }
 
     componentDidMount() {
-        // let requestedFields = _get(this.props,`taskList[${this.props.rowId}].requestedFields`,[]);
-        //this.setState({requestedFields})
+        
     }
+
     FieldAccessReqTask = (reqObj) => {
         this.setState({ fieldAccessRequest: reqObj })
     }
+
     submitRequest = () => {
         console.log(this.state.fieldAccessRequest, Object.keys(this.state.fieldAccessRequest))
         let fields = Object.keys(this.state.fieldAccessRequest)
@@ -46,8 +47,8 @@ class DefaultTaskDetailsContainer extends Component {
             successCb: (() => this.setState({ loading: false })),
             errorCb: () => this.setState({ loading: false })
         })
-
     }
+
     render() {
         return (
             <React.Fragment>
@@ -58,12 +59,13 @@ class DefaultTaskDetailsContainer extends Component {
                     dataObject={this.state.requestedFields}
                     defaultTask = {true}
                 />
-                 <LoaderButton
+                <LoaderButton
                     onClick={this.submitRequest}
                     isFetching = {this.state.loading}
-                    color='primary' variant='contained'>Apply Changes</LoaderButton>
+                    color='primary' variant='contained'>
+                        Apply Changes
+                </LoaderButton>
             </React.Fragment>
-
         )
     }
 }

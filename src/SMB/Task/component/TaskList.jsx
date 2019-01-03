@@ -1,9 +1,12 @@
 import React from 'react';
+import _get from 'lodash/get';
+/* Global Imports */
 import CardTable from '../../../Global/Components/CardTable/CardTable';
 import genericPostData from '../../../Global/dataFetch/genericPostData';
-import _get from 'lodash/get';
-import TaskDetails from './TaskDetails/TaskDetailsContainer'
 import genericGetDataFetcher from '../../../Global/dataFetch/genericGetData';
+/* Component Import */
+import TaskDetails from './TaskDetails/TaskDetailsContainer'
+
 
 class TaskList extends React.Component {
 
@@ -14,7 +17,7 @@ class TaskList extends React.Component {
         }
     }
 
-    getTaskListData =()=> genericGetDataFetcher({
+    getTaskListData = () => genericGetDataFetcher({
         dispatch: this.props.dispatch,
         url: '/api/FieldAccessReqTask',
         constant: {
@@ -48,6 +51,7 @@ class TaskList extends React.Component {
             errorCb: () => this.setState({ Loading: false })
         })
     }
+
     declineTask = (data, index) => {
         let reqObj = {
             task: _get(this.props, `listData[${index}].id`, '')
@@ -71,9 +75,11 @@ class TaskList extends React.Component {
             errorCb: () => this.setState({ Loading: false })
         })
     }
+
     editTask = (data, index) => {
 
     }
+
     extendedComponentAction = (data, index) => {
         this.setState({ reqID: _get(this.props, `loanData[${index}].id`) })
     }
@@ -83,24 +89,19 @@ class TaskList extends React.Component {
             <div>
                 <CardTable
                     title="Your Tasks"
-                    // filterData={this.this.props.filterData}
-                    // filterAction={this.fetchingFilterQueryData}
-                    // filterState={this.state.query}
                     loader={this.state.Loading}
-                    menuActions={[{
-                        Title: 'Mark As Complete',
-                        actionEvent: this.markComplete,
-                    },
-                    {
-                        Title: 'Decline',
-                        actionEvent: this.declineTask
+                    menuActions={
+                        [
+                            {
+                                Title: 'Mark As Complete',
+                                actionEvent: this.markComplete,
+                            },
+                            {
+                                Title: 'Decline',
+                                actionEvent: this.declineTask
+                            }
+                        ]
                     }
-                    ]}
-                    soloActions={[{
-                        Title: 'Edit',
-                        className: 'edit-icon flex-row',
-                        actionEvent: this.editTask
-                    }]}
                     headingData={[
                         'Task Status',
                         'Investor Id',
@@ -109,27 +110,13 @@ class TaskList extends React.Component {
                         'Actions'
                     ]}
                     data={this.props.TableData}
-                    // actions={true}
-                    // isExtended={true}
                     filter={false}
-                    // onShowSizeChange={this.onShowSizeChange}
-                    // onPageChange={this.onPageChange}
-                    // chooseColor={this.chooseColor}
                     extendedComponent={
                         {
                             component: TaskDetails
                             , actionEvent: this.extendedComponentAction
                         }
                     }
-
-                // total={this.this.props.totalRows}
-                // openOfferModal={this.openOfferModal}
-                // headingButtons={
-                //     [
-                //         { Title: 'Create Request', className: "mb-10 ", actionEvent: () => this.this.props.history.push('/LoanRequest/SelectLoanType') },
-                //     ]
-                // }
-
                 />
             </div>)
     }
