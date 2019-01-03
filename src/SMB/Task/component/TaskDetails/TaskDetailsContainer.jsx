@@ -58,7 +58,7 @@ class TaskDetailsContainer extends Component {
                  <LoaderButton
                     onClick={this.submitRequest}
                     isFetching = {this.state.loading}
-                    color='primary' variant='contained'>Submit</LoaderButton>
+                    color='primary' variant='contained'>Apply</LoaderButton>
             </React.Fragment>
 
         )

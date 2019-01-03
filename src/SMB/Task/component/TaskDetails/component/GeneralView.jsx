@@ -17,7 +17,7 @@ const GeneralView = (props) => {
                 </span>
                 <div className="flex-row task-switch">
                     <span>Requested Fields</span>
-                    <div className="flex-row align-center">
+                    <div className="flex-row align-center switch-text">
                         <Switch
                             name={props.header}
                             onChange={props.withSwitchState}
@@ -47,7 +47,6 @@ const GeneralView = (props) => {
                                         </div>
                                         <div className="col-block left-block">{title}</div>
                                     </div>
-
                                 </div>
                             )
                         })

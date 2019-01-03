@@ -165,7 +165,7 @@ const PopulateDataDetails = (props) => {
                     Object.keys(data).map((key, index) => {
                         let title = key.replace(/([A-Z])/g, '$1');
                         return (
-                            <div className="col-sm-4">
+                            <div className="col-sm-4 pb-30">
                                 <div>
                                     <div className="inner-wrap">
                                         <div>{data[key]}</div>

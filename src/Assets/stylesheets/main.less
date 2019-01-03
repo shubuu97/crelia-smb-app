@@ -1395,16 +1395,16 @@ h4 {
         width: 100%;
     }
 }
-//todo ask vishnu
+
+// Task View - General View
+
 .Setting-header{
     font-size: 25px;
     display: flex;
     justify-content: center;
     font-weight: bold;
-    margin-bottom: 12px;
+    margin-bottom: 30px;
 }
-
-// Task View - General View
 
 .task-detail-general{
     .task-heading{
@@ -1412,15 +1412,24 @@ h4 {
         font-family: 'GTWalsheimMedium', sans-serif;
     }
     .task-switch{
-        padding: 10px 0;
+        padding: 5px 0;
         color: #313787;
-        font-weight: bold; 
+        font-weight: bold;
         font-size: 0.9em;
         justify-content: space-between;
         align-items: center;
-        border-top: 2px solid #313787;
-        border-bottom: 2px solid #313787;
+        border-top: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
         margin: 10px 0;
+
+        .switch-text{
+            font-size: .7rem;
+            color: rgba(0, 0, 0, 0.7);
+        }
+        .MuiSwitch-icon{
+            width: 10px;
+            height: 10px;
+        }
     }
     .MuiSwitch-switchBase{
         height: unset;
