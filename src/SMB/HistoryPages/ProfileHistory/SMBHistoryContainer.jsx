@@ -13,6 +13,14 @@ import DetailedViewParent from '../HistoryParent/component/DetailedViewParent';
 
 
 class SMBHistoryContainer extends Component {
+
+    constructor(props){
+        super(props);
+        this.state = {
+            isFetching: true
+        }
+    }
+
     componentDidMount() {
         basicDataFetcher(this.props.dispatch).then((data) => {
             console.log('here', data);
@@ -41,6 +49,7 @@ class SMBHistoryContainer extends Component {
     render() {
         return (
             <HistoryParent
+                isFetching={this.state.isFetching}
                 dataObject={this.props.ProfileHistoryData}
                 DetailedView={DetailedViewParent(
                     PopulateOfferData,

@@ -120,7 +120,7 @@ class LoanHistory extends Component {
                     }
                     dispatch={this.props.dispatch}
                     showCompare={true}
-                    isFetching={this.state.isFetching}
+                    isFetching={_get(this, 'props.isFetching', this.state.isFetching)}
                 />
                 <Dialog
                     open={this.state.showComparision}
