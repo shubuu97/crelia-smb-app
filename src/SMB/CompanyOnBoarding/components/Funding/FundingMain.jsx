@@ -213,7 +213,7 @@ class AboutMain extends React.Component {
                 <fieldset disabled="">
                     <div className="Onboarding_Title">Apply for Business Financing</div>
                     <div className="row justify-content-between pt-30">
-                        <div className="col-sm-8">
+                        <div className="col-sm-8 ">
                             <div><span className="onboarding-sub-title">How much funding do you think you may need?</span></div>
                             <Field
                                 label=""

@@ -5,7 +5,7 @@ import officeIcon from "../../../../Assets/images/office.svg"
 
 const CompanyView = (props) => {
     return (
-        <div className="col-sm-4" >
+        <div className="col-sm-4 data-list" >
         <div className="inner-wrap">
             <div className="onboarding-sub-title pb-15"><img src={officeIcon} height="" width="32" /> Company Details</div>
             <div className="list-content"><span>Legal Name</span> <span>{props.legalName}</span></div>

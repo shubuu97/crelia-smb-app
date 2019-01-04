@@ -51,7 +51,7 @@ function SideBar(WrappedComponent) {
                         <h1>Company Profile</h1>
                         <div className="flex-row align-center mb-10"> 
                             <a className="mr-20" onClick={() => this.props.history.push('/ProfileHistory')}>
-                                <img title="Show history" src={historyIcon} style={{width: '25px'}}/>
+                                <img title="Show history" src={historyIcon} style={{width: '38px'}}/>
                             </a>
                             <LoaderButton
                                 isFetching={this.props.isFetchingPostUpdateToMarketPlace}

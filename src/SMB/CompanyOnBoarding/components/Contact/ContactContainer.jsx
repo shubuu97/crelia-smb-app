@@ -99,7 +99,7 @@ class ContactContainer extends Component {
             <form onSubmit={handleSubmit(this.submitFunction)}>
                 <div className="Onboarding_Title">Business Information</div>
                 <div className="row justify-content-between pt-20">
-                    <div className="col-sm-4">
+                    <div className="col-sm-4 ">
                         <Field
                             disabled={localStorage.getItem('disabled')}
                             label="Legal Business Name"

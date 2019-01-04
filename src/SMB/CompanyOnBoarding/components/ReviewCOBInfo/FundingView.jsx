@@ -3,7 +3,7 @@ import fundIcon from "../../../../Assets/images/fund-icon.svg"
 
 const FundingView = (props) => {
     return (
-        <div className="col-sm-4">
+        <div className="col-sm-4 data-list">
         <div className="inner-wrap">
             <span className="onboarding-sub-title pb-15"><img src={fundIcon} height="" width="50" /> Funding Details</span>
             <span className="list-content"><span>Money Required</span> <span>{props.moneyRequired}</span></span>

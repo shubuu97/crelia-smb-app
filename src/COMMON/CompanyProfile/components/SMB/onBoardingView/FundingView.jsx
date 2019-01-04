@@ -2,7 +2,7 @@ import React from 'react';
 
 const FundingView = (props) => {
     return (
-        <div className="col-sm-6">
+        <div className="col-sm-6 data-list">
             <span className="onboarding-sub-title d-block pb-15">Funding Details</span>
             <span className="list-content"><span>Money Required</span> <span>{props.moneyRequired}</span></span>
             <span className="list-content"><span>Time Frame</span> <span>{props.timeFrame}</span></span>
