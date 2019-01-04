@@ -32,7 +32,7 @@ class PreviewForm extends Component {
                 isFetching = {this.props.NegotiateOfferLoading}
                 color='primary'
                 className="full-width-btn btnprimary mt-30" 
-                variant='contained'>Submit</LoaderButton>
+                variant='contained'>Negotiate Offer</LoaderButton>
             </div>
         )
     }

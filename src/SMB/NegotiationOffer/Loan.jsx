@@ -51,7 +51,9 @@ class Loan extends Component {
                 },
                 identifier: 'loan_id'
             }).then(data => {
-                this.props.autofill('moneyRange', data.moneyRange);
+                this.props.autofill('moneyRange.minAmount', formatMoney(_get(data,'moneyRange.minAmount')));
+                this.props.autofill('moneyRange.maxAmount', formatMoney(_get(data,'moneyRange.maxAmount')));
+                this.props.autofill('moneyRange.currency', _get(data,'moneyRange.currency'));
                 this.props.autofill('interestRate', data.interestRate);
                 this.props.autofill('term', data.term);
                 this.props.autofill('timeFrame', data.timeFrame.split('T')[0]);
@@ -199,7 +201,7 @@ class Loan extends Component {
         return (
             <div className="loan-request">
                 <div className="col-sm-12 ">
-                    <h1>Negotiate Offer</h1>
+                    <h1>Negotiate Loan Offer</h1>
                     <div className="cardwrapper">
                         <div className="row">
                             <div className='col-sm-8'>
