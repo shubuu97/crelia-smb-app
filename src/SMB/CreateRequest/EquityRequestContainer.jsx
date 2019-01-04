@@ -313,7 +313,7 @@ class EquityRequest extends Component {
                                                 <div className="col-sm-6">
                                                     <FormControl margin="normal" required fullWidth>
                                                         <Field
-                                                            label="What discount you are willing to offer?"
+                                                            label="What discount are you willing to offer?"
                                                             name="safeDiscount"
                                                             component={GlobalTextField}
                                                             fullWidth={true}
@@ -324,7 +324,7 @@ class EquityRequest extends Component {
                                                 <div className="col-sm-6">
                                                     <FormControl margin="normal" required fullWidth>
                                                         <Field
-                                                            label="What market cap you are you willing to commit to?"
+                                                            label="What market cap are you willing to commit to?"
                                                             name="safeMarketCap"
                                                             component={GlobalTextField}
                                                             fullWidth={true}
@@ -360,7 +360,7 @@ class EquityRequest extends Component {
                                         {_get(this.props, 'formValues.upperValue', 0) > 10 ?
                                             <FormControl margin="normal" required fullWidth>
                                                 <div className="onboarding-sub-title">
-                                                    Are you willing to offer Board Membership to lead investor?
+                                                    Are you willing to offer board membership to lead investor?
                                                 </div>
                                                 <Field
                                                     // label='Are you willing to offer Board Membership to lead investor?'
@@ -484,6 +484,7 @@ class EquityRequest extends Component {
                                 formValues={this.props.formValues}
                                 />
                                     <LoaderButton
+                                        className="full-width-btn btnprimary mt-30" 
                                         isFetching={this.state.loading}
                                         type="submit"
                                         color="primary"

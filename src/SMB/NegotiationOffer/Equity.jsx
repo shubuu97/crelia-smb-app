@@ -45,6 +45,7 @@ class Equity extends Component {
         }
     }
     componentDidMount() {
+        debugger;
         this.getApiCall('reference-service/allowedCurrencies', 'currency');
         let urlToHit = 'EquityOffer';
         let idToSend = _get(this.props, 'offer.offerId') ? _get(this.props, 'offer.offerId') : _get(this.props, 'fundId') ? _get(this.props, 'fundId') : null;
@@ -102,9 +103,9 @@ class Equity extends Component {
             }).catch(err => {
             });
         }
-        else {
-            this.props.history.push({ pathname: "/loans/request" });
-        }
+        // else {
+        //     this.props.history.push({ pathname: "/loans/request" });
+        // }
 
     }
     componentWillUnmount() {
@@ -133,11 +134,10 @@ class Equity extends Component {
     }
    makeReqObj = (values)=>
    {
-    let id = _get(this, 'props.offer.offerId', '');
     let reqObj = {};
     reqObj.companyId = this.props.companyId;
-    reqObj.equityId = this.props.fundId ? this.props.fundId : '';
-    reqObj.id = id
+    reqObj.equityId = _get(this.props,'match.params.equityId')
+    reqObj.id =  this.props.fundId ? this.props.fundId : '';
     reqObj.timeFrame = values.timeFrame;
 
     reqObj.fundAllocation = [];
@@ -183,7 +183,6 @@ class Equity extends Component {
    }
 
     submitLoanDetails = (values) => {
-        debugger;
         this.setState({ loadingSave: true });
         let reqObj = this.makeReqObj(values);
         //logic end here
@@ -199,7 +198,7 @@ class Equity extends Component {
                 success: 'create_equity_success',
                 error: 'create_equity_error'
             },
-            successCb: this.returnedData,
+            successCb: ()=>this.setState({loadingSave:false}),
             errorCb: (err) => this.setState({ loadingSave: false })
         })
 
@@ -239,7 +238,7 @@ class Equity extends Component {
                 <form>
                     <div className="row align-items-center">
                         <div className="col-sm-6 ">
-                            <h1>Equity Request</h1>
+                            <h1>Negotiate Loan Offer</h1>
                         </div>
                         <div className="col-sm-6 d-flex justify-content-end "></div>
                     </div>
@@ -350,7 +349,7 @@ class Equity extends Component {
                                                 <div className="col-sm-6">
                                                     <FormControl margin="normal" required fullWidth>
                                                         <Field
-                                                            label="What discount you are willing to offer?"
+                                                            label="What discount are you willing to offer?"
                                                             name="safeDiscount"
                                                             component={GlobalTextField}
                                                             fullWidth={true}
@@ -361,7 +360,7 @@ class Equity extends Component {
                                                 <div className="col-sm-6">
                                                     <FormControl margin="normal" required fullWidth>
                                                         <Field
-                                                            label="What market cap you are you willing to commit to?"
+                                                            label="What market cap are you willing to commit to?"
                                                             name="safeMarketCap"
                                                             component={GlobalTextField}
                                                             fullWidth={true}
@@ -397,7 +396,7 @@ class Equity extends Component {
                                         {_get(this.props, 'formValues.upperValue', 0) > 10 ?
                                             <FormControl margin="normal" required fullWidth>
                                                 <div className="onboarding-sub-title">
-                                                    Are you willing to offer Board Membership to lead investor?
+                                                    Are you willing to offer board membership to lead investor?
                                                 </div>
                                                 <Field
                                                     // label='Are you willing to offer Board Membership to lead investor?'
@@ -525,7 +524,7 @@ class Equity extends Component {
                                         isFetching={this.state.loadingSave}
                                         color='primary'
                                         className="full-width-btn btnprimary mt-30"
-                                        variant='contained'>Save Offer
+                                        variant='contained'>Negotiate Offer
                                         </LoaderButton>
                                 </div>
                             </div>
@@ -549,7 +548,7 @@ function mapStateToProps(state) {
 
     return {
         companyId,
-        currencyList: _get(state, 'Currency.lookUpData', []),
+        currencyList: _get(state, 'currency.lookUpData', []),
         formValues: getFormValues('createLoanRequest')(state),
         offer: _get(state, 'staticReducers.offer'),
         fundId: _get(state, 'staticReducers.fund.reqId'),

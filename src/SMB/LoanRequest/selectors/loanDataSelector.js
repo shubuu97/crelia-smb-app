@@ -65,6 +65,7 @@ const tableDataSelector = createSelector(
                 content: data.status,
                 status: data.status,
             },
+            id:_get(data,'id'),
             fundType:{
                 dataBadge: _get(data, 'offerCount', ''),
                 content:fundType
@@ -105,6 +106,13 @@ const filterDataSelector = createSelector(
                 name: 'Status',
                 values: _get(filterMetaData,'fundStatus',[])
             },
+            {
+                type:'textbox',
+                keyname:'id',
+                name: 'Id',
+                values:[]
+            },
+
             {
                 type:'checkbox',
                 keyname:'$class',

@@ -199,7 +199,7 @@ class Loan extends Component {
         return (
             <div className="loan-request">
                 <div className="col-sm-12 ">
-                    <h1>Make an Offer</h1>
+                    <h1>Negotiate Offer</h1>
                     <div className="cardwrapper">
                         <div className="row">
                             <div className='col-sm-8'>
@@ -516,7 +516,7 @@ function mapStateToProps(state) {
 
     return {
         formValues: getFormValues('createLoanRequest')(state),
-        currencyList: _get(state, 'Currency.lookUpData', []),
+        currencyList: _get(state, 'currency.lookUpData', []),
         fundId: _get(state, 'staticReducers.fund.reqId'),
         loanId: _get(state, 'FundDataById.lookUpData.id'),
         offer: _get(state, 'staticReducers.offer'),

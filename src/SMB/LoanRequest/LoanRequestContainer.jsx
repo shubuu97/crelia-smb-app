@@ -327,6 +327,7 @@ class LoanRequestsContainer extends React.PureComponent {
                     }]}
                     headingData={[
                         'Status',
+                        'Id',
                         'Fund Type',
                         'Amount',
                         'Currency',
