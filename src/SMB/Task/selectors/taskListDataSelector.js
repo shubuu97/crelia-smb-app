@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 import _get from 'lodash/get';
 import moment from 'moment';
 const tableDataSelector = createSelector(
-    state => _get(state, "TaskList.lookUpData", []),
+    state => _get(state, "TaskList.lookUpData.rows", []),
 
     TaskList => TaskList.map((data, index) => {
         let obj = {
@@ -10,7 +10,7 @@ const tableDataSelector = createSelector(
                 content: data.taskStatus,
                 status: data.taskStatus,
             },
-            InvestorId: `${_get(data, 'investorId')}`,
+            InvestorName: `${_get(data, 'investorId.legalName')}`,
             Time:moment(_get(data, 'modifiedTimestamp')).format('DD-MM-YYYY'),
             RequestedFieldsCount:_get(data,'requestedFields').length
         }

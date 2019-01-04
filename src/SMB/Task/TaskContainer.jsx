@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 
 /* Data Fetcher Imports */
 import genericGetDataFetcher from '../../Global/dataFetch/genericGetData';
-
 /* Lodash Imports */
 import _get from 'lodash/get';
 
@@ -16,6 +15,7 @@ import TaskList from './component/TaskList';
 
 //selector imports
 import {tableDataSelector} from './selectors/taskListDataSelector'
+import genericPostData from '../../Global/dataFetch/genericPostData';
 
 class TaskContainer extends Component {
     constructor(props) {
@@ -23,15 +23,17 @@ class TaskContainer extends Component {
     }
 
     componentDidMount() {
-        genericGetDataFetcher({
+        genericPostData({
             dispatch: this.props.dispatch,
-            url: '/api/FieldAccessReqTask',
-            constant:{
+            reqObj:{getAll:false,first:0,limit:10},
+            url: '/api/taskList',
+            constants:{
                 init:'TaskList_init',
                 success:'TaskList_success',
                 error:'TaskList_error'
             },
-            identifier:'TaskList'
+            identifier:'TaskList',
+            dontShowMessage:true
         })
     }
 
@@ -42,6 +44,7 @@ class TaskContainer extends Component {
                 dispatch = {this.props.dispatch}
                  listData = {this.props.taskList}
                  TableData = {this.props.TableData}
+                 total = {this.props.total}
                 />
             </div>
         )
@@ -51,10 +54,12 @@ class TaskContainer extends Component {
 
 function mapStateToProps(state) {
 
-let taskList = _get(state,'TaskList.lookUpData');  
+let taskList = _get(state,'TaskList.lookUpData.rows');
+let total = _get(state,'TaskList.lookUpData.total_rows')
 return {
     taskList,
-    TableData:tableDataSelector(state)
+    TableData:tableDataSelector(state),
+    total
     }
 }
 

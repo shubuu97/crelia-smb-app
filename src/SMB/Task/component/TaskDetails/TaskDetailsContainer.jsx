@@ -6,7 +6,7 @@ import _get from 'lodash/get';
 import TaskViewContainer from '../../../../Global/Components/TaskView/TaskViewContainer'
 import genericPostData from '../../../../Global/dataFetch/genericPostData';
 import LoaderButton from '../../../../Global/Components/LoaderButton';
-
+import genericGetDataFetcher from '../../../../Global/dataFetch/genericGetData';
 
 class TaskDetailsContainer extends Component {
     constructor(props) {
@@ -17,9 +17,25 @@ class TaskDetailsContainer extends Component {
     }
 
     componentDidMount() {
-        let requestedFields = _get(this.props,`taskList[${this.props.rowId}].requestedFields`,[]);
-        this.setState({requestedFields})
-    }
+        genericGetDataFetcher({
+            dispatch: this.props.dispatch,
+            url: `/api/FieldAccessReqTask/${_get(this.props, `taskList.rows[${this.props.rowId}].id`)}`,
+            constant:{
+                init:'FieldAccessReqTaskById_init',
+                success:'FieldAccessReqTaskById_success',
+                error:'FieldAccessReqTaskById_error'
+            },
+            identifier:'FieldAccessReqTaskById'
+        }).then((data)=>
+    {
+        this.setState({ fieldAccessRequest: data })
+     this.setState({ requestedFields:Object.keys(data).map(key=>key)})
+    })
+}
+        // console
+        // let requestedFields = _get(this.props, `taskList.[${this.props.rowId}].id`, []);
+        // this.setState({ requestedFields })
+    
 
     FieldAccessReqTask = (reqObj) => {
         this.setState({ fieldAccessRequest: reqObj })
@@ -31,9 +47,9 @@ class TaskDetailsContainer extends Component {
             .filter((key, index) => this.state.fieldAccessRequest[key])
             .map(data => data.toUpperCase());
         let reqObj = {};
-        reqObj.task = _get(this.props,`taskList[${this.props.rowId}].id`,[]);
+        reqObj.task = _get(this.props, `taskList.rows[${this.props.rowId}].id`, []);
         reqObj.allowedFields = allowedFields;
-        this.setState({loading:true})
+        this.setState({ loading: true })
         genericPostData({
             dispatch: this.props.dispatch,
             reqObj: reqObj,
@@ -60,7 +76,7 @@ class TaskDetailsContainer extends Component {
                 />
                 <LoaderButton
                     onClick={this.submitRequest}
-                    isFetching = {this.state.loading}
+                    isFetching={this.state.loading}
                     color='primary' variant='contained'>
                     Apply
                 </LoaderButton>
@@ -70,7 +86,7 @@ class TaskDetailsContainer extends Component {
 }
 
 function mapStateToProps(state) {
-    let taskList = _get(state,'TaskList.lookUpData');  
+    let taskList = _get(state, 'TaskList.lookUpData');
 
     return {
         taskList

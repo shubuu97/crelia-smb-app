@@ -13,19 +13,24 @@ class TaskList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            Loading: false
+            Loading: false,
+            current:1,
+            first:0,
+            limit:10
         }
     }
 
-    getTaskListData = () => genericGetDataFetcher({
+    getTaskListData = () => genericPostData({
         dispatch: this.props.dispatch,
-        url: '/api/FieldAccessReqTask',
-        constant: {
+        reqObj: { getAll: false, first: this.state.first, limit:this.state.limit },
+        url: '/api/taskList',
+        constants: {
             init: 'TaskList_init',
             success: 'TaskList_success',
             error: 'TaskList_error'
         },
-        identifier: 'TaskList'
+        identifier: 'TaskList',
+        dontShowMessage: true
     })
 
     markComplete = (data, index) => {
@@ -83,13 +88,29 @@ class TaskList extends React.Component {
     extendedComponentAction = (data, index) => {
         this.setState({ reqID: _get(this.props, `loanData[${index}].id`) })
     }
+    //pagination action start here
+    onShowSizeChange = (current, pageSize) => {
+        this.state.first = (((current - 1) * (pageSize)) + 1) - 1;
+        this.state.limit = pageSize;
+        this.getTaskListData();
+        this.setState({ first: this.state.first, limit: this.state.limit, current: current })
 
+    }
+    onPageChange = (current, pageSize) => {
+        this.state.first = (((current - 1) * (pageSize)) + 1) - 1;
+        this.state.limit = pageSize;
+        this.getTaskListData();
+        this.setState({ first: this.state.first, limit: this.state.limit, current: current })
+    }
+    //pagination action end here
     render() {
         return (
             <div>
                 <CardTable
                     title="Your Tasks"
                     loader={this.state.Loading}
+                    total={this.props.total}
+                    current={this.state.current}
                     menuActions={
                         [
                             {
@@ -104,7 +125,7 @@ class TaskList extends React.Component {
                     }
                     headingData={[
                         'Task Status',
-                        'Investor Id',
+                        'Investor Name',
                         'Date Created',
                         'Requested Field Count',
                         'Actions'

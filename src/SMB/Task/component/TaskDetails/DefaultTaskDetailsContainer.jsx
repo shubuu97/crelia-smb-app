@@ -7,6 +7,7 @@ import TaskViewContainer from '../../../../Global/Components/TaskView/TaskViewCo
 import genericPostData from '../../../../Global/dataFetch/genericPostData';
 import LoaderButton from '../../../../Global/Components/LoaderButton';
 import parseDataBeforeSubmit from '../../../../Global/Components/TaskView/dataUtility/parseDataBeforeSubmit'
+import genericGetDataFetcher from '../../../../Global/dataFetch/genericGetData';
 
 class DefaultTaskDetailsContainer extends Component {
     constructor(props) {
@@ -17,7 +18,25 @@ class DefaultTaskDetailsContainer extends Component {
     }
 
     componentDidMount() {
-        
+        genericGetDataFetcher({
+            dispatch: this.props.dispatch,
+            url: `/api/smb/${this.props.smbId}`,
+            constant: {
+                init: "smbbyid_init",
+                success: 'smbbyid_success',
+                error: 'smbbyid_error'
+            },
+            identifier: "smbbyid"
+        }).then((data) => {
+            let obj = {};
+            _get(data, 'privacyPolicy.defaultFields', []).map((data) => {
+
+                obj[data] = true
+                return obj
+            })
+
+            this.setState({ fieldAccessRequest: obj })
+        })
     }
 
     FieldAccessReqTask = (reqObj) => {
@@ -30,9 +49,9 @@ class DefaultTaskDetailsContainer extends Component {
             .filter((key, index) => this.state.fieldAccessRequest[key])
             .map(data => parseDataBeforeSubmit(data).toUpperCase())
         let reqObj = {};
-        reqObj.smbId = _get(this.props,`smbId`);
+        reqObj.smbId = _get(this.props, `smbId`);
         reqObj.fields = fields;
-        this.setState({loading:true})
+        this.setState({ loading: true })
         genericPostData({
             dispatch: this.props.dispatch,
             reqObj: reqObj,
@@ -57,13 +76,13 @@ class DefaultTaskDetailsContainer extends Component {
                     FieldAccessReqTask={this.FieldAccessReqTask}
                     fields={this.state.fieldAccessRequest}
                     dataObject={this.state.requestedFields}
-                    defaultTask = {true}
+                    defaultTask={true}
                 />
                 <LoaderButton
                     onClick={this.submitRequest}
-                    isFetching = {this.state.loading}
+                    isFetching={this.state.loading}
                     color='primary' variant='contained'>
-                        Apply Changes
+                    Apply Changes
                 </LoaderButton>
             </React.Fragment>
         )
@@ -71,8 +90,8 @@ class DefaultTaskDetailsContainer extends Component {
 }
 
 function mapStateToProps(state) {
-    let taskList = _get(state,'TaskList.lookUpData'); 
-    let smbId = _get(state,'BasicInfo.lookUpData.companyDetails.id');
+    let taskList = _get(state, 'TaskList.lookUpData');
+    let smbId = _get(state, 'BasicInfo.lookUpData.companyDetails.id');
 
     return {
         taskList,
