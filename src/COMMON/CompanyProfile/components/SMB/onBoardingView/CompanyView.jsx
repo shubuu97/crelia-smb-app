@@ -4,7 +4,7 @@ import moment from 'moment'
 
 const CompanyView = (props) => {
     return (
-        <div className="col-sm-6" >
+        <div className="col-sm-6 data-list" >
             <div className="onboarding-sub-title d-block pb-15">Company Details</div>
             <div className="list-content"><span>Legal Name</span> <span>{props.legalName}</span></div>
             <div className="list-content"><span>Entity Type</span> <span>{props.legalEntityType}</span></div>
