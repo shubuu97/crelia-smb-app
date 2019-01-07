@@ -106,12 +106,12 @@ class OfferContainer extends React.PureComponent {
                             type: 'hidden',
                             data: _get(data, 'transactionIds')
                         },
-                        allowedActions:this.allowedStatus(data.status)
+                        allowedActions: this.allowedStatus(data.status)
                     }
                 }
                 //todo which field need to be shown in the table
                 else if (fundType == 'EquityOffer') {
-                    obj.status =  {
+                    obj.status = {
                         content: data.status,
                         status: data.status,
                     };
@@ -120,12 +120,12 @@ class OfferContainer extends React.PureComponent {
                     obj.Currency = _get(data, 'money.currency');
                     obj.isBoardMembership = data.isBoardMembership ? 'Yes' : 'No';
                     obj.Range = `${_get(data, 'lowerValue')}-${_get(data, 'upperValue')}`;
-                    obj.allowedActions =  this.allowedStatus(data.status);
-                    obj.transactionId =  {
+                    obj.allowedActions = this.allowedStatus(data.status);
+                    obj.transactionId = {
                         type: 'hidden',
                         data: _get(data, 'transactionIds')
                     };
-                    console.log('data allowedActions',obj)
+                    console.log('data allowedActions', obj)
                 }
                 TableData.push(obj);
             })
@@ -133,31 +133,31 @@ class OfferContainer extends React.PureComponent {
 
         })
     }
-     allowedStatus = (status) => {
+    allowedStatus = (status) => {
         let arr = []
-        switch(status) {
-            case 'DRAFT' :
-            arr =  ['ACTIVE']
-            break;
+        switch (status) {
+            case 'DRAFT':
+                arr = ['ACTIVE']
+                break;
             case 'ACTIVE':
-            arr =  ['IN_NEGOTIATION', 'DECLINED', 'ACCEPTED', 'REVOKED']
-            break;
-            case 'ACCEPTED' :
-            arr =  ['REVOKED']
-            break;
+                arr = ['IN_NEGOTIATION', 'DECLINED', 'ACCEPTED', 'REVOKED']
+                break;
+            case 'ACCEPTED':
+                arr = ['REVOKED']
+                break;
             case 'DECLINED':
-            arr = ['DRAFT']
-            break;
-            case 'IN_NEGOTIATION' :
-            arr =  ['DRAFT', 'ACTIVE', 'REVOKED']
-            break;
+                arr = ['DRAFT']
+                break;
+            case 'IN_NEGOTIATION':
+                arr = ['DRAFT', 'ACTIVE', 'REVOKED']
+                break;
             case 'REVOKED':
-            arr = ['x']
-            break;
-    
-            default :
-            arr = ['x']
-            break;
+                arr = ['x']
+                break;
+
+            default:
+                arr = ['x']
+                break;
         }
         arr.push('SHOW_HISTORY')
         return arr
@@ -186,7 +186,7 @@ class OfferContainer extends React.PureComponent {
     handleRequestNegotion = (data, index) => {
         this.setState({ open: false });
         debugger;
-        let id = _get(this.state,`offerData.rows[${index}].id`)
+        let id = _get(this.state, `offerData.rows[${index}].id`)
         this.props.dispatch(commonActionCreater({
             reqId: id,
             index: index
@@ -196,12 +196,12 @@ class OfferContainer extends React.PureComponent {
         let fundType = this.getFundType($class);
         //push when fund request is for equity
         if (fundType == 'LoanOffer') {
-            return  this.props.history.push(`/loans/offer/${_get(this.props, `loanData[${this.props.rowId}].id`)}`)          
+            return this.props.history.push(`/loans/offer/${_get(this.props, `loanData[${this.props.rowId}].id`)}`)
 
         }
         //pushing when fund requestt is for loan
         else {
-            return  this.props.history.push(`/equity/offer/${_get(this.props, `loanData[${this.props.rowId}].id`)}`)
+            return this.props.history.push(`/equity/offer/${_get(this.props, `loanData[${this.props.rowId}].id`)}`)
         }
     }
 
@@ -222,13 +222,42 @@ class OfferContainer extends React.PureComponent {
                 error: 'DeclineOffer_error'
             },
             successText: 'Offer Declined successFully',
-            successCb: () => {this.setState({ isLoading: false });
-            this.basicDataFetcher();
-        
-        },
+            successCb: () => {
+                this.setState({ isLoading: false });
+                this.basicDataFetcher();
+
+            },
             errorCb: () => this.setState({ isLoading: false })
         })
     }
+
+    handleAccept = (data, index) => {
+        let id = _get(this.state, `offerData.rows[${index}].id`);
+        let offerType = this.getFundType(_get(this.state, `offerData.rows[${index}].$class`));
+        let comment = "some dummy comment";
+        let reqObj = { id, offerType, comment };
+        this.setState({ isLoading: true })
+        genericPostData({
+            dispatch: this.props.dispatch,
+            url: '/api/AcceptOffer',
+            reqObj,
+            constants: {
+                init: 'AcceptOffer_init',
+                success: 'AcceptOffer_success',
+                error: 'AcceptOffer_error'
+            },
+            successText: 'Offer Accepted successFully',
+            successCb: () => {
+                debugger
+                this.setState({ isLoading: false });
+                this.basicDataFetcher();
+
+            },
+            errorCb: () => this.setState({ isLoading: false })
+        })
+    }
+
+    
 
     redirectToHistory = (data, index) => {
         this.props.dispatch(commonActionCreater({
@@ -247,17 +276,25 @@ class OfferContainer extends React.PureComponent {
                 <CardTable
                     menuActions={
                         [
-                            { Title: 'Request Negotiation',
-                             actionEvent: this.handleRequestNegotion,
-                             name: 'IN_NEGOTIATION',
+                            {
+                                Title: 'Request Negotiation',
+                                actionEvent: this.handleRequestNegotion,
+                                name: 'IN_NEGOTIATION',
                             },
-                            { Title: 'Decline', 
-                            actionEvent: this.handleDecline,
-                            name: 'DECLINED',
-                        },
-                            { Title: 'Show History',
-                             actionEvent: this.redirectToHistory,
-                             name: 'SHOW_HISTORY'
+                            {
+                                Title: 'Accept',
+                                actionEvent: this.handleAccept,
+                                name: 'ACCEPTED',
+                            },
+                            {
+                                Title: 'Decline',
+                                actionEvent: this.handleDecline,
+                                name: 'DECLINED',
+                            },
+                            {
+                                Title: 'Show History',
+                                actionEvent: this.redirectToHistory,
+                                name: 'SHOW_HISTORY'
                             },
                         ]
                     }

@@ -3,7 +3,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import withLogic from '../recomposeUtility/withLogic';
 import Switch from '../../switchControl';
-
+import modifyName from '../dataUtility/parseDataBeforeSubmit';
 const LoanProvider = (props) => {
     return (
         <div className="task-detail-general">
@@ -27,9 +27,10 @@ const LoanProvider = (props) => {
                                 control={
                                     <Checkbox
                                         color="primary"
-                                        checked={props.key}
+                                        checked={JSON.parse(props.fields[modifyName(`FINANCIALINFO_LOANPROVIDER_PROVIDERNAME`).toUpperCase()] || false)}
                                         onChange={props.handleChange('FINANCIALINFO_LOANPROVIDER_PROVIDERNAME')}
                                         value={'FINANCIALINFO_LOANPROVIDER_PROVIDERNAME'}
+                                        
                                     />
                                 }
                             />
