@@ -134,7 +134,7 @@ ReactDOM.render(
                   <RouteWithLayout Layout={MainLayout} exact path="/loans/offer/:loanId" Component={LoanOfferContainer}/>
                   <RouteWithLayout Layout={MainLayout} exact path="/equity/offer/:equityId" Component={EquityOfferContainer}/>
                   <RouteWithLayout Layout={MainLayout} exact path="/tasks" Component={TaskContainer}/>
-                  <RouteWithLayout Layout={MainLayout} exact path="/defaulttaks" Component={sidebarLayout(DefaultTaskDetailsContainer)}/>
+                  <RouteWithLayout Layout={MainLayout} exact path="/settings" Component={sidebarLayout(DefaultTaskDetailsContainer)}/>
                   
                   {RoutesConfig.map(rconfig => <RouteWithLayout Layout={MainLayout} exact path={rconfig.path} Component={rconfig.Component} />)}
 

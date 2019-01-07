@@ -76,6 +76,7 @@ class Header extends React.Component {
                     </div>
 
                     <Menu
+                        className="header-menu"
                         id="simple-menu"
                         anchorEl={this.state.anchorEl}
                         open={this.state.open}
@@ -87,15 +88,7 @@ class Header extends React.Component {
                         onRequestClose={this.handleRequestClose}
                     >
                          <MenuItem onClick={() => {
-                            this.props.history.push('/about');
-                            this.setState({ open: false })
-                        }}>Company Profile</MenuItem>
-                        <MenuItem onClick={() => {
-                            this.props.history.push('/ProfileHistory');
-                            this.setState({ open: false })
-                        }}>Blockchain History</MenuItem>
-                         <MenuItem onClick={() => {
-                            this.props.history.push('/defaulttaks');
+                            this.props.history.push('/settings');
                             this.setState({ open: false })
                         }}>Settings</MenuItem>
                         <MenuItem onClick={this.logout}>Logout</MenuItem>
