@@ -5,8 +5,8 @@ import FormControl from '@material-ui/core/FormControl';
 /* Redux Imports */
 import { Field, reduxForm } from 'redux-form';
 /* Global Imports */
-import GlobalTextField from '../../../../Global/Components/GlobalTextField';
-import LoaderButton from '../../../../Global/Components/LoaderButton'
+import GlobalTextField from '../../../../../Global/Components/GlobalTextField';
+import LoaderButton from '../../../../../Global/Components/LoaderButton'
 
 
 class UserCompanyData extends Component {
