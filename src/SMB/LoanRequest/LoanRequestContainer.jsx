@@ -390,8 +390,12 @@ function mapStateToProps(state) {
     let totalRows = _get(state, 'LoanRequest.lookUpData.total_rows', 0);
     let isFetching = _get(state, 'LoanRequest.isFetching', false);
     return {
-        loanData: loanDataSelector(state), TableData: tableDataSelector(state), companyId,
-        totalRows, filterData: filterDataSelector(state), isFetching
+        loanData: loanDataSelector(state),
+        TableData: tableDataSelector(state),
+        companyId,
+        totalRows, 
+        filterData: filterDataSelector(state),
+        isFetching
     }
 
 }
