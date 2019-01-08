@@ -194,13 +194,16 @@ class CardTable extends Component {
                         />
 
                         {
-                            false ?
-                                <div className="layover">
-                                    <div className="loader">
-                                        <CircularProgress size={50} />
-                                    </div>
-                                </div> :
-                                null
+                            /* 
+                            ! Old Loader - Hard Remove Required 
+                                this.props.loader ?
+                                    <div className="layover">
+                                        <div className="loader">
+                                            <CircularProgress size={50} />
+                                        </div>
+                                    </div> :
+                                    null
+                            */
                         }
 
 
