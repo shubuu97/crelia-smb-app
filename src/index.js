@@ -139,10 +139,6 @@ ReactDOM.render(
                   <RouteWithLayout Layout={MainLayout} exact path="/notifications" Component={sidebarLayout(Notifications)} />
                   <RouteWithLayout Layout={MainLayout} exact path="/account" Component={sidebarLayout(AccountSMB)} />
                   {RoutesConfig.map(rconfig => <RouteWithLayout Layout={MainLayout} exact path={rconfig.path} Component={rconfig.Component} />)}
-
-
-
-
                 </div>
               </Switch>
             </Router>
