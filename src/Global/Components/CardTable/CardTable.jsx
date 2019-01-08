@@ -190,10 +190,11 @@ class CardTable extends Component {
                         <Heading
                             hideHeader={this.props.hideHeader}
                             headingData={_get(this, 'props.headingData', this.state.headingData)}
+                            loader={this.props.loader}
                         />
 
                         {
-                            this.props.loader ?
+                            false ?
                                 <div className="layover">
                                     <div className="loader">
                                         <CircularProgress size={50} />

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import _get from 'lodash/get';
 /* Material Imports*/
-import Button from '@material-ui/core/Button';
+import LinearProgress from '@material-ui/core/LinearProgress';
 /* Redux Imports */
 import { connect } from 'react-redux';
 
@@ -40,9 +40,20 @@ class Heading extends Component {
 
     render() {
         return (
-            <div className="table-head sticky" style={{ top: this.state.top }}>
-                {this.populateHeading()}
+            <div className='table-head sticky' style={{ top: this.state.top }}>
+                <div className="heading-part" >
+                    {this.populateHeading()}
+                </div>
+                {
+                    this.props.loader ? 
+                    <LinearProgress 
+                        color='primary'
+                    /> :
+                    null
+                }
+                
             </div>
+            
         )
     }
 }
