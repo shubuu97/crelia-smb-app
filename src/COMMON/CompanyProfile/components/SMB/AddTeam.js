@@ -9,7 +9,7 @@ import { Field, reduxForm } from 'redux-form';
 import { APPLICATION_BFF_URL } from '../../../../Redux/urlConstants';
 import { getData } from '../../../../Redux/getAction';
 /* Components*/
-import TeamMemberCard from './DisplayTeam'
+import DisplayTeam from './DisplayTeam'
 import AddTeamForm from './AddTeamForm'
 import sidebar from '../SideBar.js';
 
@@ -110,9 +110,9 @@ class AddTeam extends React.Component {
                             location = {this.props.location}
                         /></li>
                         {this.props.location.pathname=='/team'?this.props.employees.map(option => (
-                            <li className="col-sm-4 mb-20"> <TeamMemberCard data={option} /></li>
+                            <li className="col-sm-4 mb-20"> <DisplayTeam data={option} dispatch={this.props.dispatch} employeeDataFetcher={this.employeeDataFetcher}/></li>
                         )):this.props.shareHolders.map(option => (
-                            <li className="col-sm-4 mb-20"> <TeamMemberCard data={option} /></li>
+                            <li className="col-sm-4 mb-20"> <DisplayTeam data={option} dispatch={this.props.dispatch} employeeDataFetcher={this.employeeDataFetcher}/></li>
                         ))}
                     </ul>
                 </div>
