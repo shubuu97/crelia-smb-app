@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 /* Data Fetcher Imports */
-import genericGetDataFetcher from '../../Global/dataFetch/genericGetData';
 /* Lodash Imports */
 import _get from 'lodash/get';
 
@@ -15,7 +14,7 @@ import TaskList from './component/TaskList';
 
 //selector imports
 import {tableDataSelector} from './selectors/taskListDataSelector'
-import genericPostData from '../../Global/dataFetch/genericPostData';
+import genericPostData from '../../../Global/dataFetch/genericPostData';
 
 class TaskContainer extends Component {
     constructor(props) {

@@ -48,7 +48,7 @@ import RoutesConfig from './COMMON/CompanyProfile/components/RoutesConfig';
 import CompanyOnBoardingContainer from './SMB/CompanyOnBoarding/CompanyOnBoardingContainer';
 import ReviewCOBInfoContainer from './SMB/CompanyOnBoarding/components/ReviewCOBInfo/ReviewCOBInfoContainer.jsx'
 import OnBoardingAcknowlege from './SMB/Acknowledge/OnBoradingAckowledge'
-import AccountSMB from './SMB/MyAccount/MyAccountContainer';
+import AccountSMB from './SMB/Settings/MyAccount/MyAccountContainer';
 import LoanRequestContainer from './SMB/LoanRequest/LoanRequestContainer';
 import CreateRequestContainer from './SMB/CreateRequest/CreateRequestContainer';
 import EquityRequestContainer from './SMB/CreateRequest/EquityRequestContainer';
@@ -56,11 +56,13 @@ import SelectLoanType from './SMB/CreateRequest/components/SelectLoanType';
 import LoanHistoryContainer from './SMB/HistoryPages/LoanHistory/LoanHistoryContainer';
 import LoanOfferHistoryContainer from './SMB/HistoryPages/LoanOfferHistory/LoanOfferHistoryContainer';
 import ProfileHistoryContainer from './SMB/HistoryPages/ProfileHistory/SMBHistoryContainer';
-import  LoanOfferContainer from './SMB/NegotiationOffer/Loan.jsx';
+import LoanOfferContainer from './SMB/NegotiationOffer/Loan.jsx';
 import EquityOfferContainer from './SMB/NegotiationOffer/Equity.jsx';
-import TaskContainer from './SMB/Task/TaskContainer';
-import DefaultTaskDetailsContainer from './SMB/Task/component/TaskDetails/DefaultTaskDetailsContainer';
-import sidebarLayout from './Global/layout/sideBarLayout'
+import TaskContainer from './SMB/Settings/Task/TaskContainer'; 
+import DefaultTaskDetailsContainer from './SMB/Settings/Task/component/TaskDetails/DefaultTaskDetailsContainer';
+import sidebarLayout from './SMB/Settings/settings';
+import Notifications from './SMB/Settings/Notifications/NotificationsContainer';
+
 const generateClassName = createGenerateClassName({
   dangerouslyUseGlobalCSS: true,
   productionPrefix: 'c',
@@ -123,7 +125,6 @@ ReactDOM.render(
                   <RouteWithLayout Layout={MainLayout} exact path="/onboard" Component={CompanyOnBoardingContainer} />
                   <RouteWithLayout Layout={MainLayout} exact path="/onboard/review" Component={ReviewCOBInfoContainer} />
                   <RouteWithLayout Layout={MainLayout} exact path="/OnBoardingAcknowlege" Component={OnBoardingAcknowlege} />
-                  <RouteWithLayout Layout={MainLayout} exact path="/account" Component={sidebarLayout(AccountSMB)} />
                   <RouteWithLayout Layout={MainLayout} exact path='/LoanRequest' Component={LoanRequestContainer}/>
                   <RouteWithLayout Layout={MainLayout} exact path='/ProfileHistory' Component={ProfileHistoryContainer}/>
                   <RouteWithLayout Layout={MainLayout} exact path='/LoanRequest/create' Component={CreateRequestContainer}/>
@@ -135,7 +136,8 @@ ReactDOM.render(
                   <RouteWithLayout Layout={MainLayout} exact path="/equity/offer/:equityId" Component={EquityOfferContainer}/>
                   <RouteWithLayout Layout={MainLayout} exact path="/tasks" Component={TaskContainer}/>
                   <RouteWithLayout Layout={MainLayout} exact path="/settings" Component={sidebarLayout(DefaultTaskDetailsContainer)}/>
-                  
+                  <RouteWithLayout Layout={MainLayout} exact path="/notifications" Component={sidebarLayout(Notifications)} />
+                  <RouteWithLayout Layout={MainLayout} exact path="/account" Component={sidebarLayout(AccountSMB)} />
                   {RoutesConfig.map(rconfig => <RouteWithLayout Layout={MainLayout} exact path={rconfig.path} Component={rconfig.Component} />)}
 
 
