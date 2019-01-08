@@ -60,8 +60,8 @@ import LoanOfferContainer from './SMB/NegotiationOffer/Loan.jsx';
 import EquityOfferContainer from './SMB/NegotiationOffer/Equity.jsx';
 import TaskContainer from './SMB/Settings/Task/TaskContainer'; 
 import DefaultTaskDetailsContainer from './SMB/Settings/Task/component/TaskDetails/DefaultTaskDetailsContainer';
-import sidebarLayout from './SMB/Settings/settings';
-import Notifications from './SMB/Settings/Notifications/NotificationsContainer';
+import SettingsContainer from './SMB/Settings/SettingsContainer';
+import NotificationsContainer from './SMB/Settings/Notifications/NotificationsContainer';
 
 const generateClassName = createGenerateClassName({
   dangerouslyUseGlobalCSS: true,
@@ -135,9 +135,9 @@ ReactDOM.render(
                   <RouteWithLayout Layout={MainLayout} exact path="/loans/offer/:loanId" Component={LoanOfferContainer}/>
                   <RouteWithLayout Layout={MainLayout} exact path="/equity/offer/:equityId" Component={EquityOfferContainer}/>
                   <RouteWithLayout Layout={MainLayout} exact path="/tasks" Component={TaskContainer}/>
-                  <RouteWithLayout Layout={MainLayout} exact path="/settings" Component={sidebarLayout(DefaultTaskDetailsContainer)}/>
-                  <RouteWithLayout Layout={MainLayout} exact path="/notifications" Component={sidebarLayout(Notifications)} />
-                  <RouteWithLayout Layout={MainLayout} exact path="/account" Component={sidebarLayout(AccountSMB)} />
+                  <RouteWithLayout Layout={MainLayout} exact path="/settings" Component={SettingsContainer(DefaultTaskDetailsContainer)}/>
+                  <RouteWithLayout Layout={MainLayout} exact path="/notifications" Component={SettingsContainer(NotificationsContainer)} />
+                  <RouteWithLayout Layout={MainLayout} exact path="/account" Component={SettingsContainer(AccountSMB)} />
                   {RoutesConfig.map(rconfig => <RouteWithLayout Layout={MainLayout} exact path={rconfig.path} Component={rconfig.Component} />)}
                 </div>
               </Switch>

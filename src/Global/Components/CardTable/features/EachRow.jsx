@@ -86,6 +86,9 @@ class PopulateRows extends Component {
             case 'ACTIVE': {
                 return statusIconColor = '#32CD32' //Light Green   
             }
+            case 'ACCEPTED': {
+                return statusIconColor = '#196719' //Dark Green   
+            }
             case 'DECLINED': {
                 return statusIconColor = '#ff0000'; //Red
             }
