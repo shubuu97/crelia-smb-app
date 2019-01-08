@@ -30,6 +30,15 @@ class Notifications extends Component {
                         <div>
                             <div>
                                 <div className="flex-row align-center">
+                                    <span>MY REQUEST STATUS NOTIFICATIONS</span>
+                                    <Switch name="" />
+                                </div>
+                                <div className="switch-notification-text">
+                                    <p>Enable request status notifications to receive notifications on e-mail.</p>
+                                </div>
+                            </div>
+                            <div>
+                                <div className="flex-row align-center">
                                     <span>PROFILE UPDATE NOTIFICATIONS</span>
                                     <Switch name="" />
                                 </div>
