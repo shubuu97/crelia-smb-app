@@ -13,6 +13,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import red from '@material-ui/core/colors/red';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import DeleteIcon from '@material-ui/icons/Delete';
 /* Global Imports */
 import genericPostData from '../../../../Global/dataFetch/genericPostData';
 
@@ -103,62 +104,70 @@ class TeamMemberCard extends React.Component {
         const { classes } = this.props;
         let data = _get(this.props, 'data', {})
         return (
-            <Card className={classes.card}>
-                <CardHeader
-                    avatar={
-                        <Avatar
-                            aria-label="Recipe"
-                            className={classes.avatar}
-                            src={data.profilePictureLink}
-                            alt={data.firstName}
-                        >
-                            {!data.profilePictureLink ? data.firstName.toUpperCase().split('')[0] : null}
-                        </Avatar>
-                    }
-                    action={
-                        <div>
-                            <IconButton
-                                aria-label="More"
-                                aria-owns={this.state.open ? 'long-menu' : undefined}
-                                aria-haspopup="true"
-                                onClick={this.handleClick}
+            <div className='team-card'>
+                <Card className={classes.card}>
+                    <CardHeader
+                        avatar={
+                            <Avatar
+                                aria-label="Recipe"
+                                className={classes.avatar}
+                                src={data.profilePictureLink}
+                                alt={data.firstName}
                             >
-                                <MoreVertIcon />
-                            </IconButton>
-                            <Menu
-                                id="long-menu"
-                                anchorEl={this.state.anchorEl}
-                                open={this.state.open}
-                                onClose={this.handleClose}
-                                PaperProps={{
-                                    style: {
-                                        width: 100,
-                                    },
-                                }}
-                            >
-                                <MenuItem onClick={this.deleteTeam}>Delete</MenuItem>
-                            </Menu>
-                        </div>
-                    }
-                    title={data.firstName.toUpperCase() + ' ' + data.lastName.toUpperCase()}
-                    subheader={data.type}
-                />
+                                {!data.profilePictureLink ? data.firstName.toUpperCase().split('')[0] : null}
+                            </Avatar>
+                        }
+                        action={
+                            <div>
+                                <DeleteIcon 
+                                    className='cursor-pointer' 
+                                    onClick={this.deleteTeam} 
+                                />
 
-                <CardContent>
-                    <Typography component="p">
-                        Designation: {data.designation}
-                    </Typography>
-                    <Typography component="p">
-                        Phone Number: {data.phoneNumber}
-                    </Typography>
-                    <Typography component="p">
-                        email: {data.email}
-                    </Typography>
-                    <Typography component="p">
-                        Linkedin: {data.url}
-                    </Typography>
-                </CardContent>
-            </Card>
+                                {/* <IconButton
+                                    aria-label="More"
+                                    aria-owns={this.state.open ? 'long-menu' : undefined}
+                                    aria-haspopup="true"
+                                    onClick={this.handleClick}
+                                >
+                                    <MoreVertIcon />
+                                </IconButton>
+                                
+                                <Menu
+                                    id="long-menu"
+                                    anchorEl={this.state.anchorEl}
+                                    open={this.state.open}
+                                    onClose={this.handleClose}
+                                    PaperProps={{
+                                        style: {
+                                            width: 100,
+                                        },
+                                    }}
+                                >
+                                    <MenuItem onClick={this.deleteTeam}>Delete</MenuItem>
+                                </Menu> */}
+                            </div>
+                        }
+                        title={data.firstName.toUpperCase() + ' ' + data.lastName.toUpperCase()}
+                        subheader={data.type}
+                    />
+
+                    <CardContent>
+                        <Typography component="p">
+                            Designation: {data.designation}
+                        </Typography>
+                        <Typography component="p">
+                            Phone Number: {data.phoneNumber}
+                        </Typography>
+                        <Typography component="p">
+                            email: {data.email}
+                        </Typography>
+                        <Typography component="p">
+                            Linkedin: {data.url}
+                        </Typography>
+                    </CardContent>
+                </Card>
+            </div>
         );
     }
 }
