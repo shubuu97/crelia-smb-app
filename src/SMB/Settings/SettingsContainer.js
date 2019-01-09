@@ -4,7 +4,8 @@ import _get from 'lodash/get';
 /* Redux Imports */
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-function SideBar(WrappedComponent) {
+
+function SideBar(WrappedComponent, listItems) {
     return class SideBar extends Component {
 
         constructor(props) {
@@ -29,9 +30,14 @@ function SideBar(WrappedComponent) {
                             <div className="col-sm-3" >
                                 <ul className="about-tab">
                                     <li className={_get(this.props, 'location.pathname', "") == "/settings" ? `active` : ``} onClick={() => this.handleRoute('settings')}>Privacy</li>
-                                    <li className={_get(this.props, 'location.pathname', "") == "/account" ? `active` : ``} onClick={() => this.handleRoute('account')}>Acccount</li>
                                     <li className={_get(this.props, 'location.pathname', "") == "/notifications" ? `active` : ``} onClick={() => this.handleRoute('notifications')}>Notifications</li>
+                                    <li className={_get(this.props, 'location.pathname', "") == "/myProfile" ? `active` : ``} onClick={() => this.handleRoute('myProfile')}>My Profile</li>
                                     <li className={_get(this.props, 'location.pathname', "") == "/changePassword" ? `active` : ``} onClick={() => this.handleRoute('changePassword')}>Change Password</li>
+                                    {/* {
+                                        _.map(_get('listItems', []), listItem => {
+                                           return <li className={_get(this.props, 'location.pathname', "") == `/${listItem.path}` ? `active` : ``} onClick={() => this.handleRoute(`${listItem.path}`)}>{listItem.name}</li>
+                                        })
+                                    } */}
                                 </ul>
                             </div>
                             <div className="col-sm-9" >
@@ -49,6 +55,7 @@ function SideBar(WrappedComponent) {
 
 function mapStateToProps(state) {
 }
+
 export default compose(
     connect(mapStateToProps, null),
     SideBar
