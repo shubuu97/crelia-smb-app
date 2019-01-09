@@ -6,9 +6,9 @@ import HistoryParent from '../HistoryParent/HistoryParentContainer';
 import PopulateOfferData from './component/PopulateOfferData';
 import PopulateComparisionOfferData from './component/PopulateComparisionOfferData'
 import DetailedViewParent from '../HistoryParent/component/DetailedViewParent';
- import ComparisonViewParent from '../HistoryParent/component/ComparisonViewParent'
- import basicDataFetcher from '../../../Global/dataFetch/basicDataFetcher';
- import genericPostData from '../../../Global/dataFetch/genericPostData';
+import ComparisonViewParent from '../HistoryParent/component/ComparisonViewParent'
+import basicDataFetcher from '../../../Global/dataFetch/basicDataFetcher';
+import genericPostData from '../../../Global/dataFetch/genericPostData';
 
 
 
@@ -22,8 +22,8 @@ class SMBHistoryContainer extends Component {
     }
 
     componentDidMount() {
+        debugger
         basicDataFetcher(this.props.dispatch).then((data) => {
-            console.log('here', data);
             let reqObj = { transactionIds: _get(data, 'companyDetails.transactionIds', []) }
 
             genericPostData({

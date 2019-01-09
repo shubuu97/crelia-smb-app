@@ -7,6 +7,11 @@ import PropTypes from 'prop-types';
 /* Components Import */
 import CardTable from '../Global/Components/CardTable/CardTable'
 
+
+// Todo : Improve Filter View
+// Todo : Linear Buffer kind loader
+// Todo : 
+
 let dummyFilterData = [
     {
         type: "textbox",
@@ -225,29 +230,38 @@ class CardTableTest extends React.Component {
         return (
             <div className="">
                 <CardTable
-                    /* Table Title */
+                    // ! Table Title
                     title="Test"
                   
-
-                    /* Row Data
-                    Take reference from the dummy data above */
+                    // ! Row Data
+                    // * This is where you feed data to the table.
+                    // * Take reference from the dummy data above.
                     data={dummyRowData}
 
-                    /* headingData prop can be sent to name Heading according to your preference or Headings will be picked up from the data key */
-                    
-                    // headingData={["hello", "hello"]}
+                    // ! Table Headings
+                    // * 'headingData' prop can be sent to name Heading according to your preference 
+                    // * if you choose not to pass 'headingData' - Headings will be picked up from your data's key 
 
+                    // //headingData={["hello", "hello"]}
+
+                    // ! Heading Button
                     headingButtons={
                         [
                             { Title: 'Add New', className: "mb-10 ", actionEvent: this.redirectToMakeOffer },
                         ]
                     }
 
+                    // ! Search Bar
+                    // Todo : Need to work on Global Search locally and through api
                     searchOption={
                         {actionEvent: this.searchAction}
                     }
 
-                    /* Action Props */
+                    // ! Action Props
+                    // * Menu Actions & Solo Actions have 
+                        // * 'Title' prop to give label to each list; 
+                        // * 'actionEvent' prop to send an parent level action; 
+                        // * 'name' prop is needed in case of restricting allowed actions for eachRow;
                     menuActions={
                         [
                             { Title: 'Send For Approval', actionEvent: this.redirectToMakeOffer, name: 'action1' },
@@ -262,36 +276,45 @@ class CardTableTest extends React.Component {
                         ]
                     }
 
-                    /* Extended Row Stuff
+                    // ! Extended Row Stuff
 
-                    **If you provide an Extended component each row will use that customExtendedComponent, else if you provide extended data in the data itself as a key then those will be used for extended view. */
-                    
+                    // * If you provide an Extended component each row will use that customExtendedComponent 
+                        // * 'component' prop requires your custom component 
+                        // * 'action' prop will give you access to row data and row index
+                    // * If you provide extended data in the data itself as a key then those will be used for extended view.
+                        // Todo : Need to improve the view
+
                     extendedComponent={
                         {
                             component : ExtendedComponent, 
                             actionEvent: this.extendedComponentAction
                         }
                     }
+
                     // extendedTableProps={
                     //     {
                     //         title: "hello"
                     //     }
                     // }
 
-                    /* Filter Stuff
-                    take reference from the dummy data above  */
+                    
+                    // ! Filter Stuff
+                    // * Take reference from the dummy data above  
+                        // Todo : Study the filter flow and improve the props
 
                     filterData={dummyFilterData}
                     filterAction={this.fetchingFilterQueryData}
                     filterState={this.state.query}
 
-                    /* Pagination Stuff */
+                    // ! Pagination Stuff
+                        // Todo : Study the pagination flow and improve the props
+
                     onShowSizeChange={this.onShowSizeChange}
                     onPageChange={this.onPageChange}
                     chooseColor={this.chooseColor}
 
-                    /* Loader */
-                    loader={false}
+                    // ! Loader
+                    loader={true}
                 />
             </div>
         );
