@@ -136,30 +136,10 @@ ReactDOM.render(
                   <RouteWithLayout Layout={MainLayout} exact path="/loans/offer/:loanId" Component={LoanOfferContainer}/>
                   <RouteWithLayout Layout={MainLayout} exact path="/equity/offer/:equityId" Component={EquityOfferContainer}/>
                   <RouteWithLayout Layout={MainLayout} exact path="/tasks" Component={TaskContainer}/>
-                  <RouteWithLayout Layout={MainLayout} exact path="/settings" Component={SettingsContainer(DefaultTaskDetailsContainer, [
-  {path: "settings", name: "Privacy"},
-  {path: "notifications", name: " Notifications"},
-  {path: "myProfile", name: "My Profile"},
-  {path: "changePassword", name: "Change Password"}
-])}/>
-                  <RouteWithLayout Layout={MainLayout} exact path="/notifications" Component={SettingsContainer(NotificationsContainer, [
-  {path: "settings", name: "Privacy"},
-  {path: "notifications", name: " Notifications"},
-  {path: "myProfile", name: "My Profile"},
-  {path: "changePassword", name: "Change Password"}
-])} />
-                  <RouteWithLayout Layout={MainLayout} exact path="/myProfile" Component={SettingsContainer(AccountSMB, [
-  {path: "settings", name: "Privacy"},
-  {path: "notifications", name: " Notifications"},
-  {path: "myProfile", name: "My Profile"},
-  {path: "changePassword", name: "Change Password"}
-])} />
-                  <RouteWithLayout Layout={MainLayout} exact path="/changePassword" Component={SettingsContainer(ChangePasswordContainer, [
-  {path: "settings", name: "Privacy"},
-  {path: "notifications", name: " Notifications"},
-  {path: "myProfile", name: "My Profile"},
-  {path: "changePassword", name: "Change Password"}
-])} />
+                  <RouteWithLayout Layout={MainLayout} exact path="/settings" Component={SettingsContainer(DefaultTaskDetailsContainer)}/>
+                  <RouteWithLayout Layout={MainLayout} exact path="/notifications" Component={SettingsContainer(NotificationsContainer)} />
+                  <RouteWithLayout Layout={MainLayout} exact path="/myProfile" Component={SettingsContainer(AccountSMB)} />
+                  <RouteWithLayout Layout={MainLayout} exact path="/changePassword" Component={SettingsContainer(ChangePasswordContainer)} />
                   {RoutesConfig.map(rconfig => <RouteWithLayout Layout={MainLayout} exact path={rconfig.path} Component={rconfig.Component} />)}
                 </div>
               </Switch>

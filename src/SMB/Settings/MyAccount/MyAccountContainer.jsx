@@ -24,6 +24,16 @@ class UserForm extends Component {
         }
     }
 
+    componentWillMount() {
+        const listItemData = [
+            {path: "settings", name: "Privacy"},
+            {path: "notifications", name: " Notifications"},
+            {path: "myProfile", name: "My Profile"},
+            {path: "changePassword", name: "Change Password"}
+        ]
+        this.props.listItem(listItemData);
+    }
+
     componentDidMount() {
         this.basicDataFetcher();
     }

@@ -5,7 +5,7 @@ import _get from 'lodash/get';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 
-function SideBar(WrappedComponent, menuListItems) {
+function SideBar(WrappedComponent) {
     return class SideBar extends Component {
 
         constructor(props) {
@@ -22,6 +22,7 @@ function SideBar(WrappedComponent, menuListItems) {
         }
 
         listItemData = (data) => {
+            console.log(data, 'listitemdata')
             this.setState({listItemData: data})
         }
 
@@ -36,7 +37,7 @@ function SideBar(WrappedComponent, menuListItems) {
                         <div className="row">
                             <div className="col-sm-3" >
                                 <ul className="about-tab">
-                                    {this.state.listItemData.map(listItem => {
+                                    {_get(this.state,'listItemData', []).map(listItem => {
                                         return <li className={_get(this.props, 'location.pathname', "") == `/${listItem.path}` ? `active` : ``} onClick={() => this.handleRoute(`${listItem.path}`)}>{listItem.name}</li>
                                     })}
                                 </ul>
@@ -45,7 +46,7 @@ function SideBar(WrappedComponent, menuListItems) {
                                 <div className="mtrb-12">
                                     <WrappedComponent 
                                         {...this.props}
-                                        listItemData={this.listItemData}
+                                        listItem={this.listItemData}
                                     />
                                 </div>
                             </div>
