@@ -14,7 +14,7 @@ import LoaderButton from '../../../../Global/Components/LoaderButton'
 
 /* CSS Imports*/
 import '../../styles/finance.css';
-import {withRouter} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 //Dialogue import 
 import Dialog from '@material-ui/core/Dialog';
@@ -38,10 +38,10 @@ class FinancialInfoUpload extends React.Component {
     }
 
     cashFlowParseAction = (data) => {
-        this.setState({openModal:true})
+        this.setState({ openModal: true })
     }
 
- 
+
 
     handleUploadFinancial = () => {
         let reqObj = {};
@@ -49,48 +49,48 @@ class FinancialInfoUpload extends React.Component {
 
         if (_get(this.props, 'state.cashFlowlink')) {
 
-            _setWith(reqObj.financialInfo,'cashFlow',[_get(this.props, 'state.cashFlowlink')]);
+            _setWith(reqObj.financialInfo, 'cashFlow', [_get(this.props, 'state.cashFlowlink')]);
 
         }
         else {
             if (_get(this.props, 'initialValues.cashFlow'))
-            _setWith(reqObj.financialInfo,'cashFlow',_get(this.props, 'initialValues.cashFlow'));
+                _setWith(reqObj.financialInfo, 'cashFlow', _get(this.props, 'initialValues.cashFlow'));
 
         }
         if (_get(this.props, 'state.balanceSheetlink')) {
 
-            _setWith(reqObj.financialInfo,'balanceSheet',[_get(this.props, 'state.balanceSheetlink')]);
+            _setWith(reqObj.financialInfo, 'balanceSheet', [_get(this.props, 'state.balanceSheetlink')]);
 
         }
         else {
             if (_get(this.props, 'initialValues.balanceSheet'))
-            _setWith(reqObj.financialInfo,'balanceSheet',_get(this.props, 'initialValues.balanceSheet'));
+                _setWith(reqObj.financialInfo, 'balanceSheet', _get(this.props, 'initialValues.balanceSheet'));
 
         }
         if (_get(this.props, 'state.incomeStatementlink')) {
-            _setWith(reqObj.financialInfo,'incomeStatement',[_get(this.props, 'state.incomeStatementlink')]);
+            _setWith(reqObj.financialInfo, 'incomeStatement', [_get(this.props, 'state.incomeStatementlink')]);
 
         }
         else {
             if (_get(this.props, 'initialValues.incomeStatement'))
-            _setWith(reqObj.financialInfo,'incomeStatement',_get(this.props, 'initialValues.incomeStatement'));
+                _setWith(reqObj.financialInfo, 'incomeStatement', _get(this.props, 'initialValues.incomeStatement'));
 
         }
         if (_get(this.props, 'state.businessPlanlink')) {
-            _setWith(reqObj.financialInfo,'businessPlan',[_get(this.props, 'state.businessPlanlink')]);
+            _setWith(reqObj.financialInfo, 'businessPlan', [_get(this.props, 'state.businessPlanlink')]);
         }
         else {
             if (_get(this.props, 'initialValues.businessPlanlink'))
-            _setWith(reqObj.financialInfo,'businessPlan',_get(this.props, 'initialValues.businessPlanlink'));
+                _setWith(reqObj.financialInfo, 'businessPlan', _get(this.props, 'initialValues.businessPlanlink'));
 
         }
         if (_get(this.props, 'state.forecastlink')) {
-            _setWith(reqObj.financialInfo,'forecast',[_get(this.props, 'state.forecastlink')]);
+            _setWith(reqObj.financialInfo, 'forecast', [_get(this.props, 'state.forecastlink')]);
 
         }
         else {
             if (_get(this.props, 'initialValues.forecast'))
-            _setWith(reqObj.financialInfo,'forecast',_get(this.props, 'initialValues.businessPlanlink'));
+                _setWith(reqObj.financialInfo, 'forecast', _get(this.props, 'initialValues.businessPlanlink'));
 
         }
         if (_get(this.props, 'initialValues.loanProvider')) {
@@ -100,7 +100,7 @@ class FinancialInfoUpload extends React.Component {
             reqObj.financialInfo.financialData = _get(this.props, 'initialValues.financialData')
         }
         this.setState({ reqObj: reqObj })
-        this.props.handleNext(reqObj,()=>this.setState({openModal:false}));
+        this.props.handleNext(reqObj, () => this.setState({ openModal: false }));
     }
 
     handleReview = () => {
@@ -113,10 +113,10 @@ class FinancialInfoUpload extends React.Component {
         return (
             <React.Fragment>
                 <div className="row justify-content-between ">
-                <div className="col-sm-12"><span className="onboarding-sub-title">Financial Statement for last three years</span></div>
+                    <div className="col-sm-12"><span className="onboarding-sub-title">Financial Statement for last three years</span></div>
                     <div className="col-sm-4">
                         <DropzoneArea
-                           title='1.Cash Flow'
+                            title='1.Cash Flow'
                             fieldName='cashFlow'
                             onDrop={this.props.onDrop}
                             afterParseFunction={this.cashFlowParseAction}
@@ -148,7 +148,7 @@ class FinancialInfoUpload extends React.Component {
                         />
                     </div>
                     <div className="col-sm-6">
-                    <div className="col-sm-12"><span className="onboarding-sub-title">Business Plan</span></div>
+                        <div className="col-sm-12"><span className="onboarding-sub-title">Business Plan</span></div>
                         <DropzoneArea
                             fieldName='businessPlan'
                             progress={_get(this.props, 'state.businessPlanuploadProgress')}
@@ -157,7 +157,7 @@ class FinancialInfoUpload extends React.Component {
                         />
                     </div>
                     <div className="col-sm-6">
-                    <div className="col-sm-12"><span className="onboarding-sub-title">2019 Forecast (optional)</span></div>
+                        <div className="col-sm-12"><span className="onboarding-sub-title">2019 Forecast (optional)</span></div>
 
                         <DropzoneArea
                             progress={_get(this.props, 'state.forecastuploadProgress')}
@@ -191,20 +191,20 @@ class FinancialInfoUpload extends React.Component {
                         }
                     </div>
                     <Dialog
-          open={this.state.openModal}
-          onClose={()=>this.setState({openModal:false})}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <DialogTitle id="alert-dialog-title">{"Preview Your Data and Confirm"}</DialogTitle>
-          <DialogContent>
-            <ParseInfo/>
-          </DialogContent>
-          <DialogActions>
-          <Button color='primary' variant='outlined' onClick={()=>this.setState({openModal:false})}>Re-upload Statements</Button>
-                <LoaderButton isFetching={this.props.isFetchingSave} color='primary' variant='contained' onClick={this.handleUploadFinancial}>Confirm Statements</LoaderButton>
-          </DialogActions>
-        </Dialog>
+                        open={this.state.openModal}
+                        onClose={() => this.setState({ openModal: false })}
+                        aria-labelledby="alert-dialog-title"
+                        aria-describedby="alert-dialog-description"
+                    >
+                        <DialogTitle id="alert-dialog-title">{"Preview Your Data and Confirm"}</DialogTitle>
+                        <DialogContent>
+                            <ParseInfo />
+                        </DialogContent>
+                        <DialogActions>
+                            <Button color='primary' variant='outlined' onClick={() => this.setState({ openModal: false })}>Re-upload Statements</Button>
+                            <LoaderButton isFetching={this.props.isFetchingSave} color='primary' variant='contained' onClick={this.handleUploadFinancial}>Confirm Statements</LoaderButton>
+                        </DialogActions>
+                    </Dialog>
                 </div>
             </React.Fragment>
         );
@@ -223,7 +223,7 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps)(state(
-  withRouter(  decorateWithOnDrop(
+    withRouter(decorateWithOnDrop(
         FinancialInfoUpload)
     ))
 );

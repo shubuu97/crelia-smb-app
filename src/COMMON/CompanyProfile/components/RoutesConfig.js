@@ -3,7 +3,7 @@ import About from './SMB/About';
 import ContactsSMB from './SMB/Contacts';
 import Legal from './SMB/legal';
 import MarketingMaterial from './SMB/marketingMaterial';
-import AddTeam from './SMB/AddTeam.js';
+import AddTeam from './SMB/AddTeam';
 import BeneficiaryShareholder from './SMB/BeneficiaryShareholders';
 import Financial from './SMB/financials';
 import onBoarding from './SMB/onBoardingView/ReviewCOBInfoContainer'

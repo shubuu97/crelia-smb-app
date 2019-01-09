@@ -53,7 +53,8 @@ class TeamMemberCard extends React.Component {
         expanded: false ,
         anchorEl: null,
         setAnchorEl: null,
-        open: false
+        open: false,
+        editFormData: {}
     };
 
     handleExpandClick = () => {
@@ -76,6 +77,10 @@ class TeamMemberCard extends React.Component {
         })
     }
 
+    handleEdit = () => {
+        this.props.editTeamMem(_get(this.props, 'data', {}))
+    }
+
     deleteTeam = () => {
         let id = _get(this, 'props.data.id', {})
         genericPostData({
@@ -95,7 +100,6 @@ class TeamMemberCard extends React.Component {
     }
 
     deleteSuccess = () => {
-        debugger
         this.props.employeeDataFetcher()
         this.handleClose()
     }
@@ -119,6 +123,11 @@ class TeamMemberCard extends React.Component {
                         }
                         action={
                             <div>
+                                <span
+                                    onClick={this.handleEdit}
+                                >
+                                    edit
+                                </span>
                                 <DeleteIcon 
                                     className='cursor-pointer' 
                                     onClick={this.deleteTeam} 
