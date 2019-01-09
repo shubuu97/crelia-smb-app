@@ -129,7 +129,6 @@ class AddTeamForm extends React.Component {
 
                 this.props.dispatch(showMessage({}));
                 this.props.employeeDataFetcher();
-
             }, 1000);
             this.props.reset()
         })
@@ -260,7 +259,7 @@ AddTeamForm.propTypes = {
 };
 
 AddTeamForm = reduxForm({
-    form: 'AddTeamForm',
+    form: 'AddTeamForm'
 })(AddTeamForm)
 
 const state = withState('state', 'setState', '')
