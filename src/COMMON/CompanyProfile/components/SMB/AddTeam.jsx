@@ -3,6 +3,13 @@ import PropTypes from "prop-types";
 import _get from 'lodash/get';
 /* Material Imports */
 import { withStyles } from "@material-ui/core/styles";
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Slide from '@material-ui/core/Slide';
 /* Redux Imports*/
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
@@ -55,7 +62,16 @@ const styles = theme => ({
 });
 
 
+
+
 class AddTeam extends React.Component {
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            open: false
+        }
+    }
 
     componentDidMount() {
         this.employeeDataFetcher()
@@ -71,10 +87,9 @@ class AddTeam extends React.Component {
             })
         ).then((data) => {
             let resource = encodeURIComponent('resource:' + data.companyDetails.$class + '#' + data.companyDetails.id)
-            let deciderKey='';
+            let deciderKey = '';
             let constants = {}
-            if(this.props.location.pathname == '/team')
-            {
+            if (this.props.location.pathname == '/team') {
                 deciderKey = 'ActiveTempEmployeesWithTempCompanyId';
                 constants = {
                     init: 'getEmployeeList_init',
@@ -82,7 +97,7 @@ class AddTeam extends React.Component {
                     error: 'getEmployeeList_error'
                 }
             }
-            else{
+            else {
                 deciderKey = 'ActiveTempShareHoldersWithTempCompanyId';
                 constants = {
                     init: 'getshareHolderList_init',
@@ -90,11 +105,23 @@ class AddTeam extends React.Component {
                     error: 'getshareHolderList_error'
                 }
             }
-            
+
             this.props.dispatch(
                 getData(`${APPLICATION_BFF_URL}/api/queries/${deciderKey}?resourceId=${resource}`, 'getEmployeeList-data', constants)
             )
         })
+    }
+
+    handleClickOpen = () => {
+
+    }
+
+    handleClose = () => {
+
+    }
+
+    Transition = () => {
+
     }
 
     render() {
@@ -103,19 +130,27 @@ class AddTeam extends React.Component {
             <div className={classes.root}>
                 <div className="row">
                     <ul className="staff-block">
-                        <li className="col-sm-4 mb-20"> <AddTeamForm
-                            type={this.props.location.pathname == '/team' ? 'Add Team' : 'Add Benificiary'}
-                            employeeDataFetcher={this.employeeDataFetcher
-                            }
-                            location = {this.props.location}
-                        /></li>
-                        {this.props.location.pathname=='/team'?this.props.employees.map(option => (
-                            <li className="col-sm-4 mb-20"> <DisplayTeam data={option} dispatch={this.props.dispatch} employeeDataFetcher={this.employeeDataFetcher}/></li>
-                        )):this.props.shareHolders.map(option => (
-                            <li className="col-sm-4 mb-20"> <DisplayTeam data={option} dispatch={this.props.dispatch} employeeDataFetcher={this.employeeDataFetcher}/></li>
+                        <li className="col-sm-4 mb-20">
+                            <AddTeamForm
+                                type={this.props.location.pathname == '/team' ? 'Add Team' : 'Add Benificiary'}
+                                employeeDataFetcher={this.employeeDataFetcher}
+                                location={this.props.location}
+                            />
+                        </li>
+                        {this.props.location.pathname == '/team' ? this.props.employees.map(option => (
+                            <li className="col-sm-4 mb-20">
+                                <DisplayTeam data={option} dispatch={this.props.dispatch} employeeDataFetcher={this.employeeDataFetcher} editTeamMem={this.editTeamMem} />
+                            </li>
+                        )) : this.props.shareHolders.map(option => (
+                            <li className="col-sm-4 mb-20">
+                                <DisplayTeam data={option} dispatch={this.props.dispatch} employeeDataFetcher={this.employeeDataFetcher} editTeamMem={this.editTeamMem} />
+                            </li>
                         ))}
                     </ul>
                 </div>
+
+
+
             </div>
         );
     }
@@ -132,7 +167,7 @@ AddTeam = reduxForm({
 function mapStateToProps(state) {
     let id = _get(state, 'BasicInfo.lookUpData.companyDetails.id');
     let employees = _get(state, 'EmployeeList.lookUpData', []);
-    let shareHolders = _get(state,'shareHolders.lookUpData',[]);
+    let shareHolders = _get(state, 'shareHolders.lookUpData', []);
     return {
         employees,
         id,

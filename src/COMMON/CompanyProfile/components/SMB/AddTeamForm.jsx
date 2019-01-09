@@ -23,7 +23,6 @@ import GlobalTextField from '../../../../Global/Components/GlobalTextField'
 import SelectField from '../../../../Global/Components/Select'
 import DropzoneArea from '../../../../Global/dropzone/dropzoneArea';
 import dropzoneHandler from '../../../../Global/dropzone/onDropDecorater';
-import AddTeam from './AddTeam';
 
 const styles = theme => ({
     root: {
@@ -132,6 +131,7 @@ class AddTeamForm extends React.Component {
                 this.props.employeeDataFetcher();
 
             }, 1000);
+            this.props.reset()
         })
             .catch((err) => {
                 console.log('Error in adding employee-', err)
