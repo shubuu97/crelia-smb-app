@@ -15,7 +15,7 @@ import UserCompanyData from './components/Account/UserCompanyData'
 
 var jwtDecode = require('jwt-decode');
 
-class UserForm extends Component {
+class MyProfile extends Component {
 
     constructor() {
         super();
@@ -134,6 +134,6 @@ function mapStateToProps(state) {
     return { userData, username, isFetchingUpdateSMBUser }
 }
 
-UserForm = connect(mapStateToProps)(UserForm)
+MyProfile = connect(mapStateToProps)(MyProfile)
 
-export default UserForm;
+export default MyProfile;
