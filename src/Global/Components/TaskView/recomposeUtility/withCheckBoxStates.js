@@ -53,7 +53,7 @@ const modifyName = (name) => {
             break;
     }
 }
-
+//when checkboxes are checked this function being called
 const handleChange = props => name => event => {
     debugger;
     let allFields = { ...props.fields };
@@ -64,8 +64,9 @@ const handleChange = props => name => event => {
         allFields['FINANCIALINFO_LOANPROVIDER_PROVIDERNAME'] = event.target.checked;
         allFields['FINANCIALINFO_LOANPROVIDER_AMOUNT'] = event.target.checked;
     };
-    if (name == 'FINANCIALINFO_FINANCIALDATA') {
-        delete allFields.FINANCIALINFO_FINANCIALDATA;
+    if (name == 'FINANCIALINFO_FINANCIALDATA_YEAR') {
+        debugger;
+        //delete allFields.FINANCIALINFO_FINANCIALDATA;
         allFields['FINANCIALINFO_FINANCIALDATA_YEAR'] = event.target.checked;
         allFields['FINANCIALINFO_FINANCIALDATA_SALES'] = event.target.checked
         allFields['FINANCIALINFO_FINANCIALDATA_EBITDA'] = event.target.checked;
@@ -77,6 +78,8 @@ const handleChange = props => name => event => {
     props.FieldAccessReqTask(allFields);
     return { [name]: event.target.checked };
 };
+//when switch are checked this function being called
+
 const withSwitchState = props => (name, value) => {
     debugger;
     let allFields = { ...props.fields };
@@ -120,10 +123,12 @@ const withSwitchState = props => (name, value) => {
         allFields['TAXCERTIFICATELINK'] =props.companyDetails.TaxCertificateLink?value:null
     }
     else if (name == 'Provider Details') {
+        debugger;
         allFields['FINANCIALINFO_LOANPROVIDER_PROVIDERNAME'] = value;
         allFields['FINANCIALINFO_LOANPROVIDER_AMOUNT'] = value;
     }
-    else if ('Financial Data') {
+    else if (name == 'Financial Details') {
+        debugger;
         allFields['FINANCIALINFO_FINANCIALDATA_YEAR'] = value;
         allFields['FINANCIALINFO_FINANCIALDATA_SALES'] = value
         allFields['FINANCIALINFO_FINANCIALDATA_EBITDA'] = value;

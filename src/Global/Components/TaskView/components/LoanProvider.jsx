@@ -15,7 +15,7 @@ const LoanProvider = (props) => {
                     <span>Requested Fields</span>
                     <div className="flex-row align-center switch-text">
                         <Switch
-                            name={props.header}
+                            name={'Provider Details'}
                             onChange={props.withSwitchState}
                         />Select All
                     </div>

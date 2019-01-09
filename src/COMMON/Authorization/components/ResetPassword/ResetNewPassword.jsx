@@ -26,7 +26,7 @@ const styles = theme => ({
   }
 });
 
-class ChangePassword extends Component {
+class ResetNewPassword extends Component {
 
   constructor(props) {
     super(props);
@@ -132,20 +132,20 @@ class ChangePassword extends Component {
   }
 }
 
-ChangePassword = reduxForm({
+ResetNewPassword = reduxForm({
   form: 'changePassForm',
   asyncValidate,
-})(ChangePassword);
+})(ResetNewPassword);
 
-ChangePassword = withStyles(styles)(ChangePassword);
+ResetNewPassword = withStyles(styles)(ResetNewPassword);
 
 function mapStateToProps(state) {
 
   let isFetching = _get(state, 'LoginData.isFetching', false);
   return { isFetching };
 }
-export default connect(mapStateToProps)(ChangePassword)
+export default connect(mapStateToProps)(ResetNewPassword)
 
-ChangePassword.propTypes = {
+ResetNewPassword.propTypes = {
   classes: PropTypes.object.isRequired,
 };

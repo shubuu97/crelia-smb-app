@@ -80,7 +80,7 @@ const PopulateDataDetails = (props) => {
                 <div className="col-sm-4">
                     <GeneralView
                         companyDetails={parseData.address}
-                        header="Company Details"
+                        header="Address Details"
                     />
                 </div>
                 <div className="col-sm-4">

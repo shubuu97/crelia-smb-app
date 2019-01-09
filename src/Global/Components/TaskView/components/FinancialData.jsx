@@ -6,6 +6,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import withLogic from '../recomposeUtility/withLogic';
 /* Global Imports */
 import Switch from '../../switchControl';
+import modifyName from '../dataUtility/parseDataBeforeSubmit';
 
 const FinancialDataTable = (props) => {
     return (
@@ -18,7 +19,7 @@ const FinancialDataTable = (props) => {
                     <span>Requested Fields</span>
                     <div className="flex-row align-center switch-text">
                         <Switch
-                            name={props.header}
+                            name={'Financial Details'}
                             onChange={props.withSwitchState}
                         />Select All
                     </div>
@@ -30,9 +31,9 @@ const FinancialDataTable = (props) => {
                                 control={
                                     <Checkbox
                                             color="primary"
-                                            checked={props.key}
-                                            onChange={props.handleChange('FINANCIALINFO_FINANCIALDATA')}
-                                            value={'FINANCIALINFO_FINANCIALDATA'}
+                                            checked={JSON.parse(props.fields[modifyName(`FINANCIALINFO_FINANCIALDATA_YEAR`).toUpperCase()] || false)}
+                                            onChange={props.handleChange('FINANCIALINFO_FINANCIALDATA_YEAR')}
+                                            value={'FINANCIALINFO_FINANCIALDATA_YEAR'}
                                         />
                                 }
                             />

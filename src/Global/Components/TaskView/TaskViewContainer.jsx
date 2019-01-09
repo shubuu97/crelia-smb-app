@@ -155,7 +155,6 @@ const PopulateDataDetails = (props) => {
             }
         }
     });
-    console.log(data, "boldonazara")
 
     return (
         <div>

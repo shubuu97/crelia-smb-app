@@ -37,7 +37,7 @@ import HistoryViewTest from './xBoilerplate/HistoryViewTest'
 import SignIn from './COMMON/Authorization/AuthorizationContainer'
 import Reset from './COMMON/Authorization/components/ResetPassword/resetPassword';
 import PasswordSent from './COMMON/Authorization/components/ResetPassword/passwordSent';
-import ChangePassword from './COMMON/Authorization/components/ResetPassword/changePassword';
+import ResetNewPassword from './COMMON/Authorization/components/ResetPassword/ResetNewPassword';
 import RegistrationSuccess from './COMMON/Authorization/components/Registration/RegistrationSuccess';
 import Registration from './COMMON/Authorization/components/Registration/Register';
 import SetPassword from './COMMON/Authorization/components/SetPassword/setPassword';
@@ -62,6 +62,7 @@ import TaskContainer from './SMB/Settings/Task/TaskContainer';
 import DefaultTaskDetailsContainer from './SMB/Settings/Task/component/TaskDetails/DefaultTaskDetailsContainer';
 import SettingsContainer from './SMB/Settings/SettingsContainer';
 import NotificationsContainer from './SMB/Settings/Notifications/NotificationsContainer';
+import ChangePasswordContainer from './SMB/Settings/ChangePassword/ChangePasswordContainer';
 
 const generateClassName = createGenerateClassName({
   dangerouslyUseGlobalCSS: true,
@@ -116,8 +117,8 @@ ReactDOM.render(
                   <RouteWithLayout Layout={SignInLayout} exact path="/" Component={SignIn} />
                   <RouteWithLayout Layout={SignInLayout} exact path="/register" Component={Registration} />
                   <RouteWithLayout Layout={SignInLayout} exact path="/registerSuccess" Component={RegistrationSuccess} />
-                  <RouteWithLayout Layout={SignInLayout} exact path="/changePassword" Component={ChangePassword} />
-                  <RouteWithLayout Layout={SignInLayout} exact path="/passwordSent" Component={PasswordSent} />
+                  <RouteWithLayout Layout={SignInLayout} exact path="/reset/changePassword" Component={ResetNewPassword} />
+                  <RouteWithLayout Layout={SignInLayout} exact path="/reset/passwordSent" Component={PasswordSent} />
                   <RouteWithLayout Layout={SignInLayout} exact path="/reset" Component={Reset} />
                   <RouteWithLayout Layout={SignInLayout} exact path="/setPassword" Component={SetPassword} />
                   <RouteWithLayout Layout={SignInLayout} exact path="/signInRejected" Component={signInRejected} />
@@ -138,6 +139,7 @@ ReactDOM.render(
                   <RouteWithLayout Layout={MainLayout} exact path="/settings" Component={SettingsContainer(DefaultTaskDetailsContainer)}/>
                   <RouteWithLayout Layout={MainLayout} exact path="/notifications" Component={SettingsContainer(NotificationsContainer)} />
                   <RouteWithLayout Layout={MainLayout} exact path="/account" Component={SettingsContainer(AccountSMB)} />
+                  <RouteWithLayout Layout={MainLayout} exact path="/changePassword" Component={SettingsContainer(ChangePasswordContainer)} />
                   {RoutesConfig.map(rconfig => <RouteWithLayout Layout={MainLayout} exact path={rconfig.path} Component={rconfig.Component} />)}
                 </div>
               </Switch>

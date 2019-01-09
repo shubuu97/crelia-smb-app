@@ -31,6 +31,7 @@ function SideBar(WrappedComponent) {
                                     <li className={_get(this.props, 'location.pathname', "") == "/settings" ? `active` : ``} onClick={() => this.handleRoute('settings')}>Privacy</li>
                                     <li className={_get(this.props, 'location.pathname', "") == "/account" ? `active` : ``} onClick={() => this.handleRoute('account')}>Acccount</li>
                                     <li className={_get(this.props, 'location.pathname', "") == "/notifications" ? `active` : ``} onClick={() => this.handleRoute('notifications')}>Notifications</li>
+                                    <li className={_get(this.props, 'location.pathname', "") == "/changePassword" ? `active` : ``} onClick={() => this.handleRoute('changePassword')}>Change Password</li>
                                 </ul>
                             </div>
                             <div className="col-sm-9" >

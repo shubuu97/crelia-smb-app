@@ -5,10 +5,10 @@ let parseData = {
         IndustryType:'INDUSTRYTYPE',
         LegalEntityType:'LEGALENTITYTYPE',
         IncorporationDate:'INCORPORATIONDATE',
-        taxId:'TAXID',
+        TaxId:'TAXID',
         RegistrationNumber:'REGISTRATIONNUMBER',
-        licenseNumber:'LICENSENUMBER',
-        numberOfEmployees:'NUMBEROFEMPLOYEES',
+        LicenseNumber:'LICENSENUMBER',
+        NumberOfEmployees:'NUMBEROFEMPLOYEES',
     },
     address: {
         'Street-1':'ADDRESS_LINE1',
