@@ -7,17 +7,22 @@ import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import Slide from '@material-ui/core/Slide';
+import Grid from '@material-ui/core/Grid';
 /* Redux Imports*/
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { APPLICATION_BFF_URL } from '../../../../Redux/urlConstants';
 import { getData } from '../../../../Redux/getAction';
+/* Global Imports*/
+import GlobalTextField from '../../../../Global/Components/GlobalTextField'
+import SelectField from '../../../../Global/Components/Select'
+import DropzoneArea from '../../../../Global/dropzone/dropzoneArea';
+import dropzoneHandler from '../../../../Global/dropzone/onDropDecorater';
 /* Components*/
 import DisplayTeam from './DisplayTeam'
 import AddTeamForm from './AddTeamForm'
+import UpdateTeamDialogue from './UpdateTeamDialogue'
 import sidebar from '../SideBar.js';
 
 var jwtDecode = require('jwt-decode');
@@ -62,14 +67,13 @@ const styles = theme => ({
 });
 
 
-
-
 class AddTeam extends React.Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            open: false
+            openModal: false,
+            editTeam: {}
         }
     }
 
@@ -112,16 +116,37 @@ class AddTeam extends React.Component {
         })
     }
 
-    handleClickOpen = () => {
+    editTeamMem = (data) => {
+        let designation = ''
+        let urlToHit='';
+        if (this.props.location.pathname == '/beneficiary') {
+            urlToHit = '/api/SaveShareHolder';
+            designation = 'Benificiary ShareHolder';
+        }
+        else {
+            urlToHit = '/api/SaveEmployee';
+            designation = data.designation
 
+        }
+        this.setState({
+            openModal: true,
+            editTeam: {
+                firstName: data.firstName,
+                lastName: data.lastName,
+                phoneNumber: data.phoneNumber,
+                email: data.email,
+                url: data.url,
+                photo: data.photo,
+                designation: data.designation,
+                id: data.id
+            }
+        })
     }
 
-    handleClose = () => {
-
-    }
-
-    Transition = () => {
-
+    closeModal = () => {
+        this.setState({
+            openModal: false
+        })
     }
 
     render() {
@@ -149,7 +174,13 @@ class AddTeam extends React.Component {
                     </ul>
                 </div>
 
-
+                <UpdateTeamDialogue
+                    initialValues={this.state.editTeam}
+                    openModal={this.state.openModal}
+                    closeModal={this.closeModal}
+                    location={this.props.location}
+                    employeeDataFetcher={this.employeeDataFetcher}
+                />
 
             </div>
         );

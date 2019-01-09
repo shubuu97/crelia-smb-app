@@ -77,6 +77,10 @@ class TeamMemberCard extends React.Component {
         })
     }
 
+    handleEdit = () => {
+        this.props.editTeamMem(_get(this.props, 'data', {}))
+    }
+
     deleteTeam = () => {
         let id = _get(this, 'props.data.id', {})
         genericPostData({
@@ -96,7 +100,6 @@ class TeamMemberCard extends React.Component {
     }
 
     deleteSuccess = () => {
-        debugger
         this.props.employeeDataFetcher()
         this.handleClose()
     }
