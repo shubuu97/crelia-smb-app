@@ -30,20 +30,20 @@ class Notifications extends Component {
                         <div>
                             <div>
                                 <div className="flex-row align-center">
-                                    <span><b> Loan Request Status</b></span>
+                                    <span><b> Loan Request</b></span>
                                     <Switch name="" />
                                 </div>
                                 <div className="switch-notification-text">
-                                    <p>Enable to receive notifications about request status updates.</p>
+                                    <p>Enable to receive notifications about request updates.</p>
                                 </div>
                             </div>
                             <div>
                                 <div className="flex-row align-center">
-                                    <span><b>Offer Status</b></span>
+                                    <span><b>Offer</b></span>
                                     <Switch name="" />
                                 </div>
                                 <div className="switch-notification-text">
-                                    <p>Enable to receive notifications about offer status updates.</p>
+                                    <p>Enable to receive notifications about offer updates.</p>
                                 </div>
                             </div>
                             <div>
