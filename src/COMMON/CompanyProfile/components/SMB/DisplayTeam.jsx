@@ -78,6 +78,7 @@ class TeamMemberCard extends React.Component {
     }
 
     handleEdit = () => {
+        this.setState({open: false})
         this.props.editTeamMem(_get(this.props, 'data', {}))
     }
 
