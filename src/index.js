@@ -48,7 +48,7 @@ import RoutesConfig from './COMMON/CompanyProfile/components/RoutesConfig';
 import CompanyOnBoardingContainer from './SMB/CompanyOnBoarding/CompanyOnBoardingContainer';
 import ReviewCOBInfoContainer from './SMB/CompanyOnBoarding/components/ReviewCOBInfo/ReviewCOBInfoContainer.jsx'
 import OnBoardingAcknowlege from './SMB/Acknowledge/OnBoradingAckowledge'
-import AccountSMB from './SMB/Settings/MyAccount/MyAccountContainer';
+import MyProfile from './SMB/Settings/MyProfile/MyProfileContainer';
 import LoanRequestContainer from './SMB/LoanRequest/LoanRequestContainer';
 import CreateRequestContainer from './SMB/CreateRequest/CreateRequestContainer';
 import EquityRequestContainer from './SMB/CreateRequest/EquityRequestContainer';
@@ -138,7 +138,7 @@ ReactDOM.render(
                   <RouteWithLayout Layout={MainLayout} exact path="/tasks" Component={TaskContainer}/>
                   <RouteWithLayout Layout={MainLayout} exact path="/settings" Component={SettingsContainer(DefaultTaskDetailsContainer)}/>
                   <RouteWithLayout Layout={MainLayout} exact path="/notifications" Component={SettingsContainer(NotificationsContainer)} />
-                  <RouteWithLayout Layout={MainLayout} exact path="/myProfile" Component={SettingsContainer(AccountSMB)} />
+                  <RouteWithLayout Layout={MainLayout} exact path="/myProfile" Component={SettingsContainer(MyProfile)} />
                   <RouteWithLayout Layout={MainLayout} exact path="/changePassword" Component={SettingsContainer(ChangePasswordContainer)} />
                   {RoutesConfig.map(rconfig => <RouteWithLayout Layout={MainLayout} exact path={rconfig.path} Component={rconfig.Component} />)}
                 </div>
@@ -154,9 +154,3 @@ ReactDOM.render(
 
 //Side Bar Data to make it dynamic
 
-// , [
-//   {path: "settings", name: "Privacy"},
-//   {path: "account", name: "Account"},
-//   {path: "notifications", name: " Notifications"},
-//   {path: "changePassword", name: "Change Password"}
-// ]

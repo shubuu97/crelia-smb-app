@@ -15,13 +15,23 @@ import UserCompanyData from './components/Account/UserCompanyData'
 
 var jwtDecode = require('jwt-decode');
 
-class UserForm extends Component {
+class MyProfile extends Component {
 
     constructor() {
         super();
         this.state = {
             value: 0,
         }
+    }
+
+    componentWillMount() {
+        const listItemData = [
+            {path: "settings", name: "Privacy"},
+            {path: "notifications", name: " Notifications"},
+            {path: "myProfile", name: "My Profile"},
+            {path: "changePassword", name: "Change Password"}
+        ]
+        this.props.listItem(listItemData);
     }
 
     componentDidMount() {
@@ -124,6 +134,6 @@ function mapStateToProps(state) {
     return { userData, username, isFetchingUpdateSMBUser }
 }
 
-UserForm = connect(mapStateToProps)(UserForm)
+MyProfile = connect(mapStateToProps)(MyProfile)
 
-export default UserForm;
+export default MyProfile;

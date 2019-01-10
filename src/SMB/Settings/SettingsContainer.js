@@ -5,17 +5,25 @@ import _get from 'lodash/get';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 
-function SideBar(WrappedComponent, listItems) {
+function SideBar(WrappedComponent) {
     return class SideBar extends Component {
 
         constructor(props) {
-            super(props)
+            super(props);
+            this.state = {
+                listItemData: []
+            }
         }
 
         handleRoute = (type) => {
             console.log(this.props, "props is here");
             if (this.props.location.pathname != `/${type}`)
                 this.props.history.push(`/${type}`);
+        }
+
+        listItemData = (data) => {
+            console.log(data, 'listitemdata')
+            this.setState({listItemData: data})
         }
 
         render() {
@@ -29,20 +37,17 @@ function SideBar(WrappedComponent, listItems) {
                         <div className="row">
                             <div className="col-sm-3" >
                                 <ul className="about-tab">
-                                    <li className={_get(this.props, 'location.pathname', "") == "/settings" ? `active` : ``} onClick={() => this.handleRoute('settings')}>Privacy</li>
-                                    <li className={_get(this.props, 'location.pathname', "") == "/notifications" ? `active` : ``} onClick={() => this.handleRoute('notifications')}>Notifications</li>
-                                    <li className={_get(this.props, 'location.pathname', "") == "/myProfile" ? `active` : ``} onClick={() => this.handleRoute('myProfile')}>My Profile</li>
-                                    <li className={_get(this.props, 'location.pathname', "") == "/changePassword" ? `active` : ``} onClick={() => this.handleRoute('changePassword')}>Change Password</li>
-                                    {/* {
-                                        _.map(_get('listItems', []), listItem => {
-                                           return <li className={_get(this.props, 'location.pathname', "") == `/${listItem.path}` ? `active` : ``} onClick={() => this.handleRoute(`${listItem.path}`)}>{listItem.name}</li>
-                                        })
-                                    } */}
+                                    {_get(this.state,'listItemData', []).map(listItem => {
+                                        return <li className={_get(this.props, 'location.pathname', "") == `/${listItem.path}` ? `active` : ``} onClick={() => this.handleRoute(`${listItem.path}`)}>{listItem.name}</li>
+                                    })}
                                 </ul>
                             </div>
                             <div className="col-sm-9" >
                                 <div className="mtrb-12">
-                                    <WrappedComponent {...this.props} />
+                                    <WrappedComponent 
+                                        {...this.props}
+                                        listItem={this.listItemData}
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -60,3 +65,9 @@ export default compose(
     connect(mapStateToProps, null),
     SideBar
 )
+
+
+{/* <li className={_get(this.props, 'location.pathname', "") == "/settings" ? `active` : ``} onClick={() => this.handleRoute('settings')}>Privacy</li>
+<li className={_get(this.props, 'location.pathname', "") == "/notifications" ? `active` : ``} onClick={() => this.handleRoute('notifications')}>Notifications</li>
+<li className={_get(this.props, 'location.pathname', "") == "/myProfile" ? `active` : ``} onClick={() => this.handleRoute('myProfile')}>My Profile</li>
+<li className={_get(this.props, 'location.pathname', "") == "/changePassword" ? `active` : ``} onClick={() => this.handleRoute('changePassword')}>Change Password</li> */}
