@@ -15,53 +15,62 @@ class Notifications extends Component {
         })
     }
 
+    nothing = () => {
+
+    }
+
     render() {
         return (
             <div className="notification-switch">
-                <div className="flex-row align-center">
-                    <span><b>E-Mail Notifications</b></span>
+                <div className="flex-row align-center main-switch">
+                    <div className='flex-column email-heading'>
+                        <span className='email-switch'>E-Mail Notifications</span>
+                        <span className='helper-text'>Enable e-mail notifications to receive notifications.</span>
+                    </div>
                     <Switch name="" onChange={this.handleEmailNotificationsSwitch} />
                 </div>
-                <div className="switch-notification-text">
-                    <p>Enable e-mail notifications to receive notifications.</p>
-                </div>
+
                 {
                     this.state.showNotifications ?
-                        <div>
+                        <div className='sub-switches'>
                             <div>
                                 <div className="flex-row align-center">
-                                    <span><b> Loan Request</b></span>
-                                    <Switch name="" />
+                                    <div className='flex-column sub-heading'>
+                                        <span className='other-switch'>Fund Request</span>
+                                        <span className='helper-text'>Enable to receive notifications about status updates of your fund requests.</span>
+                                    </div>
+
+                                    <Switch name="" onChange={this.nothing} />
                                 </div>
                                 <div className="switch-notification-text">
-                                    <p>Enable to receive notifications about request updates.</p>
+
                                 </div>
                             </div>
                             <div>
                                 <div className="flex-row align-center">
-                                    <span><b>Offer</b></span>
-                                    <Switch name="" />
-                                </div>
-                                <div className="switch-notification-text">
-                                    <p>Enable to receive notifications about offer updates.</p>
-                                </div>
-                            </div>
-                            <div>
-                                <div className="flex-row align-center">
-                                    <span><b>Company Profile</b></span>
-                                    <Switch name="" />
-                                </div>
-                                <div className="switch-notification-text">
-                                    <p>Enable to receive notifications about company profile updates.</p>
+                                    <div className='flex-column sub-heading'>
+                                        <span className='other-switch'>Offer</span>
+                                        <span className='helper-text'>Enable to receive notifications whenever you recieve a new offer or status of an offer changes.</span>
+                                    </div>
+                                    <Switch name="" onChange={this.nothing} />
                                 </div>
                             </div>
                             <div>
                                 <div className="flex-row align-center">
-                                    <span><b>My Profile</b></span>
-                                    <Switch name="" />
+                                    <div className='flex-column sub-heading'>
+                                        <span className='other-switch'>Company Profile</span>
+                                        <span className='helper-text'>Enable to receive notifications about company profile updates.</span>
+                                    </div>
+                                    <Switch name="" onChange={this.nothing} />
                                 </div>
-                                <div className="switch-notification-text">
-                                    <p>Enable to receive notifications about your profile updates.</p>
+                            </div>
+                            <div>
+                                <div className="flex-row align-center">
+                                    <div className='flex-column sub-heading'>
+                                        <span className='other-switch'>My Profile</span>
+                                        <span className='helper-text'>Enable to receive notifications about your profile updates.</span>
+                                    </div>
+                                    <Switch name="" onChange={this.nothing} />
                                 </div>
                             </div>
                         </div> : ''
