@@ -82,11 +82,19 @@ class TeamMemberCard extends React.Component {
     }
 
     deleteTeam = () => {
+        let urlToHit;
         let id = _get(this, 'props.data.id', {})
+        if (this.props.location.pathname == '/beneficiary') {
+            urlToHit = '/api/DeleteShareHolder';
+        }
+        else {
+            urlToHit = '/api/DeleteEmployee';
+
+        }
         genericPostData({
             dispatch: this.props.dispatch,
             reqObj: {id},
-            url: '/api/DeleteEmployee',
+            url: urlToHit,
             constants: {
                 init: 'DeleteEmployee_init',
                 success: 'DeleteEmployee_success',
@@ -123,17 +131,7 @@ class TeamMemberCard extends React.Component {
                         }
                         action={
                             <div>
-                                <span
-                                    onClick={this.handleEdit}
-                                >
-                                    edit
-                                </span>
-                                <DeleteIcon 
-                                    className='cursor-pointer' 
-                                    onClick={this.deleteTeam} 
-                                />
-
-                                {/* <IconButton
+                                <IconButton
                                     aria-label="More"
                                     aria-owns={this.state.open ? 'long-menu' : undefined}
                                     aria-haspopup="true"
@@ -153,8 +151,9 @@ class TeamMemberCard extends React.Component {
                                         },
                                     }}
                                 >
+                                    <MenuItem onClick={this.handleEdit}>Edit</MenuItem>
                                     <MenuItem onClick={this.deleteTeam}>Delete</MenuItem>
-                                </Menu> */}
+                                </Menu> 
                             </div>
                         }
                         title={data.firstName.toUpperCase() + ' ' + data.lastName.toUpperCase()}

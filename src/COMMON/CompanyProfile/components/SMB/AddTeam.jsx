@@ -118,7 +118,7 @@ class AddTeam extends React.Component {
 
     editTeamMem = (data) => {
         let designation = ''
-        let urlToHit='';
+        let urlToHit = '';
         if (this.props.location.pathname == '/beneficiary') {
             urlToHit = '/api/SaveShareHolder';
             designation = 'Benificiary ShareHolder';
@@ -164,11 +164,23 @@ class AddTeam extends React.Component {
                         </li>
                         {this.props.location.pathname == '/team' ? this.props.employees.map(option => (
                             <li className="col-sm-4 mb-20">
-                                <DisplayTeam data={option} dispatch={this.props.dispatch} employeeDataFetcher={this.employeeDataFetcher} editTeamMem={this.editTeamMem} />
+                                <DisplayTeam
+                                    data={option}
+                                    dispatch={this.props.dispatch}
+                                    employeeDataFetcher={this.employeeDataFetcher}
+                                    editTeamMem={this.editTeamMem}
+                                    location={this.props.location} 
+                                />
                             </li>
                         )) : this.props.shareHolders.map(option => (
                             <li className="col-sm-4 mb-20">
-                                <DisplayTeam data={option} dispatch={this.props.dispatch} employeeDataFetcher={this.employeeDataFetcher} editTeamMem={this.editTeamMem} />
+                                <DisplayTeam
+                                    data={option}
+                                    dispatch={this.props.dispatch}
+                                    employeeDataFetcher={this.employeeDataFetcher}
+                                    editTeamMem={this.editTeamMem}
+                                    location={this.props.location}
+                                />
                             </li>
                         ))}
                     </ul>
