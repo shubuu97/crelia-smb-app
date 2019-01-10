@@ -35,7 +35,8 @@ class UpdateTeamDialogue extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            openModal: false
+            openModal: false,
+            isFetching: false
         }
     }
 
@@ -78,7 +79,7 @@ class UpdateTeamDialogue extends React.Component {
             ...values
         }
         console.log(values, '- mak');
-
+        this.setState({isFetching: true})
         this.props.dispatch(
             postData(`${APPLICATION_BFF_URL}${urlToHit}`, reqObj, 'addTeam-data', {
                 init: 'addTeam_init',
@@ -86,13 +87,13 @@ class UpdateTeamDialogue extends React.Component {
                 error: 'addTeam_error'
             })
         ).then((data) => {
-            this.props.dispatch(showMessage({ text: 'Employee added succesfully', isSuccess: true }));
+            this.props.dispatch(showMessage({ text: 'Employee updated succesfully', isSuccess: true }));
             setTimeout(() => {
-
                 this.props.dispatch(showMessage({}));
-                this.props.employeeDataFetcher();
-
             }, 1000);
+            this.setState({isFetching: false})
+            this.props.closeModal();
+            this.props.employeeDataFetcher();
             this.props.reset()
         })
             .catch((err) => {
@@ -205,7 +206,7 @@ class UpdateTeamDialogue extends React.Component {
                     <DialogActions>
                         <Button size="small" onClick={this.props.closeModal}>Close</Button>
                         <Button type="submit" size="small" color="primary">
-                            {this.props.isFetching ? <CircularProgress size={24} /> : 'Update'}
+                            {this.state.isFetching ? <CircularProgress size={24} /> : 'Update'}
                         </Button>
                     </DialogActions>
                 </form>

@@ -150,6 +150,7 @@ class AddTeam extends React.Component {
     }
 
     render() {
+        console.log(this.props, 'this.props')
         const { classes } = this.props;
         return (
             <div className={classes.root}>
