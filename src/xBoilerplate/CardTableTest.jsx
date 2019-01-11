@@ -2,7 +2,6 @@ import React from 'react';
 /* Components Import */
 import CardTable from '../Global/Components/CardTable/CardTable'
 
-
 // ! Pending Tasks
 // // Todo : Linear Buffer kind loader
 // Todo : Improve Filter View.
@@ -11,6 +10,7 @@ import CardTable from '../Global/Components/CardTable/CardTable'
 // Todo : ExtendedRow Props ?
 // Todo : Improve Pagination and Filter Props handeling.
 // Todo : Move Status part out of EachRow component to a diffrent Global file.
+// Todo : Table Custom Styling for each row and whole table.
 
 
 let dummyFilterData = [
