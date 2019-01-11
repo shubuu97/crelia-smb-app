@@ -1,16 +1,17 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-/* Material components import */
-
-/* Redux Imports */
-
 /* Components Import */
 import CardTable from '../Global/Components/CardTable/CardTable'
 
 
-// Todo : Improve Filter View
-// Todo : Linear Buffer kind loader
-// Todo : 
+// ! Pending Tasks
+// // Todo : Linear Buffer kind loader
+// Todo : Improve Filter View.
+// Todo : Adding Chips Feature for Filters.
+// Todo : Remove Circular Loader completely from Global.
+// Todo : ExtendedRow Props ?
+// Todo : Improve Pagination and Filter Props handeling.
+// Todo : Move Status part out of EachRow component to a diffrent Global file.
+
 
 let dummyFilterData = [
     {
@@ -109,7 +110,7 @@ let dummyRowData = [
             content: 'Active',
             status: 'ACTIVE',
             component: <div>Hello World</div>,
-            cellStyle:{
+            cellStyle: {
                 background: '#decfcf'
             },
         },
@@ -119,7 +120,7 @@ let dummyRowData = [
         rowStyle: {
             background: '#ddffff96',
         },
-        allowedActions: ['action1','action5']
+        allowedActions: ['action1', 'action5']
     },
     {
         CompanyName: "Activision Blizzard",
@@ -139,14 +140,14 @@ let dummyRowData = [
             content: 'Active',
             status: 'ACTIVE',
             component: <div>Hello World</div>,
-            cellStyle:{
-                
+            cellStyle: {
+
             }
         },
         rowStyle: {
-            
+
         },
-        allowedActions: ['action1','action5', 'action2']
+        allowedActions: ['action1', 'action5', 'action2']
     },
     {
         CompanyName: "Square Enix",
@@ -170,7 +171,7 @@ let dummyRowData = [
             content: 'Active',
             status: 'ACTIVE',
             subData: "hello world?",
-            cellStyle:{
+            cellStyle: {
                 background: '#ab003c',
                 color: '#fff'
             }
@@ -178,15 +179,8 @@ let dummyRowData = [
     }
 ]
 
+/* Custom Extended Component */
 class ExtendedComponent extends React.Component {
-
-    constructor() {
-        super();
-        this.state = {
-
-        }
-    }
-
     render() {
         return (
             <div>
@@ -232,7 +226,7 @@ class CardTableTest extends React.Component {
                 <CardTable
                     // ! Table Title
                     title="Test"
-                  
+
                     // ! Row Data
                     // * This is where you feed data to the table.
                     // * Take reference from the dummy data above.
@@ -242,7 +236,7 @@ class CardTableTest extends React.Component {
                     // * 'headingData' prop can be sent to name Heading according to your preference 
                     // * if you choose not to pass 'headingData' - Headings will be picked up from your data's key 
 
-                    // //headingData={["hello", "hello"]}
+                    // headingData={["hello", "hello"]}
 
                     // ! Heading Button
                     headingButtons={
@@ -254,14 +248,14 @@ class CardTableTest extends React.Component {
                     // ! Search Bar
                     // Todo : Need to work on Global Search locally and through api
                     searchOption={
-                        {actionEvent: this.searchAction}
+                        { actionEvent: this.searchAction }
                     }
 
                     // ! Action Props
                     // * Menu Actions & Solo Actions have 
-                        // * 'Title' prop to give label to each list; 
-                        // * 'actionEvent' prop to send an parent level action; 
-                        // * 'name' prop is needed in case of restricting allowed actions for eachRow;
+                    // * 'Title' prop to give label to each list; 
+                    // * 'actionEvent' prop to send an parent level action; 
+                    // * 'name' prop is needed in case of restricting allowed actions for eachRow;
                     menuActions={
                         [
                             { Title: 'Send For Approval', actionEvent: this.redirectToMakeOffer, name: 'action1' },
@@ -279,41 +273,50 @@ class CardTableTest extends React.Component {
                     // ! Extended Row Stuff
 
                     // * If you provide an Extended component each row will use that customExtendedComponent 
-                        // * 'component' prop requires your custom component 
-                        // * 'action' prop will give you access to row data and row index
+                    // * 'component' prop requires your custom component 
+                    // * 'action' prop will give you access to row data and row index
                     // * If you provide extended data in the data itself as a key then those will be used for extended view.
-                        // Todo : Need to improve the view
+                    // Todo : Need to improve the view
 
-                    extendedComponent={
-                        {
-                            component : ExtendedComponent, 
-                            actionEvent: this.extendedComponentAction
-                        }
-                    }
-
-                    // extendedTableProps={
+                    // extendedComponent={
                     //     {
-                    //         title: "hello"
+                    //         component: ExtendedComponent,
+                    //         actionEvent: this.extendedComponentAction
                     //     }
                     // }
 
-                    
+                    extendedTableProps={
+                        {
+                            title: "hello",
+                            menuActions: [
+                                { Title: 'Send For Approval', actionEvent: this.redirectToMakeOffer, name: 'action1' },
+                                { Title: 'Suspend', actionEvent: this.redirectToMakeOffer, name: 'action2' },
+                                { Title: 'Close Request', actionEvent: this.redirectToMakeOffer, name: 'action3' },
+                            ],
+                            soloActions: [
+                                { Title: 'Edit', className: 'edit-icon flex-row', actionEvent: this.redirectToEditOffer, name: 'action4' },
+                                { Title: 'Edit', className: 'edit-icon flex-row', actionEvent: this.redirectToEditOffer, name: 'action5' }
+                            ]
+                        }
+                    }
+
+
                     // ! Filter Stuff
                     // * Take reference from the dummy data above  
-                        // Todo : Study the filter flow and improve the props
+                    // Todo : Study the filter flow and improve the props
 
                     filterData={dummyFilterData}
                     filterAction={this.fetchingFilterQueryData}
                     filterState={this.state.query}
 
                     // ! Pagination Stuff
-                        // Todo : Study the pagination flow and improve the props
+                    // Todo : Study the pagination flow and improve the props
 
                     onShowSizeChange={this.onShowSizeChange}
                     onPageChange={this.onPageChange}
                     chooseColor={this.chooseColor}
 
-                    // ! Loader
+                    // ! Loader Toggle
                     loader={true}
                 />
             </div>

@@ -87,19 +87,22 @@ class PopulateRows extends Component {
                 return statusIconColor = '#32CD32' //Light Green   
             }
             case 'ACCEPTED': {
-                return statusIconColor = '#196719' //Dark Green   
+                return statusIconColor = '#196719' //Dark Green 
             }
             case 'DECLINED': {
                 return statusIconColor = '#ff0000'; //Red
             }
             case 'SUSPENDED': {
-                return statusIconColor = '#FFFF00'; // Yellow    
+                return statusIconColor = '#FFFF00'; // Yellow
             }
             case 'DRAFT': {
                 return statusIconColor = '#DCDCDC'; // Light Grey  
             }
             case 'PENDING': {
                 return statusIconColor = '#A9A9A9'// Dark light Grey 
+            }
+            case 'IN_NEGOTIATION': {
+                return statusIconColor = '#DCDCDC'// Dark light Grey 
             }
             case 'OFFERED': {
                 return statusIconColor = '#008000'; //Green
