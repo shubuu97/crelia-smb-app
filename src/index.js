@@ -31,7 +31,8 @@ import SignInLayout from './Global/layout/signInLayout';
 import xForms from './xBoilerplate/Forms.jsx';
 import MDC from './xBoilerplate/MaterialDesignTemplate';
 import CardTableTest from './xBoilerplate/CardTableTest';
-import HistoryViewTest from './xBoilerplate/HistoryViewTest'
+import HistoryViewTest from './xBoilerplate/HistoryViewTest';
+import NotificationTest from './xBoilerplate/notificationTest'
 
 /* Common Container Imports*/
 import SignIn from './COMMON/Authorization/AuthorizationContainer'
@@ -140,6 +141,7 @@ ReactDOM.render(
                   <RouteWithLayout Layout={MainLayout} exact path="/notifications" Component={SettingsContainer(NotificationsContainer)} />
                   <RouteWithLayout Layout={MainLayout} exact path="/myProfile" Component={SettingsContainer(MyProfile)} />
                   <RouteWithLayout Layout={MainLayout} exact path="/changePassword" Component={SettingsContainer(ChangePasswordContainer)} />
+                  <RouteWithLayout Layout={MainLayout} exact path="/notificationTest" Component={NotificationTest} />
                   {RoutesConfig.map(rconfig => <RouteWithLayout Layout={MainLayout} exact path={rconfig.path} Component={rconfig.Component} />)}
                 </div>
               </Switch>

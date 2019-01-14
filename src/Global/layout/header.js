@@ -50,7 +50,10 @@ class Header extends React.Component {
     handleRequestClose=()=>
     {
         this.setState({ open: false });
+    }
 
+    handleMouseOut = event => {
+        this.setState({ open: false });
     }
 
     render() {
@@ -86,6 +89,7 @@ class Header extends React.Component {
                             horizontal: 'center',
                         }}
                         onRequestClose={this.handleRequestClose}
+                        onMouseOut={this.handleMouseOut}
                     >
                          <MenuItem onClick={() => {
                             this.props.history.push('/settings');

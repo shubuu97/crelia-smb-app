@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import _get from 'lodash/get';
+import { withState } from 'recompose';
 /* Material Imports */
 import { withStyles } from "@material-ui/core/styles";
 import Button from '@material-ui/core/Button';
@@ -63,7 +64,6 @@ class UpdateTeamDialogue extends React.Component {
         else {
             urlToHit = '/api/SaveEmployee';
             designation = values.designation
-
         }
 
 
@@ -94,7 +94,8 @@ class UpdateTeamDialogue extends React.Component {
             this.setState({isFetching: false})
             this.props.closeModal();
             this.props.employeeDataFetcher();
-            this.props.reset()
+            this.props.reset();
+            this.props.vanishImage('photo')
         })
             .catch((err) => {
                 console.log('Error in adding employee-', err)
@@ -108,6 +109,7 @@ class UpdateTeamDialogue extends React.Component {
 
 
     render() {
+        console.log(this.props, 'this props dialogue')
         const { classes, handleSubmit } = this.props;
         return (
             <Dialog
@@ -225,8 +227,11 @@ UpdateTeamDialogue = reduxForm({
     keepDirtyOnReinitialize: true,
 })(UpdateTeamDialogue)
 
+const state = withState('state', 'setState', '')
+UpdateTeamDialogue = state(dropzoneHandler(UpdateTeamDialogue));
+
 function mapStateToProps(state) {
-    let id = _get(state, 'BasicInfo.lookUpData.companyDetails.id');
+    let companyId = _get(state, 'BasicInfo.lookUpData.companyDetails.id');
     let shareHolders = _get(state, 'shareHolders.lookUpData', []);
     let empTypeList = [];
     _get(state.EmpTypeList, 'lookUpData', []).map(item => (
@@ -234,7 +239,7 @@ function mapStateToProps(state) {
     ))
     return {
         empTypeList,
-        id,
+        companyId,
         shareHolders,
         $class: _get(state, 'BasicInfo.lookUpData.companyDetails.$class', null)
     };

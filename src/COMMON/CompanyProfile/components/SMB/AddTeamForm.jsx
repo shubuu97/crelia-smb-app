@@ -130,7 +130,8 @@ class AddTeamForm extends React.Component {
                 this.props.dispatch(showMessage({}));
                 this.props.employeeDataFetcher();
             }, 1000);
-            this.props.reset()
+            this.props.reset();
+            this.props.vanishImage('photo');
         })
             .catch((err) => {
                 console.log('Error in adding employee-', err)
@@ -143,6 +144,7 @@ class AddTeamForm extends React.Component {
     }
 
     render() {
+        console.log(this.props, 'this.props')
         const { classes, handleSubmit } = this.props;
         const { expanded } = this.state;
         return (
@@ -232,7 +234,6 @@ class AddTeamForm extends React.Component {
                                         onDrop={this.props.onDrop}
                                         avialableFormat="Available File Formats: jpeg, png"
                                         accept={["image/jpg", "image/png", "image/jpeg"]}
-
                                         dropzone={_get(this.props, 'state.photo.name', '') || _get(this.props, 'state.photolink', '')}
                                     />
                                 </Grid>

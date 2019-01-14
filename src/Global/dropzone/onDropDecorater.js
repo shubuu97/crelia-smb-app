@@ -64,6 +64,10 @@ const decorateWithOnDrop = withHandlers({
                 }, 1000)
             })
         props.setState({ ...props.state, [name]: accept[0] })
+    },
+    vanishImage:(props)=>(name)=>
+    {
+        props.setState({...props.state,[name + 'link']: undefined})
     }
 })
 
