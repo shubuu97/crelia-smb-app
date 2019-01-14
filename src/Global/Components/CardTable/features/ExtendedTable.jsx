@@ -5,13 +5,6 @@ import CardTable from '../CardTable'
 
 class ExtendedTable extends React.Component {
 
-    constructor() {
-        super();
-        this.state = {
-
-        }
-    }
-
     populateExtendedTable = (data) => {
         let title, rows = []
         // Populate Row Data
@@ -24,13 +17,12 @@ class ExtendedTable extends React.Component {
             })
             return rowData
         })
-
-        // Table Title
-        title = _get(this, "props.extendedTableProps.title")
         return (
             <CardTable
-                title={title}
+                title={_get(this, "props.extendedTableProps.title")}
                 data={rows}
+                menuActions={_get(this, "props.extendedTableProps.menuActions")}
+                soloActions={_get(this, "props.extendedTableProps.soloActions")}
             />
         )
     }
