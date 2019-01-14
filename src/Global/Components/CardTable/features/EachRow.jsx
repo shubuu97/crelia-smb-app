@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import _get from 'lodash/get';
+import posed from "react-pose";
 /* Material Imports*/
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
@@ -9,6 +10,11 @@ import Badge from '@material-ui/core/Badge'
 /* Components Imports */
 import ExtendedTable from './ExtendedTable';
 
+const itemConfig = {
+    open: { height: 'auto', opacity: 1, flip: true },
+    closed: { height: '0', opacity: 0, flip: true }
+}
+const Item = posed.div(itemConfig)
 
 class PopulateRows extends Component {
 
@@ -136,7 +142,7 @@ class PopulateRows extends Component {
     render() {
         let data = _get(this.props, "rows", {});
         let rows = Object.keys(data).map((keyname, index) => {
-            if (keyname != "extendedRow" && keyname != "extendedTable" && keyname != "rowStyle" && keyname != "allowedActions" ) {
+            if (keyname != "extendedRow" && keyname != "extendedTable" && keyname != "rowStyle" && keyname != "allowedActions") {
                 if (typeof data[keyname] != 'object') {
                     return <div key={index} className="data-col" onClick={this.props.onClick}>{data[keyname]}</div>
                 }
@@ -145,7 +151,7 @@ class PopulateRows extends Component {
                         return (<div className="data-col" onClick={this.props.onClick}>
                             {data[keyname].map((dt, index) => <React.Fragment>{dt}{index + 1 != data[keyname].length ? <br /> : null}</React.Fragment>)}</div>)
                     }
-                    else if(_get(data[keyname], 'type') != 'hidden') {
+                    else if (_get(data[keyname], 'type') != 'hidden') {
                         return (
                             <div key={index} className="data-col" style={_get(data[keyname], 'cellStyle')} onClick={this.props.onClick} >
                                 {this.formatedCell(data, data[keyname])}
@@ -162,18 +168,18 @@ class PopulateRows extends Component {
                     {
                         this.props.soloActions ?
                             this.props.soloActions.map((actionData, index) => {
-                                if(!allowedActions.length || allowedActions.includes(actionData.name))
-                                return (
-                                    <span
-                                        title={_get(actionData, 'Title', "")}
-                                        className={_get(actionData, 'className')}
-                                        onMouseOver={
-                                            this.props.handleOnMouseOver
-                                        }
-                                        onMouseOut={this.props.handleOnMouseOut}
-                                        onClick={this.handleMenuClick(_get(actionData, 'actionEvent'), data)} >
-                                    </span>
-                                )
+                                if (!allowedActions.length || allowedActions.includes(actionData.name))
+                                    return (
+                                        <span
+                                            title={_get(actionData, 'Title', "")}
+                                            className={_get(actionData, 'className')}
+                                            onMouseOver={
+                                                this.props.handleOnMouseOver
+                                            }
+                                            onMouseOut={this.props.handleOnMouseOut}
+                                            onClick={this.handleMenuClick(_get(actionData, 'actionEvent'), data)} >
+                                        </span>
+                                    )
                             }) : null
                     }
 
@@ -186,8 +192,8 @@ class PopulateRows extends Component {
                                 className="mb-10 "
                             >
                                 {this.props.menuActions[0].Title}
-                            </Button> 
-                            
+                            </Button>
+
                             :
 
                             <ClickAwayListener onClickAway={this.handleRequestClose}>
@@ -211,12 +217,12 @@ class PopulateRows extends Component {
                                 >
                                     {
                                         this.props.menuActions.map((actionData, index) => {
-                                            if(!allowedActions.length || allowedActions.includes(actionData.name))
-                                            return (
-                                                <MenuItem key={index} onClick={this.handleMenuClick(actionData.actionEvent, data, index)}>
-                                                    {actionData.Title}
-                                                </MenuItem>
-                                            )
+                                            if (!allowedActions.length || allowedActions.includes(actionData.name))
+                                                return (
+                                                    <MenuItem key={index} onClick={this.handleMenuClick(actionData.actionEvent, data, index)}>
+                                                        {actionData.Title}
+                                                    </MenuItem>
+                                                )
                                         })
                                     }
                                 </Menu>
@@ -306,16 +312,16 @@ class EachRow extends Component {
                     />
                 </div>
                 {/* When Extended card view */}
-                {
-                    props.isExtended && !this.state.hoverEvent ?
+                <Item className="item" pose={props.isExtended ? 'open' : 'closed'}>
+                    {   
+                        props.isExtended ?
                         <PopulateExtendedRows
                             handleOnMouseOver={this.props.handleOnMouseOver}
                             handleOnMouseOut={this.props.handleOnMouseOut}
                             {...this.props}
-                        />
-                        :
-                        null
-                }
+                        /> : null
+                    }
+                </Item>
             </div>
         )
     }

@@ -16,7 +16,6 @@ class Filters extends Component {
     }
 
     filterUpdationHandler = (data, name,keyname, type) => {
-        debugger;
        let filterState =  {...this.props.filterState}
         if (type == "checkbox" || type == "textbox") {
             if (data.length == 0) {
