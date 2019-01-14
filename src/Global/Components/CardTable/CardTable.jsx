@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import _get from 'lodash/get';
+import posed from "react-pose";
 /* Material Imports*/
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -10,6 +11,14 @@ import EachRow from './features/EachRow'
 import Filters from './features/Filters'
 import Heading from './features/Heading';
 import Pagination from './features/Pagination'
+
+
+const itemConfig = {
+    open: { height: 'auto', opacity: 1, flip: true },
+    closed: { height: '0', opacity: 0, flip: true }
+}
+const Item = posed.div(itemConfig)
+
 
 class CardTable extends Component {
 
@@ -173,7 +182,7 @@ class CardTable extends Component {
                     </div> : null
                 }
 
-                <div>
+                <Item pose={this.state.filterPanelToggle ? 'open' : 'closed'}>
                     {
                         this.state.filterPanelToggle ?
                             <Filters
@@ -183,7 +192,7 @@ class CardTable extends Component {
                             /> :
                             null
                     }
-                </div>
+                </Item>
                 <div>
                     <div className="custom-table relative">
                         {/* Heading */}
