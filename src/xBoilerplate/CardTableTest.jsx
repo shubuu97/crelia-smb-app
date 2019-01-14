@@ -284,18 +284,18 @@ class CardTableTest extends React.Component {
                     // * If you provide extended data in the data itself as a key then those will be used for extended view.
                         // Todo : Need to improve the view
 
-                    extendedComponent={
-                        {
-                            component : ExtendedComponent, 
-                            actionEvent: this.extendedComponentAction
-                        }
-                    }
-
-                    // extendedTableProps={
+                    // extendedComponent={
                     //     {
-                    //         title: "hello"
+                    //         component : ExtendedComponent, 
+                    //         actionEvent: this.extendedComponentAction
                     //     }
                     // }
+
+                    extendedTableProps={
+                        {
+                            title: "hello"
+                        }
+                    }
 
                     
                     // ! Filter Stuff
