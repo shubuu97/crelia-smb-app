@@ -6,6 +6,7 @@ import ChangePasswordComponent from './components/ChangePassword';
 import {postData} from '../../../Redux/postAction';
 import {APPLICATION_BFF_URL} from '../../../Redux/urlConstants';
 import showMessage from '../../../Redux/toastAction';
+
 class ChangePassword extends Component {
 
     handleChangePassword = (values) => {
@@ -22,9 +23,12 @@ class ChangePassword extends Component {
         ).then(data => {
             this.props.dispatch(showMessage({
                 text: 'Password Changed Successfully', isSuccess: true
-            }))
+            }));
+            setTimeout(() => {
+                this.props.dispatch(showMessage({}));
+            }, 6000);
+            this.props.reset();
         }).catch(err => {
-            console.log(err, 'xxxxxxxxxxx')
             this.props.dispatch(showMessage({
                 text: err.msg, isSuccess: false
             }))
