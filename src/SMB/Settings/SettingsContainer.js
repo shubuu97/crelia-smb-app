@@ -1,73 +1,26 @@
-import React, { Component } from 'react';
-import _get from 'lodash/get';
-/* Global Imports*/
-/* Redux Imports */
-import { compose } from 'redux';
-import { connect } from 'react-redux';
+import React, {Component} from 'react';
+import SideBar from '../../Global/SideBar/SideBar';
+import ChangePassword from './ChangePassword/ChangePasswordContainer';
+import MyProfile from './MyProfile/MyProfileContainer';
+import Notifications from './Notifications/NotificationsContainer';
+import Task from './Task/TaskContainer';
 
-function SideBar(WrappedComponent) {
-    return class SideBar extends Component {
+class SettingsContainer extends Component {
 
-        constructor(props) {
-            super(props);
-            this.state = {
-                listItemData: []
-            }
-        }
+    sideBarData = [
+        {label: "Privacy", path: "/settings", component: Task},
+        {label: "Notifications", path: "/notifications", component: Notifications},
+        {label: "My Profile", path: "/myProfile", component: MyProfile},
+        {label: "ChangePassword", path: "/changePassword", component: ChangePassword}
+    ]
 
-        handleRoute = (type) => {
-            console.log(this.props, "props is here");
-            if (this.props.location.pathname != `/${type}`)
-                this.props.history.push(`/${type}`);
-        }
-
-        listItemData = (data) => {
-            console.log(data, 'listitemdata')
-            this.setState({listItemData: data})
-        }
-
-        render() {
-
-            return (
-                <div className="about-section">
-                    <div className="title-btn ">
-                        <h1>Settings</h1>
-                    </div>
-                    <div className="col-sm-12 card" >
-                        <div className="row">
-                            <div className="col-sm-3" >
-                                <ul className="about-tab">
-                                    {_get(this.state,'listItemData', []).map(listItem => {
-                                        return <li className={_get(this.props, 'location.pathname', "") == `/${listItem.path}` ? `active` : ``} onClick={() => this.handleRoute(`${listItem.path}`)}>{listItem.name}</li>
-                                    })}
-                                </ul>
-                            </div>
-                            <div className="col-sm-9" >
-                                <div className="mtrb-12">
-                                    <WrappedComponent 
-                                        {...this.props}
-                                        listItem={this.listItemData}
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            )
-        }
+    render() {
+        return (
+            <SideBar 
+                data = {this.sideBarData}
+            />
+        )
     }
 }
 
-function mapStateToProps(state) {
-}
-
-export default compose(
-    connect(mapStateToProps, null),
-    SideBar
-)
-
-
-{/* <li className={_get(this.props, 'location.pathname', "") == "/settings" ? `active` : ``} onClick={() => this.handleRoute('settings')}>Privacy</li>
-<li className={_get(this.props, 'location.pathname', "") == "/notifications" ? `active` : ``} onClick={() => this.handleRoute('notifications')}>Notifications</li>
-<li className={_get(this.props, 'location.pathname', "") == "/myProfile" ? `active` : ``} onClick={() => this.handleRoute('myProfile')}>My Profile</li>
-<li className={_get(this.props, 'location.pathname', "") == "/changePassword" ? `active` : ``} onClick={() => this.handleRoute('changePassword')}>Change Password</li> */}
+export default SettingsContainer;
