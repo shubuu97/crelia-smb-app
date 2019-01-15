@@ -2,38 +2,42 @@ import React, { Component } from 'react';
 import _get from 'lodash/get';
 
 class SideBar extends Component {
-
-    ComponentToRender
-
-    handleRoute = (path) => {
-        if (this.props.location.pathname != path) {
-            this.props.history.push(path);
+    constructor(props) {
+        super(props);
+        this.state = {
+            componentToRender: props.data[0].component,
+            activeItem: props.data[0].label
         }
+    }
+
+    handleComponentToRender = (label, pathname) => {
+        this.props.history.push(`/settings/${pathname}`)
         _get(this.props, 'data').map(listData => {
-            if(listData.path == path) {
-                this.ComponentToRender = listData.component 
+            if(listData.label == label) {
+                this.setState({ 
+                    componentToRender : listData.component,
+                    activeItem: listData.label
+                })
             }
         })
     }
 
     render() {
+        console.log(this.state.componentToRender, 'Component')
         return (
             <div className="about-section">
-                <div className="title-btn ">
-                    <h1>Settings</h1>
-                </div>
                 <div className="col-sm-12 card" >
                     <div className="row">
                         <div className="col-sm-3" >
                             <ul className="about-tab">
                             {_get(this.props, 'data').map(listItem => {
-                                return <li className={_get(this.props, 'location.pathname', "") == `/${listItem.path}` ? `active` : ``} onClick={() => this.handleRoute(`${listItem.path}`)}>{listItem.label}</li>
+                                return <li className={this.state.activeItem === listItem.label ? `active` : ``} onClick={() => this.handleComponentToRender(listItem.label, listItem.path)}>{listItem.label}</li>
                             })}
                             </ul>
                         </div>
                         <div className="col-sm-9" >
                             <div className="mtrb-12">
-                                {this.ComponentToRender}
+                                <this.state.componentToRender/>
                             </div>
                         </div>
                     </div>

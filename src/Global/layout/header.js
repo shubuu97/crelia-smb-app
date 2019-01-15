@@ -92,7 +92,7 @@ class Header extends React.Component {
                         onMouseOut={this.handleMouseOut}
                     >
                          <MenuItem onClick={() => {
-                            this.props.history.push('/settings');
+                            this.props.history.push('/settings/privacy');
                             this.setState({ open: false })
                         }}>Settings</MenuItem>
                         <MenuItem onClick={this.logout}>Logout</MenuItem>

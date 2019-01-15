@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import SideBar from '../../Global/SideBar/SideBar';
+import SideBar from '../../Global/SideBar/sideBar';
 import ChangePassword from './ChangePassword/ChangePasswordContainer';
 import MyProfile from './MyProfile/MyProfileContainer';
 import Notifications from './Notifications/NotificationsContainer';
@@ -8,17 +8,20 @@ import Task from './Task/TaskContainer';
 class SettingsContainer extends Component {
 
     sideBarData = [
-        {label: "Privacy", path: "/settings", component: Task},
-        {label: "Notifications", path: "/notifications", component: Notifications},
-        {label: "My Profile", path: "/myProfile", component: MyProfile},
-        {label: "ChangePassword", path: "/changePassword", component: ChangePassword}
+        {label: "Privacy", component: Task, path: 'privacy'},
+        {label: "Notifications", component: Notifications, path: 'notifications'},
+        {label: "My Profile", component: MyProfile, path: 'myProfile'},
+        {label: "ChangePassword", component: ChangePassword, path: 'changePassword'}
     ]
 
     render() {
         return (
-            <SideBar 
-                data = {this.sideBarData}
-            />
+            <div>
+                <div className="title-btn ">
+                    <h1>Settings</h1>
+                </div>
+                <SideBar history = {this.props.history} data = {this.sideBarData} />
+            </div>
         )
     }
 }

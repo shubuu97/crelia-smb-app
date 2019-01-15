@@ -60,10 +60,7 @@ import ProfileHistoryContainer from './SMB/HistoryPages/ProfileHistory/SMBHistor
 import LoanOfferContainer from './SMB/NegotiationOffer/Loan.jsx';
 import EquityOfferContainer from './SMB/NegotiationOffer/Equity.jsx';
 import TaskContainer from './SMB/Settings/Task/TaskContainer'; 
-import DefaultTaskDetailsContainer from './SMB/Settings/Task/component/TaskDetails/DefaultTaskDetailsContainer';
 import SettingsContainer from './SMB/Settings/SettingsContainer';
-import NotificationsContainer from './SMB/Settings/Notifications/NotificationsContainer';
-import ChangePasswordContainer from './SMB/Settings/ChangePassword/ChangePasswordContainer';
 
 const generateClassName = createGenerateClassName({
   dangerouslyUseGlobalCSS: true,
@@ -137,7 +134,7 @@ ReactDOM.render(
                   <RouteWithLayout Layout={MainLayout} exact path="/loans/offer/:loanId" Component={LoanOfferContainer}/>
                   <RouteWithLayout Layout={MainLayout} exact path="/equity/offer/:equityId" Component={EquityOfferContainer}/>
                   <RouteWithLayout Layout={MainLayout} exact path="/tasks" Component={TaskContainer}/>
-                  <RouteWithLayout Layout={MainLayout} exact path="/settings" Component={SettingsContainer}/>
+                  <RouteWithLayout Layout={MainLayout} exact path="/settings/:path" Component={SettingsContainer}/>
                   <RouteWithLayout Layout={MainLayout} exact path="/notificationTest" Component={NotificationTest} />
                   {RoutesConfig.map(rconfig => <RouteWithLayout Layout={MainLayout} exact path={rconfig.path} Component={rconfig.Component} />)}
                 </div>
