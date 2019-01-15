@@ -4,6 +4,7 @@ import CardTable from '../Global/Components/CardTable/CardTable'
 
 // ! Pending Tasks
 // // Todo : Linear Buffer kind loader
+// // Todo : Animations 
 // Todo : Improve Filter View.
 // Todo : Adding Chips Feature for Filters.
 // Todo : Remove Circular Loader completely from Global.

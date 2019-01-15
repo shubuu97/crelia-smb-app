@@ -313,14 +313,11 @@ class EachRow extends Component {
                 </div>
                 {/* When Extended card view */}
                 <Item className="item" pose={props.isExtended ? 'open' : 'closed'}>
-                    {   
-                        props.isExtended ?
-                        <PopulateExtendedRows
-                            handleOnMouseOver={this.props.handleOnMouseOver}
-                            handleOnMouseOut={this.props.handleOnMouseOut}
-                            {...this.props}
-                        /> : null
-                    }
+                    <PopulateExtendedRows
+                        handleOnMouseOver={this.props.handleOnMouseOver}
+                        handleOnMouseOut={this.props.handleOnMouseOut}
+                        {...this.props}
+                    />
                 </Item>
             </div>
         )
