@@ -1,22 +1,38 @@
 import React, { Component } from 'react';
 import { reduxForm } from 'redux-form';
-import ChangePasswordComponent from './components/ChangePassword';
 import Button from '@material-ui/core/Button';
+import asyncValidate from './validate';
+import ChangePasswordComponent from './components/ChangePassword';
+import {postData} from '../../../Redux/postAction';
+import {APPLICATION_BFF_URL} from '../../../Redux/urlConstants';
+import showMessage from '../../../Redux/toastAction';
 
 class ChangePassword extends Component {
 
     handleChangePassword = (values) => {
-        console.log('handleChangePassword values', values)
-    }
-
-    componentWillMount() {
-        const listItemData = [
-            {path: "settings", name: "Privacy"},
-            {path: "notifications", name: " Notifications"},
-            {path: "myProfile", name: "My Profile"},
-            {path: "changePassword", name: "Change Password"}
-        ]
-        this.props.listItem(listItemData);
+        let reqBody = {
+            oldPassword: values.oldPassword,
+            newPassword: values.newPassword
+        } 
+        this.props.dispatch(
+            postData(`${APPLICATION_BFF_URL}/api/changePassword`, {}, 'changePassword-data', {
+                init: 'changePass_init',
+                success: 'changePass_success',
+                error: 'changePass_error'
+            })
+        ).then(data => {
+            this.props.dispatch(showMessage({
+                text: 'Password Changed Successfully', isSuccess: true
+            }));
+            setTimeout(() => {
+                this.props.dispatch(showMessage({}));
+            }, 6000);
+            this.props.reset();
+        }).catch(err => {
+            this.props.dispatch(showMessage({
+                text: err.msg, isSuccess: false
+            }))
+        })
     }
 
     render() {
@@ -47,7 +63,8 @@ class ChangePassword extends Component {
 }
 
 ChangePassword = reduxForm({
-    form: 'ChangePasswordForm'
+    form: 'ChangePasswordForm',
+    asyncValidate
 })(ChangePassword)
 
 export default ChangePassword;
