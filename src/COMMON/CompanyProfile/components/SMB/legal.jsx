@@ -15,6 +15,7 @@ import { getData } from '../../../../Redux/getAction';
 import showMessage from '../../../../Redux/toastAction';
 /* Material Imports */
 import CircularProgress from '@material-ui/core/CircularProgress';
+import SideBar from '../SideBar';
 
 var jwtDecode = require('jwt-decode');
 
@@ -151,8 +152,8 @@ let state = withState('state', 'setState', '')
 Legal = compose(
     state,
     decorateWithOnDrop,
+    SideBar,
     reduxForm({ form: 'Legal' }),
-
 )(Legal);
 
 function mapStateToProps(state) {

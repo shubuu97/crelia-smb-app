@@ -15,6 +15,7 @@ import Select from '../../../../Global/Components/Select';
 import GlobalTextField from '../../../../Global/Components/GlobalTextField';
 import LoaderButton from '../../../../Global/Components/LoaderButton'
 /*Components Imports*/
+import SideBar from '../SideBar';
 
 var jwtDecode = require('jwt-decode');
 
@@ -196,6 +197,6 @@ function mapStateToProps(state) {
     return { countryList, initialValues, id, isFetchingUpdateSMB };
 }
 
-export default connect(mapStateToProps)(Contacts);
+export default connect(mapStateToProps)(SideBar(Contacts));
 
 

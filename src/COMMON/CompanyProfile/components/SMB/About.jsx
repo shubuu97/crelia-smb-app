@@ -17,6 +17,7 @@ import ToggleButtons from '../../../../Global/Components/ToggleButton';
 import LoaderButton from '../../../../Global/Components/LoaderButton';
 import genericGetData from '../../../../Global/dataFetch/genericGetData'
 /* Components */
+import SideBar from '../SideBar';
 
 var jwtDecode = require('jwt-decode');
 
@@ -69,7 +70,7 @@ class About extends Component {
                 error: 'basicdata_error'
             })
         ).then((data) => {
-            let resource = encodeURIComponent('resource:' + data.companyDetails.$class + '#' + data.companyDetails.id)
+            let resource = encodeURIComponent('resource:' + _get(data.companyDetails,'$class', '') + '#' + _get(data.companyDetails,'id', ''))
             let deciderKey='';
             let constants = {}
            
@@ -290,5 +291,5 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps)(About);
+export default connect(mapStateToProps)(SideBar(About));
 

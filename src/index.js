@@ -44,7 +44,7 @@ import RegistrationSuccess from './COMMON/Authorization/components/Registration/
 import Registration from './COMMON/Authorization/components/Registration/Register';
 import SetPassword from './COMMON/Authorization/components/SetPassword/setPassword';
 import signInRejected from './COMMON/Authorization/components/signInRejected' // to be removed
-// import RoutesConfig from './COMMON/CompanyProfile/components/RoutesConfig';
+import RoutesConfig from './COMMON/CompanyProfile/components/RoutesConfig';
 
 /* SMB Container Imports*/
 import CompanyOnBoardingContainer from './SMB/CompanyOnBoarding/CompanyOnBoardingContainer';
@@ -62,7 +62,6 @@ import LoanOfferContainer from './SMB/NegotiationOffer/Loan.jsx';
 import EquityOfferContainer from './SMB/NegotiationOffer/Equity.jsx';
 import TaskContainer from './SMB/Settings/Task/TaskContainer'; 
 import SettingsContainer from './SMB/Settings/SettingsContainer';
-import CompanyProfileContainer from './COMMON/CompanyProfile/components/CompanyProfileContainer';
 
 const generateClassName = createGenerateClassName({
   dangerouslyUseGlobalCSS: true,
@@ -139,8 +138,7 @@ ReactDOM.render(
                   <RouteWithLayout Layout={MainLayout} exact path="/tasks" Component={TaskContainer}/>
                   <RouteWithLayout Layout={MainLayout} exact path="/settings/:path" Component={SettingsContainer}/>
                   <RouteWithLayout Layout={MainLayout} exact path="/notificationTest" Component={NotificationTest} />
-                  <RouteWithLayout Layout={MainLayout} exact path="/company-profile/:path" Component={CompanyProfileContainer} />
-                  {/* {RoutesConfig.map(rconfig => <RouteWithLayout Layout={MainLayout} exact path={rconfig.path} Component={rconfig.Component} />)} */}
+                  {RoutesConfig.map(rconfig => <RouteWithLayout Layout={MainLayout} exact path={rconfig.path} Component={rconfig.Component} />)}
                 </div>
               </Switch>
             </Router>

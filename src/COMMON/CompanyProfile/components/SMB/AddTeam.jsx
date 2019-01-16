@@ -23,6 +23,7 @@ import dropzoneHandler from '../../../../Global/dropzone/onDropDecorater';
 import DisplayTeam from './DisplayTeam'
 import AddTeamForm from './AddTeamForm'
 import UpdateTeamDialogue from './UpdateTeamDialogue'
+import SideBar from '../SideBar';
 
 var jwtDecode = require('jwt-decode');
 
@@ -149,7 +150,7 @@ class AddTeam extends React.Component {
     }
 
     render() {
-        console.log(this.props, 'this.props')
+        console.log(this.props.location, 'this.props')
         const { classes } = this.props;
         return (
             <div className={classes.root}>
@@ -218,4 +219,4 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps)(withStyles(styles)(AddTeam));
+export default connect(mapStateToProps)(SideBar(withStyles(styles)(AddTeam)));
