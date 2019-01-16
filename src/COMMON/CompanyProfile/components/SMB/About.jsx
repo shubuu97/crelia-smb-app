@@ -17,7 +17,6 @@ import ToggleButtons from '../../../../Global/Components/ToggleButton';
 import LoaderButton from '../../../../Global/Components/LoaderButton';
 import genericGetData from '../../../../Global/dataFetch/genericGetData'
 /* Components */
-import SideBar from '../SideBar';
 
 var jwtDecode = require('jwt-decode');
 
@@ -291,5 +290,5 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps)(SideBar(About));
+export default connect(mapStateToProps)(About);
 

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import _get from 'lodash/get';
 /* Global Imports*/
-import sidebar from '../SideBar.js';
 import DropzoneButton from '../../../../Global/dropzone/dropzoneButton'
 import decorateWithOnDrop from '../../../../Global/dropzone/onDropDecorater';
 import LoaderButton from '../../../../Global/Components/LoaderButton';
@@ -152,7 +151,6 @@ let state = withState('state', 'setState', '')
 Legal = compose(
     state,
     decorateWithOnDrop,
-    sidebar,
     reduxForm({ form: 'Legal' }),
 
 )(Legal);

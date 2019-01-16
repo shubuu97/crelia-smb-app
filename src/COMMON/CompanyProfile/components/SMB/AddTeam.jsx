@@ -23,7 +23,6 @@ import dropzoneHandler from '../../../../Global/dropzone/onDropDecorater';
 import DisplayTeam from './DisplayTeam'
 import AddTeamForm from './AddTeamForm'
 import UpdateTeamDialogue from './UpdateTeamDialogue'
-import sidebar from '../SideBar.js';
 
 var jwtDecode = require('jwt-decode');
 
@@ -219,4 +218,4 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps)(sidebar(withStyles(styles)(AddTeam)));
+export default connect(mapStateToProps)(withStyles(styles)(AddTeam));
