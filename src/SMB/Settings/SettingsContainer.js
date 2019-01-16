@@ -3,7 +3,7 @@ import SideBar from '../../Global/SideBar/sideBar';
 import ChangePassword from './ChangePassword/ChangePasswordContainer';
 import MyProfile from './MyProfile/MyProfileContainer';
 import Notifications from './Notifications/NotificationsContainer';
-import Task from './Task/TaskContainer';
+import Task from './Task/component/TaskDetails/DefaultTaskDetailsContainer';
 
 class SettingsContainer extends Component {
 
@@ -20,7 +20,7 @@ class SettingsContainer extends Component {
                 <div className="title-btn ">
                     <h1>Settings</h1>
                 </div>
-                <SideBar history = {this.props.history} data = {this.sideBarData} />
+                <SideBar routePath="settings" history = {this.props.history} data = {this.sideBarData} />
             </div>
         )
     }
