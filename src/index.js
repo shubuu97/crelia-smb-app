@@ -33,7 +33,6 @@ import MDC from './xBoilerplate/MaterialDesignTemplate';
 import CardTableTest from './xBoilerplate/CardTableTest';
 import CardNotificationTest from './xBoilerplate/CardNotificationTest';
 import HistoryViewTest from './xBoilerplate/HistoryViewTest';
-import NotificationTest from './xBoilerplate/notificationTest'
 
 /* Common Container Imports*/
 import SignIn from './COMMON/Authorization/AuthorizationContainer'
