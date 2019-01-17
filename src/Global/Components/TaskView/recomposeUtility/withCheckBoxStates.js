@@ -55,7 +55,6 @@ const modifyName = (name) => {
 }
 //when checkboxes are checked this function being called
 const handleChange = props => name => event => {
-    debugger;
     let allFields = { ...props.fields };
     //Logic to change the names according to sending to ui
     name = modifyName(name)
@@ -65,7 +64,6 @@ const handleChange = props => name => event => {
         allFields['FINANCIALINFO_LOANPROVIDER_AMOUNT'] = event.target.checked;
     };
     if (name == 'FINANCIALINFO_FINANCIALDATA_YEAR') {
-        debugger;
         //delete allFields.FINANCIALINFO_FINANCIALDATA;
         allFields['FINANCIALINFO_FINANCIALDATA_YEAR'] = event.target.checked;
         allFields['FINANCIALINFO_FINANCIALDATA_SALES'] = event.target.checked
@@ -81,7 +79,6 @@ const handleChange = props => name => event => {
 //when switch are checked this function being called
 
 const withSwitchState = props => (name, value) => {
-    debugger;
 
     let allFields = { ...props.fields };
     //Logic to change the names according to sending to ui
@@ -96,7 +93,6 @@ const withSwitchState = props => (name, value) => {
         allFields['NUMBEROFEMPLOYEES'] = props.companyDetails.NumberOfEmployees?value:null;
     }
     else if (name == 'Address Details') {
-        debugger;
         allFields['ADDRESS_LINE1'] =props.companyDetails['Street-1']?value:null
         allFields['ADDRESS_LINE2'] =props.companyDetails['Street-2']?value:null
         allFields['ADDRESS_CITY'] =props.companyDetails.City?value:null
@@ -124,12 +120,10 @@ const withSwitchState = props => (name, value) => {
         allFields['TAXCERTIFICATELINK'] =props.companyDetails.TaxCertificateLink?value:null
     }
     else if (name == 'Provider Details') {
-        debugger;
         allFields['FINANCIALINFO_LOANPROVIDER_PROVIDERNAME'] = value;
         allFields['FINANCIALINFO_LOANPROVIDER_AMOUNT'] = value;
     }
     else if (name == 'Financial Details') {
-        debugger;
         allFields['FINANCIALINFO_FINANCIALDATA_YEAR'] = value;
         allFields['FINANCIALINFO_FINANCIALDATA_SALES'] = value
         allFields['FINANCIALINFO_FINANCIALDATA_EBITDA'] = value;

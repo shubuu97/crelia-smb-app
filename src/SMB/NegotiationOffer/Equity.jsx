@@ -45,7 +45,6 @@ class Equity extends Component {
         }
     }
     componentDidMount() {
-        debugger;
         this.getApiCall('reference-service/allowedCurrencies', 'currency');
         let urlToHit = 'EquityOffer';
         let idToSend = _get(this.props, 'offer.offerId') ? _get(this.props, 'offer.offerId') : _get(this.props, 'fundId') ? _get(this.props, 'fundId') : null;
@@ -150,7 +149,6 @@ class Equity extends Component {
 
     //logic to denormalize money
     if (values.amount) {
-        debugger;
         values.money.amount = deformatMoney(_get(values, 'amount', 0));
     }
     values.money.currency = _get(values, 'currency', '');

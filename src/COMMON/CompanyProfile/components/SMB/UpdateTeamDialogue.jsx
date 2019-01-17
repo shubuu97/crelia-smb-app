@@ -51,7 +51,6 @@ class UpdateTeamDialogue extends React.Component {
     }
 
     handleUpdateTeam = (values) => {
-        debugger
         let reqObj = {};
         let urlToHit = '';
         let designation = ''

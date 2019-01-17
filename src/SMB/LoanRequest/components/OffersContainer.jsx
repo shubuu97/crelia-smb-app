@@ -185,7 +185,6 @@ class OfferContainer extends React.PureComponent {
     //todo handle negotiation to be discussed
     handleRequestNegotion = (data, index) => {
         this.setState({ open: false });
-        debugger;
         let id = _get(this.state, `offerData.rows[${index}].id`)
         this.props.dispatch(commonActionCreater({
             reqId: id,
@@ -248,7 +247,6 @@ class OfferContainer extends React.PureComponent {
             },
             successText: 'Offer Accepted successFully',
             successCb: () => {
-                debugger
                 this.setState({ isLoading: false });
                 this.basicDataFetcher();
 
