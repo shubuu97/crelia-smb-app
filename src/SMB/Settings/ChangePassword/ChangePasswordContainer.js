@@ -15,7 +15,7 @@ class ChangePassword extends Component {
             newPassword: values.newPassword
         } 
         this.props.dispatch(
-            postData(`${APPLICATION_BFF_URL}/api/changePassword`, {}, 'changePassword-data', {
+            postData(`${APPLICATION_BFF_URL}/api/changePassword`, reqBody, 'changePassword-data', {
                 init: 'changePass_init',
                 success: 'changePass_success',
                 error: 'changePass_error'
@@ -31,7 +31,10 @@ class ChangePassword extends Component {
         }).catch(err => {
             this.props.dispatch(showMessage({
                 text: err.msg, isSuccess: false
-            }))
+            }));
+            setTimeout(() => {
+                this.props.dispatch(showMessage({}));
+            }, 6000);
         })
     }
 

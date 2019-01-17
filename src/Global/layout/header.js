@@ -89,13 +89,12 @@ class Header extends React.Component {
                             horizontal: 'center',
                         }}
                         onRequestClose={this.handleRequestClose}
-                        onMouseOut={this.handleMouseOut}
                     >
                          <MenuItem onClick={() => {
                             this.props.history.push('/settings/privacy');
                             this.setState({ open: false })
                         }}>Settings</MenuItem>
-                        <MenuItem onClick={this.logout}>Logout</MenuItem>
+                        <MenuItem onMouseOut={this.handleMouseOut} onClick={this.logout}>Logout</MenuItem>
                     </Menu>
 
                     <div className="nevbar-right">
