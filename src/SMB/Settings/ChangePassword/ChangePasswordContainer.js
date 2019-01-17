@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { reduxForm } from 'redux-form';
 import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import asyncValidate from './validate';
 import ChangePasswordComponent from './components/ChangePassword';
 import {postData} from '../../../Redux/postAction';
@@ -8,12 +9,19 @@ import {APPLICATION_BFF_URL} from '../../../Redux/urlConstants';
 import showMessage from '../../../Redux/toastAction';
 
 class ChangePassword extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isFetching: false
+        }
+    }
 
     handleChangePassword = (values) => {
         let reqBody = {
             oldPassword: values.oldPassword,
             newPassword: values.newPassword
         } 
+        this.setState({isFetching: true})
         this.props.dispatch(
             postData(`${APPLICATION_BFF_URL}/api/changePassword`, reqBody, 'changePassword-data', {
                 init: 'changePass_init',
@@ -24,6 +32,7 @@ class ChangePassword extends Component {
             this.props.dispatch(showMessage({
                 text: 'Password Changed Successfully', isSuccess: true
             }));
+            this.setState({isFetching: false})
             setTimeout(() => {
                 this.props.dispatch(showMessage({}));
             }, 6000);
@@ -32,6 +41,7 @@ class ChangePassword extends Component {
             this.props.dispatch(showMessage({
                 text: err.msg, isSuccess: false
             }));
+            this.setState({isFetching: false})
             setTimeout(() => {
                 this.props.dispatch(showMessage({}));
             }, 6000);
@@ -55,7 +65,7 @@ class ChangePassword extends Component {
                                 color="primary"
                                 className="btnprimary ml-35"
                             >
-                                Change Password
+                            {this.state.isFetching ? <CircularProgress size={24} color='white' /> : 'Change Password'}
                             </Button>
                         </div>
                     </form>
