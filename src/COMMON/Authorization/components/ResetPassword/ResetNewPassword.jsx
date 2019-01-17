@@ -58,12 +58,11 @@ class ResetNewPassword extends Component {
 
   handlePasswordChange = (values) => {
     let tokenObj = this.state.tokenObj
-    let token = this.state.token
-    let reqObj = { password: values.password, token, ...tokenObj };
+    let reqObj = { password: values.password };
     console.log(reqObj, "Request Object");
 
     this.props.dispatch(
-      postData(`${APPLICATION_BFF_URL}/api/changePassword`, reqObj, 'changePass-data', {
+      postData(`${APPLICATION_BFF_URL}/api/resetPassword`, reqObj, 'changePass-data', {
         init: 'changePass_init',
         success: 'changePass_success',
         error: 'changePass_error'
