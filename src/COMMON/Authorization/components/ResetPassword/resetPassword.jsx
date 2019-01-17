@@ -27,7 +27,7 @@ class ResetPassword extends Component {
 
   handlePasswordReset = (values) => {
     this.props.dispatch(
-      postData(`${APPLICATION_BFF_URL}/api/resetPassword`, values, 'reset-data', {
+      postData(`${APPLICATION_BFF_URL}/api/forgotPassword`, values, 'reset-data', {
         init: 'resetPass_init',
         success: 'resetPass_success',
         error: 'resetPass_error'

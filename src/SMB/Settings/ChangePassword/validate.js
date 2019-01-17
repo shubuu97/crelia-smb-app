@@ -34,10 +34,10 @@ const asyncValidate = values => {
                 {
                     let reduxFormErrors = {};
                     if(_get(values,'newPassword.length',null)<8)
-                    reduxFormErrors['password'] = "Length should be greater than 8"
+                    reduxFormErrors['newPassword'] = "Length should be greater than 8"
                     else
                     {
-                     reduxFormErrors['password'] = "Please choose a stronger password. Try a mix of capital,small,number and symbol"
+                     reduxFormErrors['newPassword'] = "Please choose a stronger password. Try a mix of capital,small,number and symbol"
                     }
                     reject(reduxFormErrors)
                 }
@@ -47,10 +47,10 @@ const asyncValidate = values => {
                 if(!passwordSchema.validate(_get(values,'newPassword','')))
                 {
                     if(_get(values,'newPassword.length',null)<8)
-                    reduxFormErrors['password'] = "Password must be 8 character long"
+                    reduxFormErrors['newPassword'] = "Password must be 8 character long"
                     else
                     {
-                     reduxFormErrors['password'] = "Please choose a stronger password. Try a mix of capital,small,number and symbol"
+                     reduxFormErrors['newPassword'] = "Please choose a stronger password. Try a mix of capital,small,number and symbol"
                     }
                 }
                 errors.inner.forEach(error => {
