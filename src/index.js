@@ -33,7 +33,6 @@ import MDC from './xBoilerplate/MaterialDesignTemplate';
 import CardTableTest from './xBoilerplate/CardTableTest';
 import CardNotificationTest from './xBoilerplate/CardNotificationTest';
 import HistoryViewTest from './xBoilerplate/HistoryViewTest';
-import NotificationTest from './xBoilerplate/notificationTest'
 
 /* Common Container Imports*/
 import SignIn from './COMMON/Authorization/AuthorizationContainer'
@@ -137,7 +136,6 @@ ReactDOM.render(
                   <RouteWithLayout Layout={MainLayout} exact path="/equity/offer/:equityId" Component={EquityOfferContainer}/>
                   <RouteWithLayout Layout={MainLayout} exact path="/tasks" Component={TaskContainer}/>
                   <RouteWithLayout Layout={MainLayout} exact path="/settings/:path" Component={SettingsContainer}/>
-                  <RouteWithLayout Layout={MainLayout} exact path="/notificationTest" Component={NotificationTest} />
                   {RoutesConfig.map(rconfig => <RouteWithLayout Layout={MainLayout} exact path={rconfig.path} Component={rconfig.Component} />)}
                 </div>
               </Switch>
