@@ -5,7 +5,7 @@ let dropzoneButton = (props) => {
   const dropzoneRef = React.createRef();
 
   return (
-    <div>
+    <div className='dropzone-button'>
       <Dropzone
         style={{}}
         ref={dropzoneRef}
