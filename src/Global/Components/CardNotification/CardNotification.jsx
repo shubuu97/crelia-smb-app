@@ -80,7 +80,7 @@ class CardNotification extends Component {
                         null
                 }
 
-                <Overlay pose={this.state.isOpen ? 'open' : 'closed'}>
+                <Overlay pose={this.state.isOpen ? 'open' : 'closed'} style={{padding: '10px 40px'}}>
                     {
                         allData ?
                             allData.map((data, index) => {
