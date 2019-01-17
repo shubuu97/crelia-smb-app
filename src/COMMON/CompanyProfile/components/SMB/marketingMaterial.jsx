@@ -4,7 +4,6 @@ import _get from 'lodash/get';
 import FormControl from '@material-ui/core/FormControl';
 import CircularProgress from '@material-ui/core/CircularProgress';
 /* Global Imports*/
-import sidebar from '../SideBar.js';
 import DropzoneButton from '../../../../Global/dropzone/dropzoneButton'
 import decorateWithOnDrop from '../../../../Global/dropzone/onDropDecorater';
 import RFTextField from '../../../../Global/Components/GlobalTextField';
@@ -18,6 +17,7 @@ import { APPLICATION_BFF_URL } from '../../../../Redux/urlConstants';
 import { postData } from '../../../../Redux/postAction';
 import { getData } from '../../../../Redux/getAction';
 import showMessage from '../../../../Redux/toastAction';
+import SideBar from '../SideBar';
 
 var jwtDecode = require('jwt-decode');
 
@@ -160,7 +160,7 @@ let state = withState('state', 'setState', '')
 MarketingMaterial = compose(
     state,
     decorateWithOnDrop,
-    sidebar,
+    SideBar,
     reduxForm({
         form: 'MarketingMaterial',
         enableReinitialize: true,

@@ -12,7 +12,7 @@ import { withState, compose, renderComponent } from 'recompose';
 /* Assets */
 import imgquestion from '../../../../Assets/images/question.png';
 /* Components Import */
-import sidebar from '../SideBar.js';
+import SideBar from '../SideBar';
 
 class financial extends React.Component {
 
@@ -176,8 +176,7 @@ let state = withState('state', 'setState', '')
 financial = compose(
     state,
     decorateWithOnDrop,
-    sidebar,
-
+    SideBar
 )(financial);
 
 function mapStateToProps(state) {

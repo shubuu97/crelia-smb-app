@@ -11,7 +11,7 @@ class SideBar extends Component {
     }
 
     handleComponentToRender = (label, pathname) => {
-        this.props.history.push(`/settings/${pathname}`)
+        this.props.history.push(`/${this.props.routePath}/${pathname}`)
         _get(this.props, 'data').map(listData => {
             if(listData.label == label) {
                 this.setState({ 
@@ -23,7 +23,6 @@ class SideBar extends Component {
     }
 
     render() {
-        console.log(this.state.componentToRender, 'Component')
         return (
             <div className="about-section">
                 <div className="col-sm-12 card" >
@@ -31,13 +30,13 @@ class SideBar extends Component {
                         <div className="col-sm-3" >
                             <ul className="about-tab">
                             {_get(this.props, 'data').map(listItem => {
-                                return <li className={this.state.activeItem === listItem.label ? `active` : ``} onClick={() => this.handleComponentToRender(listItem.label, listItem.path)}>{listItem.label}</li>
+                                return <li className={`${listItem.extraClass ? listItem.extraClass : ''} ${this.state.activeItem === listItem.label ? 'active' : ''}`} onClick={() => this.handleComponentToRender(listItem.label, listItem.path)}>{listItem.label}</li>
                             })}
                             </ul>
                         </div>
                         <div className="col-sm-9" >
                             <div className="mtrb-12">
-                                <this.state.componentToRender/>
+                                <this.state.componentToRender />
                             </div>
                         </div>
                     </div>

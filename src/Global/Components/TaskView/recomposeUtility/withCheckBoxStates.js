@@ -82,6 +82,7 @@ const handleChange = props => name => event => {
 
 const withSwitchState = props => (name, value) => {
     debugger;
+
     let allFields = { ...props.fields };
     //Logic to change the names according to sending to ui
     if (name == 'Company Details') {
@@ -90,9 +91,9 @@ const withSwitchState = props => (name, value) => {
         allFields['INDUSTRYTYPE'] = props.companyDetails.IndustryType?value:null
         allFields['LEGALENTITYTYPE'] = props.companyDetails.LegalEntityType?value:null
         allFields['REGISTRATIONNUMBER'] = props.companyDetails.RegistrationNumber?value:null
-        allFields['TAXID'] = props.companyDetails.taxId?value:null
-        allFields['LICENSENUMBER'] = props.companyDetails.licenseNumber?value:null
-        allFields['NUMBEROFEMPLOYEES'] = props.companyDetails.numberOfEmployees?value:null;
+        allFields['TAXID'] = props.companyDetails.TaxId?value:null
+        allFields['LICENSENUMBER'] = props.companyDetails.LicenseNumber?value:null
+        allFields['NUMBEROFEMPLOYEES'] = props.companyDetails.NumberOfEmployees?value:null;
     }
     else if (name == 'Address Details') {
         debugger;

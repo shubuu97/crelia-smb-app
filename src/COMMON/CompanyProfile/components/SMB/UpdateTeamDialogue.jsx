@@ -26,7 +26,6 @@ import dropzoneHandler from '../../../../Global/dropzone/onDropDecorater';
 /* Components*/
 import DisplayTeam from './DisplayTeam'
 import AddTeamForm from './AddTeamForm'
-import sidebar from '../SideBar.js';
 
 var jwtDecode = require('jwt-decode');
 

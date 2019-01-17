@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import _get from 'lodash/get';
 /* Global Imports*/
-import sidebar from '../SideBar.js';
 import DropzoneButton from '../../../../Global/dropzone/dropzoneButton'
 import decorateWithOnDrop from '../../../../Global/dropzone/onDropDecorater';
 import LoaderButton from '../../../../Global/Components/LoaderButton';
@@ -16,6 +15,7 @@ import { getData } from '../../../../Redux/getAction';
 import showMessage from '../../../../Redux/toastAction';
 /* Material Imports */
 import CircularProgress from '@material-ui/core/CircularProgress';
+import SideBar from '../SideBar';
 
 var jwtDecode = require('jwt-decode');
 
@@ -152,9 +152,8 @@ let state = withState('state', 'setState', '')
 Legal = compose(
     state,
     decorateWithOnDrop,
-    sidebar,
+    SideBar,
     reduxForm({ form: 'Legal' }),
-
 )(Legal);
 
 function mapStateToProps(state) {
