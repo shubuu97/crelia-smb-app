@@ -15,7 +15,7 @@ import { APPLICATION_BFF_URL } from '../../../../Redux/urlConstants'
 /* Global Imports*/
 import GlobalTextField from '../../../../Global/Components/GlobalTextField';
 import * as qs from 'query-string';
-import asyncValidate from '../../validation/setPassword'
+import asyncValidate from '../../validation/resetPassword'
 
 var jwtDecode = require('jwt-decode');
 
@@ -58,7 +58,8 @@ class ResetNewPassword extends Component {
 
   handlePasswordChange = (values) => {
     let tokenObj = this.state.tokenObj
-    let reqObj = { password: values.password };
+    let token = this.state.token
+    let reqObj = { password: values.password, token, ...tokenObj };
     console.log(reqObj, "Request Object");
 
     this.props.dispatch(

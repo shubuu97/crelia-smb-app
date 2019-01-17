@@ -33,7 +33,7 @@ class ResetPassword extends Component {
         error: 'resetPass_error'
       })
     ).then((data) => {
-      this.props.history.push({ pathname: '/passwordSent', state: { email: values.email } })
+      this.props.history.push({ pathname: '/reset/passwordSent', state: { email: values.email } })
     })
       .catch((err) => {
         this.props.dispatch(showMessage({ text: err.msg, isSuccess: false }));
