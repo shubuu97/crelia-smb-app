@@ -1,11 +1,11 @@
 import React from 'react';
 import _get from 'lodash/get';
 /* Global Imports */
-import CardTable from '../../../../Global/Components/CardTable/CardTable';
-import genericPostData from '../../../../Global/dataFetch/genericPostData';
-import genericGetDataFetcher from '../../../../Global/dataFetch/genericGetData';
+import CardTable from '../../../Global/Components/CardTable/CardTable';
+import genericPostData from '../../../Global/dataFetch/genericPostData';
+import genericGetDataFetcher from '../../../Global/dataFetch/genericGetData';
 /* Component Import */
-import TaskDetails from './TaskDetails/TaskDetailsContainer'
+import TaskDetails from './TaskDetailsContainer'
 
 
 class TaskList extends React.Component {

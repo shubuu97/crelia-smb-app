@@ -55,7 +55,7 @@ const modifyName = (name) => {
 }
 //when checkboxes are checked this function being called
 const handleChange = props => name => event => {
-    let allFields = { ...props.fields };
+    let allFields = { ...props.allFields };
     //Logic to change the names according to sending to ui
     name = modifyName(name)
     allFields[name] = JSON.parse(event.target.checked);
@@ -80,8 +80,10 @@ const handleChange = props => name => event => {
 
 const withSwitchState = props => (name, value) => {
 
-    let allFields = { ...props.fields };
+    let allFields = { ...props.allFields };
     //Logic to change the names according to sending to ui
+    debugger;
+
     if (name == 'Company Details') {
         allFields['LEGALNAME'] = props.companyDetails.CompanyName?value:null
         allFields['INCORPORATIONDATE'] = props.companyDetails.IncorporationDate?value:null

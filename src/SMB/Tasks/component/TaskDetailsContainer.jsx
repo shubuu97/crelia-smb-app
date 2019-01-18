@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 /* Lodash */
 import _get from 'lodash/get';
 /* Global Imports */
-import TaskViewContainer from '../../../../../Global/Components/TaskView/TaskViewContainer'
-import genericPostData from '../../../../../Global/dataFetch/genericPostData';
-import LoaderButton from '../../../../../Global/Components/LoaderButton';
-import genericGetDataFetcher from '../../../../../Global/dataFetch/genericGetData';
+import TaskViewContainer from '../../../Global/Components/TaskView/TaskViewContainer'
+import genericPostData from '../../../Global/dataFetch/genericPostData';
+import LoaderButton from '../../../Global/Components/LoaderButton';
+import genericGetDataFetcher from '../../../Global/dataFetch/genericGetData';
 
 class TaskDetailsContainer extends Component {
     constructor(props) {

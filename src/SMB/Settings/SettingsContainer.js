@@ -3,7 +3,7 @@ import SideBar from '../../Global/SideBar/sideBar';
 import ChangePassword from './ChangePassword/ChangePasswordContainer';
 import MyProfile from './MyProfile/MyProfileContainer';
 import Notifications from './Notifications/NotificationsContainer';
-import Task from './Task/component/TaskDetails/DefaultTaskDetailsContainer';
+import Task from './Task/DefaultTaskDetailsContainer';
 
 class SettingsContainer extends Component {
 

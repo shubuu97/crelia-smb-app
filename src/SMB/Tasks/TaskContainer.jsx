@@ -14,7 +14,7 @@ import TaskList from './component/TaskList';
 
 //selector imports
 import {tableDataSelector} from './selectors/taskListDataSelector'
-import genericPostData from '../../../Global/dataFetch/genericPostData';
+import genericPostData from '../../Global/dataFetch/genericPostData';
 
 class TaskContainer extends Component {
     constructor(props) {

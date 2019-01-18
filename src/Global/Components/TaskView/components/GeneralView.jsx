@@ -8,9 +8,12 @@ import withLogic from '../recomposeUtility/withLogic';
 import Switch from '../../switchControl';
 /*  */
 import modifyName from '../dataUtility/parseDataBeforeSubmit';
+import _isEmpty from 'lodash/isEmpty';
 
 const GeneralView = (props) => {
+
     let companyDetails = props.companyDetails;
+    console.log(props.fields, 'props.fields')
     return (
         <div className="task-detail-general">
             <div className="">
@@ -21,7 +24,12 @@ const GeneralView = (props) => {
                     <span>Requested Fields</span>
                     <div className="flex-row align-center switch-text">
                         <Switch
-                            name={props.header}
+                            showSwitchChecked={
+
+                              !_isEmpty(props.fields) &&Object.keys(props.fields)
+                                
+                                .every((key,index)=>props.fields[modifyName(key).toUpperCase()] || false
+                                )}                            name={props.header}
                             onChange={props.withSwitchState}
                         />Select All
                     </div>

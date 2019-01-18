@@ -59,7 +59,7 @@ import LoanOfferHistoryContainer from './SMB/HistoryPages/LoanOfferHistory/LoanO
 import ProfileHistoryContainer from './SMB/HistoryPages/ProfileHistory/SMBHistoryContainer';
 import LoanOfferContainer from './SMB/NegotiationOffer/Loan.jsx';
 import EquityOfferContainer from './SMB/NegotiationOffer/Equity.jsx';
-import TaskContainer from './SMB/Settings/Task/TaskContainer'; 
+import TaskContainer from './SMB/Tasks/TaskContainer'; 
 import SettingsContainer from './SMB/Settings/SettingsContainer';
 
 const generateClassName = createGenerateClassName({

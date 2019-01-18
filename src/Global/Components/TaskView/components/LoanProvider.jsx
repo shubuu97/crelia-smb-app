@@ -4,6 +4,8 @@ import Checkbox from '@material-ui/core/Checkbox';
 import withLogic from '../recomposeUtility/withLogic';
 import Switch from '../../switchControl';
 import modifyName from '../dataUtility/parseDataBeforeSubmit';
+import _isEmpty from 'lodash/isEmpty';
+
 const LoanProvider = (props) => {
     return (
         <div className="task-detail-general">
@@ -15,6 +17,10 @@ const LoanProvider = (props) => {
                     <span>Requested Fields</span>
                     <div className="flex-row align-center switch-text">
                         <Switch
+                            showSwitchChecked={
+                            !_isEmpty(props.fields) &&Object.keys(props.fields)
+                              .every((key,index)=>props.fields[modifyName(key).toUpperCase()] || false
+                              )}
                             name={'Provider Details'}
                             onChange={props.withSwitchState}
                         />Select All
