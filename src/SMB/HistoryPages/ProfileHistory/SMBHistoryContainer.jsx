@@ -22,7 +22,6 @@ class SMBHistoryContainer extends Component {
     }
 
     componentDidMount() {
-        debugger
         basicDataFetcher(this.props.dispatch).then((data) => {
             let reqObj = { transactionIds: _get(data, 'companyDetails.transactionIds', []) }
 

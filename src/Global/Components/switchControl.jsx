@@ -7,7 +7,6 @@ class Switches extends React.Component {
     };
   
     handleChange = name => event => {
-        debugger;
       this.setState({ [name]: event.target.checked });
       console.log(this.props,"here")
       this.props.onChange(name,event.target.checked)

@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
 import Switch from '../../../../Global/Components/switchControl';
+import { postData } from '../../../../Redux/postAction';
+import {APPLICATION_BFF_URL} from '../../../../Redux/urlConstants';
+import showMessage from '../../../../Redux/toastAction';
 
 class Notifications extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            showNotifications: false
+            showNotifications: false,
+            onFundRequestNotification: false,
+            onOfferNotification: false,
+            onCompanyProfileNotification: false,
+            onMyProfileNotification: false
         }
     }
 
@@ -15,8 +22,36 @@ class Notifications extends Component {
         })
     }
 
-    nothing = () => {
-
+    handleFundRequestNotification = () => {
+        let reqBody = {
+            preference: 'FUND'
+        }
+        this.setState({ onFundRequestNotification: !this.state.onFundRequestNotification })
+        if(this.state.onFundRequestNotification) {
+            this.props.dispatch(
+                postData(`${APPLICATION_BFF_URL}/AddToNotificationPreferences`, reqBody, 'fund-request-notification-preference', {
+                    init: 'fundReq_notification_init',
+                    success: 'fundReq_notification_success',
+                    error: 'fundReq_notification_error'
+                })
+            ).then(data => {
+                console.log(data, 'fundrequestsuccessdata')
+                this.props.dispatch(showMessage({
+                    text: 'Fund Request Notification Successfully set', isSuccess: true
+                }))
+                setTimeout(() => {
+                    this.props.dispatch(showMessage({}));  
+                }, 6000)
+            }).catch(error => {
+                console.log(error, 'fundrequestfaildata')
+                this.props.dispatch(showMessage({
+                    text: error.msg, isSuccess: false
+                }))
+                setTimeout(() => {
+                    this.props.dispatch(showMessage({}));  
+                }, 6000)
+            })
+        }
     }
 
     render() {
@@ -40,7 +75,7 @@ class Notifications extends Component {
                                         <span className='helper-text'>Enable to receive notifications about status updates of your fund requests.</span>
                                     </div>
 
-                                    <Switch name="" onChange={this.nothing} />
+                                    <Switch name="" onChange={this.handleFundRequestNotification} />
                                 </div>
                                 <div className="switch-notification-text">
 

@@ -280,7 +280,6 @@ class LoanRequestsContainer extends React.PureComponent {
 
     //query selector
     fetchingFilterQueryData = (query) => {
-        debugger;
         let queryVar = { ...query }
         if (queryVar.$class) {
             if (queryVar.$class.length == 1)

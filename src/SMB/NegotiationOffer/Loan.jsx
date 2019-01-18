@@ -176,7 +176,6 @@ class Loan extends Component {
     submitLoanDetails = (values) => {
        
         //logic end here
-        debugger;
     let reqObj = this.makeReqObj(values);
     this.setState({NegotiateOfferLoading:true});
 
@@ -197,7 +196,6 @@ class Loan extends Component {
     
 
     render() {
-        debugger;
         return (
             <div className="loan-request">
                 <div className="col-sm-12 ">

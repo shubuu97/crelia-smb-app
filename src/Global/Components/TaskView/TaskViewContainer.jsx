@@ -39,7 +39,6 @@ const PopulateDataDetails = (props) => {
 
         switch (header) {
             case 'companyDetails': {
-                debugger
                 let everyUndfined = Object.keys(parseData['companyDetails']).every((key) => parseData['companyDetails'][key] == undefined);
                 if (everyUndfined) {
                     delete data.companyDetails
