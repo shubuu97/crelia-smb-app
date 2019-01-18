@@ -10,6 +10,7 @@ import { postData } from '../../Redux/postAction';
 import genericGetData from '../../Global/dataFetch/genericGetData'
 import { APPLICATION_BFF_URL } from '../../Redux/urlConstants'
 import { commonActionCreater } from '../../Redux/commonAction'
+import showMessage from '../../Redux/toastAction'
 /* Components */
 import CardTable from '../../Global/Components/CardTable/CardTable';
 import Button from '@material-ui/core/Button';
@@ -40,7 +41,7 @@ class LoanRequestsContainer extends React.PureComponent {
             open: false,
             savingData: false,
             query: null,
-            current:1
+            current: 1
         }
     }
 
@@ -51,23 +52,30 @@ class LoanRequestsContainer extends React.PureComponent {
 
     //helper function start here
     loanDataFetcher = (first, limit, query) => {
+        this.setState({ savingData: true });
         this.props.dispatch(
-            postData(
-                `${APPLICATION_BFF_URL}/api/fundList`,
-                {
-                    getAll: false,
-                    skip: this.state.first,
-                    limit: this.state.limit,
-                    ...this.state.queryVar
-                },
+            postData(`${APPLICATION_BFF_URL}/api/fundList`, {
+                getAll: false,
+                skip: this.state.first,
+                limit: this.state.limit,
+                ...this.state.queryVar
+            },
                 'fetchingOfferData',
                 {
                     init: 'fetchingLoanRequestData_init',
                     success: 'fetchingLoanRequestData_success',
                     error: 'fetchingLoanRequestData_error'
-                }
-            ));
+                })).then((data) => {
+                    this.setState({ savingData: false });
+                }).catch((err) => {
+                    this.setState({ savingData: false });
+                    this.props.dispatch(showMessage({ text: err.msg, isSuccess: false }));
+                    setTimeout(() => {
+                        this.props.dispatch(showMessage({}));
+                    }, 6000);
+                })
     }
+
     getFundType = ($class) => {
         let $classarr = $class.split('.');
         let fundType = $classarr[$classarr.length - 1];
@@ -137,14 +145,14 @@ class LoanRequestsContainer extends React.PureComponent {
         this.state.first = (((current - 1) * (pageSize)) + 1) - 1;
         this.state.limit = pageSize;
         this.loanDataFetcher();
-        this.setState({ first: this.state.first, limit: this.state.limit,current:current })
+        this.setState({ first: this.state.first, limit: this.state.limit, current: current })
 
     }
     onPageChange = (current, pageSize) => {
         this.state.first = (((current - 1) * (pageSize)) + 1) - 1;
         this.state.limit = pageSize;
         this.loanDataFetcher();
-        this.setState({ first: this.state.first, limit: this.state.limit,current:current })
+        this.setState({ first: this.state.first, limit: this.state.limit, current: current })
     }
     //pagination action end here
 
@@ -277,10 +285,10 @@ class LoanRequestsContainer extends React.PureComponent {
             if (queryVar.$class.length == 1)
                 queryVar.$class = `com.aob.crelia.fund.${queryVar.$class[0]}`;
             else {
-            queryVar.$class = []
+                queryVar.$class = []
             }
         }
-        this.setState({current:1,query,queryVar});
+        this.setState({ current: 1, query, queryVar });
         this.queryDataFetcher(queryVar);
 
     }
@@ -392,7 +400,7 @@ function mapStateToProps(state) {
         loanData: loanDataSelector(state),
         TableData: tableDataSelector(state),
         companyId,
-        totalRows, 
+        totalRows,
         filterData: filterDataSelector(state),
         isFetching
     }
