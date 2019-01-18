@@ -78,7 +78,7 @@ class CardTable extends Component {
         let allData = _get(this, "props.data[0]", {})
         let headingData = Object.keys(allData).filter((keyname) => {
             let hiddenHeading = false
-            if(_get(allData[keyname], 'type') == 'hidden') {
+            if (_get(allData[keyname], 'type') == 'hidden') {
                 hiddenHeading = true
             }
             if (keyname != "extendedRow" && keyname != "extendedTable" && keyname != "rowStyle" && !hiddenHeading && keyname != "allowedActions") {
@@ -125,12 +125,12 @@ class CardTable extends Component {
 
     /* Toggle Extended rows */
     toggleExtended = (data, index) => {
-        if(!this.state.hoverEvent){
+        if (!this.state.hoverEvent) {
             this.state.toggleExtendedState[index] = !this.state.toggleExtendedState[index]
             this.setState({
                 toggleExtendedState: this.state.toggleExtendedState
             })
-            if(_get(this, 'props.extendedComponent.actionEvent')){
+            if (_get(this, 'props.extendedComponent.actionEvent')) {
                 this.props.extendedComponent.actionEvent(data, index)
             }
         }
@@ -215,22 +215,24 @@ class CardTable extends Component {
                             */
                         }
 
-
                         {
                             _get(this, "props.data", []).length > 0 ?
-
                                 this.populateRows() :
-
-                                <div className="width-100-percent flex-row justify-center">
-                                    <div className="pad-20">No Data</div>
-                                </div>
+                                (
+                                    this.props.loader ?
+                                        <div className="width-100-percent flex-row justify-center bold">
+                                            <div className="pad-20">Loading...</div>
+                                        </div> :
+                                        <div className="width-100-percent flex-row justify-center bold">
+                                            <div className="pad-20">No Data</div>
+                                        </div>
+                                )
 
                         }
-
                     </div>
 
-                   {this.props.hidePagination?null: <Pagination
-                        current = {this.props.current}
+                    {this.props.hidePagination ? null : <Pagination
+                        current={this.props.current}
                         onShowSizeChange={this.props.onShowSizeChange}
                         onChange={this.props.onPageChange}
                         total={this.props.total}
