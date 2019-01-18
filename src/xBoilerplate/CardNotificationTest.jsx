@@ -7,6 +7,8 @@ import _get from 'lodash/get';
 
 /* Component Imports */
 import CardNotification from '../Global/Components/CardNotification/CardNotification'
+/* Images */
+import pic1 from './images/pic1.jpg'
 
 // // Todo : Dummy Data Structure
 // Todo : Get non copyright images for random pool
@@ -25,7 +27,7 @@ let dummyData = [
         Time: 'yesterday',
         Title: 'Some Title 2',
         Description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-        Image:'',
+        Image:pic1,
         AllowedActions: [],
     },
     {
