@@ -29,7 +29,7 @@ class Heading extends Component {
         let data = this.props.headingData
         let dataArr = []
         for (let i = 0; i < data.length; i++) {
-            dataArr.push(<div className="data-col"><h3>{data[i]}</h3></div>)
+            dataArr.push(<div className="data-col"><span className='heading-text'>{data[i]}</span></div>)
         }
         return (
             <React.Fragment>
