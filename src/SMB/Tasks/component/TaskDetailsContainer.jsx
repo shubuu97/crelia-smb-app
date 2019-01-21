@@ -29,7 +29,7 @@ class TaskDetailsContainer extends Component {
         }).then((data)=>
     {
         this.setState({ fieldAccessRequest: data })
-     this.setState({ requestedFields:Object.keys(data).map(key=>key)})
+     this.setState({ requestedFields:data && Object.keys(data).map(key=>key)})
     })
 }
         // console

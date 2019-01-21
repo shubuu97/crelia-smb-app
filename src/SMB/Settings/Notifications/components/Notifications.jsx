@@ -27,16 +27,15 @@ class Notifications extends Component {
         let reqBody = {
             preference: emailType
         }
-        
-        this.setState(() => ({
-            stateName: !this.state.stateName
-        }), () => {
-            if(this.state.onFundRequestNotification) {
+        let nameOfState = stateName
+        let stateObj = {nameOfState: !this.state.nameOfState}
+        this.setState(() => (stateObj), () => {
+            if(this.state.nameOfState) {
                 this.props.dispatch(
                     postData(`${APPLICATION_BFF_URL}/api/AddToNotificationPreferences`, reqBody, 'add-fund-request-notification-preference', {
-                        init: 'add_fundReq_notification_init',
-                        success: 'add_fundReq_notification_success',
-                        error: 'add_fundReq_notification_error'
+                        init: 'add_notification_init',
+                        success: 'add_notification_success',
+                        error: 'add_notification_error'
                     })
                 ).then(data => {
                     console.log(data, 'fundrequestsuccessdata')
@@ -58,9 +57,9 @@ class Notifications extends Component {
             } else {
                 this.props.dispatch(
                     postData(`${APPLICATION_BFF_URL}/api/RemoveFromNotificationPreferences`, reqBody, 'remove-fund-request-notification-preference', {
-                        init: 'remove_fundReq_notification_init',
-                        success: 'remove_fundReq_notification_success',
-                        error: 'remove_fundReq_notification_error'
+                        init: 'remove_notification_init',
+                        success: 'remove_notification_success',
+                        error: 'remove_notification_error'
                     })
                 ).then(data => {
                     console.log(data, 'removefundrequestsuccessdata')
@@ -104,7 +103,7 @@ class Notifications extends Component {
                                         <span className='helper-text'>Enable to receive notifications about status updates of your fund requests.</span>
                                     </div>
 
-                                    <Switch name="" onChange={this.handleNotificationPreference('FUND', 'onFundRequestNotification')} />
+                                    <Switch name="" onChange={() => this.handleNotificationPreference('FUND', 'onFundRequestNotification')} />
                                 </div>
                                 <div className="switch-notification-text">
 
@@ -116,7 +115,7 @@ class Notifications extends Component {
                                         <span className='other-switch'>Offer</span>
                                         <span className='helper-text'>Enable to receive notifications whenever you recieve a new offer or status of an offer changes.</span>
                                     </div>
-                                    <Switch name="" onChange={this.handleNotificationPreference('OFFER', 'onOfferNotification')} />
+                                    <Switch name="" onChange={() => this.handleNotificationPreference('OFFER', 'onOfferNotification')} />
                                 </div>
                             </div>
                             <div>
@@ -125,7 +124,7 @@ class Notifications extends Component {
                                         <span className='other-switch'>Company Profile</span>
                                         <span className='helper-text'>Enable to receive notifications about company profile updates.</span>
                                     </div>
-                                    <Switch name="" onChange={this.handleNotificationPreference('COMPANY_PROFILE', 'onCompanyProfileNotification')} />
+                                    <Switch name="" onChange={() => this.handleNotificationPreference('COMPANY_PROFILE', 'onCompanyProfileNotification')} />
                                 </div>
                             </div>
                             <div>
@@ -134,7 +133,7 @@ class Notifications extends Component {
                                         <span className='other-switch'>My Profile</span>
                                         <span className='helper-text'>Enable to receive notifications about your profile updates.</span>
                                     </div>
-                                    <Switch name="" onChange={this.handleNotificationPreference('MY_PROFILE', 'onMyProfileNotification')} />
+                                    <Switch name="" onChange={() =>this.handleNotificationPreference('MY_PROFILE', 'onMyProfileNotification')} />
                                 </div>
                             </div>
                         </div> : ''
