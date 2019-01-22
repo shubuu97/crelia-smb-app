@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Switch from '../../../../Global/Components/switchControl';
+import Switch from '@material-ui/core/Switch';
+import CircularProgress from '@material-ui/core/CircularProgress'
 import { postData } from '../../../../Redux/postAction';
 import {APPLICATION_BFF_URL} from '../../../../Redux/urlConstants';
 import showMessage from '../../../../Redux/toastAction';
@@ -10,10 +11,14 @@ class Notifications extends Component {
         super(props);
         this.state = {
             showNotifications: false,
-            onFundRequestNotification: false,
-            onOfferNotification: false,
-            onCompanyProfileNotification: false,
-            onMyProfileNotification: false
+            FUND: {on: false, isFetching: false},
+            OFFER: false,
+            COMPANY_PROFILE: false,
+            MY_PROFILE: false,
+            isFetchingFund: false,
+            isFetchingOffer: false,
+            isFetchingCompanyProfile: false,
+            isFetchingMyProfile: false
         }
     }
 
@@ -23,63 +28,63 @@ class Notifications extends Component {
         })
     }
 
-    handleNotificationPreference = (emailType, stateName) => {
+    handleNotificationPreference = name => event => {
+        this.setState({[name] : {on: event.target.checked, isFetching: true}})
         let reqBody = {
-            preference: emailType
+            preference: name
         }
-        let nameOfState = stateName
-        let stateObj = {nameOfState: !this.state.nameOfState}
-        this.setState(() => (stateObj), () => {
-            if(this.state.nameOfState) {
-                this.props.dispatch(
-                    postData(`${APPLICATION_BFF_URL}/api/AddToNotificationPreferences`, reqBody, 'add-fund-request-notification-preference', {
-                        init: 'add_notification_init',
-                        success: 'add_notification_success',
-                        error: 'add_notification_error'
-                    })
-                ).then(data => {
-                    console.log(data, 'fundrequestsuccessdata')
-                    this.props.dispatch(showMessage({
-                        text: 'Fund Request Notification Successfully set', isSuccess: true
-                    }))
-                    setTimeout(() => {
-                        this.props.dispatch(showMessage({}));  
-                    }, 6000)
-                }).catch(error => {
-                    console.log(error, 'fundrequestfaildata')
-                    this.props.dispatch(showMessage({
-                        text: error.msg, isSuccess: false
-                    }))
-                    setTimeout(() => {
-                        this.props.dispatch(showMessage({}));  
-                    }, 6000)
+        let preferenceName = event.target.name
+        let eventChecked = event.target.checked
+        if(event.target.checked) {
+            this.props.dispatch(
+                postData(`${APPLICATION_BFF_URL}/api/AddToNotificationPreferences`, reqBody, 'add-request-notification-preference', {
+                    init: 'add_notification_init',
+                    success: 'add_notification_success',
+                    error: 'add_notification_error'
                 })
-            } else {
-                this.props.dispatch(
-                    postData(`${APPLICATION_BFF_URL}/api/RemoveFromNotificationPreferences`, reqBody, 'remove-fund-request-notification-preference', {
-                        init: 'remove_notification_init',
-                        success: 'remove_notification_success',
-                        error: 'remove_notification_error'
-                    })
-                ).then(data => {
-                    console.log(data, 'removefundrequestsuccessdata')
-                    this.props.dispatch(showMessage({
-                        text: 'Fund Request Notification Successfully Cancelled', isSuccess: true
-                    }))
-                    setTimeout(() => {
-                        this.props.dispatch(showMessage({}));  
-                    }, 6000)
-                }).catch(error => {
-                    console.log(error, 'removedfundrequestfaildata')
-                    this.props.dispatch(showMessage({
-                        text: error.msg, isSuccess: false
-                    }))
-                    setTimeout(() => {
-                        this.props.dispatch(showMessage({}));  
-                    }, 6000)
+            ).then(data => {
+                this.setState({[data.preference] : {on: eventChecked, isFetching: false}})
+                this.props.dispatch(showMessage({
+                    text: `${preferenceName} request notification successfully set`, isSuccess: true
+                }))
+                setTimeout(() => {
+                    this.props.dispatch(showMessage({}));  
+                }, 6000)
+            }).catch(error => {
+                console.log(error, 'errormsg')
+                this.setState({[reqBody.preference] : {on: eventChecked, isFetching: false}})
+                this.props.dispatch(showMessage({
+                    text: error.msg, isSuccess: false
+                }))
+                setTimeout(() => {
+                    this.props.dispatch(showMessage({}));  
+                }, 6000)
+            })
+        } else {
+            this.props.dispatch(
+                postData(`${APPLICATION_BFF_URL}/api/RemoveFromNotificationPreferences`, reqBody, 'remove-fund-request-notification-preference', {
+                    init: 'remove_notification_init',
+                    success: 'remove_notification_success',
+                    error: 'remove_notification_error'
                 })
-            }
-        })
+            ).then(data => {
+                this.setState({[data.preference] : {on: eventChecked, isFetching: false}})
+                this.props.dispatch(showMessage({
+                    text: `${preferenceName} request notification successfully cancelled`, isSuccess: true
+                }))
+                setTimeout(() => {
+                    this.props.dispatch(showMessage({}));  
+                }, 6000)
+            }).catch(error => {
+                this.setState({[reqBody.preference] : {on: eventChecked, isFetching: false}})
+                this.props.dispatch(showMessage({
+                    text: error.msg, isSuccess: false
+                }))
+                setTimeout(() => {
+                    this.props.dispatch(showMessage({}));  
+                }, 6000)
+            })
+        }
     }
 
     render() {
@@ -103,7 +108,14 @@ class Notifications extends Component {
                                         <span className='helper-text'>Enable to receive notifications about status updates of your fund requests.</span>
                                     </div>
 
-                                    <Switch name="" onChange={() => this.handleNotificationPreference('FUND', 'onFundRequestNotification')} />
+                                    <Switch 
+                                        checked={this.state.FUND.on} 
+                                        name="Fund" 
+                                        value="FUND"
+                                        onChange={this.handleNotificationPreference('FUND')}
+                                        disabled={this.state.FUND.isFetching} 
+                                    />
+                                    {this.state.FUND.isFetching && <CircularProgress color="primary" size={24} /> }
                                 </div>
                                 <div className="switch-notification-text">
 
@@ -115,7 +127,14 @@ class Notifications extends Component {
                                         <span className='other-switch'>Offer</span>
                                         <span className='helper-text'>Enable to receive notifications whenever you recieve a new offer or status of an offer changes.</span>
                                     </div>
-                                    <Switch name="" onChange={() => this.handleNotificationPreference('OFFER', 'onOfferNotification')} />
+                                    <Switch 
+                                        checked={this.state.OFFER} 
+                                        name="Offer" 
+                                        value="OFFER"
+                                        onChange={this.handleNotificationPreference('OFFER')} 
+                                        disabled={this.state.OFFER.isFetching} 
+                                    />
+                                    {this.state.OFFER.isFetching && <CircularProgress color="primary" size={24} /> }
                                 </div>
                             </div>
                             <div>
@@ -124,7 +143,14 @@ class Notifications extends Component {
                                         <span className='other-switch'>Company Profile</span>
                                         <span className='helper-text'>Enable to receive notifications about company profile updates.</span>
                                     </div>
-                                    <Switch name="" onChange={() => this.handleNotificationPreference('COMPANY_PROFILE', 'onCompanyProfileNotification')} />
+                                    <Switch 
+                                        checked={this.state.COMPANY_PROFILE} 
+                                        name="Company Profile" 
+                                        value="COMPANY_PROFILE"
+                                        onChange={this.handleNotificationPreference('COMPANY_PROFILE')} 
+                                        disabled={this.state.COMPANY_PROFILE.isFetching} 
+                                    />
+                                    {this.state.COMPANY_PROFILE.isFetching && <CircularProgress color="primary" size={24} /> }
                                 </div>
                             </div>
                             <div>
@@ -133,7 +159,14 @@ class Notifications extends Component {
                                         <span className='other-switch'>My Profile</span>
                                         <span className='helper-text'>Enable to receive notifications about your profile updates.</span>
                                     </div>
-                                    <Switch name="" onChange={() =>this.handleNotificationPreference('MY_PROFILE', 'onMyProfileNotification')} />
+                                    <Switch 
+                                        checked={this.state.MY_PROFILE} 
+                                        name="My Profile" 
+                                        value="MY_PROFILE"
+                                        onChange={this.handleNotificationPreference('MY_PROFILE')} 
+                                        disabled={this.state.MY_PROFILE.isFetching} 
+                                    />
+                                    {this.state.MY_PROFILE.isFetching && <CircularProgress color="primary" size={24} /> }
                                 </div>
                             </div>
                         </div> : ''

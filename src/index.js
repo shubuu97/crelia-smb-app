@@ -28,11 +28,11 @@ import UiSetting from './Global/uiSettings/uiSettings';
 import SignInLayout from './Global/layout/signInLayout';
 
 /* Boilerplate Imports*/
-import xForms from './xBoilerplate/Forms.jsx';
-import MDC from './xBoilerplate/MaterialDesignTemplate';
-import CardTableTest from './xBoilerplate/CardTableTest';
-import CardNotificationTest from './xBoilerplate/CardNotificationTest';
-import HistoryViewTest from './xBoilerplate/HistoryViewTest';
+// import xForms from './xBoilerplate/Forms.jsx';
+// import MDC from './xBoilerplate/MaterialDesignTemplate';
+// import CardTableTest from './xBoilerplate/CardTableTest';
+// import CardNotificationTest from './xBoilerplate/CardNotificationTest';
+// import HistoryViewTest from './xBoilerplate/HistoryViewTest';
 
 /* Common Container Imports*/
 import SignIn from './COMMON/Authorization/AuthorizationContainer'
@@ -105,12 +105,12 @@ ReactDOM.render(
               <Switch>
                 <div>
                   {/* Boilerplate routes */}
-                  <Route exact path="/boilerplate/form" component={xForms} />
+                  {/* <Route exact path="/boilerplate/form" component={xForms} /> */}
                   <Route exact path="/UiSetting" component={UiSetting} />
-                  <Route exact path='/boilerplate/mdc' component={MDC} />
-                  <RouteWithLayout Layout={MainLayout} exact path="/boilerplate/CardTableTest" Component={CardTableTest} />
-                  <RouteWithLayout Layout={MainLayout} exact path="/boilerplate/CardNotificationTest" Component={CardNotificationTest} />
-                  <RouteWithLayout Layout={MainLayout} exact path="/boilerplate/HistoryViewTest" Component={HistoryViewTest} />
+                  {/* <Route exact path='/boilerplate/mdc' component={MDC} /> */}
+                  {/* <RouteWithLayout Layout={MainLayout} exact path="/boilerplate/CardTableTest" Component={CardTableTest} /> */}
+                  {/* <RouteWithLayout Layout={MainLayout} exact path="/boilerplate/CardNotificationTest" Component={CardNotificationTest} /> */}
+                  {/* <RouteWithLayout Layout={MainLayout} exact path="/boilerplate/HistoryViewTest" Component={HistoryViewTest} /> */}
 
                   {/* Main Routes */}
                   <RouteWithLayout Layout={SignInLayout} exact path="/" Component={SignIn} />
